@@ -46,17 +46,34 @@ option(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF)
 option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
 option(GLFW_INSTALL "Generate installation target" OFF)
 
-# set include path
-set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
-
 # add subdirectory
 add_subdirectory(lib/glfw)
-include_directories(${GLFW_INCLUDE_PATH})
-
+set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
 
 # GMOCK
 
 add_subdirectory(lib/gmock-1.7.0)
+set(GMOCK_INCLUDE_PATH "${gmock_SOURCE_DIR}/include")
+set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
+
+# BANDIT
+
+add_subdirectory(lib/bandit)
+set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
+
+# set c++ 11
+
+if (CMAKE_COMPILER_IS_GNUCXX)
+    set(CMAKE_CXX_FLAGS "-std=gnu++11")
+elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_CXX_FLAGS "-std=c++11")
+    if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
+        set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+    endif ()
+elseif (MSVC)
+    # On by default
+endif ()
 
 #
 # Add Build Targets
