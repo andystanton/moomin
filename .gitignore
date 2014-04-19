@@ -11,9 +11,9 @@ test/CMakeCache.txt
 test/CMakeFiles
 test/Makefile
 lib/libglfw3.a
-lib/glfw/cmake_install.cmake
-lib/glfw/CMakeCache.txt
-lib/glfw/CMakeFiles
-lib/glfw/Makefile
+lib/libgmock.a
+lib/libgmock_main.a
+lib/libgtest.a
+lib/libgtest_main.a
 bin/*
 build/*
