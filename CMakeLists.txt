@@ -38,14 +38,23 @@ INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 # Locate Project Prerequisites 
 #
 
-# glfw
+# GLFW
+
 # disable unnecessary glfw targets
 option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
 option(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF)
 option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
 option(GLFW_INSTALL "Generate installation target" OFF)
-add_subdirectory(lib/glfw)
 
+# set include path
+set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
+
+# add subdirectory
+add_subdirectory(lib/glfw)
+include_directories(${GLFW_INCLUDE_PATH})
+
+
+# GMOCK
 add_subdirectory(lib/gmock-1.7.0)
 
 #
