@@ -55,6 +55,7 @@ include_directories(${GLFW_INCLUDE_PATH})
 
 
 # GMOCK
+
 add_subdirectory(lib/gmock-1.7.0)
 
 #

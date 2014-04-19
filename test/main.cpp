@@ -5,11 +5,14 @@
  * see "sanity_check.cpp". For a reference on creating tests, see "test.h".
  *
  */
-#include <iostream>
 
-using namespace::std;
+ #include <gtest/gtest.h>
 
-int main(int argc, char* argv[])
-{
-    cout << "test hello world\n";
+int adder(int a, int b) {
+    return a + b;
+}
+
+TEST(AdderTest, Basic) {
+  EXPECT_EQ(3, adder(1, 2));
+  EXPECT_EQ(50, adder(26, 24));
 }
