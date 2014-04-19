@@ -46,6 +46,8 @@ option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
 option(GLFW_INSTALL "Generate installation target" OFF)
 add_subdirectory(lib/glfw)
 
+add_subdirectory(lib/gmock-1.7.0)
+
 #
 # Add Build Targets
 #

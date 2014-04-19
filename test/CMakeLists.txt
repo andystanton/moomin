@@ -1,5 +1,5 @@
 FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
-#SET (test_LIBS ${Boost_LIBRARIES} ${Qt_LIBRARIES} ${Log4Cxx_LIBRARIES} ${UnitTestPlusPlus_LIBRARIES})
+SET (test_LIBS gtest gtest_main gmock gmock_main)
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
