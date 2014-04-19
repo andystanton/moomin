@@ -37,11 +37,14 @@ INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 #
 # Locate Project Prerequisites 
 #
-find_package(PkgConfig REQUIRED)
 
-pkg_search_module(GLFW REQUIRED glfw3)
-
-include_directories(${GLFW_INCLUDE_DIRS})
+# glfw
+# disable unnecessary glfw targets
+option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
+option(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF)
+option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
+option(GLFW_INSTALL "Generate installation target" OFF)
+add_subdirectory(lib/glfw)
 
 #
 # Add Build Targets

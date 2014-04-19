@@ -10,9 +10,10 @@ test/cmake_install.cmake
 test/CMakeCache.txt
 test/CMakeFiles
 test/Makefile
-lib/cmake_install.cmake
-lib/CMakeCache.txt
-lib/CMakeFiles
-lib/Makefile
+lib/libglfw3.a
+lib/glfw/cmake_install.cmake
+lib/glfw/CMakeCache.txt
+lib/glfw/CMakeFiles
+lib/glfw/Makefile
 bin/*
 build/*
