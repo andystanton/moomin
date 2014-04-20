@@ -1,3 +1,6 @@
+#ifndef _MOOMIN_MULTIPLIER
+#define _MOOMIN_MULTIPLIER
+
 class Multiplier
 {
 public:
@@ -6,3 +9,5 @@ public:
     
     int multiply(int, int);
 };
+
+#endif
