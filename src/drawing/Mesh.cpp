@@ -1,10 +1,7 @@
 
 #include "drawing/Mesh.h"
 
-Mesh::Mesh(initializer_list<float> meshComponents): Mesh(meshComponents, MeshType::tris) {
-}
-
-Mesh::Mesh(initializer_list<float> meshComponents, MeshType type): mesh {} {
+Mesh::Mesh(initializer_list<float> meshComponents): mesh {} {
     Vec2* nextVec2 = nullptr;
     for (auto component : meshComponents) {
         if (nextVec2 == nullptr) {

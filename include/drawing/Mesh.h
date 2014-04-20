@@ -15,7 +15,6 @@ public:
     enum class MeshType { quads, tris };
 
     Mesh(initializer_list<float>);
-    Mesh(initializer_list<float>, MeshType);
     ~Mesh();
 
     MeshType getType();
