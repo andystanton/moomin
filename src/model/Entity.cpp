@@ -17,6 +17,6 @@ const Mesh& Entity::getMesh() const
     return mesh;
 }
 
-Vec2& Entity::getPos() {
+const Vec2& Entity::getPos() const {
     return pos;
 }

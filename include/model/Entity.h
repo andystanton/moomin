@@ -15,7 +15,7 @@ public:
     ~Entity();
 
     const Mesh& getMesh() const;
-    Vec2& getPos();
+    const Vec2& getPos() const;
 private:
     Vec2 pos;
     const Mesh& mesh;

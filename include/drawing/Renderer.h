@@ -11,7 +11,7 @@ public:
     Renderer();
     ~Renderer();
  
-    void draw(const Entity&);
+    void draw(const Entity&) const;
 };
 
 #endif

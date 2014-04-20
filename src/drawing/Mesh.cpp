@@ -27,12 +27,12 @@ Mesh::~Mesh()
 
 }
 
-int Mesh::getSize() 
+int Mesh::getSize() const
 {
     return size;
 }
 
-Mesh::MeshType Mesh::getType() 
+Mesh::MeshType Mesh::getType() const
 {
     return type;
 }
@@ -42,7 +42,7 @@ void Mesh::setType(Mesh::MeshType type)
     this->type = type;
 }
 
-float * Mesh::getPoints() 
+float * Mesh::getPoints() const
 {
     float * points = new float[mesh.size() * 2];
     int i = 0;

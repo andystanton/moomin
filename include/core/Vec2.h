@@ -10,8 +10,8 @@ public:
     
     void setX(float);
     void setY(float);
-    float getX();
-    float getY();
+    float getX() const;
+    float getY() const;
 private:
     float x, y;
 };

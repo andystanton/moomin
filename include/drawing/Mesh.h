@@ -17,10 +17,10 @@ public:
     Mesh(initializer_list<float>);
     ~Mesh();
 
-    MeshType getType();
     void setType(MeshType);
-    float * getPoints();
-    int getSize();
+    MeshType getType() const;
+    float * getPoints() const;
+    int getSize() const;
 private:
     int size;
     MeshType type;

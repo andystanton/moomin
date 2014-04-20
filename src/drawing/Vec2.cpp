@@ -28,12 +28,12 @@ void Vec2::setY(float y)
     this->y = y;
 }
 
-float Vec2::getX() 
+float Vec2::getX() const 
 {
     return x;
 }
 
-float Vec2::getY() 
+float Vec2::getY() const
 {
     return y;
 }

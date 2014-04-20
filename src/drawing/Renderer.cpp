@@ -10,6 +10,21 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::draw(const Entity& entity) {
-    entity.getMesh();
+void Renderer::draw(const Entity& entity) const {
+    Mesh mesh = entity.getMesh();
+    float * meshPoints = mesh.getPoints();
+
+    int mode = GL_TRIANGLE_STRIP;
+    if (mesh.getType() == Mesh::MeshType::quads) {
+        mode = GL_QUAD_STRIP;
+    }
+    glPushMatrix();
+        glTranslatef(entity.getPos().getX(), entity.getPos().getY(), 0);
+        glBegin(mode);
+            glColor3f(0.f, 1.f, 0.f);
+            for(int i = 0; i < mesh.getSize(); i+=2) {
+                glVertex2f(meshPoints[i], meshPoints[i+1]);
+            }
+        glEnd();
+    glPopMatrix();
 }
