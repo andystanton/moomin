@@ -1,5 +1,4 @@
 #include <bandit/bandit.h>
-#include <iostream>
 
 #include "model/Entity.h"
 #include "drawing/Mesh.h"
@@ -7,10 +6,14 @@
 using namespace bandit;
 using namespace std;
 
-go_bandit([]() {
-    describe("an Entity", []() {
-        it("has a mesh", []() {
-            Mesh mesh {
+go_bandit([]() 
+{
+    describe("an Entity", []() 
+    {
+        it("has a mesh", []() 
+        {
+            Mesh mesh 
+            {
                 0.0, 0.0,
                 0.0, 1.0,
                 1.0, 1.0,

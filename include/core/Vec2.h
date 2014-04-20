@@ -10,5 +10,5 @@ public:
     float getX();
     float getY();
 private:
-    float x = 0.0, y = 0.0;
+    float x, y;
 };

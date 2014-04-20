@@ -22,8 +22,8 @@ public:
     float * getPoints();
     int getSize();
 private:
-    int size = 0;
-    MeshType type = MeshType::tris;
+    int size;
+    MeshType type;
     vector<Vec2*> mesh;
 };
 

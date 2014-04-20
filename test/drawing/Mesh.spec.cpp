@@ -4,16 +4,21 @@
 
 using namespace bandit; 
 
-go_bandit([]() {
-    describe("a Mesh", []() {
-        it("has a default mesh type of triangles by default", []() {
+go_bandit([]() 
+{
+    describe("a Mesh", []() 
+    {
+        it("has a default mesh type of triangles by default", []() 
+        {
             Mesh mesh({});
 
             AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::tris));
         });
 
-        it("accepts an initializer_list of floats that specify its coordinates", []() {
-            Mesh mesh {
+        it("accepts an initializer_list of floats that specify its coordinates", []() 
+        {
+            Mesh mesh 
+            {
                 0.0, 0.0,
                 0.0, 1.0,
                 1.0, 1.0
@@ -31,7 +36,8 @@ go_bandit([]() {
             AssertThat(meshPoints[5], Is().EqualTo(1.0));
         });
 
-        it("accepts updates to its mesh type", []() {
+        it("accepts updates to its mesh type", []() 
+        {
             Mesh mesh({});
 
             AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::tris));

@@ -1,30 +1,38 @@
 #include "core/Vec2.h"
 
-Vec2::Vec2(float x, float y) {
+Vec2::Vec2(float x, float y) 
+{
     this->x = x;
     this->y = y;
 }
 
-Vec2::Vec2() {
+Vec2::Vec2()
+    : x(0.0), y(0.0) 
+{
     
 }
 
-Vec2::~Vec2() {
+Vec2::~Vec2() 
+{
 
 }
 
-void Vec2::setX(float x) {
+void Vec2::setX(float x) 
+{
     this->x = x;
 }
 
-void Vec2::setY(float y) {
+void Vec2::setY(float y) 
+{
     this->y = y;
 }
 
-float Vec2::getX() {
+float Vec2::getX() 
+{
     return x;
 }
 
-float Vec2::getY() {
+float Vec2::getY() 
+{
     return y;
 }

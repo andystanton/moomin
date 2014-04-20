@@ -4,23 +4,28 @@
 
 using namespace bandit; 
 
-go_bandit([]() {
-    describe("a Vec2", []() {
-        it("defaults to the origin", []() {
+go_bandit([]() 
+{
+    describe("a Vec2", []() 
+    {
+        it("defaults to the origin", []() 
+        {
             Vec2 coord;
 
             AssertThat(coord.getX(), Is().EqualTo(0.0));
             AssertThat(coord.getY(), Is().EqualTo(0.0));
         });
 
-        it("accepts two floats that specify its position", []() {
+        it("accepts two floats that specify its position", []() 
+        {
             Vec2 coord(5.0, 6.0);
 
             AssertThat(coord.getX(), Is().EqualTo(5.0));
             AssertThat(coord.getY(), Is().EqualTo(6.0));
         });
 
-        it("accepts updates to its position", []() {
+        it("accepts updates to its position", []() 
+        {
             Vec2 coord(32.0, 126.0);
 
             AssertThat(coord.getX(), Is().EqualTo(32.0));
