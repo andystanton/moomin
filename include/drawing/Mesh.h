@@ -18,8 +18,11 @@ public:
     ~Mesh();
 
     MeshType getType();
+    void setType(MeshType);
     float * getPoints();
+    int getSize();
 private:
+    int size = 0;
     vector<Vec2*> mesh;
     MeshType type = MeshType::tris;
 };

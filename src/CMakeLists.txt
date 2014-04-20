@@ -4,11 +4,11 @@ SET (project_LIBS glfw ${GLFW_LIBRARIES})
 
 SET (project_BIN ${PROJECT_NAME})
 
-message("input sources")
+#message("input sources")
 foreach(sourceFile ${project_SRCS})
     if(${sourceFile} STREQUAL ${MAINFOLDER}/src/main.cpp)
     else()
-        message(${sourceFile})
+        #message(${sourceFile})
         set(ALL_SRCS ${ALL_SRCS} ${sourceFile} CACHE INTERNAL "description")
     endif()
 endforeach()

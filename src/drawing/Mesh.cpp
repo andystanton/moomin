@@ -12,6 +12,7 @@ Mesh::Mesh(initializer_list<float> meshComponents) {
             mesh.push_back(nextVec2);
             nextVec2 = nullptr;
         }
+        ++size;
     }
 }
 
@@ -19,8 +20,16 @@ Mesh::~Mesh() {
 
 }
 
+int Mesh::getSize() {
+    return size;
+}
+
 Mesh::MeshType Mesh::getType() {
     return type;
+}
+
+void Mesh::setType(Mesh::MeshType type) {
+    this->type = type;
 }
 
 float * Mesh::getPoints() {

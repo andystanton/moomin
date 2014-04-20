@@ -7,9 +7,9 @@ include_directories(${GMOCK_INCLUDE_PATH}
                     ${BANDIT_INCLUDE_PATH}
                     ${GLFW_INCLUDE_PATH})
 
-message("Output sources")
+#message("Output sources")
 foreach(source ${ALL_SRCS})
-    message(${source})
+    #message(${source})
 endforeach()
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
