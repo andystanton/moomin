@@ -9,7 +9,7 @@
 #include <bandit/bandit.h>
 #include <gmock/gmock.h>
 
- #include "GmockBDDAliases.h"
+#include "GmockBDDAliases.h"
 
 namespace bandit_with_gmock {
     class listener_adapter: public testing::EmptyTestEventListener, public bandit::detail::listener {
