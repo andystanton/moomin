@@ -1,4 +1,3 @@
-
 #include "drawing/Mesh.h"
 
 Mesh::Mesh(initializer_list<float> meshComponents)

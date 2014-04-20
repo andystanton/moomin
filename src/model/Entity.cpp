@@ -1,7 +1,8 @@
 #include "model/Entity.h"
 
-Entity::Entity(const Mesh& mesh)
-    : mesh(mesh) 
+Entity::Entity(float x, float y, const Mesh& mesh)
+    : pos(x, y)
+    , mesh(mesh)
 {
 
 }
@@ -14,4 +15,8 @@ Entity::~Entity()
 const Mesh& Entity::getMesh() 
 {
     return mesh;
+}
+
+Vec2& Entity::getPos() {
+    return pos;
 }

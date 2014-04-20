@@ -1,3 +1,6 @@
+#ifndef _MOOMIN_VEC2
+#define _MOOMIN_VEC2
+
 class Vec2
 {
 public:
@@ -12,3 +15,5 @@ public:
 private:
     float x, y;
 };
+
+#endif

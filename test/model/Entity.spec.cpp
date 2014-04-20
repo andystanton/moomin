@@ -10,7 +10,7 @@ go_bandit([]()
 {
     describe("an Entity", []() 
     {
-        it("has a mesh", []() 
+        it("accepts a position and mesh", []() 
         {
             Mesh mesh 
             {
@@ -21,9 +21,12 @@ go_bandit([]()
             };
             mesh.setType(Mesh::MeshType::quads);
 
-            Entity entity(mesh);
+            Entity entity(23.0, 12.0, mesh);
 
-            AssertThat(&mesh, Is().EqualTo(&entity.getMesh()));
+            AssertThat(entity.getPos().getX(), Is().EqualTo(23.0));
+            AssertThat(entity.getPos().getY(), Is().EqualTo(12.0));
+
+            AssertThat(&entity.getMesh(), Is().EqualTo(&mesh));
         });
     });
 });
