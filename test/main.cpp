@@ -1,4 +1,5 @@
-#include <bandit/bandit.h>
+#include "BanditWithGmock.h"
+
 using namespace bandit;
 
 int adder(int a, int b) {
@@ -13,6 +14,7 @@ go_bandit([](){
     });
 });
 
+
 int main(int argc, char* argv[]) {
-  return bandit::run(argc, argv);
+    return bandit_with_gmock::run(argc, argv);
 }
