@@ -5,11 +5,14 @@ Mesh::Mesh(initializer_list<float> meshComponents)
     : mesh {}, size(0), type(MeshType::tris) 
 {
     Vec2* nextVec2 = nullptr;
-    for (auto component : meshComponents) {
-        if (nextVec2 == nullptr) {
+    for (auto component : meshComponents) 
+    {
+        if (nextVec2 == nullptr) 
+        {
             nextVec2 = new Vec2();
             nextVec2->setX(component);
-        } else {
+        } else 
+        {
             nextVec2->setY(component);
             mesh.push_back(nextVec2);
             nextVec2 = nullptr;
