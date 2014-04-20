@@ -7,7 +7,7 @@ using namespace bandit;
 go_bandit([]() {
     describe("a Mesh", []() {
         it("has a default mesh type of triangles by default", []() {
-            Mesh mesh {};
+            Mesh mesh({});
 
             AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::tris));
         });
@@ -32,7 +32,7 @@ go_bandit([]() {
         });
 
         it("accepts updates to its mesh type", []() {
-            Mesh mesh {};
+            Mesh mesh({});
 
             AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::tris));
 

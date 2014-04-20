@@ -15,6 +15,7 @@ public:
     enum class MeshType { quads, tris };
 
     Mesh(initializer_list<float>);
+    Mesh(initializer_list<float>, MeshType);
     ~Mesh();
 
     MeshType getType();
@@ -23,8 +24,8 @@ public:
     int getSize();
 private:
     int size = 0;
-    vector<Vec2*> mesh;
     MeshType type = MeshType::tris;
+    vector<Vec2*> mesh;
 };
 
 #endif
