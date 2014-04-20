@@ -4,7 +4,6 @@
 #include "drawing/Mesh.h"
 
 using namespace bandit;
-using namespace std;
 
 go_bandit([]() 
 {

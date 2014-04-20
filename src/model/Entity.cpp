@@ -12,7 +12,7 @@ Entity::~Entity()
 
 }
 
-const Mesh& Entity::getMesh() 
+const Mesh& Entity::getMesh() const
 {
     return mesh;
 }

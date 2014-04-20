@@ -1,5 +1,7 @@
 #include <GLFW/glfw3.h>
 
+#include "drawing/Renderer.h"
+
 void drawSkullAt(float pos_x, float pos_y) {
     glPushMatrix();
         glTranslatef(pos_x, pos_y, 0);
@@ -63,7 +65,7 @@ void reshape(GLFWwindow* window, int width, int height ) {
     glLoadIdentity();
 }
 
-int main(void) {
+int main(void) {  
     GLFWwindow* window;
     
     const int width=640, height=480;
@@ -86,13 +88,24 @@ int main(void) {
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     glfwSetWindowSizeCallback(window, reshape);
-    
+
+    Renderer r = Renderer();
+    Mesh squareMesh 
+    {
+        -10.0, 10.0,
+         10.0, 10.0,
+         10.0,-10.0,
+        -10.0,-10.0
+    };
+    Entity e = Entity(320, 240, squareMesh);
     
     while (!glfwWindowShouldClose(window)) {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.109803922, 0.109803922, 0.109803922, 1.0);
         
         drawSkullAt(width/2, height/2);
+
+        r.draw(e);
         
         glfwSwapBuffers(window);
         glfwPollEvents();
