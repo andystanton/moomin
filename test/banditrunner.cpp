@@ -1,17 +1,15 @@
 #include "BanditWithGmock.h"
 
 #include <Multiplier.h>
+#include <Adder.h>
 
 using namespace bandit;
 
-int adder(int a, int b) {
-    return a + b;
-}
-
 go_bandit([](){
     describe("an adder:", [](){
+      Adder adder = Adder();
       it("adds two numbers together", [&](){
-        AssertThat(adder(4, 7), Equals(11));
+        AssertThat(adder.add(4, 7), Equals(11));
       });
     });
 
