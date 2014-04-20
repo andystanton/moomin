@@ -15,7 +15,7 @@ go_bandit([](){
 
     describe("a multiplier:", [](){
       it("multiplies two numbers together", [&](){
-        AssertThat(adder(4, 7), Equals(28));
+        AssertThat(multiplier(4, 7), Equals(28));
       });
     });
 });

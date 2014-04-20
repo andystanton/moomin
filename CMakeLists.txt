@@ -78,7 +78,6 @@ set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
 #
 # Add Build Targets
 #
-set(ALL_SRCS CACHE INTERNAL "all sources" FORCE)
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
 

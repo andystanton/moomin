@@ -12,8 +12,7 @@ foreach(source ${ALL_SRCS})
     message(${source})
 endforeach()
 
-#ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
-ADD_EXECUTABLE(${test_BIN} ${test_SRCS})
+ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
 TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
 
 ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" DEPENDS ${test_BIN} COMMENT "Executing unit tests..." VERBATIM SOURCES ${test_SRCS})
