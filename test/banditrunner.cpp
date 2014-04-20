@@ -1,5 +1,7 @@
 #include "BanditWithGmock.h"
 
+#include <Multiplier.h>
+
 using namespace bandit;
 
 int adder(int a, int b) {
@@ -14,8 +16,10 @@ go_bandit([](){
     });
 
     describe("a multiplier:", [](){
+      Multiplier multiplier = Multiplier();
+
       it("multiplies two numbers together", [&](){
-        AssertThat(multiplier(4, 7), Equals(28));
+        AssertThat(multiplier.multiply(4, 7), Equals(28));
       });
     });
 });
