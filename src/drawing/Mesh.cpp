@@ -2,7 +2,9 @@
 #include "drawing/Mesh.h"
 
 Mesh::Mesh(initializer_list<float> meshComponents)
-    : mesh {}, size(0), type(MeshType::tris) 
+    : mesh {}
+    , size(0)
+    , type(MeshType::tris) 
 {
     Vec2* nextVec2 = nullptr;
     for (auto component : meshComponents) 
