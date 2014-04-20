@@ -2,8 +2,9 @@
 #define _MOOMIN_RENDERER
 
 #include <GLFW/glfw3.h>
-
 #include "model/Entity.h"
+
+using std::unique_ptr;
 
 class Renderer
 {

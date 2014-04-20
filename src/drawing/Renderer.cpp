@@ -12,7 +12,7 @@ Renderer::~Renderer()
 
 void Renderer::draw(const Entity& entity) const {
     Mesh mesh = entity.getMesh();
-    float * meshPoints = mesh.getPoints();
+    unique_ptr<float> meshPoints(mesh.getPoints());
 
     int mode = GL_TRIANGLE_STRIP;
     if (mesh.getType() == Mesh::MeshType::quads) {
@@ -23,7 +23,7 @@ void Renderer::draw(const Entity& entity) const {
         glBegin(mode);
             glColor3f(0.f, 1.f, 0.f);
             for(int i = 0; i < mesh.getSize(); i+=2) {
-                glVertex2f(meshPoints[i], meshPoints[i+1]);
+                glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
             }
         glEnd();
     glPopMatrix();
