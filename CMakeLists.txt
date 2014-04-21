@@ -50,6 +50,8 @@ elseif (MSVC)
     # On by default
 endif ()
 
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
+
 #
 # Locate Project Prerequisites 
 #
