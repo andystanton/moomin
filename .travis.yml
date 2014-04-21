@@ -22,6 +22,7 @@ install:
 # required x11 and opengl libs
     - sudo apt-get -qq install xorg-dev
     - sudo apt-get -qq install libglu1-mesa-dev
+    - sudo apt-get -qq install libglew-dev
     - sudo apt-get -qq install libfreetype6-dev
 # cmake
     - sudo apt-get -qq install cmake
