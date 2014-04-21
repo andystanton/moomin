@@ -37,8 +37,7 @@ INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 # set c++ 11
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-    #set(CMAKE_CXX_FLAGS "-std=gnu++11")
-    set(CMAKE_CXX_FLAGS "-std=c++11")
+    set(CMAKE_CXX_FLAGS "-std=gnu++11")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
