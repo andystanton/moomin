@@ -1,5 +1,5 @@
 language: cpp
-compiler: clang
+compiler: gcc
 before_install:
 # libstdc++-4.8-dev
 #  * required because http://gcc.gnu.org/bugzilla/show_bug.cgi?id=53841
