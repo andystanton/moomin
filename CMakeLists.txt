@@ -49,8 +49,12 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 endif()
+
+# if (CMAKE_HOST_APPLE AND (CMAKE_CXX_COMPILER_ID STREQUAL "Clang"))
+#   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+# endif()
 
 
 # if (CMAKE_COMPILER_IS_GNUCXX)
@@ -91,6 +95,10 @@ set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
 
 add_subdirectory(lib/bandit-fix)
 set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit-fix")
+
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
 
 #
 # Add Build Targets
