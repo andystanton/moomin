@@ -68,6 +68,13 @@ option(GLFW_INSTALL "Generate installation target" OFF)
 add_subdirectory(lib/glfw)
 set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
 
+# FREETYLE GL
+
+OPTION(freetype-gl_BUILD_DEMOS "Build the freetype-gl example programs" OFF)
+
+add_subdirectory(lib/freetype-gl)
+#set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype-gl")
+
 # GMOCK
 
 add_subdirectory(lib/gmock-1.7.0)
