@@ -3,7 +3,7 @@ compiler: clang
 install:
 # libc++ for c++11
     - cwd=$(pwd)
-    - svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx
+    - svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk@181765 libcxx
     - cd libcxx/lib && bash buildit
     - sudo cp ./libc++.so.1.0 /usr/lib/
     - sudo mkdir -p /usr/include/c++/v1
@@ -12,7 +12,7 @@ install:
     - sudo ln -sf libc++.so.1.0 libc++.so.1 && cd $cwd
 # libc++abi
     - cwd=$(pwd)
-    - svn co --quiet http://llvm.org/svn/llvm-project/libcxxabi/trunk libcxxabi
+    - svn co --quiet http://llvm.org/svn/llvm-project/libcxxabi/trunk@181765 libcxxabi
     - cd libcxxabi/lib && bash buildit
     - sudo cp ./libc++abi.so.1.0 /usr/lib/
     - sudo mkdir -p /usr/include/c++/v1
