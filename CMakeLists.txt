@@ -77,7 +77,7 @@ set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
 # BANDIT
 
 add_subdirectory(lib/bandit-fix)
-set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit-fix")
+set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
 
 #
 # Add Build Targets
