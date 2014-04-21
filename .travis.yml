@@ -3,7 +3,7 @@ compiler: clang
 before_install:
 # cstdlib for c++11
     - cwd=$(pwd)
-    - svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk@201601 libcxx
+    - svn co --quiet http://llvm.org/svn/llvm-project/libcxx/trunk libcxx
     - cd libcxx/lib && bash buildit
     - sudo cp ./libc++.so.1.0 /usr/lib/
     - sudo mkdir /usr/include/c++/v1
