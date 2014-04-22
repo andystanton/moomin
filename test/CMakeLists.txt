@@ -4,12 +4,11 @@ SET (test_LIBS
      gtest_main 
      gmock 
      gmock_main 
-     glfw 
-     ${GLFW_LIBRARIES} 
      freetype
-     freetype-gl
+     ${GLFW_LIBRARIES} 
+     glfw
      libglew_static
-     ${FREETYPE_LIBRARY})
+     freetype-gl)
 
 
 SET (test_INCLUDES

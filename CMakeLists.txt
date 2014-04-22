@@ -48,7 +48,6 @@ elseif (MSVC)
 endif ()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
-set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype2/include")
 
 #
 # Locate Project Prerequisites 
@@ -57,6 +56,7 @@ set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype2/include")
 # FREETYPE 2
 
 add_subdirectory(lib/freetype2)
+set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype2/include")
 
 # GLEW
 
