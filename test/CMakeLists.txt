@@ -10,7 +10,6 @@ SET (test_LIBS
      libglew_static
      freetype-gl)
 
-
 SET (test_INCLUDES
      ${GMOCK_INCLUDE_PATH}
      ${GTEST_INCLUDE_PATH}
@@ -30,7 +29,7 @@ include_directories(${test_INCLUDES})
 # endforeach()
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
-TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
+TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS} ${test_LIBS})
 
 ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" --reporter=spec 
                     DEPENDS ${test_BIN} 
