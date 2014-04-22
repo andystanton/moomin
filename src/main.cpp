@@ -122,7 +122,7 @@ int main(void) {
     texture_font_t *font =
         texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
 
-    vec2 pen    = {{50, 50}};
+    vec2 pen    = {{410, 650}};
     vec4 black  = {{0.0, 0.0, 0.0, 1.0}};
     vec4 yellow = {{1.0, 1.0, 0.0, 1.0}};
     vec4 orange1 = {{1.0, 0.9, 0.0, 1.0}};
