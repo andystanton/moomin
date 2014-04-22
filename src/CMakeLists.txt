@@ -4,12 +4,13 @@ SET (project_LIBS
      glfw 
      ${GLFW_LIBRARIES} 
      freetype-gl
-     ${GLEW_LIBRARY} 
+     libglew_static
      ${FREETYPE_LIBRARY})
 
 SET (project_INCLUDES
      ${FREETYPE_INCLUDE_PATH} 
-     ${GLFW_INCLUDE_PATH})
+     ${GLFW_INCLUDE_PATH}
+     ${GLEW_INCLUDE_PATH})
 
 SET (project_BIN ${PROJECT_NAME})
 

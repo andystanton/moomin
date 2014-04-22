@@ -6,10 +6,10 @@
 	url = https://github.com/joakimkarlsson/bandit.git
 [submodule "freetype-gl"]
 	path = lib/freetype-gl
-	url = https://github.com/rougier/freetype-gl.git
-[submodule "glew"]
-	path = lib/glew
-	url = https://github.com/nigels-com/glew.git
+	url = https://github.com/andystanton/freetype-gl.git
 [submodule "freetype2"]
 	path = lib/freetype2
 	url = http://git.savannah.gnu.org/r/freetype/freetype2.git
+[submodule "glew-cmake"]
+	path = lib/glew-cmake
+	url = https://github.com/andystanton/glew-cmake.git

@@ -7,7 +7,7 @@ SET (test_LIBS
      glfw 
      ${GLFW_LIBRARIES} 
      freetype-gl
-     ${GLEW_LIBRARY} 
+     libglew_static
      ${FREETYPE_LIBRARY})
 
 
@@ -16,7 +16,8 @@ SET (test_INCLUDES
      ${GTEST_INCLUDE_PATH}
      ${BANDIT_INCLUDE_PATH}
      ${FREETYPE_INCLUDE_PATH} 
-     ${GLFW_INCLUDE_PATH})
+     ${GLFW_INCLUDE_PATH}
+     ${GLEW_INCLUDE_PATH})
 
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
