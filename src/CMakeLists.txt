@@ -1,6 +1,6 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 
-SET (project_LIBS glfw ${GLFW_LIBRARIES})
+SET (project_LIBS glfw ${GLFW_LIBRARIES} freetype-gl)
 
 SET (project_BIN ${PROJECT_NAME})
 
@@ -16,7 +16,7 @@ endforeach()
 
 ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
 
-include_directories(${GLFW_INCLUDE_PATH})
+include_directories(${FREETYPE_INCLUDE_PATH} ${GLFW_INCLUDE_PATH})
 
 TARGET_LINK_LIBRARIES(${project_BIN} ${project_LIBS})
 

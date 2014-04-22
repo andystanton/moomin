@@ -1,6 +1,14 @@
-#include <GLFW/glfw3.h>
-
 #include "drawing/Renderer.h"
+
+#include <stdio.h>
+#include <wchar.h>
+
+#include <freetype-gl.h>
+#include "mat4.h"
+#include "shader.h"
+#include "vertex-buffer.h"
+
+#include <GLFW/glfw3.h>
 
 void reshape(GLFWwindow* window, int width, int height ) {
     int w, h;
