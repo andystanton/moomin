@@ -6,6 +6,7 @@ SET (test_LIBS
      gmock_main 
      glfw 
      ${GLFW_LIBRARIES} 
+     freetype
      freetype-gl
      libglew_static
      ${FREETYPE_LIBRARY})
@@ -16,6 +17,7 @@ SET (test_INCLUDES
      ${GTEST_INCLUDE_PATH}
      ${BANDIT_INCLUDE_PATH}
      ${FREETYPE_INCLUDE_PATH} 
+     ${FREETYPE_GL_INCLUDE_PATH}
      ${GLFW_INCLUDE_PATH}
      ${GLEW_INCLUDE_PATH})
 

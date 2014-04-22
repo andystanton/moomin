@@ -48,10 +48,15 @@ elseif (MSVC)
 endif ()
 
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
+set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype2/include")
 
 #
 # Locate Project Prerequisites 
 #
+
+# FREETYPE 2
+
+add_subdirectory(lib/freetype2)
 
 # GLEW
 
@@ -59,12 +64,12 @@ OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
 add_subdirectory(lib/glew-cmake)
 set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
 
-# FREETYLE GL
+# FREETYPE GL
 
 OPTION(freetype-gl_BUILD_DEMOS "Build the freetype-gl example programs" OFF)
 
 add_subdirectory(lib/freetype-gl)
-set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype-gl")
+set(FREETYPE_GL_INCLUDE_PATH "${MAINFOLDER}/lib/freetype-gl")
 
 # GLFW
 
