@@ -55,7 +55,7 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
 
 # GLEW
 
-OPTION(glew-cmake_BUILD_SHARED "Build the shared glew lib" OFF)
+OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
 add_subdirectory(lib/glew-cmake)
 set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
 
