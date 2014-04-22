@@ -22,6 +22,8 @@ endforeach()
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
 TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
+target_link_libraries(${test_BIN} ${GLEW_LIBRARY})
+target_link_libraries(${test_BIN} ${FREETYPE_LIBRARY})
 
 ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" --reporter=spec 
                     DEPENDS ${test_BIN} 

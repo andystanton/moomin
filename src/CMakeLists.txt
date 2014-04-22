@@ -19,6 +19,8 @@ ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
 include_directories(${FREETYPE_INCLUDE_PATH} ${GLFW_INCLUDE_PATH})
 
 TARGET_LINK_LIBRARIES(${project_BIN} ${project_LIBS})
+target_link_libraries(${project_BIN} ${GLEW_LIBRARY})
+target_link_libraries(${project_BIN} ${FREETYPE_LIBRARY})
 
 SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
 
