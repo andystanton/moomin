@@ -4,9 +4,6 @@
 [submodule "bandit"]
 	path = lib/bandit
 	url = https://github.com/joakimkarlsson/bandit.git
-[submodule "freetype-gl"]
-	path = lib/freetype-gl
-	url = https://github.com/andystanton/freetype-gl.git
 [submodule "freetype2"]
 	path = lib/freetype2
 	url = http://git.savannah.gnu.org/r/freetype/freetype2.git
