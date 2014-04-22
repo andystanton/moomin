@@ -6,24 +6,29 @@ SET (test_LIBS
      gmock_main 
      glfw 
      ${GLFW_LIBRARIES} 
-     freetype-gl)
+     freetype-gl
+     ${GLEW_LIBRARY} 
+     ${FREETYPE_LIBRARY})
+
+
+SET (test_INCLUDES
+     ${GMOCK_INCLUDE_PATH}
+     ${GTEST_INCLUDE_PATH}
+     ${BANDIT_INCLUDE_PATH}
+     ${FREETYPE_INCLUDE_PATH} 
+     ${GLFW_INCLUDE_PATH})
+
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
-include_directories(${GMOCK_INCLUDE_PATH}
-                    ${GTEST_INCLUDE_PATH}
-                    ${BANDIT_INCLUDE_PATH}
-                    ${GLFW_INCLUDE_PATH}
-                    ${FREETYPE_INCLUDE_PATH})
+include_directories(${test_INCLUDES})
 
-#message("Output sources")
-foreach(source ${ALL_SRCS})
-    #message(${source})
-endforeach()
+# message("Output sources")
+# foreach(source ${ALL_SRCS})
+#     message(${source})
+# endforeach()
 
 ADD_EXECUTABLE(${test_BIN} ${test_SRCS} ${ALL_SRCS})
 TARGET_LINK_LIBRARIES(${test_BIN} ${test_LIBS})
-target_link_libraries(${test_BIN} ${GLEW_LIBRARY})
-target_link_libraries(${test_BIN} ${FREETYPE_LIBRARY})
 
 ADD_CUSTOM_TARGET(check ALL "${MAINFOLDER}/bin/${test_BIN}" --reporter=spec 
                     DEPENDS ${test_BIN} 

@@ -7,3 +7,9 @@
 [submodule "freetype-gl"]
 	path = lib/freetype-gl
 	url = https://github.com/rougier/freetype-gl.git
+[submodule "glew"]
+	path = lib/glew
+	url = https://github.com/nigels-com/glew.git
+[submodule "freetype2"]
+	path = lib/freetype2
+	url = http://git.savannah.gnu.org/r/freetype/freetype2.git

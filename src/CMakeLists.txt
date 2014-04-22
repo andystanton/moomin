@@ -1,10 +1,20 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 
-SET (project_LIBS glfw ${GLFW_LIBRARIES} freetype-gl)
+SET (project_LIBS 
+     glfw 
+     ${GLFW_LIBRARIES} 
+     freetype-gl
+     ${GLEW_LIBRARY} 
+     ${FREETYPE_LIBRARY})
+
+SET (project_INCLUDES
+     ${FREETYPE_INCLUDE_PATH} 
+     ${GLFW_INCLUDE_PATH})
 
 SET (project_BIN ${PROJECT_NAME})
 
 #message("input sources")
+# add test sources to global variable so they can be linked with test sources
 foreach(sourceFile ${project_SRCS})
     if(${sourceFile} STREQUAL ${MAINFOLDER}/src/main.cpp)
     else()
@@ -16,11 +26,10 @@ endforeach()
 
 ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
 
-include_directories(${FREETYPE_INCLUDE_PATH} ${GLFW_INCLUDE_PATH})
+include_directories(${project_INCLUDES})
 
 TARGET_LINK_LIBRARIES(${project_BIN} ${project_LIBS})
-target_link_libraries(${project_BIN} ${GLEW_LIBRARY})
-target_link_libraries(${project_BIN} ${FREETYPE_LIBRARY})
+
 
 SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
 
