@@ -10,6 +10,6 @@
 [submodule "freetype-gl"]
 	path = lib/freetype-gl
 	url = https://github.com/andystanton/freetype-gl.git
-[submodule "lib/glew-cmake"]
+[submodule "glew-cmake"]
 	path = lib/glew-cmake
 	url = https://github.com/andystanton/glew-cmake.git
