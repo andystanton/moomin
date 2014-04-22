@@ -131,19 +131,19 @@ int main(void) {
 
     font->outline_type = 2;
     font->outline_thickness = 7;
-    add_text( buffer, font, L"Freetype GL", pen, black, black );
+    add_text( buffer, font, L"Moomin", pen, black, black );
 
     font->outline_type = 2;
     font->outline_thickness = 5;
-    add_text( buffer, font, L"Freetype GL", pen, yellow, yellow );
+    add_text( buffer, font, L"Moomin", pen, yellow, yellow );
 
     font->outline_type = 1;
     font->outline_thickness = 3;
-    add_text( buffer, font, L"Freetype GL", pen, black, black );
+    add_text( buffer, font, L"Moomin", pen, black, black );
 
     font->outline_type = 0;
     font->outline_thickness = 0;
-    add_text( buffer, font, L"Freetype GL", pen, orange1, orange2 );
+    add_text( buffer, font, L"Moomin", pen, orange1, orange2 );
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
@@ -166,14 +166,20 @@ int main(void) {
     };
     Entity e = Entity(320, 240, squareMesh);
     
+
+
     while (!glfwWindowShouldClose(window)) {
+        
+
+        glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.109803922, 0.109803922, 0.109803922, 1.0);
 
         glClear( GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT );
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        //r.draw(e);
+        glUseProgram(0);
+        r.draw(e);
         drawText();
         
         
