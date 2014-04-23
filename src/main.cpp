@@ -123,7 +123,7 @@ int main(void) {
     atlas = texture_atlas_new( 1024, 1024, 1 );
     buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" ); 
     texture_font_t *font =
-        texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
+        texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
 
     vec2 pen    = {{410, 650}};
     vec4 black  = {{0.0, 0.0, 0.0, 1.0}};
