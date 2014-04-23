@@ -4,6 +4,7 @@
 #include <wchar.h>
 
 #include <cmath>
+#include <string>
 
 #include <freetype-gl.h>
 #include <mat4.h>
@@ -12,6 +13,8 @@
 
 #include <GLFW/glfw3.h>
 
+using std::string;
+using std::wstring;
 
 typedef struct {
     float x, y, z;
@@ -52,7 +55,7 @@ void drawText(){
 }
 
 void add_text( vertex_buffer_t * buffer, texture_font_t * font,
-               wchar_t *text, vec2 pen, vec4 fg_color_1, vec4 fg_color_2 )
+               const wchar_t *text, vec2 pen, vec4 fg_color_1, vec4 fg_color_2 )
 {
     size_t i;
     for( i=0; i<wcslen(text); ++i )
@@ -128,22 +131,24 @@ int main(void) {
     vec4 orange1 = {{1.0, 0.9, 0.0, 1.0}};
     vec4 orange2 = {{1.0, 0.6, 0.0, 1.0}};
 
+    string apptext_s = "some text";
+    wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
 
     font->outline_type = 2;
     font->outline_thickness = 7;
-    add_text( buffer, font, L"Moomin", pen, black, black );
+    add_text( buffer, font, apptext.c_str(), pen, black, black );
 
     font->outline_type = 2;
     font->outline_thickness = 5;
-    add_text( buffer, font, L"Moomin", pen, yellow, yellow );
+    add_text( buffer, font, apptext.c_str(), pen, yellow, yellow );
 
     font->outline_type = 1;
     font->outline_thickness = 3;
-    add_text( buffer, font, L"Moomin", pen, black, black );
+    add_text( buffer, font, apptext.c_str(), pen, black, black );
 
     font->outline_type = 0;
     font->outline_thickness = 0;
-    add_text( buffer, font, L"Moomin", pen, orange1, orange2 );
+    add_text( buffer, font, apptext.c_str(), pen, orange1, orange2 );
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
