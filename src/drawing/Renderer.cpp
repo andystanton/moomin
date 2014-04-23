@@ -28,3 +28,7 @@ void Renderer::draw(const Entity& entity) const {
         glEnd();
     glPopMatrix();
 }
+
+void Renderer::writeText(const string& text) const {
+
+}

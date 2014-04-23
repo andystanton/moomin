@@ -15,9 +15,9 @@ public:
     Renderer();
     ~Renderer();
  
+    void draw() const;
     void draw(const Entity&) const;
-
-    void writeText(const string &);
+    void writeText(const string& text) const;
 };
 
 #endif

@@ -54,9 +54,15 @@ void drawText(){
 
 }
 
-void add_text( vertex_buffer_t * buffer, texture_font_t * font,
-               const wchar_t *text, vec2 pen, vec4 fg_color_1, vec4 fg_color_2 )
+void add_text(vertex_buffer_t * buffer, 
+              texture_font_t * font,
+              const string& apptext_s,
+              vec2 position,
+              vec4 fg_color)
 {
+    wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
+    const wchar_t * text = apptext.c_str();
+
     size_t i;
     for( i=0; i<wcslen(text); ++i )
     {
@@ -66,11 +72,11 @@ void add_text( vertex_buffer_t * buffer, texture_font_t * font,
         {
             kerning = texture_glyph_get_kerning( glyph, text[i-1] );
         }
-        pen.x += kerning;
+        position.x += kerning;
 
         /* Actual glyph */
-        float x0  = ( pen.x + glyph->offset_x );
-        float y0  = static_cast<float>( pen.y + glyph->offset_y );
+        float x0  = ( position.x + glyph->offset_x );
+        float y0  = static_cast<float>( position.y + glyph->offset_y );
         float x1  = ( x0 + glyph->width );
         float y1  = static_cast<float>( y0 - glyph->height );
         float s0 = glyph->s0;
@@ -81,13 +87,13 @@ void add_text( vertex_buffer_t * buffer, texture_font_t * font,
         GLuint indices[] = {index, index+1, index+2,
                             index, index+2, index+3};
         vertex_t vertices[] = {
-            { static_cast<float>(x0),y0,0,  s0,t0,  fg_color_1 },
-            { static_cast<float>(x0),y1,0,  s0,t1,  fg_color_2 },
-            { static_cast<float>(x1),y1,0,  s1,t1,  fg_color_2 },
-            { static_cast<float>(x1),y0,0,  s1,t0,  fg_color_1 } };
+            { static_cast<float>(x0),y0,0,  s0,t0,  fg_color },
+            { static_cast<float>(x0),y1,0,  s0,t1,  fg_color },
+            { static_cast<float>(x1),y1,0,  s1,t1,  fg_color },
+            { static_cast<float>(x1),y0,0,  s1,t0,  fg_color } };
         vertex_buffer_push_back_indices( buffer, indices, 6 );
         vertex_buffer_push_back_vertices( buffer, vertices, 4 );
-        pen.x += glyph->advance_x;
+        position.x += glyph->advance_x;
     }
 }
 
@@ -125,38 +131,17 @@ int main(void) {
     texture_font_t *font =
         texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
 
-    vec2 pen    = {{410, 650}};
-    vec4 black  = {{0.0, 0.0, 0.0, 1.0}};
-    vec4 yellow = {{1.0, 1.0, 0.0, 1.0}};
-    vec4 orange1 = {{1.0, 0.9, 0.0, 1.0}};
-    vec4 orange2 = {{1.0, 0.6, 0.0, 1.0}};
+    vec2 position    = {{350, 650}};
+    vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
 
-    string apptext_s = "some text";
-    wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
 
-    font->outline_type = 2;
-    font->outline_thickness = 7;
-    add_text( buffer, font, apptext.c_str(), pen, black, black );
-
-    font->outline_type = 2;
-    font->outline_thickness = 5;
-    add_text( buffer, font, apptext.c_str(), pen, yellow, yellow );
-
-    font->outline_type = 1;
-    font->outline_thickness = 3;
-    add_text( buffer, font, apptext.c_str(), pen, black, black );
-
-    font->outline_type = 0;
-    font->outline_thickness = 0;
-    add_text( buffer, font, apptext.c_str(), pen, orange1, orange2 );
+    add_text( buffer, font, "some text", position, text_colour );
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
     mat4_set_identity( &projection );
     mat4_set_identity( &model );
     mat4_set_identity( &view );
-
-
 
 
     reshape(window, width, height);
