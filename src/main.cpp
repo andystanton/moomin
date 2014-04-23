@@ -26,6 +26,7 @@ texture_atlas_t * atlas;
 vertex_buffer_t * buffer;
 GLuint shader;
 mat4   model, view, projection;
+texture_font_t *font ;
 
 void reshape(GLFWwindow* window, int width, int height ) {
     int w, h;
@@ -39,19 +40,6 @@ void reshape(GLFWwindow* window, int width, int height ) {
     mat4_set_orthographic( &projection, 0, w, 0, h, -1, 1);
     glLoadIdentity();
     
-}
-
-
-void drawText(){
-    glUseProgram( shader );
-    {
-        glUniform1i( glGetUniformLocation( shader, "texture" ), 0 );
-        glUniformMatrix4fv( glGetUniformLocation( shader, "model" ), 1, 0, model.data);
-        glUniformMatrix4fv( glGetUniformLocation( shader, "view" ), 1, 0, view.data);
-        glUniformMatrix4fv( glGetUniformLocation( shader, "projection" ), 1, 0, projection.data);
-        vertex_buffer_render( buffer, GL_TRIANGLES );
-    }
-
 }
 
 void add_text(vertex_buffer_t * buffer, 
@@ -97,6 +85,39 @@ void add_text(vertex_buffer_t * buffer,
     }
 }
 
+void drawText(){
+    vec2 position    = {{350, 650}};
+    vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
+    
+    add_text( buffer, font, "some text", position, text_colour );
+    
+    glUseProgram( shader );
+    {
+        glUniform1i( glGetUniformLocation( shader, "texture" ), 0 );
+        glUniformMatrix4fv( glGetUniformLocation( shader, "model" ), 1, 0, model.data);
+        glUniformMatrix4fv( glGetUniformLocation( shader, "view" ), 1, 0, view.data);
+        glUniformMatrix4fv( glGetUniformLocation( shader, "projection" ), 1, 0, projection.data);
+        vertex_buffer_render( buffer, GL_TRIANGLES );
+    }
+    vertex_buffer_clear(buffer);
+}
+
+void setupFreetype() {
+
+    atlas = texture_atlas_new( 1024, 1024, 1 );
+    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" ); 
+    font = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
+
+
+
+    shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
+                         "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
+    mat4_set_identity( &projection );
+    mat4_set_identity( &model );
+    mat4_set_identity( &view );
+
+}
+
 int main(void) {  
     GLFWwindow* window;
     
@@ -116,7 +137,6 @@ int main(void) {
     
     glfwSetWindowSizeCallback(window, reshape);
 
-
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
@@ -125,24 +145,7 @@ int main(void) {
         exit( EXIT_FAILURE );
     }
     
-
-    atlas = texture_atlas_new( 1024, 1024, 1 );
-    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" ); 
-    texture_font_t *font =
-        texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
-
-    vec2 position    = {{350, 650}};
-    vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
-
-
-    add_text( buffer, font, "some text", position, text_colour );
-
-    shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
-                         "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
-    mat4_set_identity( &projection );
-    mat4_set_identity( &model );
-    mat4_set_identity( &view );
-
+    setupFreetype();
 
     reshape(window, width, height);
 
