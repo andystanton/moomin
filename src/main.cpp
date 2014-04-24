@@ -69,8 +69,7 @@ void reshape(GLFWwindow* window, int width, int height)
     
 }
 
-void add_text(vertex_buffer_t * buffer,
-              const string& apptext_s,
+void drawText(const string& apptext_s,
               float pos_x,
               float pos_y,
               Font font,
@@ -124,7 +123,8 @@ void add_text(vertex_buffer_t * buffer,
     }
 }
 
-void drawText() {   
+void renderText() 
+{   
     glUseProgram( shader );
     {
         glUniform1i( glGetUniformLocation( shader, "texture" ), 0 );
@@ -137,12 +137,9 @@ void drawText() {
     vertex_buffer_clear(buffer);
 }
 
-void setupFreetype() {
-    atlas = texture_atlas_new( 1024, 1024, 1 );
-    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
-
+void initTextColours() 
+{
     colours = map<Colour, vec4>();
-    fonts = map<Font, texture_font_t *>();
 
     vec4 whiteV = {{1.0, 1.0, 1.0, 1.0}};
     vec4 blackV = {{0.0, 0.0, 0.0, 1.0}};
@@ -155,6 +152,11 @@ void setupFreetype() {
     colours.insert(make_pair(Colour::RED,   redV));
     colours.insert(make_pair(Colour::GREEN, greenV));
     colours.insert(make_pair(Colour::BLUE,  blueV));
+}
+
+void initTextFonts() 
+{
+    fonts = map<Font, texture_font_t *>();
 
     texture_font_t * obelixPro = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
     texture_font_t * vera = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/Vera.ttf" );
@@ -169,7 +171,12 @@ void setupFreetype() {
     fonts.insert(make_pair(Font::VeraMonoBold, veraMonoBold));
     fonts.insert(make_pair(Font::VeraMonoItalic, veraMonoItalic));
     fonts.insert(make_pair(Font::VeraMonoBoldItalic, veraMonoBoldItalic));
+}
 
+void setupFreetype() 
+{
+    atlas = texture_atlas_new( 1024, 1024, 1 );
+    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
@@ -178,6 +185,8 @@ void setupFreetype() {
     mat4_set_identity( &model );
     mat4_set_identity( &view );
 
+    initTextFonts();
+    initTextColours();
 }
 
 int main(void) 
@@ -197,17 +206,16 @@ int main(void)
     }
     
     glfwMakeContextCurrent(window);
-    
     glfwSetWindowSizeCallback(window, reshape);
 
     GLenum err = glewInit();
     if (GLEW_OK != err)
     {
-        /* Problem: glewInit failed, something is seriously wrong. */
         fprintf( stderr, "Error: %s\n", glewGetErrorString(err) );
         exit( EXIT_FAILURE );
     }
     
+    // TODO: change this to some kind of renderer hook
     setupFreetype();
 
     reshape(window, width, height);
@@ -233,12 +241,12 @@ int main(void)
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        add_text( buffer, "some text", 350, 650, Font::ObelixPro, Colour::GREEN );
-        add_text( buffer, "more text", 0, 0, Font::Vera, Colour::RED );
+        drawText( "some text", 350, 650, Font::ObelixPro, Colour::GREEN );
+        drawText( "more text", 0, 0, Font::Vera, Colour::RED );
         r.draw(e);
 
 
-        drawText();
+        renderText();
         
         
         glfwSwapBuffers(window);
