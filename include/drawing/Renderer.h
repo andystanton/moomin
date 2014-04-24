@@ -1,19 +1,12 @@
 #ifndef _MOOMIN_RENDERER
 #define _MOOMIN_RENDERER
 
-#include <freetype-gl.h>
-#include <GLFW/glfw3.h>
-#include "model/Entity.h"
-
-using std::unique_ptr;
-
 class Renderer
 {
 public:
-    Renderer();
-    ~Renderer();
- 
-    void draw(const Entity&) const;
+    virtual ~Renderer() {};
+    virtual void draw() const = 0;
+    virtual void handleResize(int width, int height) = 0;
 };
 
 #endif
