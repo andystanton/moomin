@@ -1,10 +1,11 @@
 #include "drawing/Renderer.h"
 
-#include <stdio.h>
-#include <wchar.h>
-
 #include <cmath>
 #include <string>
+#include <map>
+
+#include <stdio.h>
+#include <wchar.h>
 
 #include <freetype-gl.h>
 #include <mat4.h>
@@ -15,6 +16,8 @@
 
 using std::string;
 using std::wstring;
+using std::map;
+using std::make_pair;
 
 typedef struct {
     float x, y, z;
@@ -22,11 +25,20 @@ typedef struct {
     vec4 color;
 } vertex_t;
 
+enum class Colour {
+    WHITE,
+    BLACK,
+    RED,
+    GREEN,
+    BLUE
+};
+
 texture_atlas_t * atlas;
 vertex_buffer_t * buffer;
 GLuint shader;
 mat4   model, view, projection;
-texture_font_t *font ;
+texture_font_t *font;
+map<Colour, vec4> colours;
 
 void reshape(GLFWwindow* window, int width, int height ) {
     int w, h;
@@ -42,18 +54,20 @@ void reshape(GLFWwindow* window, int width, int height ) {
     
 }
 
+
+
 void add_text(vertex_buffer_t * buffer, 
               texture_font_t * font,
               const string& apptext_s,
               float pos_x,
               float pos_y,
-              vec4 fg_color)
+              Colour colour)
 {
-
+    vec4 fg_color = colours[colour];
     wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
     const wchar_t * text = apptext.c_str();
 
-    vec2 position    = {{pos_x, pos_y}};
+    vec2 position = {{pos_x, pos_y}};
 
     size_t i;
     for( i=0; i<wcslen(text); ++i )
@@ -76,24 +90,27 @@ void add_text(vertex_buffer_t * buffer,
         float s1 = glyph->s1;
         float t1 = glyph->t1;
         GLuint index = buffer->vertices->size;
-        GLuint indices[] = {index, index+1, index+2,
-                            index, index+2, index+3};
-        vertex_t vertices[] = {
+        
+        GLuint indices[] = 
+        {
+            index, index+1, index+2,
+            index, index+2, index+3
+        };
+
+        vertex_t vertices[] = 
+        {
             { static_cast<float>(x0),y0,0,  s0,t0,  fg_color },
             { static_cast<float>(x0),y1,0,  s0,t1,  fg_color },
             { static_cast<float>(x1),y1,0,  s1,t1,  fg_color },
-            { static_cast<float>(x1),y0,0,  s1,t0,  fg_color } };
+            { static_cast<float>(x1),y0,0,  s1,t0,  fg_color } 
+        };
         vertex_buffer_push_back_indices( buffer, indices, 6 );
         vertex_buffer_push_back_vertices( buffer, vertices, 4 );
         position.x += glyph->advance_x;
     }
 }
 
-void drawText(){
-    vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
-    
-    add_text( buffer, font, "some text", 350, 650, text_colour );
-    
+void drawText() {   
     glUseProgram( shader );
     {
         glUniform1i( glGetUniformLocation( shader, "texture" ), 0 );
@@ -102,30 +119,41 @@ void drawText(){
         glUniformMatrix4fv( glGetUniformLocation( shader, "projection" ), 1, 0, projection.data);
         vertex_buffer_render( buffer, GL_TRIANGLES );
     }
+    glUseProgram(0);
     vertex_buffer_clear(buffer);
 }
 
 void setupFreetype() {
-
     atlas = texture_atlas_new( 1024, 1024, 1 );
-    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" ); 
+    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
 
+    colours = map<Colour, vec4>();
 
+    vec4 whiteV = {{1.0, 1.0, 1.0, 1.0}};
+    vec4 blackV = {{0.0, 0.0, 0.0, 1.0}};
+    vec4 redV   = {{1.0, 0.0, 0.0, 1.0}};
+    vec4 greenV = {{0.0, 1.0, 0.0, 1.0}};
+    vec4 blueV  = {{0.0, 0.0, 1.0, 1.0}};
+    colours.insert(make_pair(Colour::WHITE, whiteV));
+    colours.insert(make_pair(Colour::BLACK, blackV));
+    colours.insert(make_pair(Colour::RED,   redV));
+    colours.insert(make_pair(Colour::GREEN, greenV));
+    colours.insert(make_pair(Colour::BLUE,  blueV));
 
     // TODO: Load fonts at startup and store in map by name
     font = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
 
-
-
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
+
     mat4_set_identity( &projection );
     mat4_set_identity( &model );
     mat4_set_identity( &view );
 
 }
 
-int main(void) {  
+int main(void) 
+{  
     GLFWwindow* window;
     
     const int width=640, height=480;
@@ -157,6 +185,8 @@ int main(void) {
     reshape(window, width, height);
 
     Renderer r = Renderer();
+
+    // create something to draw
     Mesh squareMesh 
     {
         -10.0, 10.0,
@@ -165,12 +195,9 @@ int main(void) {
          10.0,-10.0
     };
     Entity e = Entity(320, 240, squareMesh);
-    
 
-
-    while (!glfwWindowShouldClose(window)) {
-        
-
+    while (!glfwWindowShouldClose(window)) 
+    {
         glClear(GL_COLOR_BUFFER_BIT);
         glClearColor(0.109803922, 0.109803922, 0.109803922, 1.0);
 
@@ -178,8 +205,12 @@ int main(void) {
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        glUseProgram(0);
+        vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
+        add_text( buffer, font, "some text", 350, 650, Colour::GREEN );
+        add_text( buffer, font, "more text", 0, 0, Colour::RED );
         r.draw(e);
+
+
         drawText();
         
         
