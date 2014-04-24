@@ -71,6 +71,16 @@ namespace GLHandler
         handleResize(window, width, height);
     }
 
+    bool isActive()
+    {
+        return !glfwWindowShouldClose(window);
+    }
+
+    void quit()
+    {
+        glfwTerminate();
+    }
+
     void draw()
     {
         glClear(GL_COLOR_BUFFER_BIT);

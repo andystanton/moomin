@@ -126,6 +126,5 @@ void FreeTypeRenderer::drawText(const string& text,
 
 void FreeTypeRenderer::handleResize(int width, int height)
 {
-    cout << "resized ftr" << endl;
     mat4_set_orthographic(&projection, 0, width, 0, height, -1, 1);
 }

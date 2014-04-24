@@ -1,20 +1,6 @@
-#include <cmath>
-#include <string>
-#include <map>
-
-#include <iostream>
-
-#include <stdio.h>
-#include <wchar.h>
-
-#include <freetype-gl.h>
-#include <GLFW/glfw3.h>
-
 #include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
-
-
 
 int main(void) 
 {  
@@ -39,13 +25,13 @@ int main(void)
     GLHandler::registerRenderer(&er);
     GLHandler::registerRenderer(&fr);
 
-    while (!glfwWindowShouldClose(GLHandler::window)) 
+    while (GLHandler::isActive()) 
     {
         fr.drawText("some text", 350, 650, FreeTypeRenderer::Font::ObelixPro, FreeTypeRenderer::Colour::GREEN);
         fr.drawText("more text",   0,   0, FreeTypeRenderer::Font::Vera, FreeTypeRenderer::Colour::RED);
         GLHandler::draw();
     }
     
-    glfwTerminate();
+    GLHandler::quit();
     return 0;
 }
