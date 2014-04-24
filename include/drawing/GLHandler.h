@@ -2,6 +2,7 @@
 #define _MOOMIN_GL_HANDLER
 
 #include <vector>
+#include <iostream>
 
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
@@ -9,6 +10,8 @@
 #include "drawing/Renderer.h"
 
 using std::vector;
+using std::cerr;
+using std::endl;
 
 namespace GLHandler
 {   
@@ -44,7 +47,7 @@ namespace GLHandler
         const int width=640, height=480;
 
         if (!glfwInit()) {
-            fprintf( stderr, "Error: Unable to initialise GLFW\n");
+            cerr << "Error: Unable to initialise GLFW" << endl;
             exit( EXIT_FAILURE );
         }
         glfwInit();
@@ -54,7 +57,7 @@ namespace GLHandler
         window = glfwCreateWindow(width, height, "Moomin", NULL, NULL);
         if (!window) {
             glfwTerminate();
-            fprintf( stderr, "Error: Unable to create GLFW Window\n");
+            cerr << "Error: Unable to create GLFW Window" << endl;
             exit( EXIT_FAILURE );
         }
         
@@ -64,7 +67,7 @@ namespace GLHandler
         GLenum err = glewInit();
         if (GLEW_OK != err)
         {
-            fprintf( stderr, "Error: %s\n", glewGetErrorString(err) );
+            cerr << "Error: Unable to initialise GLEW" << endl;
             exit( EXIT_FAILURE );
         }
 
