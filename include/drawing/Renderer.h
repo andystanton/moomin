@@ -4,6 +4,8 @@
 #include <string>
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
+
+#include "FreeTypeRenderer.h"
 #include "model/Entity.h"
 
 using std::unique_ptr;

@@ -79,7 +79,6 @@ void drawText(const string& apptext_s,
     texture_font_t * texture_font = fonts[font];
     wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
     const wchar_t * text = apptext.c_str();
-
     vec2 position = {{pos_x, pos_y}};
 
     size_t i;
@@ -242,7 +241,7 @@ int main(void)
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
         drawText( "some text", 350, 650, Font::ObelixPro, Colour::GREEN );
-        drawText( "more text", 0, 0, Font::Vera, Colour::RED );
+        drawText( "more text",   0,   0, Font::Vera, Colour::RED );
         r.draw(e);
 
 
