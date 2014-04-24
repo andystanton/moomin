@@ -69,26 +69,26 @@ void reshape(GLFWwindow* window, int width, int height)
     
 }
 
-void drawText(const string& apptext_s,
+void drawText(const string& text,
               float pos_x,
               float pos_y,
               Font font,
               Colour colour)
 {
+    vec2 position = {{pos_x, pos_y}};
     vec4 fg_color = colours[colour];
     texture_font_t * texture_font = fonts[font];
-    wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
-    const wchar_t * text = apptext.c_str();
-    vec2 position = {{pos_x, pos_y}};
+    wstring wstringText = wstring(text.begin(), text.end());
+    const wchar_t * wcharText = wstringText.c_str();
 
     size_t i;
-    for( i=0; i<wcslen(text); ++i )
+    for( i=0; i<wcslen(wcharText); ++i )
     {
-        texture_glyph_t *glyph = texture_font_get_glyph( texture_font, text[i] );
+        texture_glyph_t *glyph = texture_font_get_glyph( texture_font, wcharText[i] );
         float kerning = 0;
         if( i > 0)
         {
-            kerning = texture_glyph_get_kerning( glyph, text[i-1] );
+            kerning = texture_glyph_get_kerning( glyph, wcharText[i-1] );
         }
         position.x += kerning;
 

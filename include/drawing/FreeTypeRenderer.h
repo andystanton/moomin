@@ -62,5 +62,4 @@ private:
 
     void initTextColours();
     void initTextFonts();
-    
 };
