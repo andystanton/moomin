@@ -1,5 +1,5 @@
-#ifndef _MOOMIN_RENDERER
-#define _MOOMIN_RENDERER
+#ifndef _MOOMIN_ENTITY_RENDERER
+#define _MOOMIN_ENTITY_RENDERER
 
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
@@ -9,11 +9,11 @@
 using std::unique_ptr;
 using std::string;
 
-class Renderer
+class EntityRenderer
 {
 public:
-    Renderer();
-    ~Renderer();
+    EntityRenderer();
+    ~EntityRenderer();
  
     void draw() const;
     void draw(const Entity&) const;

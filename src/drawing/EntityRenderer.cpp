@@ -1,15 +1,15 @@
-#include "drawing/Renderer.h"
+#include "drawing/EntityRenderer.h"
 
-Renderer::Renderer()
+EntityRenderer::EntityRenderer()
 {
 }
 
-Renderer::~Renderer()
+EntityRenderer::~EntityRenderer()
 {
 
 }
 
-void Renderer::draw(const Entity& entity) const 
+void EntityRenderer::draw(const Entity& entity) const 
 {
     Mesh mesh = entity.getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());

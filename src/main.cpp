@@ -1,4 +1,4 @@
-#include "drawing/Renderer.h"
+#include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
 #include <cmath>
@@ -56,7 +56,7 @@ int main(void)
     }
     
 
-    Renderer r = Renderer();
+    EntityRenderer er = EntityRenderer();
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     reshape(window, width, height);
@@ -82,7 +82,7 @@ int main(void)
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        r.draw(e);
+        er.draw(e);
 
         fr.drawText( "some text", 350, 650, FreeTypeRenderer::Font::ObelixPro, FreeTypeRenderer::Colour::GREEN );
         fr.drawText( "more text",   0,   0, FreeTypeRenderer::Font::Vera, FreeTypeRenderer::Colour::RED );
