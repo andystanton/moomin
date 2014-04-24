@@ -3,9 +3,10 @@
 
 #include <string>
 #include <map>
-#include <iostream>
+#include <vector>
 
 #include "Renderer.h"
+#include "Text.h"
 
 #include <freetype-gl.h>
 #include <mat4.h>
@@ -16,32 +17,11 @@ using std::string;
 using std::wstring;
 using std::map;
 using std::make_pair;
-
-using std::cout;
-using std::endl;
+using std::vector;
 
 class FreeTypeRenderer : public Renderer
 {
 public:
-    enum class Colour 
-    {
-        WHITE,
-        BLACK,
-        RED,
-        GREEN,
-        BLUE
-    };
-
-    enum class Font 
-    {
-        ObelixPro,
-        Vera,
-        VeraMono,
-        VeraMonoBold,
-        VeraMonoItalic,
-        VeraMonoBoldItalic
-    };
-
     typedef struct 
     {
         float x, y, z;
@@ -52,11 +32,12 @@ public:
     FreeTypeRenderer();
     ~FreeTypeRenderer();
 
+    void addText(Text * text);
     void drawText(const string& text,
                   float pos_x,
                   float pos_y,
-                  Font font,
-                  Colour colour) const;
+                  Text::Font font,
+                  Text::Colour colour) const;
     void draw() const;
     void handleResize(int width, int height);
 
@@ -66,8 +47,10 @@ private:
     GLuint shader;
     mat4 model, view, projection;
 
-    map<Colour, vec4> colours;
-    map<Font, texture_font_t *> fonts;
+    map<Text::Colour, vec4> colours;
+    map<Text::Font, texture_font_t *> fonts;
+
+    vector<Text *> textEntries;
 
     void initTextColours();
     void initTextFonts();

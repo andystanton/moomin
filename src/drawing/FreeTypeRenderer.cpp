@@ -2,7 +2,7 @@
 
 void FreeTypeRenderer::initTextColours() 
 {
-    colours = map<Colour, vec4>();
+    colours = map<Text::Colour, vec4>();
 
     vec4 whiteV = {{1.0, 1.0, 1.0, 1.0}};
     vec4 blackV = {{0.0, 0.0, 0.0, 1.0}};
@@ -10,16 +10,16 @@ void FreeTypeRenderer::initTextColours()
     vec4 greenV = {{0.0, 1.0, 0.0, 1.0}};
     vec4 blueV  = {{0.0, 0.0, 1.0, 1.0}};
 
-    colours.insert(make_pair(Colour::WHITE, whiteV));
-    colours.insert(make_pair(Colour::BLACK, blackV));
-    colours.insert(make_pair(Colour::RED,   redV));
-    colours.insert(make_pair(Colour::GREEN, greenV));
-    colours.insert(make_pair(Colour::BLUE,  blueV));
+    colours.insert(make_pair(Text::Colour::WHITE, whiteV));
+    colours.insert(make_pair(Text::Colour::BLACK, blackV));
+    colours.insert(make_pair(Text::Colour::RED,   redV));
+    colours.insert(make_pair(Text::Colour::GREEN, greenV));
+    colours.insert(make_pair(Text::Colour::BLUE,  blueV));
 }
 
 void FreeTypeRenderer::initTextFonts() 
 {
-    fonts = map<Font, texture_font_t *>();
+    fonts = map<Text::Font, texture_font_t *>();
 
     texture_font_t * obelixPro = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
     texture_font_t * vera = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/Vera.ttf" );
@@ -28,16 +28,24 @@ void FreeTypeRenderer::initTextFonts()
     texture_font_t * veraMonoItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoIt.ttf" );
     texture_font_t * veraMonoBoldItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoBI.ttf" );
 
-    fonts.insert(make_pair(Font::ObelixPro, obelixPro));
-    fonts.insert(make_pair(Font::Vera, vera));
-    fonts.insert(make_pair(Font::VeraMono, veraMono));
-    fonts.insert(make_pair(Font::VeraMonoBold, veraMonoBold));
-    fonts.insert(make_pair(Font::VeraMonoItalic, veraMonoItalic));
-    fonts.insert(make_pair(Font::VeraMonoBoldItalic, veraMonoBoldItalic));
+    fonts.insert(make_pair(Text::Font::ObelixPro, obelixPro));
+    fonts.insert(make_pair(Text::Font::Vera, vera));
+    fonts.insert(make_pair(Text::Font::VeraMono, veraMono));
+    fonts.insert(make_pair(Text::Font::VeraMonoBold, veraMonoBold));
+    fonts.insert(make_pair(Text::Font::VeraMonoItalic, veraMonoItalic));
+    fonts.insert(make_pair(Text::Font::VeraMonoBoldItalic, veraMonoBoldItalic));
 }
 
 void FreeTypeRenderer::draw() const 
 {
+    for (auto text : textEntries)
+    {
+        drawText(text->getText(),
+            text->getX(),
+            text->getY(),
+            text->getFont(),
+            text->getColour());
+    }
     glUseProgram(shader);
     {
         glUniform1i(glGetUniformLocation(shader, "texture"), 0);
@@ -51,6 +59,7 @@ void FreeTypeRenderer::draw() const
 }
 
 FreeTypeRenderer::FreeTypeRenderer() 
+    : textEntries()
 {
     atlas = texture_atlas_new(1024, 1024, 1);
     buffer = vertex_buffer_new("vertex:3f,tex_coord:2f,color:4f");
@@ -71,11 +80,16 @@ FreeTypeRenderer::~FreeTypeRenderer()
 
 }
 
+void FreeTypeRenderer::addText(Text * text)
+{
+    textEntries.push_back(text);
+}
+
 void FreeTypeRenderer::drawText(const string& text,
                                 float pos_x,
                                 float pos_y,
-                                Font font,
-                                Colour colour) const
+                                Text::Font font,
+                                Text::Colour colour) const
 {
     vec2 position = {{pos_x, pos_y}};
     vec4 fg_color = colours.at(colour);
@@ -84,7 +98,7 @@ void FreeTypeRenderer::drawText(const string& text,
     const wchar_t * wcharText = wstringText.c_str();
 
     size_t i;
-    for( i=0; i<wcslen(wcharText); ++i )
+    for(i = 0; i < wcslen(wcharText); ++i)
     {
         texture_glyph_t *glyph = texture_font_get_glyph( texture_font, wcharText[i] );
         float kerning = 0;
