@@ -37,14 +37,14 @@ void FreeTypeRenderer::initTextFonts()
 }
 
 void FreeTypeRenderer::draw() const 
-{   
-    glUseProgram( shader );
+{
+    glUseProgram(shader);
     {
-        glUniform1i( glGetUniformLocation( shader, "texture" ), 0 );
-        glUniformMatrix4fv( glGetUniformLocation( shader, "model" ), 1, 0, model.data);
-        glUniformMatrix4fv( glGetUniformLocation( shader, "view" ), 1, 0, view.data);
-        glUniformMatrix4fv( glGetUniformLocation( shader, "projection" ), 1, 0, projection.data);
-        vertex_buffer_render( buffer, GL_TRIANGLES );
+        glUniform1i(glGetUniformLocation(shader, "texture"), 0);
+        glUniformMatrix4fv(glGetUniformLocation(shader, "model"), 1, 0, model.data);
+        glUniformMatrix4fv(glGetUniformLocation(shader, "view"), 1, 0, view.data);
+        glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, 0, projection.data);
+        vertex_buffer_render(buffer, GL_TRIANGLES);
     }
     glUseProgram(0);
     vertex_buffer_clear(buffer);
@@ -52,15 +52,15 @@ void FreeTypeRenderer::draw() const
 
 FreeTypeRenderer::FreeTypeRenderer() 
 {
-    atlas = texture_atlas_new( 1024, 1024, 1 );
-    buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
+    atlas = texture_atlas_new(1024, 1024, 1);
+    buffer = vertex_buffer_new("vertex:3f,tex_coord:2f,color:4f");
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
 
-    mat4_set_identity( &projection );
-    mat4_set_identity( &model );
-    mat4_set_identity( &view );
+    mat4_set_identity(&projection);
+    mat4_set_identity(&model);
+    mat4_set_identity(&view);
 
     initTextFonts();
     initTextColours();
@@ -95,10 +95,10 @@ void FreeTypeRenderer::drawText(const string& text,
         position.x += kerning;
 
         /* Actual glyph */
-        float x0  = ( position.x + glyph->offset_x );
-        float y0  = static_cast<float>( position.y + glyph->offset_y );
-        float x1  = ( x0 + glyph->width );
-        float y1  = static_cast<float>( y0 - glyph->height );
+        float x0 = (position.x + glyph->offset_x);
+        float y0 = static_cast<float>(position.y + glyph->offset_y);
+        float x1 = (x0 + glyph->width);
+        float y1 = static_cast<float>(y0 - glyph->height);
         float s0 = glyph->s0;
         float t0 = glyph->t0;
         float s1 = glyph->s1;
@@ -124,7 +124,8 @@ void FreeTypeRenderer::drawText(const string& text,
     }
 }
 
-void FreeTypeRenderer::reshapeEvent(int width, int height)
+void FreeTypeRenderer::handleResize(int width, int height)
 {
+    cout << "resized ftr" << endl;
     mat4_set_orthographic(&projection, 0, width, 0, height, -1, 1);
 }

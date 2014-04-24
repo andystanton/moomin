@@ -38,3 +38,8 @@ void EntityRenderer::draw(const Entity* entity) const
         glEnd();
     glPopMatrix();
 }
+
+void EntityRenderer::handleResize(int width, int height)
+{
+    
+}

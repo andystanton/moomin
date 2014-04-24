@@ -3,6 +3,9 @@
 
 #include <string>
 #include <map>
+#include <iostream>
+
+#include "Renderer.h"
 
 #include <freetype-gl.h>
 #include <mat4.h>
@@ -14,7 +17,10 @@ using std::wstring;
 using std::map;
 using std::make_pair;
 
-class FreeTypeRenderer
+using std::cout;
+using std::endl;
+
+class FreeTypeRenderer : public Renderer
 {
 public:
     enum class Colour 
@@ -52,7 +58,7 @@ public:
                   Font font,
                   Colour colour) const;
     void draw() const;
-    void reshapeEvent(int width, int height);
+    void handleResize(int width, int height);
 
 private:
     texture_atlas_t * atlas;

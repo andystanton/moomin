@@ -3,6 +3,8 @@
 
 #include <vector>
 
+#include "Renderer.h"
+
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
 
@@ -11,7 +13,7 @@
 using std::unique_ptr;
 using std::vector;
 
-class EntityRenderer
+class EntityRenderer : public Renderer
 {
 public:
     EntityRenderer(vector<Entity *> *);
@@ -21,6 +23,7 @@ public:
 private:
     vector<Entity *> * entities;
     void draw(const Entity *) const;
+    void handleResize(int width, int height);
 };
 
 #endif
