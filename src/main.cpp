@@ -45,11 +45,15 @@ void reshape(GLFWwindow* window, int width, int height ) {
 void add_text(vertex_buffer_t * buffer, 
               texture_font_t * font,
               const string& apptext_s,
-              vec2 position,
+              float pos_x,
+              float pos_y,
               vec4 fg_color)
 {
+
     wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
     const wchar_t * text = apptext.c_str();
+
+    vec2 position    = {{pos_x, pos_y}};
 
     size_t i;
     for( i=0; i<wcslen(text); ++i )
@@ -86,10 +90,9 @@ void add_text(vertex_buffer_t * buffer,
 }
 
 void drawText(){
-    vec2 position    = {{350, 650}};
     vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
     
-    add_text( buffer, font, "some text", position, text_colour );
+    add_text( buffer, font, "some text", 350, 650, text_colour );
     
     glUseProgram( shader );
     {
@@ -106,6 +109,10 @@ void setupFreetype() {
 
     atlas = texture_atlas_new( 1024, 1024, 1 );
     buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" ); 
+
+
+
+    // TODO: Load fonts at startup and store in map by name
     font = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
 
 
