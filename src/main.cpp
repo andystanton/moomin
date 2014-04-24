@@ -54,9 +54,10 @@ int main(void)
         fprintf( stderr, "Error: %s\n", glewGetErrorString(err) );
         exit( EXIT_FAILURE );
     }
-    
 
-    EntityRenderer er = EntityRenderer();
+    vector<Entity *> * entities = new vector<Entity *>();
+
+    EntityRenderer er = EntityRenderer(entities);
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     reshape(window, width, height);
@@ -71,7 +72,8 @@ int main(void)
          10.0, 10.0,
          10.0,-10.0
     };
-    Entity e = Entity(320, 240, squareMesh);
+    Entity e = Entity(320, 240, squareMesh);    
+    entities->push_back(&e);
 
     while (!glfwWindowShouldClose(window)) 
     {
@@ -82,7 +84,7 @@ int main(void)
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        er.draw(e);
+        er.draw();
 
         fr.drawText( "some text", 350, 650, FreeTypeRenderer::Font::ObelixPro, FreeTypeRenderer::Colour::GREEN );
         fr.drawText( "more text",   0,   0, FreeTypeRenderer::Font::Vera, FreeTypeRenderer::Colour::RED );

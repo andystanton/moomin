@@ -9,7 +9,7 @@ public:
     System();
     ~System();
 private:
-    EntityRenderer renderer;
+    //EntityRenderer renderer;
 };
 
 #endif

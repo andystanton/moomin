@@ -1,7 +1,8 @@
 #include "drawing/EntityRenderer.h"
 
-EntityRenderer::EntityRenderer()
+EntityRenderer::EntityRenderer(vector<Entity *> * entities)
 {
+    this->entities = entities;
 }
 
 EntityRenderer::~EntityRenderer()
@@ -9,9 +10,17 @@ EntityRenderer::~EntityRenderer()
 
 }
 
-void EntityRenderer::draw(const Entity& entity) const 
+void EntityRenderer::draw() const
 {
-    Mesh mesh = entity.getMesh();
+    for (auto entity : *entities)
+    {
+        draw(entity);
+    }
+}
+
+void EntityRenderer::draw(const Entity* entity) const 
+{
+    Mesh mesh = entity->getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());
 
     int mode = GL_TRIANGLE_STRIP;
@@ -19,10 +28,11 @@ void EntityRenderer::draw(const Entity& entity) const
         mode = GL_QUAD_STRIP;
     }
     glPushMatrix();
-        glTranslatef(entity.getPos().getX(), entity.getPos().getY(), 0);
+        glTranslatef(entity->getPos().getX(), entity->getPos().getY(), 0);
         glBegin(mode);
             glColor3f(0.f, 1.f, 0.f);
-            for(int i = 0; i < mesh.getSize(); i+=2) {
+            for(int i = 0; i < mesh.getSize(); i+=2) 
+            {
                 glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
             }
         glEnd();
