@@ -19,13 +19,15 @@ using std::wstring;
 using std::map;
 using std::make_pair;
 
-typedef struct {
+typedef struct 
+{
     float x, y, z;
     float u, v;
     vec4 color;
 } vertex_t;
 
-enum class Colour {
+enum class Colour 
+{
     WHITE,
     BLACK,
     RED,
@@ -33,14 +35,27 @@ enum class Colour {
     BLUE
 };
 
+enum class Font 
+{
+    ObelixPro,
+    Vera,
+    VeraMono,
+    VeraMonoBold,
+    VeraMonoItalic,
+    VeraMonoBoldItalic
+};
+
 texture_atlas_t * atlas;
 vertex_buffer_t * buffer;
 GLuint shader;
 mat4   model, view, projection;
-texture_font_t *font;
-map<Colour, vec4> colours;
 
-void reshape(GLFWwindow* window, int width, int height ) {
+// TODO: Hide this implementation from drawing code
+map<Colour, vec4> colours;
+map<Font, texture_font_t *> fonts;
+
+void reshape(GLFWwindow* window, int width, int height) 
+{
     int w, h;
     glfwGetFramebufferSize(window, &w, &h);
     glViewport(0, 0, w, h);
@@ -54,16 +69,15 @@ void reshape(GLFWwindow* window, int width, int height ) {
     
 }
 
-
-
-void add_text(vertex_buffer_t * buffer, 
-              texture_font_t * font,
+void add_text(vertex_buffer_t * buffer,
               const string& apptext_s,
               float pos_x,
               float pos_y,
+              Font font,
               Colour colour)
 {
     vec4 fg_color = colours[colour];
+    texture_font_t * texture_font = fonts[font];
     wstring apptext = wstring(apptext_s.begin(), apptext_s.end());
     const wchar_t * text = apptext.c_str();
 
@@ -72,7 +86,7 @@ void add_text(vertex_buffer_t * buffer,
     size_t i;
     for( i=0; i<wcslen(text); ++i )
     {
-        texture_glyph_t *glyph = texture_font_get_glyph( font, text[i] );
+        texture_glyph_t *glyph = texture_font_get_glyph( texture_font, text[i] );
         float kerning = 0;
         if( i > 0)
         {
@@ -128,20 +142,34 @@ void setupFreetype() {
     buffer = vertex_buffer_new( "vertex:3f,tex_coord:2f,color:4f" );
 
     colours = map<Colour, vec4>();
+    fonts = map<Font, texture_font_t *>();
 
     vec4 whiteV = {{1.0, 1.0, 1.0, 1.0}};
     vec4 blackV = {{0.0, 0.0, 0.0, 1.0}};
     vec4 redV   = {{1.0, 0.0, 0.0, 1.0}};
     vec4 greenV = {{0.0, 1.0, 0.0, 1.0}};
     vec4 blueV  = {{0.0, 0.0, 1.0, 1.0}};
+
     colours.insert(make_pair(Colour::WHITE, whiteV));
     colours.insert(make_pair(Colour::BLACK, blackV));
     colours.insert(make_pair(Colour::RED,   redV));
     colours.insert(make_pair(Colour::GREEN, greenV));
     colours.insert(make_pair(Colour::BLUE,  blueV));
 
-    // TODO: Load fonts at startup and store in map by name
-    font = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
+    texture_font_t * obelixPro = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
+    texture_font_t * vera = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/Vera.ttf" );
+    texture_font_t * veraMono = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
+    texture_font_t * veraMonoBold = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoBd.ttf" );
+    texture_font_t * veraMonoItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoIt.ttf" );
+    texture_font_t * veraMonoBoldItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoBI.ttf" );
+
+    fonts.insert(make_pair(Font::ObelixPro, obelixPro));
+    fonts.insert(make_pair(Font::Vera, vera));
+    fonts.insert(make_pair(Font::VeraMono, veraMono));
+    fonts.insert(make_pair(Font::VeraMonoBold, veraMonoBold));
+    fonts.insert(make_pair(Font::VeraMonoItalic, veraMonoItalic));
+    fonts.insert(make_pair(Font::VeraMonoBoldItalic, veraMonoBoldItalic));
+
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
                          "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
@@ -205,9 +233,8 @@ int main(void)
         glEnable( GL_BLEND );
         glBlendFunc( GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA );
 
-        vec4 text_colour  = {{0.2, 1.0, 0.2, 1.0}};
-        add_text( buffer, font, "some text", 350, 650, Colour::GREEN );
-        add_text( buffer, font, "more text", 0, 0, Colour::RED );
+        add_text( buffer, "some text", 350, 650, Font::ObelixPro, Colour::GREEN );
+        add_text( buffer, "more text", 0, 0, Font::Vera, Colour::RED );
         r.draw(e);
 
 
