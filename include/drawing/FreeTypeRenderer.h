@@ -1,3 +1,6 @@
+#ifndef _MOOMIN_FREETYPE_RENDERER
+#define _MOOMIN_FREETYPE_RENDERER
+
 #include <string>
 #include <map>
 
@@ -47,9 +50,9 @@ public:
                   float pos_x,
                   float pos_y,
                   Font font,
-                  Colour colour);
-
-    void renderText();
+                  Colour colour) const;
+    void draw() const;
+    void reshapeEvent(int width, int height);
 
 private:
     texture_atlas_t * atlas;
@@ -63,3 +66,5 @@ private:
     void initTextColours();
     void initTextFonts();
 };
+
+#endif

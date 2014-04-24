@@ -2,7 +2,6 @@
 
 Renderer::Renderer()
 {
-
 }
 
 Renderer::~Renderer()
@@ -10,7 +9,8 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::draw(const Entity& entity) const {
+void Renderer::draw(const Entity& entity) const 
+{
     Mesh mesh = entity.getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());
 
@@ -27,8 +27,4 @@ void Renderer::draw(const Entity& entity) const {
             }
         glEnd();
     glPopMatrix();
-}
-
-void Renderer::writeText(const string& text) const {
-
 }
