@@ -3,6 +3,8 @@
 
 #include <string>
 
+#include "drawing/FontProvider.h"
+
 using std::string;
 
 class Text
@@ -17,32 +19,25 @@ public:
         BLUE
     };
 
-    enum class Font 
-    {
-        ObelixPro,
-        Vera,
-        VeraMono,
-        VeraMonoBold,
-        VeraMonoItalic,
-        VeraMonoBoldItalic
-    };
-
     Text(const string& text, 
-         int x, 
-         int y, 
-         Font, 
+         float x, 
+         float y, 
+         FontProvider::FontFamily, 
+         int size,
          Colour);
     ~Text();
 
     const string& getText();
-    int getX();
-    int getY();
-    Font getFont();
+    float getX();
+    float getY();
+    FontProvider::FontFamily getFontFamily();
+    int getSize();
     Colour getColour();
 private:
     const string& text;
-    int x, y;
-    Font font;
+    float x, y;
+    int size;
+    FontProvider::FontFamily font;
     Colour colour;
 };
 

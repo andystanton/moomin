@@ -17,25 +17,6 @@ void FreeTypeRenderer::initTextColours()
     colours.insert(make_pair(Text::Colour::BLUE,  blueV));
 }
 
-void FreeTypeRenderer::initTextFonts() 
-{
-    fonts = map<Text::Font, texture_font_t *>();
-
-    texture_font_t * obelixPro = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/ObelixPro.ttf" );
-    texture_font_t * vera = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/Vera.ttf" );
-    texture_font_t * veraMono = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMono.ttf" );
-    texture_font_t * veraMonoBold = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoBd.ttf" );
-    texture_font_t * veraMonoItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoIt.ttf" );
-    texture_font_t * veraMonoBoldItalic = texture_font_new_from_file( atlas, 128, "lib/freetype-gl/fonts/VeraMoBI.ttf" );
-
-    fonts.insert(make_pair(Text::Font::ObelixPro, obelixPro));
-    fonts.insert(make_pair(Text::Font::Vera, vera));
-    fonts.insert(make_pair(Text::Font::VeraMono, veraMono));
-    fonts.insert(make_pair(Text::Font::VeraMonoBold, veraMonoBold));
-    fonts.insert(make_pair(Text::Font::VeraMonoItalic, veraMonoItalic));
-    fonts.insert(make_pair(Text::Font::VeraMonoBoldItalic, veraMonoBoldItalic));
-}
-
 void FreeTypeRenderer::draw() const 
 {
     for (auto text : textEntries)
@@ -43,7 +24,8 @@ void FreeTypeRenderer::draw() const
         drawText(text->getText(),
             text->getX(),
             text->getY(),
-            text->getFont(),
+            text->getFontFamily(),
+            text->getSize(),
             text->getColour());
     }
     glUseProgram(shader);
@@ -61,7 +43,6 @@ void FreeTypeRenderer::draw() const
 FreeTypeRenderer::FreeTypeRenderer() 
     : textEntries()
 {
-    atlas = texture_atlas_new(1024, 1024, 1);
     buffer = vertex_buffer_new("vertex:3f,tex_coord:2f,color:4f");
 
     shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
@@ -71,13 +52,14 @@ FreeTypeRenderer::FreeTypeRenderer()
     mat4_set_identity(&model);
     mat4_set_identity(&view);
 
-    initTextFonts();
     initTextColours();
+
+    fontProvider = FontProvider::getInstance();
 }
 
 FreeTypeRenderer::~FreeTypeRenderer() 
 {
-
+    FontProvider::destroyInstance();
 }
 
 void FreeTypeRenderer::addText(Text * text)
@@ -88,23 +70,25 @@ void FreeTypeRenderer::addText(Text * text)
 void FreeTypeRenderer::drawText(const string& text,
                                 float pos_x,
                                 float pos_y,
-                                Text::Font font,
+                                FontProvider::FontFamily fontFamily,
+                                int fontSize,
                                 Text::Colour colour) const
 {
     vec2 position = {{pos_x, pos_y}};
     vec4 fg_color = colours.at(colour);
-    texture_font_t * texture_font = fonts.at(font);
     wstring wstringText = wstring(text.begin(), text.end());
     const wchar_t * wcharText = wstringText.c_str();
+
+    texture_font_t * texture_font = fontProvider->getFont(fontFamily, fontSize);
 
     size_t i;
     for(i = 0; i < wcslen(wcharText); ++i)
     {
-        texture_glyph_t *glyph = texture_font_get_glyph( texture_font, wcharText[i] );
+        texture_glyph_t *glyph = texture_font_get_glyph(texture_font, wcharText[i]);
         float kerning = 0;
         if( i > 0)
         {
-            kerning = texture_glyph_get_kerning( glyph, wcharText[i-1] );
+            kerning = texture_glyph_get_kerning(glyph, wcharText[i-1]);
         }
         position.x += kerning;
 
@@ -127,13 +111,13 @@ void FreeTypeRenderer::drawText(const string& text,
 
         vertex_t vertices[] = 
         {
-            { static_cast<float>(x0),y0,0,  s0,t0,  fg_color },
-            { static_cast<float>(x0),y1,0,  s0,t1,  fg_color },
-            { static_cast<float>(x1),y1,0,  s1,t1,  fg_color },
-            { static_cast<float>(x1),y0,0,  s1,t0,  fg_color } 
+            { static_cast<float>(x0), y0, 0,  s0, t0, fg_color },
+            { static_cast<float>(x0), y1, 0,  s0, t1, fg_color },
+            { static_cast<float>(x1), y1, 0,  s1, t1, fg_color },
+            { static_cast<float>(x1), y0, 0,  s1, t0, fg_color } 
         };
-        vertex_buffer_push_back_indices( buffer, indices, 6 );
-        vertex_buffer_push_back_vertices( buffer, vertices, 4 );
+        vertex_buffer_push_back_indices(buffer, indices, 6);
+        vertex_buffer_push_back_vertices(buffer, vertices, 4);
         position.x += glyph->advance_x;
     }
 }
