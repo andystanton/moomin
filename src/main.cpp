@@ -30,8 +30,12 @@ int main(void)
 
     Text t1 = Text("some text", 350, 650, FontProvider::FontFamily::ObelixPro, 16, Text::Colour::GREEN);
     Text t2 = Text("more text",   0,   0, FontProvider::FontFamily::Vera,      64, Text::Colour::RED);
+    Text t3 = Text("some text", 350, 600, FontProvider::FontFamily::ObelixPro, 32, Text::Colour::GREEN);
+    Text t4 = Text("some text", 350, 500, FontProvider::FontFamily::ObelixPro, 64, Text::Colour::GREEN);
     fr.addText(&t1);
     fr.addText(&t2);
+    fr.addText(&t3);
+    fr.addText(&t4);
 
     while (GLHandler::isActive()) 
     {
