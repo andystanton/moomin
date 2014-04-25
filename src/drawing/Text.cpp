@@ -1,14 +1,16 @@
 #include "drawing/Text.h"
 
 Text::Text(const string& text, 
-           int x, 
-           int y, 
-           Font font, 
+           float x, 
+           float y, 
+           FontProvider::FontFamily font, 
+           int size,
            Colour colour)
     : text(text)
     , x(x)
     , y(y)
     , font(font)
+    , size(size)
     , colour(colour)
 {
 }
@@ -23,17 +25,22 @@ const string& Text::getText()
     return text;
 }
 
-int Text::getX()
+float Text::getX()
 {
     return x;
 }
 
-int Text::getY()
+float Text::getY()
 {
     return y;
 }
 
-Text::Font Text::getFont()
+int Text::getSize()
+{
+    return size;
+}
+
+FontProvider::FontFamily Text::getFontFamily()
 {
     return font;
 }

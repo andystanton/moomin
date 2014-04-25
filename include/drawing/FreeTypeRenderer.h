@@ -5,6 +5,7 @@
 #include <map>
 #include <vector>
 
+#include "FontProvider.h"
 #include "Renderer.h"
 #include "Text.h"
 
@@ -33,27 +34,20 @@ public:
     ~FreeTypeRenderer();
 
     void addText(Text * text);
-    void drawText(const string& text,
-                  float pos_x,
-                  float pos_y,
-                  Text::Font font,
-                  Text::Colour colour) const;
     void draw() const;
     void handleResize(int width, int height);
 
 private:
-    texture_atlas_t * atlas;
     vertex_buffer_t * buffer;
     GLuint shader;
     mat4 model, view, projection;
 
     map<Text::Colour, vec4> colours;
-    map<Text::Font, texture_font_t *> fonts;
 
     vector<Text *> textEntries;
 
     void initTextColours();
-    void initTextFonts();
+    void drawText(Text *) const;
 };
 
 #endif
