@@ -63,8 +63,8 @@ void FreeTypeRenderer::addText(Text * text)
 void FreeTypeRenderer::drawText(Text * text) const
 {
     const string& content = text->getText();
-    float pos_x = text->getX();
-    float pos_y = text->getY();
+    float pos_x = text->getX()*2;
+    float pos_y = text->getY()*2;
     FontProvider::FontFamily fontFamily = text->getFontFamily();
     int fontSize = text->getSize();
     Text::Colour colour = text->getColour();

@@ -19,6 +19,11 @@ namespace GLHandler
     vector<Renderer *> renderers;
     int width, height;
 
+    float lastUpdate = 0;
+    int frameCount = 0;
+
+    float fps;
+
     void registerRenderer(Renderer * renderer)
     {
         renderers.push_back(renderer);
@@ -84,6 +89,11 @@ namespace GLHandler
         glfwTerminate();
     }
 
+    float getFps()
+    {
+        return fps;
+    }
+
     void draw()
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -92,6 +102,17 @@ namespace GLHandler
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+        frameCount++;
+        float currentTime = glfwGetTime();
+
+        if (currentTime - lastUpdate >= 0.5)
+        {
+            fps = frameCount / (currentTime - lastUpdate);
+            std::cout << frameCount / (currentTime - lastUpdate)  << "fps" << endl;
+            lastUpdate = currentTime;
+            frameCount = 0;
+        }
 
         for (auto renderer : renderers)
         {

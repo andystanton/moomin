@@ -4,6 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <iostream>
 
 #include "FontProvider.h"
 #include "Renderer.h"

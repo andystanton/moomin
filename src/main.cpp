@@ -1,9 +1,14 @@
+#include <sstream>
+#include <iomanip>
+
 #include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
 #include "drawing/Text.h"
 #include "drawing/FontProvider.h"
+
+using namespace std;
 
 int main(void) 
 {  
@@ -28,10 +33,10 @@ int main(void)
     Entity e = Entity(320, 240, squareMesh);    
     entities->push_back(&e);
 
-    Text t1 = Text("some text", 350, 650, FontProvider::FontFamily::ObelixPro, 16, Text::Colour::GREEN);
-    Text t2 = Text("more text",   0,   0, FontProvider::FontFamily::Vera,      64, Text::Colour::RED);
-    Text t3 = Text("some text", 350, 600, FontProvider::FontFamily::ObelixPro, 32, Text::Colour::GREEN);
-    Text t4 = Text("some text", 350, 500, FontProvider::FontFamily::ObelixPro, 64, Text::Colour::GREEN);
+    Text t1 = Text("some text", 350, 350, FontProvider::FontFamily::ObelixPro, 8, Text::Colour::GREEN);
+    Text t2 = Text("more text",   0,   0, FontProvider::FontFamily::Vera,      32, Text::Colour::RED);
+    Text t3 = Text("some text", 350, 300, FontProvider::FontFamily::ObelixPro, 16, Text::Colour::GREEN);
+    Text t4 = Text("some text", 350, 200, FontProvider::FontFamily::ObelixPro, 32, Text::Colour::GREEN);
     fr.addText(&t1);
     fr.addText(&t2);
     fr.addText(&t3);
@@ -39,6 +44,11 @@ int main(void)
 
     while (GLHandler::isActive()) 
     {
+        std::stringstream fpsStream;
+        fpsStream << std::setprecision(1) << std::fixed << GLHandler::getFps();
+        Text fpsText = Text(fpsStream.str(), 600, 465, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+        fr.addText(&fpsText);
+
         GLHandler::draw();
     }
     
