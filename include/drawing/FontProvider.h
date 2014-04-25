@@ -23,13 +23,18 @@ public:
         VeraMonoBoldItalic
     };
 
-    static FontProvider * getInstance();
-    static void destroyInstance();
-
     texture_font_t * getFont(FontProvider::FontFamily, int size);
 
-private:
+    static FontProvider & getInstance()
+    {
+        static FontProvider fontProvider;
+        return fontProvider;
+    }
+
+protected:
     FontProvider();
+    FontProvider(const FontProvider&);
+    FontProvider& operator=(const FontProvider&); 
     ~FontProvider();
     
     void initFontLocations();
@@ -38,8 +43,6 @@ private:
     map<FontProvider::FontFamily, string> fontLocations;
     map<FontProvider::FontFamily, map<int, texture_font_t *>> fontMap;
     texture_atlas_t * atlas;
-
-    static FontProvider * singleton;
 };
 
 #endif

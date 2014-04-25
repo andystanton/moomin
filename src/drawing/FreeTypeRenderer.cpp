@@ -21,12 +21,7 @@ void FreeTypeRenderer::draw() const
 {
     for (auto text : textEntries)
     {
-        drawText(text->getText(),
-            text->getX(),
-            text->getY(),
-            text->getFontFamily(),
-            text->getSize(),
-            text->getColour());
+        drawText(text);
     }
     glUseProgram(shader);
     {
@@ -53,13 +48,11 @@ FreeTypeRenderer::FreeTypeRenderer()
     mat4_set_identity(&view);
 
     initTextColours();
-
-    fontProvider = FontProvider::getInstance();
 }
 
 FreeTypeRenderer::~FreeTypeRenderer() 
 {
-    FontProvider::destroyInstance();
+
 }
 
 void FreeTypeRenderer::addText(Text * text)
@@ -67,19 +60,21 @@ void FreeTypeRenderer::addText(Text * text)
     textEntries.push_back(text);
 }
 
-void FreeTypeRenderer::drawText(const string& text,
-                                float pos_x,
-                                float pos_y,
-                                FontProvider::FontFamily fontFamily,
-                                int fontSize,
-                                Text::Colour colour) const
+void FreeTypeRenderer::drawText(Text * text) const
 {
+    const string& content = text->getText();
+    float pos_x = text->getX();
+    float pos_y = text->getY();
+    FontProvider::FontFamily fontFamily = text->getFontFamily();
+    int fontSize = text->getSize();
+    Text::Colour colour = text->getColour();
+
     vec2 position = {{pos_x, pos_y}};
     vec4 fg_color = colours.at(colour);
-    wstring wstringText = wstring(text.begin(), text.end());
+    wstring wstringText = wstring(content.begin(), content.end());
     const wchar_t * wcharText = wstringText.c_str();
 
-    texture_font_t * texture_font = fontProvider->getFont(fontFamily, fontSize);
+    texture_font_t * texture_font = FontProvider::getInstance().getFont(fontFamily, fontSize);
 
     size_t i;
     for(i = 0; i < wcslen(wcharText); ++i)

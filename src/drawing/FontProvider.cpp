@@ -13,26 +13,6 @@ FontProvider::~FontProvider()
     // TODO: delete fonts
 }
 
-FontProvider * FontProvider::singleton = nullptr;
-
-FontProvider * FontProvider::getInstance()
-{
-    if (singleton == nullptr)
-    {
-        singleton = new FontProvider();
-    }
-    return singleton;
-}
-
-void FontProvider::destroyInstance()
-{
-    if (singleton != nullptr)
-    {
-        delete singleton;
-        singleton = nullptr;
-    }
-}
-
 texture_font_t * FontProvider::getFont(FontProvider::FontFamily family, int size)
 {
     texture_font_t * font;

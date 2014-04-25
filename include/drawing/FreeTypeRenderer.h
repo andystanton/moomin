@@ -46,15 +46,8 @@ private:
 
     vector<Text *> textEntries;
 
-    FontProvider * fontProvider;
-
     void initTextColours();
-    void drawText(const string& text,
-                  float x,
-                  float y,
-                  FontProvider::FontFamily fontFamily,
-                  int size,
-                  Text::Colour colour) const;
+    void drawText(Text *) const;
 };
 
 #endif
