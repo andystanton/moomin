@@ -16,6 +16,43 @@ SET (APPLICATION_VENDOR_NAME "Cyniq")
 SET (APPLICATION_VENDOR_URL "cyniq.com")
 SET (APPLICATION_ID "${APPLICATION_VENDOR_ID}.${PROJECT_NAME}")
 
+
+# Copy files from source directory to destination directory, substituting any
+# variables.  Create destination directory if it does not exist.
+
+macro(configure_files srcDir destDir)
+    message(STATUS "Configuring directory ${destDir}")
+    make_directory(${destDir})
+
+    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+    foreach(templateFile ${templateFiles})
+        set(srcTemplatePath ${srcDir}/${templateFile})
+        if(NOT IS_DIRECTORY ${srcTemplatePath})
+            message(STATUS "Configuring file ${templateFile}")
+            configure_file(
+                    ${srcTemplatePath}
+                    ${destDir}/${templateFile}
+                    @ONLY)
+        endif(NOT IS_DIRECTORY ${srcTemplatePath})
+    endforeach(templateFile)
+endmacro(configure_files)
+
+# Copy directory only
+
+macro(copy_files srcDir destDir)
+    message(STATUS "Copying directory ${destDir}")
+    make_directory(${destDir})
+
+    file(GLOB templateFiles RELATIVE ${srcDir} ${srcDir}/*)
+    foreach(templateFile ${templateFiles})
+        set(srcTemplatePath ${srcDir}/${templateFile})
+        if(NOT IS_DIRECTORY ${srcTemplatePath})
+            message(STATUS "Copying file ${templateFile}")
+            file(COPY ${srcTemplatePath} DESTINATION ${destDir})
+        endif(NOT IS_DIRECTORY ${srcTemplatePath})
+    endforeach(templateFile)
+endmacro(copy_files)
+
 #
 # Debugging Options
 #
@@ -99,6 +136,10 @@ set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
 #
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
+
+
+copy_files("${MAINFOLDER}/lib/freetype-gl/shaders" "${MAINFOLDER}/bin/lib/freetype-gl/shaders")
+copy_files("${MAINFOLDER}/lib/freetype-gl/fonts" "${MAINFOLDER}/bin/lib/freetype-gl/fonts")
 
 #
 # Add Install Targets
