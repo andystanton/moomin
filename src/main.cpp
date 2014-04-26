@@ -1,6 +1,3 @@
-#include <sstream>
-#include <iomanip>
-
 #include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
@@ -20,7 +17,7 @@ int main(void)
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     GLHandler::registerRenderer(&er);
-    GLHandler::registerRenderer(&fr);
+    GLHandler::setFreeTypeRenderer(&fr);
 
     // create something to draw
     Mesh squareMesh 
@@ -44,11 +41,6 @@ int main(void)
 
     while (GLHandler::isActive()) 
     {
-        std::stringstream fpsStream;
-        fpsStream << std::setprecision(1) << std::fixed << GLHandler::getFps();
-        Text fpsText = Text(fpsStream.str(), 600, 465, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
-        fr.addText(&fpsText);
-
         GLHandler::draw();
     }
     
