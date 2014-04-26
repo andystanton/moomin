@@ -9,7 +9,7 @@ using namespace std;
 
 int main(void) 
 {  
-    GLHandler::init("Moomin Engine v1.0");
+    GLHandler::init("Moomin Engine v1.0", 640, 480);
 
     vector<Entity *> * entities = new vector<Entity *>();
 

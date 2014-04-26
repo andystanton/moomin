@@ -56,7 +56,7 @@ namespace GLHandler
         registerRenderer(freeTypeRenderer);
 
         fpsText = new Text(fpsToOneDP(), width/2 - 42, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
-        titleText = new Text(title, 3, 465, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+        titleText = new Text(title, 4, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
 
         freeTypeRenderer->addText(titleText);
         freeTypeRenderer->addText(fpsText);
@@ -79,9 +79,8 @@ namespace GLHandler
         }
     }
 
-    void init(const string& newTitle) 
+    void init(const string& newTitle, int width, int height) 
     {   
-        const int width=640, height=480;
         title = string(newTitle);
 
         if (!glfwInit()) {
@@ -92,7 +91,7 @@ namespace GLHandler
 
         glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-        window = glfwCreateWindow(width, height, "Moomin", NULL, NULL);
+        window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
         if (!window) {
             glfwTerminate();
             cerr << "Error: Unable to create GLFW Window" << endl;
