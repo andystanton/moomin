@@ -49,3 +49,8 @@ Text::Colour Text::getColour()
 {
     return colour;
 }
+
+void Text::setText(const string& text)
+{
+  this->text = string(text);
+}

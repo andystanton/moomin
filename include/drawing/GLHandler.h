@@ -23,6 +23,7 @@ namespace GLHandler
     GLFWwindow * window;
     set<Renderer *> renderers;
     FreeTypeRenderer * freeTypeRenderer = nullptr;
+    Text * fpsText;
 
     int width, height;
 
@@ -39,6 +40,9 @@ namespace GLHandler
     {
         freeTypeRenderer = newFreeTypeRenderer;
         registerRenderer(freeTypeRenderer);
+
+        fpsText = new Text("0", width/2 - 42, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+        freeTypeRenderer->addText(fpsText);
     }
 
     void handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
@@ -122,8 +126,9 @@ namespace GLHandler
 
         std::stringstream fpsStream;
         fpsStream << std::setprecision(1) << std::fixed << fps;
-        Text fpsText = Text(fpsStream.str(), width/2 - 42, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
-        freeTypeRenderer->addText(&fpsText);
+
+
+        fpsText->setText(fpsStream.str());
 
         for (auto renderer : renderers)
         {

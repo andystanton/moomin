@@ -33,8 +33,9 @@ public:
     FontProvider::FontFamily getFontFamily();
     int getSize();
     Colour getColour();
+    void setText(const string&);
 private:
-    const string& text;
+    string text;
     float x, y;
     int size;
     FontProvider::FontFamily font;
