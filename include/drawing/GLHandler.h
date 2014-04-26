@@ -22,13 +22,27 @@ namespace GLHandler
 {   
     GLFWwindow * window;
     set<Renderer *> renderers;
+
     FreeTypeRenderer * freeTypeRenderer = nullptr;
+
     Text * fpsText;
+    Text * titleText;
 
     int width, height;
+    string title;
 
+    int   frameCount = 0;
     float lastUpdate = 0;
-    int frameCount = 0;
+    float fps        = 0;
+
+    
+
+    string fpsToOneDP()
+    {
+        std::stringstream fpsStream;
+        fpsStream << std::setprecision(1) << std::fixed << fps;
+        return fpsStream.str();
+    }
 
     void registerRenderer(Renderer * renderer)
     {
@@ -41,7 +55,10 @@ namespace GLHandler
         freeTypeRenderer = newFreeTypeRenderer;
         registerRenderer(freeTypeRenderer);
 
-        fpsText = new Text("0", width/2 - 42, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+        fpsText = new Text(fpsToOneDP(), width/2 - 42, height/2 - 15, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+        titleText = new Text(title, 3, 465, FontProvider::FontFamily::VeraMono, 32, Text::Colour::WHITE);
+
+        freeTypeRenderer->addText(titleText);
         freeTypeRenderer->addText(fpsText);
     }
 
@@ -62,9 +79,10 @@ namespace GLHandler
         }
     }
 
-    void init() 
+    void init(const string& newTitle) 
     {   
         const int width=640, height=480;
+        title = string(newTitle);
 
         if (!glfwInit()) {
             cerr << "Error: Unable to initialise GLFW" << endl;
@@ -104,6 +122,20 @@ namespace GLHandler
         glfwTerminate();
     }
 
+    void recalculateFps()
+    {
+        frameCount++;
+        float currentTime = glfwGetTime();
+
+        if (currentTime - lastUpdate >= 0.5)
+        {
+            fps = frameCount / (currentTime - lastUpdate);
+            lastUpdate = currentTime;
+            fpsText->setText(fpsToOneDP());
+            frameCount = 0;
+        }
+    }
+
     void draw()
     {
         glClear(GL_COLOR_BUFFER_BIT);
@@ -113,22 +145,7 @@ namespace GLHandler
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        frameCount++;
-        float currentTime = glfwGetTime();
-        float fps;
-
-        if (currentTime - lastUpdate >= 0.5)
-        {
-            fps = frameCount / (currentTime - lastUpdate);
-            lastUpdate = currentTime;
-            frameCount = 0;
-        }
-
-        std::stringstream fpsStream;
-        fpsStream << std::setprecision(1) << std::fixed << fps;
-
-
-        fpsText->setText(fpsStream.str());
+        recalculateFps();
 
         for (auto renderer : renderers)
         {
