@@ -31,17 +31,30 @@ namespace GLHandler
     int width, height;
     string title;
 
-    int   frameCount = 0;
-    float lastUpdate = 0;
-    float fps        = 0;
+    int   frameCount    = 0;
+    float lastFpsUpdate = 0;
+    float fps           = 0;
 
     
-
     string fpsToOneDP()
     {
         std::stringstream fpsStream;
         fpsStream << std::setprecision(1) << std::fixed << fps;
         return fpsStream.str();
+    }
+
+    void recalculateFps()
+    {
+        frameCount++;
+        float currentTime = glfwGetTime();
+
+        if (currentTime - lastFpsUpdate >= 0.5)
+        {
+            fps = frameCount / (currentTime - lastFpsUpdate);
+            lastFpsUpdate = currentTime;
+            fpsText->setText(fpsToOneDP());
+            frameCount = 0;
+        }
     }
 
     void registerRenderer(Renderer * renderer)
@@ -65,11 +78,12 @@ namespace GLHandler
     void handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
     {
         glfwGetFramebufferSize(window, &width, &height);
+
         glViewport(0, 0, width, height);
         glMatrixMode(GL_PROJECTION );
         glLoadIdentity();
-        glScalef(1.0, -1.0, 1.0);
-        glOrtho(0, windowWidth, windowHeight, 0, 0, 1);
+
+        glOrtho(0, windowWidth, 0, windowHeight, 0, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
@@ -119,20 +133,6 @@ namespace GLHandler
     void quit()
     {
         glfwTerminate();
-    }
-
-    void recalculateFps()
-    {
-        frameCount++;
-        float currentTime = glfwGetTime();
-
-        if (currentTime - lastUpdate >= 0.5)
-        {
-            fps = frameCount / (currentTime - lastUpdate);
-            lastUpdate = currentTime;
-            fpsText->setText(fpsToOneDP());
-            frameCount = 0;
-        }
     }
 
     void draw()
