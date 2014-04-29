@@ -10,11 +10,12 @@ go_bandit([]()
 {
     describe("a Physics System", []() 
     {
-        it("contains no entities when it is created", []() 
+        it("contains no rules or entities when it is created", []() 
         {
             PhysicsSystem physicsSystem;
 
-            AssertThat(physicsSystem.getEntities().size(), Is().EqualTo(0));
+            AssertThat(physicsSystem.getEntities(), IsEmpty());
+            AssertThat(physicsSystem.getRules(), IsEmpty());
         });
 
         it("allows entities to be created within it", []()
@@ -41,7 +42,16 @@ go_bandit([]()
 
             AssertThat(physicsSystem.getRules(), HasLength(1));
             AssertThat(physicsSystem.getRules(), Contains(&gravity));
+        });
 
+        describe("stepping forward", []()
+        {
+            it("causes the rules to affect the entities", []()
+            {
+                // TODO: Mock a rule and an entity. Pass both into 
+                // the system and verify the appropriate methods
+                // are called.
+            });
         });
     });
 });
