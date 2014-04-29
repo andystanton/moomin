@@ -32,7 +32,7 @@ int main(void)
     Entity e = Entity(320, 240, squareMesh);
     entities->push_back(&e);
 
-    Circle c = Circle(400, 300);
+    Circle c = Circle(400, 300, 10);
     entities->push_back(&c);
 
     while (GLHandler::isActive()) 

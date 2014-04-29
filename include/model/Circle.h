@@ -8,9 +8,12 @@ class Circle
     : public Entity
 {
 public:
-    Circle(float x, float y);
+    Circle(float x, float y, float radius);
     ~Circle();
+
+    float getRadius();
 private:
+    float radius;
     Mesh mesh
     {
         0.0f, 0.0f,  0.0f, 10.0f,  1.74f, 9.85f,
