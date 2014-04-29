@@ -12,9 +12,10 @@ using std::initializer_list;
 class Mesh
 {
 public:
-    enum class MeshType { quads, tris };
+    enum class MeshType { quads, triangles, fan };
 
     Mesh(initializer_list<float>);
+    Mesh(MeshType, initializer_list<float>);
     ~Mesh();
 
     void setType(MeshType);

@@ -23,6 +23,8 @@ SET (test_BIN ${PROJECT_NAME}-unittests)
 
 include_directories(${test_INCLUDES})
 
+INCLUDE_DIRECTORIES("${CMAKE_CURRENT_LIST_DIR}/include")
+
 # message("Output sources")
 # foreach(source ${ALL_SRCS})
 #     message(${source})
