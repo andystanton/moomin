@@ -1,9 +1,10 @@
 #include "drawing/Mesh.h"
 
-Mesh::Mesh(initializer_list<float> meshComponents)
+
+Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)
     : mesh {}
     , size(0)
-    , type(MeshType::tris) 
+    , type(type)
 {
     Vec2* nextVec2 = nullptr;
     for (auto component : meshComponents) 
@@ -20,6 +21,11 @@ Mesh::Mesh(initializer_list<float> meshComponents)
         }
         ++size;
     }
+}
+
+Mesh::Mesh(initializer_list<float> meshComponents)
+    : Mesh(MeshType::triangles, meshComponents)
+{
 }
 
 Mesh::~Mesh() 

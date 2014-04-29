@@ -2,8 +2,7 @@
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
-#include "drawing/Text.h"
-#include "drawing/FontProvider.h"
+#include "model/Circle.h"
 
 using namespace std;
 
@@ -20,15 +19,21 @@ int main(void)
     GLHandler::setFreeTypeRenderer(&fr);
 
     // create something to draw
-    Mesh squareMesh 
-    {
-        -10.0, 10.0,
-        -10.0,-10.0,
-         10.0, 10.0,
-         10.0,-10.0
-    };
-    Entity e = Entity(320, 240, squareMesh);    
+    Mesh squareMesh = Mesh(
+        Mesh::MeshType::quads,
+        {
+            -10.0, 10.0,
+            -10.0,-10.0,
+             10.0, 10.0,
+             10.0,-10.0
+        }
+    );
+    
+    Entity e = Entity(320, 240, squareMesh);
     entities->push_back(&e);
+
+    Circle c = Circle(400, 300, 10);
+    entities->push_back(&c);
 
     while (GLHandler::isActive()) 
     {
