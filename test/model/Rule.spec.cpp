@@ -6,22 +6,6 @@
 
 using namespace bandit;
 
-struct IsInstanceOfRule
-{
-  bool Matches(const Rule * actual) const
-  {
-    return actual != nullptr; 
-  }
-
-  friend std::ostream& operator<<(std::ostream& stm, const IsInstanceOfRule& );
-};
-
-std::ostream& operator<<(std::ostream& stm, const IsInstanceOfRule& )
-{
-  stm << "Not Null";
-  return stm;
-}
-
 go_bandit([]() 
 {
     describe("the Rules", []() 
@@ -30,8 +14,7 @@ go_bandit([]()
         {
             it("is an instance of a Rule", []()
             {
-                AccelerationRule * gravity = new AccelerationRule(Vec2(0.f, 10.f));
-                AssertThat(dynamic_cast<Rule *>(gravity), Fulfills(IsInstanceOfRule()));
+                Rule * gravity = new AccelerationRule(Vec2(0.f, 10.f));
             });
 
             it("accepts a Vec2 as its argument", []() 
