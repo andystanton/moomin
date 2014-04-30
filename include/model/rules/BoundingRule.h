@@ -8,12 +8,16 @@ class BoundingRule
     : public Rule
 {
 public:
-    BoundingRule(Vec2 lowerLeft, Vec2 upperRight);
+    BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight);
     ~BoundingRule();
     
     Vec2 apply(const Vec2&, float delta);
+    float getElasticity() const;
+    const Vec2& getLowerLeft() const;
+    const Vec2& getUpperRight() const;
 private:
     Vec2 lowerLeft, upperRight;
+    float elasticity;
 };
 
 #endif

@@ -70,7 +70,21 @@ go_bandit([]()
         {
             it("is an instance of a Rule", []()
             {
-                Rule * area = new BoundingRule(Vec2(0.f, 0.f), Vec2(640.f, 480.f));
+                Rule * area = new BoundingRule(0.5f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
+            });
+
+            it("it accepts an elasticity coefficient and two "
+                "Vec2 for its lower left and upper right bounds", []()
+            {
+                BoundingRule area = BoundingRule(0.5f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
+
+                AssertThat(area.getElasticity(), Is().EqualTo(0.5f));
+
+                AssertThat(area.getLowerLeft().getX(), Is().EqualTo(0.f));
+                AssertThat(area.getLowerLeft().getY(), Is().EqualTo(0.f));
+
+                AssertThat(area.getUpperRight().getX(), Is().EqualTo(640.f));
+                AssertThat(area.getUpperRight().getY(), Is().EqualTo(480.f));
             });
         });
     });
