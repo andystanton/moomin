@@ -37,11 +37,11 @@ go_bandit([]()
 
             AssertThat(physicsSystem.getRules(), IsEmpty());
 
-            Rule gravity = AccelerationRule(Vec2(0.f, -10.f));
-            physicsSystem.addRule(&gravity);
+            Rule * gravity = new AccelerationRule(Vec2(0.f, -10.f));
+            physicsSystem.addRule(gravity);
 
             AssertThat(physicsSystem.getRules(), HasLength(1));
-            AssertThat(physicsSystem.getRules(), Contains(&gravity));
+            AssertThat(physicsSystem.getRules(), Contains(gravity));
         });
 
         describe("stepping forward", []()
