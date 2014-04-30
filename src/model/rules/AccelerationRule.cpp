@@ -15,10 +15,12 @@ const Vec2& AccelerationRule::getAcceleration()
     return acceleration;
 }
 
-Vec2 AccelerationRule::apply(const Vec2& source, float deltaMilliseconds)
+void AccelerationRule::apply(Entity& source, float deltaMilliseconds)
 {
-    return Vec2(
-        source.getX() + acceleration.getX() * deltaMilliseconds/1000,
-        source.getY() + acceleration.getY() * deltaMilliseconds/1000
+    source.setVelocity(Vec2
+        (
+            source.getVelocity().getX() + acceleration.getX() * deltaMilliseconds/1000,
+            source.getVelocity().getY() + acceleration.getY() * deltaMilliseconds/1000
+        )
     );
 }

@@ -11,7 +11,7 @@ public:
     BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight);
     ~BoundingRule();
     
-    Vec2 apply(const Vec2&, float delta);
+    void apply(Entity&, float delta);
     float getElasticity() const;
     const Vec2& getLowerLeft() const;
     const Vec2& getUpperRight() const;

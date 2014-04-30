@@ -13,9 +13,9 @@ BoundingRule::~BoundingRule()
 
 }
 
-Vec2 BoundingRule::apply(const Vec2& original, float delta)
+void BoundingRule::apply(Entity& original, float delta)
 {
-    return Vec2(original); // pass through for now
+    // pass through for now
 }
 
 float BoundingRule::getElasticity() const

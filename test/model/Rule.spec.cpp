@@ -4,19 +4,22 @@
 #include "model/rules/AccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 
+#include "model/Circle.h"
+
 #include "core/Vec2.h"
 
 using namespace bandit;
 
 go_bandit([]() 
 {
-    describe("the Rules", []() 
+    describe("a Rule", []() 
     {
-        it("returns a new Vec2 when applied to a Vec2 with a time delta in ms", []()
+        it("affects an Entity with a time delta in ms", []()
         {
             Rule * gravity = new AccelerationRule(Vec2(0.f, -10.f));
-            Vec2 originalVelocity(100.f, 0.f);
-            Vec2 modifiedVelocity = gravity->apply(originalVelocity, 100.f);
+            Entity * entity = new Circle(100.f, 100.f, 10.f);
+
+            gravity->apply(*entity, 100.f);
         });
 
         describe("an Acceleration Rule", []()
@@ -34,57 +37,110 @@ go_bandit([]()
                 AssertThat(gravity.getAcceleration().getY(), Is().EqualTo(-10.f));
             });
 
-            it("applies its acceleration to a Vec2 given a time delta in ms", []() 
+            it("applies its acceleration to an Entity's velocity given a time delta in ms", []() 
             {
                 // set gravity to (0, -10) units/second^2
                 AccelerationRule gravity(Vec2(0.f, -10.f));
 
-                // set initial velocity to (0, 0)
-                Vec2 originalVelocity = Vec2(0.f, 0.f);
+                Circle entity(100.f, 100.f, 10.f);
+
+                // assert that the entity has zero velocity at the start
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
+                AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f))
 
                 float timeDeltaMilliseconds = 100;
 
                 // after 100ms, assert the expected change in velocity
-                Vec2 modifiedVelocity1 = gravity.apply(originalVelocity, timeDeltaMilliseconds);
+                gravity.apply(entity, timeDeltaMilliseconds);
 
-                AssertThat(modifiedVelocity1.getX(), Is().EqualTo(0.f));
-                AssertThat(modifiedVelocity1.getY(), Is().EqualTo(-1.f))
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
+                AssertThat(entity.getVelocity().getY(), Is().EqualTo(-1.f))
 
                 // after another 100ms, assert the expected change in velocity
-                Vec2 modifiedVelocity2 = gravity.apply(modifiedVelocity1, timeDeltaMilliseconds);
+                gravity.apply(entity, timeDeltaMilliseconds);
                 
-                AssertThat(modifiedVelocity2.getX(), Is().EqualTo(0.f));
-                AssertThat(modifiedVelocity2.getY(), Is().EqualTo(-2.f))
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
+                AssertThat(entity.getVelocity().getY(), Is().EqualTo(-2.f))
 
                 float longerTimeDeltaMilliseconds = 500;
 
                 // this time increase delta to 500 ms
-                Vec2 modifiedVelocity3 = gravity.apply(modifiedVelocity2, longerTimeDeltaMilliseconds);
+                gravity.apply(entity, longerTimeDeltaMilliseconds);
 
-                AssertThat(modifiedVelocity3.getX(), Is().EqualTo(0.f));
-                AssertThat(modifiedVelocity3.getY(), Is().EqualTo(-7.f));
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
+                AssertThat(entity.getVelocity().getY(), Is().EqualTo(-7.f))
             });
         });
 
         describe("a Bounding Rule", []()
         {
-            it("is an instance of a Rule", []()
+            BoundingRule area = BoundingRule(0.5f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
+
+            it("is an instance of a Rule", [&]()
             {
-                Rule * area = new BoundingRule(0.5f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
+                Rule * rule = &area;
             });
 
-            it("it accepts an elasticity coefficient and two "
-                "Vec2 for its lower left and upper right bounds", []()
-            {
-                BoundingRule area = BoundingRule(0.5f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
-
+            it("accepts an elasticity coefficient", [&]() {
                 AssertThat(area.getElasticity(), Is().EqualTo(0.5f));
+            });
 
+            it("accepts two Vec2 for its lower left and upper right bounds", [&]()
+            {
                 AssertThat(area.getLowerLeft().getX(), Is().EqualTo(0.f));
                 AssertThat(area.getLowerLeft().getY(), Is().EqualTo(0.f));
 
                 AssertThat(area.getUpperRight().getX(), Is().EqualTo(640.f));
                 AssertThat(area.getUpperRight().getY(), Is().EqualTo(480.f));
+            });
+
+            describe("when an Entity crosses the rule's bounds", [&]()
+            {
+                Circle entity(100.f, 100.f, 10.f);
+                float timeDeltaMilliseconds = 100;
+
+                it("inverts the components of an Entity's velocity", [&]()
+                {
+                    entity.setPos(Vec2(-10.f, 100.f));
+                    entity.setVelocity(Vec2(-100.f, 0.f));
+
+                    area.apply(entity, timeDeltaMilliseconds);
+
+                    AssertThat(entity.getVelocity().getX(), Is().GreaterThan(0.f));
+                    AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f));
+
+                });
+
+                it("moves the Entity to the nearest bound", [&]()
+                {
+                    // first test - move to the nearest bound
+                    entity.setPos(Vec2(-10.f, 100.f));
+                    entity.setVelocity(Vec2(-100.f, 0.f));
+
+                    area.apply(entity, timeDeltaMilliseconds);
+
+                    AssertThat(entity.getPos().getX(), Is().EqualTo(0.f));
+                    AssertThat(entity.getPos().getY(), Is().EqualTo(100.f));
+
+                    // second test - move to the nearest corner
+                    entity.setPos(Vec2(-10.f, -12.f));
+                    entity.setVelocity(Vec2(-3.f, -4.f));
+
+                    area.apply(entity, timeDeltaMilliseconds);
+
+                    AssertThat(entity.getPos().getX(), Is().EqualTo(0.f));
+                    AssertThat(entity.getPos().getY(), Is().EqualTo(0.f));
+                });
+
+                it("applies its coefficient of elasticity", [&]()
+                {
+                    entity.setPos(Vec2(-10.f, 100.f));
+                    entity.setVelocity(Vec2(-100.f, 0.f));
+
+                    area.apply(entity, timeDeltaMilliseconds);
+
+                    AssertThat(entity.getVelocity().getX(), Is().EqualTo(50.f));
+                });
             });
         });
     });
