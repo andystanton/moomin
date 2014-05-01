@@ -12,7 +12,6 @@ class Entity
 {
 public:
     Entity(float x, float y, const Mesh&);
-    Entity(float x, float y);
     ~Entity();
 
     const Mesh& getMesh() const;

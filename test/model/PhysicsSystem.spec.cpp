@@ -1,10 +1,17 @@
 #include <bandit/bandit.h>
+#include <gmock/gmock.h>
+
+#include "GmockBDDAliases.h"
 
 #include "model/PhysicsSystem.h"
 #include "model/rules/AccelerationRule.h"
 #include "model/Circle.h"
+#include "mock/MockRule.h"
+#include "mock/MockEntity.h"
 
 using namespace bandit;
+
+using ::testing::Ref;
 
 go_bandit([]() 
 {
@@ -48,9 +55,19 @@ go_bandit([]()
         {
             it("causes the rules to affect the entities", []()
             {
-                // TODO: Mock a rule and an entity. Pass both into 
-                // the system and verify the appropriate methods
-                // are called.
+                MockRule rule;
+                MockEntity entity;
+
+                PhysicsSystem physicsSystem;
+
+                physicsSystem.addRule(&rule);
+                physicsSystem.addEntity(&entity);
+
+                Verify(rule, apply(Ref(entity), 100));
+
+                physicsSystem.step(100);
+
+                //rule.apply(entity, 100);
             });
         });
     });
