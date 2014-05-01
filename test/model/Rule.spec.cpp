@@ -109,6 +109,14 @@ go_bandit([]()
                     AssertThat(entity.getVelocity().getX(), Is().GreaterThan(0.f));
                     AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f));
 
+                    entity.setPos(Vec2(650.f, 500.f));
+                    entity.setVelocity(Vec2(10.f, 15.f));
+
+                    area.apply(entity, timeDeltaMilliseconds);
+
+                    AssertThat(entity.getVelocity().getX(), Is().LessThan(0.f));
+                    AssertThat(entity.getVelocity().getY(), Is().LessThan(0.f));
+
                 });
 
                 it("moves the Entity to the nearest bound", [&]()
