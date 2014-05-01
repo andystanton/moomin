@@ -38,6 +38,8 @@ int main(void)
     PhysicsSystem physicsSystem;
 
     physicsSystem.addEntity(&c);
+    physicsSystem.addEntity(&e);
+
     physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
 
