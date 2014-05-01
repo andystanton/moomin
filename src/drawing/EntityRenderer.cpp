@@ -1,8 +1,8 @@
 #include "drawing/EntityRenderer.h"
 
-EntityRenderer::EntityRenderer(vector<Entity *> * entities)
+EntityRenderer::EntityRenderer(const set<Entity *>& entities)
+    : entities(entities)
 {
-    this->entities = entities;
 }
 
 EntityRenderer::~EntityRenderer()
@@ -12,7 +12,7 @@ EntityRenderer::~EntityRenderer()
 
 void EntityRenderer::draw() const
 {
-    for (auto entity : *entities)
+    for (auto entity : entities)
     {
         draw(entity);
     }

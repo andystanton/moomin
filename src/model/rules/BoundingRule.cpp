@@ -1,5 +1,9 @@
 #include "model/rules/BoundingRule.h"
 
+#include <iostream>
+#include <cmath>
+using namespace std;
+
 BoundingRule::BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight)
     : elasticity(elasticity)
     , lowerLeft(lowerLeft)
@@ -13,19 +17,24 @@ BoundingRule::~BoundingRule()
 
 }
 
-void BoundingRule::apply(Entity& original, float delta)
+void BoundingRule::apply(Entity& source, float deltaMilliseconds)
 {
-    // pass through for now
-    const Vec2& pos = original.getPos();
+    const Vec2& pos = source.getPos();
     float posX = pos.getX(), posY = pos.getY();
 
     if (posX >= lowerLeft.getX() && posX <= upperRight.getX()
             && posY >= lowerLeft.getX() && posY <= upperRight.getY())
     {
+        cout << "no collision" << endl;
         return;
     } else
     {
-        const Vec2& velocity = original.getVelocity();
+        cout << "collision" << endl;
+        const Vec2& velocity = source.getVelocity();
+        const Vec2& pos = source.getPos();
+
+        cout << "source pos: " << pos.getX() << ", " << pos.getY() << endl;
+        cout << "source velocity: " << velocity.getX() << ", " << velocity.getY() << endl;
 
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
@@ -43,15 +52,22 @@ void BoundingRule::apply(Entity& original, float delta)
         if (posY < lowerLeft.getY())
         {
             newPosY = lowerLeft.getY();
-            newVelocityY = -newVelocityY * elasticity;
+            newVelocityY = abs(newVelocityY * elasticity);
+            if (newVelocityY < 0.5)
+            {
+                newVelocityY = 0;
+            }
         } else if (posY > upperRight.getY())
         {
             newPosY = upperRight.getY();
-            newVelocityY = -newVelocityY * elasticity;
+            newVelocityY = -1 * abs(newVelocityY * elasticity);
         }
 
-        original.setPos(Vec2(newPosX, newPosY));
-        original.setVelocity(Vec2(newVelocityX, newVelocityY));
+        cout << "new pos: " << newPosX << ", " << newPosY << endl;
+        cout << "new velocity: " << newVelocityX << ", " << newVelocityY << endl;
+
+        source.setPos(Vec2(newPosX, newPosY));
+        source.setVelocity(Vec2(newVelocityX, newVelocityY));
     }
 }
 

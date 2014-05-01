@@ -1,7 +1,7 @@
 #ifndef _MOOMIN_ENTITY_RENDERER
 #define _MOOMIN_ENTITY_RENDERER
 
-#include <vector>
+#include <set>
 
 #include "Renderer.h"
 
@@ -11,17 +11,17 @@
 #include "model/Entity.h"
 
 using std::unique_ptr;
-using std::vector;
+using std::set;
 
 class EntityRenderer : public Renderer
 {
 public:
-    EntityRenderer(vector<Entity *> *);
+    EntityRenderer(const set<Entity *>&);
     ~EntityRenderer();
  
     void draw() const;
 private:
-    vector<Entity *> * entities;
+    const set<Entity *>& entities;
     void draw(const Entity *) const;
     void handleResize(int width, int height);
 };
