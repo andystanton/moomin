@@ -14,7 +14,7 @@ public:
     PhysicsSystem();
     ~PhysicsSystem();
 
-    void tick(float delta);
+    void step(float delta);
     void addEntity(Entity *);
     void addRule(Rule *);
     const set<Entity *> & getEntities() const;

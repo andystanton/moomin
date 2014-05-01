@@ -30,3 +30,14 @@ void PhysicsSystem::addRule(Rule * rule)
 {
     rules.insert(rule);
 }
+
+void PhysicsSystem::step(float deltaInMilliseconds)
+{
+    for (auto rule : rules)
+    {
+        for (auto entity : entities)
+        {
+            rule->apply(*entity, deltaInMilliseconds);
+        }
+    }
+}

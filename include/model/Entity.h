@@ -15,9 +15,14 @@ public:
     ~Entity();
 
     const Mesh& getMesh() const;
+
     const Vec2& getPos() const;
+    const Vec2& getVelocity() const;
+    void setPos(Vec2);
+    void setVelocity(Vec2);
 private:
     Vec2 pos;
+    Vec2 velocity;
     const Mesh& mesh;
 };
 

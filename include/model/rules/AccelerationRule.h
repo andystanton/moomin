@@ -12,6 +12,7 @@ public:
     ~AccelerationRule();
 
     const Vec2& getAcceleration();
+    void apply(Entity&, float delta);
 private:
     Vec2 acceleration;
 };
