@@ -13,3 +13,9 @@
 [submodule "glew-cmake"]
 	path = lib/glew-cmake
 	url = https://github.com/andystanton/glew-cmake.git
+[submodule "googlemock"]
+	path = lib/googlemock
+	url = https://chromium.googlesource.com/external/googlemock
+[submodule "googletest"]
+	path = lib/googletest
+	url = https://chromium.googlesource.com/external/googletest

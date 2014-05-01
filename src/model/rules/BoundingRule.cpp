@@ -25,16 +25,16 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
     if (posX >= lowerLeft.getX() && posX <= upperRight.getX()
             && posY >= lowerLeft.getX() && posY <= upperRight.getY())
     {
-        cout << "no collision" << endl;
+        //cout << "no collision" << endl;
         return;
     } else
     {
-        cout << "collision" << endl;
+        //cout << "collision" << endl;
         const Vec2& velocity = source.getVelocity();
         const Vec2& pos = source.getPos();
 
-        cout << "source pos: " << pos.getX() << ", " << pos.getY() << endl;
-        cout << "source velocity: " << velocity.getX() << ", " << velocity.getY() << endl;
+        // cout << "source pos: " << pos.getX() << ", " << pos.getY() << endl;
+        // cout << "source velocity: " << velocity.getX() << ", " << velocity.getY() << endl;
 
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
@@ -63,8 +63,8 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
             newVelocityY = -1 * abs(newVelocityY * elasticity);
         }
 
-        cout << "new pos: " << newPosX << ", " << newPosY << endl;
-        cout << "new velocity: " << newVelocityX << ", " << newVelocityY << endl;
+        // cout << "new pos: " << newPosX << ", " << newPosY << endl;
+        // cout << "new velocity: " << newVelocityX << ", " << newVelocityY << endl;
 
         source.setPos(Vec2(newPosX, newPosY));
         source.setVelocity(Vec2(newVelocityX, newVelocityY));
