@@ -9,7 +9,7 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 ## Quick Start
 
 ```
-git clone https://github.com/andystanton/moomin.git
+git clone https://github.com/andystanton/moomin.git --recursive
 cd moomin
 ./cc
 bin/moomin
