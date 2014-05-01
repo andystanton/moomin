@@ -4,7 +4,7 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 
 ## Requirements
 
-- recent clang
+- Clang >= 3.4
 
 ## Quick Start
 
