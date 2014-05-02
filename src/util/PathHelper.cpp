@@ -1,10 +1,12 @@
 #include "util/PathHelper.h"
 
+#include <iostream>
 using namespace std;
 
 PathHelper::PathHelper()
 {
     string fullPath;
+
     #if defined (__APPLE__)
         int ret;
         pid_t pid; 
@@ -18,11 +20,13 @@ PathHelper::PathHelper()
             fullPath = string(pathbuf);
         }
     #elif defined(__linux__)
-        char buf[1024];
-
-        if (readlink("/proc/self/exe", buf, sizeof(buf)) == -1)
-        {
-            fullPath = string(buf);
+        char buff[1024];
+        ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff)-1);
+        if (len != -1) {
+            buff[len] = '\0';
+            return string(buff);
+        } else {
+            throw "Unable to ascertain application path";
         }
     #else
         throw "OS not supported for finding paths"
