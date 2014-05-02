@@ -65,10 +65,10 @@ texture_font_t * FontProvider::addFont(FontProvider::FontFamily family, int size
 
 void FontProvider::initFontLocations()
 {
-    fontLocations.insert(make_pair(FontProvider::FontFamily::ObelixPro, "lib/freetype-gl/fonts/ObelixPro.ttf"));
-    fontLocations.insert(make_pair(FontProvider::FontFamily::Vera, "lib/freetype-gl/fonts/Vera.ttf"));
-    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMono, "lib/freetype-gl/fonts/VeraMono.ttf"));
-    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoBold, "lib/freetype-gl/fonts/VeraMoBd.ttf"));
-    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoItalic, "lib/freetype-gl/fonts/VeraMoIt.ttf"));
-    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoBoldItalic, "lib/freetype-gl/fonts/VeraMoBI.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::ObelixPro, "resources/fonts/ObelixPro.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::Vera, "resources/fonts/Vera.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMono, "resources/fonts/VeraMono.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoBold, "resources/fonts/VeraMoBd.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoItalic, "resources/fonts/VeraMoIt.ttf"));
+    fontLocations.insert(make_pair(FontProvider::FontFamily::VeraMonoBoldItalic, "resources/fonts/VeraMoBI.ttf"));
 }
