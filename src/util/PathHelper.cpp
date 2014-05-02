@@ -24,7 +24,7 @@ PathHelper::PathHelper()
         ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff)-1);
         if (len != -1) {
             buff[len] = '\0';
-            return string(buff);
+            fullPath = string(buff);
         } else {
             throw "Unable to ascertain application path";
         }
