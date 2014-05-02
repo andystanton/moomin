@@ -18,7 +18,12 @@ PathHelper::PathHelper()
             fullPath = string(pathbuf);
         }
     #elif defined(__linux__)
-        if (readlink("/proc/self/exe", buf, sizeof(buf)) == -1) fullPath = string(buf);
+        char buf[1024];
+
+        if (readlink("/proc/self/exe", buf, sizeof(buf)) == -1)
+        {
+            fullPath = string(buf);
+        }
     #else
         throw "OS not supported for finding paths"
     #endif
