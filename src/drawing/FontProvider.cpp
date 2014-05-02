@@ -3,6 +3,7 @@
 FontProvider::FontProvider()
     : fontMap()
     , fontLocations()
+    , pathHelper()
 {
     atlas = texture_atlas_new(1024, 1024, 1);
     initFontLocations();
@@ -39,7 +40,12 @@ texture_font_t * FontProvider::getFont(FontProvider::FontFamily family, int size
 
 texture_font_t * FontProvider::addFont(FontProvider::FontFamily family, int size)
 {
-    texture_font_t * font = texture_font_new_from_file(atlas, size, fontLocations.at(family).c_str());
+    cout << "application path: " << pathHelper.getApplicationPath() << endl;
+    cout << "application name: " << pathHelper.getApplicationName() << endl;
+
+    string absFontLocation = pathHelper.getApplicationPath() + "/" + fontLocations.at(family);
+
+    texture_font_t * font = texture_font_new_from_file(atlas, size, absFontLocation.c_str());
 
     map<FontProvider::FontFamily, map<int, texture_font_t *>>::iterator familyIt = fontMap.find(family);
     map<int, texture_font_t *> sizeMap;

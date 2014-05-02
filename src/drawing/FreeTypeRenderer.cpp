@@ -37,11 +37,14 @@ void FreeTypeRenderer::draw() const
 
 FreeTypeRenderer::FreeTypeRenderer() 
     : textEntries()
+    , pathHelper()
 {
     buffer = vertex_buffer_new("vertex:3f,tex_coord:2f,color:4f");
 
-    shader = shader_load("lib/freetype-gl/shaders/v3f-t2f-c4f.vert",
-                         "lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
+    string vertPath(pathHelper.getApplicationPath() + "/lib/freetype-gl/shaders/v3f-t2f-c4f.vert");
+    string fragPath(pathHelper.getApplicationPath() + "/lib/freetype-gl/shaders/v3f-t2f-c4f.frag");
+
+    shader = shader_load(vertPath.c_str(), fragPath.c_str());
 
     mat4_set_identity(&projection);
     mat4_set_identity(&model);

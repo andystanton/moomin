@@ -3,12 +3,17 @@
 
 #include <map>
 #include <string>
+#include <iostream>
 #include <freetype-gl.h>
+
+#include "util/PathHelper.h"
 
 using std::map;
 using std::pair;
 using std::make_pair;
 using std::string;
+using std::cout;
+using std::endl;
 
 class FontProvider
 {
@@ -36,13 +41,16 @@ protected:
     FontProvider(const FontProvider&);
     FontProvider& operator=(const FontProvider&); 
     ~FontProvider();
-    
+
+private:
     void initFontLocations();
     texture_font_t * addFont(FontProvider::FontFamily, int size);
 
     map<FontProvider::FontFamily, string> fontLocations;
     map<FontProvider::FontFamily, map<int, texture_font_t *>> fontMap;
     texture_atlas_t * atlas;
+
+    PathHelper pathHelper;
 };
 
 #endif
