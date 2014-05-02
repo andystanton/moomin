@@ -25,6 +25,6 @@ install:
 # cmake
     - sudo apt-get -qq install cmake
 # libproc
-    - sudo apt-get -qq install libprocps0-dev
+    - sudo apt-get -qq install libproc-dev
 script: ./configure && make -C build
 
