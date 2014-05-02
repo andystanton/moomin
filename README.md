@@ -5,6 +5,7 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 ## Requirements
 
 - Clang >= 3.4
+- CMake >= 2.8
 
 ## Quick Start
 
