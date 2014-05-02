@@ -14,6 +14,8 @@
 #include <shader.h>
 #include <vertex-buffer.h>
 
+#include "util/PathHelper.h"
+
 using std::string;
 using std::wstring;
 using std::map;
@@ -45,6 +47,8 @@ private:
     map<Text::Colour, vec4> colours;
 
     vector<Text *> textEntries;
+
+    PathHelper pathHelper;
 
     void initTextColours();
     void drawText(Text *) const;

@@ -65,7 +65,7 @@ int main(void)
                     entity->getPos().getY() + entity->getVelocity().getY()
                 )
             );
-            cout << entity->getPos().getX() << ", " << entity->getPos().getY() << endl;
+            //cout << entity->getPos().getX() << ", " << entity->getPos().getY() << endl;
         }
 
 
