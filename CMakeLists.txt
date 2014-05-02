@@ -122,9 +122,9 @@ set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
 
 # GMOCK
 
-add_subdirectory(lib/gmock-1.7.0)
-set(GMOCK_INCLUDE_PATH "${gmock_SOURCE_DIR}/include")
+add_subdirectory(lib/gmock)
 set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
+set(GMOCK_INCLUDE_PATH "${gmock_SOURCE_DIR}/include")
 
 # BANDIT
 
