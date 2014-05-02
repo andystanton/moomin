@@ -4,19 +4,26 @@ using namespace std;
 
 PathHelper::PathHelper()
 {
-    int ret;
-    pid_t pid; 
-    char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+    string fullPath;
+    #if defined (__APPLE__)
+        int ret;
+        pid_t pid; 
+        char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
-    pid = getpid();
-    ret = proc_pidpath (pid, pathbuf, sizeof(pathbuf));
-    if ( ret <= 0 ) {
-        throw "Unable to ascertain application path";
-    } else {
-        string fullPath = string(pathbuf);
-        applicationPath = fullPath.substr(0, fullPath.find_last_of("/"));
-        applicationName = fullPath.substr(fullPath.find_last_of("/") + 1, fullPath.length());
-    }
+        pid = getpid();
+        ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
+        if ( ret <= 0 ) {
+            throw "Unable to ascertain application path";
+        } else {
+            fullPath = string(pathbuf);
+        }
+    #elif defined(__linux__)
+        if (readlink("/proc/self/exe", buf, sizeof(buf)) == -1) fullPath = string(buf);
+    #else
+        throw "OS not supported for finding paths"
+    #endif
+    applicationPath = fullPath.substr(0, fullPath.find_last_of("/"));
+    applicationName = fullPath.substr(fullPath.find_last_of("/") + 1, fullPath.length());
 }
 
 PathHelper::~PathHelper()

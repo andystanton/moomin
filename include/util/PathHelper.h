@@ -4,7 +4,10 @@
 #include <string>
 #include <unistd.h>
 #include <limits.h>
-#include <libproc.h>
+
+#if defined (__APPLE__)
+    #include <libproc.h>
+#endif
 
 using std::string;
 
