@@ -22,6 +22,7 @@ lib/*.a
 lib/gmock/gtest
 lib/freetype2/include/ftconfig.h
 lib/Debug
+lib/Release
 Makefile
 bin
 build

@@ -9,8 +9,8 @@ Text::Text(const string& text,
     : text(text)
     , x(x)
     , y(y)
-    , font(font)
     , size(size)
+    , font(font)
     , colour(colour)
 {
 }
