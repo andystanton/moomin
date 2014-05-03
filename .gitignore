@@ -19,3 +19,7 @@ lib/*.a
 Makefile
 bin
 build
+CPackConfig.cmake
+CPackSourceConfig.cmake
+lib/gmock/gtest
+lib/freetype2/include/ftconfig.h
