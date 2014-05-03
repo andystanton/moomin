@@ -138,9 +138,6 @@ ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
 
 
-copy_files("${MAINFOLDER}/lib/freetype-gl/shaders" "${MAINFOLDER}/bin/resources/shaders")
-copy_files("${MAINFOLDER}/lib/freetype-gl/fonts" "${MAINFOLDER}/bin/resources/fonts")
-
 #
 # Add Install Targets
 #
