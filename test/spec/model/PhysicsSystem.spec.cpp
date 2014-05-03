@@ -66,8 +66,6 @@ go_bandit([]()
                 Verify(rule, apply(Ref(entity), 100));
 
                 physicsSystem.step(100);
-
-                //rule.apply(entity, 100);
             });
         });
     });
