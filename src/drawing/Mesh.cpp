@@ -2,9 +2,9 @@
 
 
 Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)
-    : mesh {}
-    , size(0)
+    : size(0)
     , type(type)
+    , mesh {}
 {
     Vec2* nextVec2 = nullptr;
     for (auto component : meshComponents) 

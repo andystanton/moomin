@@ -2,6 +2,8 @@ cmake_install.cmake
 CMakeCache.txt
 CMakeFiles
 CMakeScripts
+CPackConfig.cmake
+CPackSourceConfig.cmake
 *.xcodeproj
 src/cmake_install.cmake
 src/CMakeCache.txt
@@ -11,11 +13,17 @@ test/cmake_install.cmake
 test/CMakeCache.txt
 test/CMakeFiles
 test/CMakeScripts
+lib/*/*.build
 lib/*/*.xcodeproj
 lib/*/cmake_install.cmake
 lib/*/CMakeFiles
 lib/*/CMakeScripts
 lib/*.a
+lib/gmock/gtest
+lib/freetype2/include/ftconfig.h
+lib/Debug
+lib/Release
 Makefile
 bin
 build
+*.build

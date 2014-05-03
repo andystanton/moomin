@@ -1,8 +1,8 @@
 #include "drawing/FontProvider.h"
 
 FontProvider::FontProvider()
-    : fontMap()
-    , fontLocations()
+    : fontLocations()
+    , fontMap()
     , pathHelper()
 {
     atlas = texture_atlas_new(1024, 1024, 1);

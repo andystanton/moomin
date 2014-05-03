@@ -1,21 +1,28 @@
 [submodule "glfw"]
 	path = lib/glfw
 	url = https://github.com/glfw/glfw.git
+	ignore = dirty
 [submodule "bandit"]
 	path = lib/bandit
 	url = https://github.com/joakimkarlsson/bandit.git
+	ignore = dirty
 [submodule "freetype2"]
 	path = lib/freetype2
 	url = http://git.savannah.gnu.org/r/freetype/freetype2.git
+	ignore = dirty
 [submodule "freetype-gl"]
 	path = lib/freetype-gl
 	url = https://github.com/andystanton/freetype-gl.git
+	ignore = dirty
 [submodule "glew-cmake"]
 	path = lib/glew-cmake
 	url = https://github.com/andystanton/glew-cmake.git
+	ignore = dirty
 [submodule "gmock"]
 	path = lib/gmock
 	url = https://chromium.googlesource.com/external/googlemock
+	ignore = dirty
 [submodule "gtest"]
 	path = lib/gtest
 	url = https://chromium.googlesource.com/external/googletest
+	ignore = dirty
