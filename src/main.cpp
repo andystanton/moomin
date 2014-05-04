@@ -43,8 +43,6 @@ int main(void)
     physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
 
-    
-
     EntityRenderer er(physicsSystem.getEntities());
     FreeTypeRenderer fr = FreeTypeRenderer();
 
@@ -59,12 +57,9 @@ int main(void)
 
         for (auto entity : physicsSystem.getEntities())
         {
-            entity->setPos(Vec2
-                (
-                    entity->getPos().getX() + entity->getVelocity().getX(), 
-                    entity->getPos().getY() + entity->getVelocity().getY()
-                )
-            );
+            Vec2& pos = entity->getPos();
+            pos.setX(pos.getX() + entity->getVelocity().getX());
+            pos.setY(pos.getY() + entity->getVelocity().getY());
             //cout << entity->getPos().getX() << ", " << entity->getPos().getY() << endl;
         }
 

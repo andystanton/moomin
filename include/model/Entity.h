@@ -16,8 +16,8 @@ public:
 
     const Mesh& getMesh() const;
 
-    const Vec2& getPos() const;
-    const Vec2& getVelocity() const;
+    Vec2& getPos();
+    Vec2& getVelocity();
     void setPos(Vec2);
     void setVelocity(Vec2);
 private:

@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <cmath>
+
 using namespace std;
 
 BoundingRule::BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight)
@@ -19,7 +20,7 @@ BoundingRule::~BoundingRule()
 
 void BoundingRule::apply(Entity& source, float deltaMilliseconds)
 {
-    const Vec2& pos = source.getPos();
+    Vec2& pos = source.getPos();
     float posX = pos.getX(), posY = pos.getY();
 
     if (posX >= lowerLeft.getX() && posX <= upperRight.getX()
@@ -28,7 +29,7 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
         return;
     } else
     {
-        const Vec2& velocity = source.getVelocity();
+        Vec2& velocity = source.getVelocity();
 
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
@@ -57,8 +58,11 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
             newVelocityY = -1 * abs(newVelocityY * elasticity);
         }
 
-        source.setPos(Vec2(newPosX, newPosY));
-        source.setVelocity(Vec2(newVelocityX, newVelocityY));
+        pos.setX(newPosX);
+        pos.setY(newPosY);
+        velocity.setX(newVelocityX);
+        velocity.setY(newVelocityY);
+
     }
 }
 

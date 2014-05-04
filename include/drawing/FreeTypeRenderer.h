@@ -36,7 +36,7 @@ public:
     ~FreeTypeRenderer();
 
     void addText(Text * text);
-    void draw() const;
+    void draw();
     void handleResize(int width, int height);
 
 private:
