@@ -3,10 +3,10 @@
 #include "model/Rule.h"
 #include "model/rules/AccelerationRule.h"
 #include "model/rules/BoundingRule.h"
-
 #include "model/Circle.h"
-
 #include "core/Vec2.h"
+
+#include "mock/MockEntity.h"
 
 using namespace bandit;
 
@@ -27,6 +27,9 @@ go_bandit([]()
             it("is an instance of a Rule", []()
             {
                 Rule * gravity = new AccelerationRule(Vec2(0.f, -10.f));
+                
+                MockEntity entity;
+                gravity->apply(entity, 100.f);
             });
 
             it("accepts a Vec2 that defines its acceleration in units/second^2", []() 
@@ -78,7 +81,10 @@ go_bandit([]()
 
             it("is an instance of a Rule", [&]()
             {
-                Rule * rule = &area;
+                Rule * areaAsRule = &area;
+
+                MockEntity entity;
+                areaAsRule->apply(entity, 100.f);
             });
 
             it("accepts an elasticity coefficient", [&]() {
