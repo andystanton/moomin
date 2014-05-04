@@ -9,7 +9,6 @@ class MockRule
 {
 public:
     MOCK_METHOD2(apply, void(Entity& entity, float timeDelta));
-    
 };
 
 #endif

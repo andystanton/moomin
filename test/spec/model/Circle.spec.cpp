@@ -13,6 +13,9 @@ go_bandit([]()
         it("is a subclass of Entity", []() 
         {
             Entity * circle = new Circle(50.f, 100.f, 10.f);
+
+            AssertThat(circle->getPos().getX(), Is().EqualTo(50.f));
+            AssertThat(circle->getPos().getY(), Is().EqualTo(100.f));
         });
 
         it("accepts a position and a radius", []()
