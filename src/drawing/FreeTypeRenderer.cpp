@@ -17,7 +17,7 @@ void FreeTypeRenderer::initTextColours()
     colours.insert(make_pair(Text::Colour::BLUE,  blueV));
 }
 
-void FreeTypeRenderer::draw() const 
+void FreeTypeRenderer::draw() 
 {
     for (auto text : textEntries)
     {

@@ -19,10 +19,10 @@ public:
     EntityRenderer(const set<Entity *>&);
     ~EntityRenderer();
  
-    void draw() const;
+    void draw();
 private:
     const set<Entity *>& entities;
-    void draw(const Entity *) const;
+    void draw(Entity *);
     void handleResize(int width, int height);
 };
 

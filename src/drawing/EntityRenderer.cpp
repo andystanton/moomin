@@ -10,7 +10,7 @@ EntityRenderer::~EntityRenderer()
 
 }
 
-void EntityRenderer::draw() const
+void EntityRenderer::draw()
 {
     for (auto entity : entities)
     {
@@ -18,7 +18,7 @@ void EntityRenderer::draw() const
     }
 }
 
-void EntityRenderer::draw(const Entity* entity) const 
+void EntityRenderer::draw(Entity* entity) 
 {
     Mesh mesh = entity->getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());

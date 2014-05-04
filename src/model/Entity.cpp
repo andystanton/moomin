@@ -17,7 +17,7 @@ const Mesh& Entity::getMesh() const
     return mesh;
 }
 
-const Vec2& Entity::getPos() const 
+Vec2& Entity::getPos()
 {
     return pos;
 }
@@ -27,7 +27,7 @@ void Entity::setPos(Vec2 pos)
     this->pos = Vec2(pos);
 }
 
-const Vec2& Entity::getVelocity() const
+Vec2& Entity::getVelocity()
 {
     return velocity;
 }
