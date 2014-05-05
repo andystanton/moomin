@@ -19,7 +19,7 @@ public:
         BLUE
     };
 
-    Text(const string& text, 
+    Text(string& text,
          float x, 
          float y, 
          FontProvider::FontFamily, 
@@ -27,15 +27,15 @@ public:
          Colour);
     ~Text();
 
-    const string& getText();
+    string& getText();
     float getX();
     float getY();
     FontProvider::FontFamily getFontFamily();
     int getSize();
     Colour getColour();
-    void setText(const string&);
+    void setText(string&);
 private:
-    string text;
+    string& text;
     float x, y;
     int size;
     FontProvider::FontFamily font;

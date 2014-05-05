@@ -1,6 +1,6 @@
 #include "drawing/Text.h"
 
-Text::Text(const string& text, 
+Text::Text(string& text, 
            float x, 
            float y, 
            FontProvider::FontFamily font, 
@@ -20,7 +20,7 @@ Text::~Text()
 
 }
 
-const string& Text::getText()
+string& Text::getText()
 {
     return text;
 }
@@ -50,7 +50,7 @@ Text::Colour Text::getColour()
     return colour;
 }
 
-void Text::setText(const string& text)
+void Text::setText(string& text)
 {
-  this->text = string(text);
+  this->text = text;
 }
