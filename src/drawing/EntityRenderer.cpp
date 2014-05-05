@@ -20,7 +20,7 @@ void EntityRenderer::draw()
 
 void EntityRenderer::draw(Entity* entity) 
 {
-    Mesh mesh = entity->getMesh();
+    const Mesh& mesh = entity->getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());
 
     int mode = GL_TRIANGLE_STRIP;
