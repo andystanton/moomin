@@ -13,32 +13,14 @@ int main(void)
 {  
     GLHandler::init("Moomin Engine v1.0", 640, 480);
 
-    // create something to draw
-    Mesh squareMesh = Mesh(
-        Mesh::MeshType::quads,
-        {
-            -10.0, 10.0,
-            -10.0,-10.0,
-             10.0, 10.0,
-             10.0,-10.0
-        }
-    );
-    
-    Entity e = Entity(320, 240, squareMesh);
-    //entities->push_back(&e);
-
-    Circle c = Circle(400, 300, 10);
-    //entities->push_back(&c);
+    Circle c = Circle(320, 400, 10);
 
     AccelerationRule gravity(Vec2(0.f, -0.1f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
 
-    float currentTime = glfwGetTime();
-
     PhysicsSystem physicsSystem;
 
     physicsSystem.addEntity(&c);
-    physicsSystem.addEntity(&e);
 
     physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
@@ -52,10 +34,7 @@ int main(void)
     while (GLHandler::isActive()) 
     {
         GLHandler::draw();
-
-        physicsSystem.step(currentTime * 1000);
-
-        currentTime = glfwGetTime();
+        physicsSystem.step(glfwGetTime() * 1000);
     }
     
     GLHandler::quit();
