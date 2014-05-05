@@ -55,15 +55,6 @@ int main(void)
 
         physicsSystem.step(currentTime * 1000);
 
-        for (auto entity : physicsSystem.getEntities())
-        {
-            Vec2& pos = entity->getPos();
-            pos.setX(pos.getX() + entity->getVelocity().getX());
-            pos.setY(pos.getY() + entity->getVelocity().getY());
-            //cout << entity->getPos().getX() << ", " << entity->getPos().getY() << endl;
-        }
-
-
         currentTime = glfwGetTime();
     }
     
