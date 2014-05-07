@@ -11,6 +11,11 @@ using std::initializer_list;
 class Entity
 {
 public:
+    enum class CollisionType
+    {
+        circle
+    };
+
     Entity(float x, float y, const Mesh&);
     ~Entity();
 
@@ -20,10 +25,14 @@ public:
     Vec2& getVelocity();
     void setPos(Vec2);
     void setVelocity(Vec2);
+
+    void setCollisionType(CollisionType);
+    CollisionType getCollisionType();
 private:
     Vec2 pos;
     Vec2 velocity;
     const Mesh& mesh;
+    CollisionType collisionType;
 };
 
 #endif

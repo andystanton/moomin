@@ -4,7 +4,11 @@ Collision::Collision(Entity& primary, Entity& secondary)
     : primary(primary)
     , secondary(secondary)
 {
-    depth = primary.getPos().distanceTo(secondary.getPos());
+    Circle & primaryCircle = static_cast<Circle &>(primary);
+    Circle & secondaryCircle = static_cast<Circle &>(secondary);
+
+    depth = primaryCircle.getRadius() + secondaryCircle.getRadius();
+    depth = depth - primaryCircle.getPos().distanceTo(secondaryCircle.getPos());
 }
 
 Collision::~Collision()

@@ -3,6 +3,7 @@
 Entity::Entity(float x, float y, const Mesh& mesh)
     : pos(x, y)
     , mesh(mesh)
+    , collisionType(Entity::CollisionType::circle)
 {
 
 }
@@ -35,4 +36,14 @@ Vec2& Entity::getVelocity()
 void Entity::setVelocity(Vec2 velocity)
 {
     this->velocity = Vec2(velocity);
+}
+
+Entity::CollisionType Entity::getCollisionType()
+{
+    return collisionType;
+}
+
+void Entity::setCollisionType(CollisionType collisionType)
+{
+    this->collisionType = collisionType;
 }

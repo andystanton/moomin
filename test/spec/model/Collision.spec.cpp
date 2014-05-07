@@ -13,7 +13,7 @@ using ::testing::Ref;
 
 go_bandit([]() 
 {
-    describe("a Collision", []() 
+    describe("a Collision between two Circles", []() 
     {
         Entity primary = Circle(0.f, 0.f, 3.f);
         Entity secondary = Circle(4.f, 3.f, 3.f);
@@ -27,7 +27,7 @@ go_bandit([]()
 
         it("records the incursion of the primary into the secondary", [&]()
         {
-            AssertThat(collision.getDepth(), Is().EqualTo(5.f));
+            AssertThat(collision.getDepth(), Is().EqualTo(1.f));
         });
     });
 });
