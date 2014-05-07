@@ -1,12 +1,8 @@
 #ifndef _MOOMIN_COLLISION
 #define _MOOMIN_COLLISION
 
-#include <iostream>
-
 #include "model/Entity.h"
 #include "model/Circle.h"
-
-using namespace std;
 
 class Collision
 {

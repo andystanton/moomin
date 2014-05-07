@@ -11,7 +11,7 @@ class CollisionRule
     : public Rule
 {
 public:
-    CollisionRule(set<Entity *> &);
+    CollisionRule(const set<Entity *> &);
     ~CollisionRule();
 
     void apply(Entity&, float delta);
@@ -19,7 +19,7 @@ public:
     set<Collision *>& getCollisions();
 private:
     set<Collision *> collisions;
-    set<Entity *> & entities;
+    const set<Entity *> & entities;
 };
 
 #endif

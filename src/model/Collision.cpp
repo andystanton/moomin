@@ -3,6 +3,7 @@
 Collision::Collision(Entity& primary, Entity& secondary)
     : primary(primary)
     , secondary(secondary)
+    , depth(0)
 {
     if (&primary != &secondary)
     {

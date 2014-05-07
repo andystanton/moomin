@@ -1,6 +1,6 @@
 #include "model/rules/CollisionRule.h"
 
-CollisionRule::CollisionRule(set<Entity *>& entities)
+CollisionRule::CollisionRule(const set<Entity *>& entities)
     : collisions()
     , entities(entities)
 {
