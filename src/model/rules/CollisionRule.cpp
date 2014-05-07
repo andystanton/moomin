@@ -1,6 +1,6 @@
 #include "model/rules/CollisionRule.h"
 
-CollisionRule::CollisionRule()
+CollisionRule::CollisionRule(set<Entity *>& entities)
 {
 
 }

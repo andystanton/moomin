@@ -1,6 +1,8 @@
 #ifndef _MOOMIN_VEC2
 #define _MOOMIN_VEC2
 
+#include <cmath>
+
 class Vec2
 {
 public:
@@ -12,6 +14,8 @@ public:
     void setY(float);
     float getX() const;
     float getY() const;
+
+    float distanceTo(const Vec2&);
 private:
     float x, y;
 };
