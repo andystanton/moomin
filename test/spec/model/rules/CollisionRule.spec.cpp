@@ -3,6 +3,7 @@
 #include <set>
 
 #include "model/Rule.h"
+#include "model/Collision.h"
 #include "model/rules/CollisionRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"
@@ -60,7 +61,8 @@ go_bandit([]()
                 {
                     circleCollision.apply(*entity, 100.f);
                 }
-                //set<Collision *>& collisions = circleCollision.getCollisions();
+                set<Collision *> & collisions = circleCollision.getCollisions();
+                AssertThat(collisions, HasLength(2));
             });
         });
     });

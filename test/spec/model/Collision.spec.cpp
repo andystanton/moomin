@@ -15,19 +15,27 @@ go_bandit([]()
 {
     describe("a Collision between two Circles", []() 
     {
-        Entity primary = Circle(0.f, 0.f, 3.f);
-        Entity secondary = Circle(4.f, 3.f, 3.f);
-        Collision collision(primary, secondary);
+        Entity primaryA = Circle(0.f, 0.f, 3.f);
+        Entity secondaryA = Circle(4.f, 3.f, 3.f);
+        Collision collisionA(primaryA, secondaryA);
+
+        Entity primaryB = Circle(0.f, 0.f, 3.f);
+        Entity secondaryB = Circle(-4.f, -3.f, 3.f);
+        Collision collisionB(primaryB, secondaryB);
 
         it("has primary and secondary entities", [&]() 
         {
-            AssertThat(&collision.getPrimary(), Is().EqualTo(&primary));
-            AssertThat(&collision.getSecondary(), Is().EqualTo(&secondary));
+            AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
+            AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
+
+            AssertThat(&collisionB.getPrimary(), Is().EqualTo(&primaryB));
+            AssertThat(&collisionB.getSecondary(), Is().EqualTo(&secondaryB));
         });
 
         it("records the incursion of the primary into the secondary", [&]()
         {
-            AssertThat(collision.getDepth(), Is().EqualTo(1.f));
+            AssertThat(collisionA.getDepth(), Is().EqualTo(1.f));
+            AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));
         });
     });
 });
