@@ -37,5 +37,16 @@ go_bandit([]()
             AssertThat(coord.getX(), Is().EqualTo(13.0));
             AssertThat(coord.getY(), Is().EqualTo(43.0));            
         });
+
+        describe("the set of Vec2 operations", []()
+        {
+            it("calculates the distance between two Vec2", []()
+            {
+                Vec2 positionA(0.f, 0.f);
+                Vec2 positionB(4.f, 3.f);
+
+                AssertThat(positionA.distanceTo(positionB), Is().EqualTo(5.f));
+            });
+        });
     });
 });

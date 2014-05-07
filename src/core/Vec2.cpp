@@ -37,3 +37,8 @@ float Vec2::getY() const
 {
     return y;
 }
+
+float Vec2::distanceTo(const Vec2 & other)
+{
+    return sqrt(pow(fabs(other.x - x), 2) + pow(fabs(other.y - y), 2));
+}
