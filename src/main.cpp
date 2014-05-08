@@ -31,7 +31,7 @@ int main(void)
     Circle c2 = Circle(320, 300, 10);
     Circle c3 = Circle(400, 480, 10);
     Circle c4 = Circle(200, 480, 10);
-    Circle c5 = Circle(100, 50, 10);
+    Circle c5 = Circle(100, 100, 10);
 
     c4.getVelocity().setX(5.f);
     c4.getVelocity().setY(2.f);

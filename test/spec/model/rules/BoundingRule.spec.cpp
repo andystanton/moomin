@@ -100,7 +100,7 @@ go_bandit([]()
 
                 area.apply(entity, timeDeltaMilliseconds);
 
-                AssertThat(entity.getVelocity().getX(), Is().EqualTo(9.5f));
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(9.f));
             });
         });
     });
