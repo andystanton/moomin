@@ -60,7 +60,7 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
         {
             if (newVelocityY == 0)
             {
-                newVelocityX = newVelocityX * 0.9;
+                newVelocityX = newVelocityX * 0.95;
             }
         }
 

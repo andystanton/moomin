@@ -29,10 +29,22 @@ int main(void)
     // Create Entities
     Circle c1 = Circle(328, 400, 10);
     Circle c2 = Circle(320, 300, 10);
+    Circle c3 = Circle(400, 480, 10);
+    Circle c4 = Circle(200, 480, 10);
+    Circle c5 = Circle(100, 50, 10);
+
+    c4.getVelocity().setX(5.f);
+    c4.getVelocity().setY(2.f);
+
+    c5.getVelocity().setX(-5.f);
+    c5.getVelocity().setY(0.4f);
 
     // Register Entities with Physics System
     physicsSystem.addEntity(&c1);
     physicsSystem.addEntity(&c2);
+    physicsSystem.addEntity(&c3);
+    physicsSystem.addEntity(&c4);
+    physicsSystem.addEntity(&c5);
 
 
 
