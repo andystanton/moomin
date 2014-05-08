@@ -23,7 +23,5 @@ void AccelerationRule::apply(Entity& entity, float deltaMilliseconds)
     {
         velocity.setX(velocity.getX() + acceleration.getX() * deltaMilliseconds/1000);
         velocity.setY(velocity.getY() + acceleration.getY() * deltaMilliseconds/1000);
-        pos.setX(pos.getX() + velocity.getX());
-        pos.setY(pos.getY() + velocity.getY());
     }
 }

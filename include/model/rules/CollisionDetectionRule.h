@@ -7,18 +7,15 @@
 
 using std::set;
 
-class CollisionRule
+class CollisionDetectionRule
     : public Rule
 {
 public:
-    CollisionRule(const set<Entity *> &);
-    ~CollisionRule();
+    CollisionDetectionRule(const set<Entity *> &);
+    ~CollisionDetectionRule();
 
     void apply(Entity&, float delta);
-    
-    set<Collision *>& getCollisions();
 private:
-    set<Collision *> collisions;
     const set<Entity *> & entities;
 };
 

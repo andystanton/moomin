@@ -32,7 +32,7 @@ go_bandit([]()
             AssertThat(&collisionB.getSecondary(), Is().EqualTo(&secondaryB));
         });
 
-        it("records the incursion of the primary into the secondary", [&]()
+        it("records the depth of the collision", [&]()
         {
             AssertThat(collisionA.getDepth(), Is().EqualTo(1.f));
             AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));

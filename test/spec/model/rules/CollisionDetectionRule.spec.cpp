@@ -4,7 +4,7 @@
 
 #include "model/Rule.h"
 #include "model/Collision.h"
-#include "model/rules/CollisionRule.h"
+#include "model/rules/CollisionDetectionRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"
 
@@ -15,12 +15,12 @@ using namespace bandit;
 
 go_bandit([]() 
 {
-    describe("a Collision Rule", []()
+    describe("a Collision Detection Rule", []()
     {
         it("is an instance of a Rule", []()
         {
             set<Entity *> entities;
-            CollisionRule circleCollision(entities);
+            CollisionDetectionRule circleCollision(entities);
 
             Rule * circleCollisionAsRule = &circleCollision;
 
@@ -38,7 +38,7 @@ go_bandit([]()
             entities.insert(&c1);
             entities.insert(&c2);
 
-            CollisionRule circleCollision(entities);
+            CollisionDetectionRule circleCollision(entities);
         });
 
         describe("when two circles collide", []()
@@ -49,20 +49,23 @@ go_bandit([]()
             Circle c2(4.f, 3.f, 3.f);
             Circle c3(100.f, 100.f, 3.f);
 
+            c2.getVelocity().setX(-1.f);
+
             entities.insert(&c1);
             entities.insert(&c2);
             entities.insert(&c3);
 
-            CollisionRule circleCollision(entities);
+            CollisionDetectionRule circleCollision(entities);
 
-            it("detects there has been a collision", [&]()
+            for (auto entity : entities)
             {
-                for (auto entity : entities)
-                {
-                    circleCollision.apply(*entity, 100.f);
-                }
-                set<Collision *> & collisions = circleCollision.getCollisions();
-                AssertThat(collisions, HasLength(2));
+                circleCollision.apply(*entity, 100.f);
+            }
+
+            it("gives the Entity an impulse in the opposite direction of the Collision", [&]()
+            {
+                AssertThat(c1.getVelocity().getX(), Is().EqualTo(-0.8f));
+                AssertThat(c1.getVelocity().getY(), Is().EqualTo(-0.6f));
             });
         });
     });
