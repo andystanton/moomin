@@ -2,23 +2,22 @@
 #define _MOOMIN_COLLISION_RULE
 
 #include <set>
+#include <memory>
 #include "model/Collision.h"
 #include "model/Rule.h"
 
 using std::set;
+using std::unique_ptr;
 
-class CollisionRule
+class CollisionDetectionRule
     : public Rule
 {
 public:
-    CollisionRule(const set<Entity *> &);
-    ~CollisionRule();
+    CollisionDetectionRule(const set<Entity *> &);
+    ~CollisionDetectionRule();
 
     void apply(Entity&, float delta);
-    
-    set<Collision *>& getCollisions();
 private:
-    set<Collision *> collisions;
     const set<Entity *> & entities;
 };
 

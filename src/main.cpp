@@ -4,7 +4,7 @@
 
 #include "model/rules/AccelerationRule.h"
 #include "model/rules/BoundingRule.h"
-#include "model/rules/CollisionRule.h"
+#include "model/rules/CollisionDetectionRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
 
@@ -18,7 +18,7 @@ int main(void)
     // Create Rules
     AccelerationRule gravity(Vec2(0.f, -0.1f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(640.f, 480.f));
-    CollisionRule collisions(physicsSystem.getEntities());
+    CollisionDetectionRule collisions(physicsSystem.getEntities());
 
     // Register Rules with Physics System
     physicsSystem.addRule(&gravity);
@@ -27,12 +27,24 @@ int main(void)
 
 
     // Create Entities
-    Circle c1 = Circle(320, 400, 10);
-    Circle c2 = Circle(320, 200, 10);
+    Circle c1 = Circle(328, 400, 10);
+    Circle c2 = Circle(320, 300, 10);
+    Circle c3 = Circle(400, 480, 10);
+    Circle c4 = Circle(200, 480, 10);
+    Circle c5 = Circle(100, 100, 10);
+
+    c4.getVelocity().setX(5.f);
+    c4.getVelocity().setY(2.f);
+
+    c5.getVelocity().setX(-5.f);
+    c5.getVelocity().setY(0.4f);
 
     // Register Entities with Physics System
     physicsSystem.addEntity(&c1);
     physicsSystem.addEntity(&c2);
+    physicsSystem.addEntity(&c3);
+    physicsSystem.addEntity(&c4);
+    physicsSystem.addEntity(&c5);
 
 
 
