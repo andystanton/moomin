@@ -92,6 +92,16 @@ go_bandit([]()
 
                 AssertThat(entity.getVelocity().getX(), Is().EqualTo(50.f));
             });
+
+            it("applies its coefficient of friction", [&]()
+            {
+                entity.setPos(Vec2(50.f, 0.f));
+                entity.setVelocity(Vec2(10.f, 0.f));
+
+                area.apply(entity, timeDeltaMilliseconds);
+
+                AssertThat(entity.getVelocity().getX(), Is().EqualTo(9.f));
+            });
         });
     });
 });

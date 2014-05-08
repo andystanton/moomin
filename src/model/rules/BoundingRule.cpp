@@ -24,7 +24,7 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
     float posX = pos.getX(), posY = pos.getY();
 
     if (posX >= lowerLeft.getX() && posX <= upperRight.getX()
-            && posY >= lowerLeft.getY() && posY <= upperRight.getY())
+            && posY > lowerLeft.getY() && posY <= upperRight.getY())
     {
         return;
     } else
@@ -56,6 +56,12 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
         {
             newPosY = upperRight.getY();
             newVelocityY = -1 * abs(newVelocityY * elasticity);
+        } else if(posY == lowerLeft.getY())
+        {
+            if (newVelocityY == 0)
+            {
+                newVelocityX = newVelocityX * 0.9;
+            }
         }
 
         pos.setX(newPosX);
