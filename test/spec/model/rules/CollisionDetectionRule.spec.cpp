@@ -64,8 +64,8 @@ go_bandit([]()
 
             it("gives the Entity an impulse in the opposite direction of the Collision", [&]()
             {
-                AssertThat(c1.getVelocity().getX(), Is().EqualTo(-0.8f));
-                AssertThat(c1.getVelocity().getY(), Is().EqualTo(-0.6f));
+                AssertThat(c1.getVelocity().getX(), Is().EqualTo(-0.4f));
+                AssertThat(c1.getVelocity().getY(), Is().EqualTo(-0.3f));
             });
         });
     });

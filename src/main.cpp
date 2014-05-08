@@ -27,8 +27,8 @@ int main(void)
 
 
     // Create Entities
-    Circle c1 = Circle(322.25, 400, 10);
-    Circle c2 = Circle(320, 200, 10);
+    Circle c1 = Circle(328, 400, 10);
+    Circle c2 = Circle(320, 300, 10);
 
     // Register Entities with Physics System
     physicsSystem.addEntity(&c1);
