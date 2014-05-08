@@ -33,11 +33,15 @@ void PhysicsSystem::addRule(Rule * rule)
 
 void PhysicsSystem::step(float deltaInMilliseconds)
 {
-    for (auto rule : rules)
+    for (auto entity : entities)
     {
-        for (auto entity : entities)
+        for (auto rule : rules)
         {
             rule->apply(*entity, deltaInMilliseconds);
         }
+        Vec2 & pos = entity->getPos();
+        Vec2 & velocity = entity->getVelocity();
+        pos.setX(pos.getX() + velocity.getX());
+        pos.setY(pos.getY() + velocity.getY());
     }
 }
