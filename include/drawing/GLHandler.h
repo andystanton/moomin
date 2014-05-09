@@ -37,6 +37,8 @@ namespace GLHandler
     float lastFpsUpdate = 0;
     float fps           = 0;
 
+    bool physics = false;
+
     void recalculateFps()
     {
         frameCount++;
@@ -72,6 +74,14 @@ namespace GLHandler
         freeTypeRenderer->addText(titleText);
         freeTypeRenderer->addText(fpsText);
     }
+
+    void handleKey(GLFWwindow* window, int key, int scancode, int action, int mods)
+    {
+        if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
+        {
+            physics = !physics;
+        }
+    }    
 
     void handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
     {
@@ -112,6 +122,7 @@ namespace GLHandler
         
         glfwMakeContextCurrent(window);
         glfwSetWindowSizeCallback(window, GLHandler::handleResize);
+        glfwSetKeyCallback(window, GLHandler::handleKey);
 
         GLenum err = glewInit();
         if (GLEW_OK != err)
@@ -126,6 +137,11 @@ namespace GLHandler
         glClearColor(0.1, 0.1, 0.1, 1.0);
 
         handleResize(window, width, height);
+    }
+
+    bool isPhysics()
+    {
+        return physics;
     }
 
     bool isActive()
@@ -148,6 +164,7 @@ namespace GLHandler
         {
             renderer->draw();
         }
+        freeTypeRenderer->draw();
 
         glfwSwapBuffers(window);
         glfwPollEvents();

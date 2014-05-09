@@ -9,6 +9,7 @@
 #include <GLFW/glfw3.h>
 
 #include "model/Entity.h"
+#include "model/Circle.h"
 
 using std::unique_ptr;
 using std::set;

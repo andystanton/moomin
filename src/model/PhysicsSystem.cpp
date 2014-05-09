@@ -8,7 +8,7 @@ PhysicsSystem::PhysicsSystem()
 
 PhysicsSystem::~PhysicsSystem()
 {
-
+    entities.clear();
 }
 
 const set<Entity *> & PhysicsSystem::getEntities() const
