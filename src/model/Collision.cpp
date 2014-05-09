@@ -11,7 +11,7 @@ Collision::Collision(Entity& primary, Entity& secondary)
         Circle & primaryCircle = static_cast<Circle &>(primary);
         Circle & secondaryCircle = static_cast<Circle &>(secondary);
 
-        float distance = primaryCircle.getPos().distanceTo(secondaryCircle.getPos());
+        float distance = abs(primaryCircle.getPos().distanceTo(secondaryCircle.getPos()));
         depth = primaryCircle.getRadius() + secondaryCircle.getRadius() - distance;
 
         if (depth > 0)
@@ -19,8 +19,8 @@ Collision::Collision(Entity& primary, Entity& secondary)
             float scale = distance / depth;
             unique_ptr<Vec2> difference = secondaryCircle.getPos().subtractFrom(primaryCircle.getPos());
 
-            resultantVelocity.setX(primaryCircle.getVelocity().getX() + difference.get()->getX() / scale);
-            resultantVelocity.setY(primaryCircle.getVelocity().getY() + difference.get()->getY() / scale);
+            resultantVelocity.setX(difference.get()->getX() / scale);
+            resultantVelocity.setY(difference.get()->getY() / scale);
         }
     }
 }

@@ -36,12 +36,13 @@ int main(void)
     physicsSystem.addRule(&collisions);
 
 
-    // for (int i=0; i < 15; i++)
-    // {
-    //     physicsSystem.addEntity(createRandomCircle());
-    // }
+    for (int i=0; i < 15; i++)
+    {
+        physicsSystem.addEntity(createRandomCircle());
+    }
 
     physicsSystem.addEntity(new Circle(320, 400, 10));
+    physicsSystem.addEntity(new Circle(320, 300, 10));
 
 
     // Initialise Graphics System
