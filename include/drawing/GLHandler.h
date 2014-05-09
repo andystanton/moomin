@@ -99,7 +99,7 @@ namespace GLHandler
         glMatrixMode(GL_PROJECTION );
         glLoadIdentity();
 
-        glOrtho(0, windowWidth, 0, windowHeight, 0, 1);
+        glOrtho(0, 6400, 0, 6400, 0, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
