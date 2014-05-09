@@ -26,7 +26,7 @@ int main(void)
     PhysicsSystem physicsSystem;
 
     // Create Rules
-    AccelerationRule gravity(Vec2(0.f, -0.1f));
+    AccelerationRule gravity(Vec2(0.f, -20.f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(width, height));
     CollisionRule collisions(physicsSystem.getEntities());
 
@@ -36,11 +36,12 @@ int main(void)
     physicsSystem.addRule(&collisions);
 
 
-    for (int i=0; i < 15; i++)
-    {
-        physicsSystem.addEntity(createRandomCircle());
-    }
+    // for (int i=0; i < 15; i++)
+    // {
+    //     physicsSystem.addEntity(createRandomCircle());
+    // }
 
+    physicsSystem.addEntity(new Circle(320, 400, 10));
 
 
     // Initialise Graphics System
