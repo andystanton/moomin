@@ -5,6 +5,7 @@
 #include "model/rules/AccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/rules/CollisionRule.h"
+#include "model/rules/GravityRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
 
@@ -14,7 +15,7 @@ int width = 640, height = 640;
 
 Circle * createRandomCircle()
 {
-    Circle * c = new Circle(rand() % width, rand() % height, (rand() % 30) + 10);
+    Circle * c = new Circle(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 20) + 20);
     c->getVelocity().setX(rand() % 3);
     c->getVelocity().setY(rand() % 3);
     return c;
@@ -27,22 +28,24 @@ int main(void)
 
     // Create Rules
     AccelerationRule gravity(Vec2(0.f, -20.f));
-    BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(width, height));
+    BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(6400, 6400));
     CollisionRule collisions(physicsSystem.getEntities());
+    GravityRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    physicsSystem.addRule(&gravity);
+    //physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
+    physicsSystem.addRule(&attraction);
 
 
-    for (int i=0; i < 15; i++)
+    for (int i=0; i < 50; i++)
     {
         physicsSystem.addEntity(createRandomCircle());
     }
 
-    physicsSystem.addEntity(new Circle(320, 400, 10));
-    physicsSystem.addEntity(new Circle(320, 300, 10));
+    // physicsSystem.addEntity(new Circle(320, 400, 10));
+    // physicsSystem.addEntity(new Circle(320, 300, 10));
 
 
     // Initialise Graphics System
