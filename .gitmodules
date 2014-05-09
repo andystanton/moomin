@@ -26,7 +26,3 @@
 	path = lib/gtest
 	url = https://chromium.googlesource.com/external/googletest
 	ignore = dirty
-[submodule "mlog"]
-	path = lib/mlog
-	url = https://github.com/zschoche/mlog.git
-	ignore = dirty
