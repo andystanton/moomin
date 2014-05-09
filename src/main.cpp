@@ -51,7 +51,7 @@ int main(void)
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     // Register Renderers with Graphics System
-    GLHandler::registerRenderer(&er);
+    GLHandler::setEntityRenderer(&er);
     GLHandler::setFreeTypeRenderer(&fr);
 
 

@@ -11,6 +11,7 @@
 
 #include "drawing/Renderer.h"
 #include "drawing/FreeTypeRenderer.h"
+#include "drawing/EntityRenderer.h"
 #include "drawing/Text.h"
 #include "drawing/FontProvider.h"
 
@@ -27,6 +28,7 @@ namespace GLHandler
     set<Renderer *> renderers;
 
     FreeTypeRenderer * freeTypeRenderer = nullptr;
+    EntityRenderer * entityRenderer = nullptr;
     
     string titleString;
     string fpsString;
@@ -37,7 +39,7 @@ namespace GLHandler
     float lastFpsUpdate = 0;
     float fps           = 0;
 
-    bool physics = false;
+    bool physics = true;
 
     void recalculateFps()
     {
@@ -73,6 +75,12 @@ namespace GLHandler
 
         freeTypeRenderer->addText(titleText);
         freeTypeRenderer->addText(fpsText);
+    }
+
+    void setEntityRenderer(EntityRenderer * newEntityRenderer)
+    {
+        entityRenderer = newEntityRenderer;
+        registerRenderer(entityRenderer);
     }
 
     void handleKey(GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -160,10 +168,7 @@ namespace GLHandler
 
         recalculateFps();
 
-        for (auto renderer : renderers)
-        {
-            renderer->draw();
-        }
+        entityRenderer->draw();
         freeTypeRenderer->draw();
 
         glfwSwapBuffers(window);
