@@ -9,12 +9,12 @@
 using std::set;
 using std::unique_ptr;
 
-class CollisionDetectionRule
+class CollisionRule
     : public Rule
 {
 public:
-    CollisionDetectionRule(const set<Entity *> &);
-    ~CollisionDetectionRule();
+    CollisionRule(const set<Entity *> &);
+    ~CollisionRule();
 
     void apply(Entity&, float delta);
 private:

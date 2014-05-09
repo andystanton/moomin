@@ -4,7 +4,7 @@
 
 #include "model/Rule.h"
 #include "model/Collision.h"
-#include "model/rules/CollisionDetectionRule.h"
+#include "model/rules/CollisionRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"
 
@@ -20,7 +20,7 @@ go_bandit([]()
         it("is an instance of a Rule", []()
         {
             set<Entity *> entities;
-            CollisionDetectionRule circleCollision(entities);
+            CollisionRule circleCollision(entities);
 
             Rule * circleCollisionAsRule = &circleCollision;
 
@@ -38,7 +38,7 @@ go_bandit([]()
             entities.insert(&c1);
             entities.insert(&c2);
 
-            CollisionDetectionRule circleCollision(entities);
+            CollisionRule circleCollision(entities);
         });
 
         describe("when two circles collide", []()
@@ -55,7 +55,7 @@ go_bandit([]()
             entities.insert(&c2);
             entities.insert(&c3);
 
-            CollisionDetectionRule circleCollision(entities);
+            CollisionRule circleCollision(entities);
 
             for (auto entity : entities)
             {

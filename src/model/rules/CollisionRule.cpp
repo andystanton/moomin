@@ -1,17 +1,17 @@
-#include "model/rules/CollisionDetectionRule.h"
+#include "model/rules/CollisionRule.h"
 
-CollisionDetectionRule::CollisionDetectionRule(const set<Entity *>& entities)
+CollisionRule::CollisionRule(const set<Entity *>& entities)
     : entities(entities)
 {
 
 }
 
-CollisionDetectionRule::~CollisionDetectionRule()
+CollisionRule::~CollisionRule()
 {
 
 }
 
-void CollisionDetectionRule::apply(Entity & entity, float delta)
+void CollisionRule::apply(Entity & entity, float delta)
 {
     for (auto other : entities)
     {
