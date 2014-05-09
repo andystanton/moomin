@@ -39,7 +39,7 @@ namespace GLHandler
     float lastFpsUpdate = 0;
     float fps           = 0;
 
-    bool physics = false;
+    bool physics = true;
 
     void recalculateFps()
     {
