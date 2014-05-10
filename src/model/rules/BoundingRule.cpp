@@ -1,8 +1,5 @@
 #include "model/rules/BoundingRule.h"
 
-#include <iostream>
-#include <cmath>
-
 using namespace std;
 
 BoundingRule::BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight)
@@ -18,49 +15,69 @@ BoundingRule::~BoundingRule()
 
 }
 
-void BoundingRule::apply(Entity& source, float deltaMilliseconds)
+void BoundingRule::apply(Entity & entity, float deltaMilliseconds)
 {
-    Vec2& pos = source.getPos();
+    Vec2& pos = entity.getPos();
     float posX = pos.getX(), posY = pos.getY();
 
-    if (posX >= lowerLeft.getX() && posX <= upperRight.getX()
-            && posY > lowerLeft.getY() && posY <= upperRight.getY())
+    Circle & c = static_cast<Circle &>(entity);
+
+    if (posX >= lowerLeft.getX() + c.getRadius() && posX <= upperRight.getX() - c.getRadius()
+            && posY > lowerLeft.getY() + c.getRadius() && posY <= upperRight.getY() - c.getRadius())
     {
         return;
     } else
     {
-        Vec2& velocity = source.getVelocity();
+        Vec2& velocity = entity.getVelocity();
 
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
 
-        if (posX < lowerLeft.getX()) 
+        if (posX < lowerLeft.getX() + c.getRadius()) 
         {
-            newPosX = lowerLeft.getX();
-            newVelocityX = -newVelocityX * elasticity;
-        } else if (posX > upperRight.getX())
+            newPosX = lowerLeft.getX() + c.getRadius();
+
+            newVelocityX = -1 * (newVelocityX * elasticity);
+            newVelocityY = newVelocityY * 0.9;
+
+            if (newVelocityX < 0.5)
+            {
+                newVelocityX = 0;
+            }
+        } else if (posX > upperRight.getX() - c.getRadius())
         {
-            newPosX = upperRight.getX();
-            newVelocityX = -newVelocityX * elasticity;
+            newPosX = upperRight.getX() - c.getRadius();
+
+            newVelocityX = -1 * (newVelocityX * elasticity);
+            newVelocityY = newVelocityY * 0.9;
+
+            if (newVelocityX > 0.5)
+            {
+                newVelocityX = 0;
+            }
         }
 
-        if (posY < lowerLeft.getY())
+        if (posY < lowerLeft.getY() + c.getRadius())
         {
-            newPosY = lowerLeft.getY();
-            newVelocityY = abs(newVelocityY * elasticity);
+            newPosY = lowerLeft.getY() + c.getRadius();
+
+            newVelocityX = newVelocityX * 0.9;
+            newVelocityY = -1 * (newVelocityY * elasticity);
+
             if (newVelocityY < 0.5)
             {
                 newVelocityY = 0;
             }
-        } else if (posY > upperRight.getY())
+        } else if (posY > upperRight.getY() - c.getRadius())
         {
-            newPosY = upperRight.getY();
-            newVelocityY = -1 * abs(newVelocityY * elasticity);
-        } else if(posY == lowerLeft.getY())
-        {
-            if (newVelocityY == 0)
+            newPosY = upperRight.getY() - c.getRadius();
+
+            newVelocityX = newVelocityX * 0.9;
+            newVelocityY = -1 * (newVelocityY * elasticity);
+
+            if (newVelocityY > 0.5)
             {
-                newVelocityX = newVelocityX * 0.9;
+                newVelocityY = 0;
             }
         }
 
@@ -69,7 +86,6 @@ void BoundingRule::apply(Entity& source, float deltaMilliseconds)
 
         velocity.setX(newVelocityX);
         velocity.setY(newVelocityY);
-
     }
 }
 

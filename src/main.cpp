@@ -33,10 +33,10 @@ int main(void)
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    //physicsSystem.addRule(&gravity);
+    physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
-    physicsSystem.addRule(&attraction);
+    //physicsSystem.addRule(&attraction);
 
 
     for (int i=0; i < 50; i++)
