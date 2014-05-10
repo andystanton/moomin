@@ -7,14 +7,15 @@
 
 using std::set;
 
-class GravityRule
+class EntityAccelerationRule
     : public Rule
 {
 public:
-    GravityRule(const set<Entity *> & entities);
-    ~GravityRule();
+    EntityAccelerationRule(const set<Entity *> & entities);
+    ~EntityAccelerationRule();
 
     void apply(Entity&, float delta);
+    const set<Entity *> & getEntities();
 private:
     const set<Entity *> & entities;
 };

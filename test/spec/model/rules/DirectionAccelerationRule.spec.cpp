@@ -11,7 +11,7 @@ using namespace bandit;
 
 go_bandit([]() 
 {
-    describe("an Acceleration Rule", []()
+    describe("a Direction Acceleration Rule", []()
     {
         it("is an instance of a Rule", []()
         {

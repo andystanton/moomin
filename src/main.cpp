@@ -5,7 +5,7 @@
 #include "model/rules/DirectionAccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/rules/CollisionRule.h"
-#include "model/rules/GravityRule.h"
+#include "model/rules/EntityAccelerationRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
 
@@ -30,7 +30,7 @@ int main(void)
     DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(6400, 6400));
     CollisionRule collisions(physicsSystem.getEntities());
-    GravityRule attraction(physicsSystem.getEntities());
+    EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
     //physicsSystem.addRule(&gravity);

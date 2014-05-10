@@ -1,17 +1,17 @@
-#include "model/rules/GravityRule.h"
+#include "model/rules/EntityAccelerationRule.h"
 
-GravityRule::GravityRule(const set<Entity *> & entities)
+EntityAccelerationRule::EntityAccelerationRule(const set<Entity *> & entities)
     : entities(entities)
 {
 
 }
 
-GravityRule::~GravityRule()
+EntityAccelerationRule::~EntityAccelerationRule()
 {
 
 }
 
-void GravityRule::apply(Entity & entity, float delta)
+void EntityAccelerationRule::apply(Entity & entity, float delta)
 {
     Vec2 & pos = entity.getPos();
     for (auto other : entities)
@@ -24,4 +24,9 @@ void GravityRule::apply(Entity & entity, float delta)
         otherVelocity.setX(otherVelocity.getX() - difference.get()->getX() / ((c.getRadius() * 10000000.f) / distance));
         otherVelocity.setY(otherVelocity.getY() - difference.get()->getY() / ((c.getRadius() * 10000000.f) / distance));
     }
+}
+
+const set<Entity *> & EntityAccelerationRule::getEntities()
+{
+    return entities;
 }
