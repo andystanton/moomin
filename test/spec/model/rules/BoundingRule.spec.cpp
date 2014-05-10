@@ -37,70 +37,70 @@ go_bandit([]()
             AssertThat(area.getUpperRight().getY(), Is().EqualTo(480.f));
         });
 
-        describe("when an Entity crosses the rule's bounds", [&]()
+        describe("when a Circle crosses the rule's bounds", [&]()
         {
-            Circle entity(100.f, 100.f, 10.f);
+            Circle circle(100.f, 100.f, 10.f);
             float timeDeltaMilliseconds = 100;
 
-            it("inverts the components of an Entity's velocity", [&]()
+            it("inverts the components of an circle's velocity", [&]()
             {
-                entity.setPos(Vec2(-10.f, 100.f));
-                entity.setVelocity(Vec2(-100.f, 0.f));
+                circle.setPos(Vec2(-10.f, 100.f));
+                circle.setVelocity(Vec2(-100.f, 0.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getVelocity().getX(), Is().GreaterThan(0.f));
-                AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f));
+                AssertThat(circle.getVelocity().getX(), Is().GreaterThan(0.f));
+                AssertThat(circle.getVelocity().getY(), Is().EqualTo(0.f));
 
-                entity.setPos(Vec2(650.f, 500.f));
-                entity.setVelocity(Vec2(10.f, 15.f));
+                circle.setPos(Vec2(650.f, 500.f));
+                circle.setVelocity(Vec2(10.f, 15.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getVelocity().getX(), Is().LessThan(0.f));
-                AssertThat(entity.getVelocity().getY(), Is().LessThan(0.f));
+                AssertThat(circle.getVelocity().getX(), Is().LessThan(0.f));
+                AssertThat(circle.getVelocity().getY(), Is().LessThan(0.f));
 
             });
 
-            it("moves the Entity to the nearest bound", [&]()
+            it("moves the circle to the nearest bound", [&]()
             {
                 // first test - move to the nearest bound
-                entity.setPos(Vec2(-10.f, 100.f));
-                entity.setVelocity(Vec2(-100.f, 0.f));
+                circle.setPos(Vec2(-10.f, 100.f));
+                circle.setVelocity(Vec2(-100.f, 0.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getPos().getX(), Is().EqualTo(0.f));
-                AssertThat(entity.getPos().getY(), Is().EqualTo(100.f));
+                AssertThat(circle.getPos().getX(), Is().EqualTo(circle.getRadius()));
+                AssertThat(circle.getPos().getY(), Is().EqualTo(100.f));
 
                 // second test - move to the nearest corner
-                entity.setPos(Vec2(-10.f, -12.f));
-                entity.setVelocity(Vec2(-3.f, -4.f));
+                circle.setPos(Vec2(-10.f, -12.f));
+                circle.setVelocity(Vec2(-3.f, -4.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getPos().getX(), Is().EqualTo(0.f));
-                AssertThat(entity.getPos().getY(), Is().EqualTo(0.f));
+                AssertThat(circle.getPos().getX(), Is().EqualTo(circle.getRadius()));
+                AssertThat(circle.getPos().getY(), Is().EqualTo(circle.getRadius()));
             });
 
             it("applies its coefficient of elasticity", [&]()
             {
-                entity.setPos(Vec2(-10.f, 100.f));
-                entity.setVelocity(Vec2(-100.f, 0.f));
+                circle.setPos(Vec2(-10.f, 100.f));
+                circle.setVelocity(Vec2(-100.f, 0.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getVelocity().getX(), Is().EqualTo(50.f));
+                AssertThat(circle.getVelocity().getX(), Is().EqualTo(50.f));
             });
 
             it("applies its coefficient of friction", [&]()
             {
-                entity.setPos(Vec2(50.f, 0.f));
-                entity.setVelocity(Vec2(10.f, 0.f));
+                circle.setPos(Vec2(50.f, 9.f));
+                circle.setVelocity(Vec2(10.f, 0.f));
 
-                area.apply(entity, timeDeltaMilliseconds);
+                area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(entity.getVelocity().getX(), Is().EqualTo(9.f));
+                AssertThat(circle.getVelocity().getX(), Is().EqualTo(9.f));
             });
         });
     });

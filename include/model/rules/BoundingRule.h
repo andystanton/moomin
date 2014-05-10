@@ -1,6 +1,9 @@
 #ifndef _MOOMIN_BOUNDING_RULE
 #define _MOOMIN_BOUNDING_RULE
 
+#include <cmath>
+
+#include "model/Circle.h"
 #include "model/Rule.h"
 #include "core/Vec2.h"
 

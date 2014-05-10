@@ -19,9 +19,7 @@ void DirectionAccelerationRule::apply(Entity& entity, float deltaMilliseconds)
 {
     Vec2& velocity = entity.getVelocity();
     Vec2& pos = entity.getPos();
-    if (velocity.getY() > 0.1 || pos.getY() > 0.1)
-    {
-        velocity.setX(velocity.getX() + acceleration.getX() * deltaMilliseconds/1000);
-        velocity.setY(velocity.getY() + acceleration.getY() * deltaMilliseconds/1000);
-    }
+
+    velocity.setX(velocity.getX() + acceleration.getX() * deltaMilliseconds/1000);
+    velocity.setY(velocity.getY() + acceleration.getY() * deltaMilliseconds/1000);
 }
