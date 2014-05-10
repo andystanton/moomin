@@ -1,7 +1,7 @@
 #include <bandit/bandit.h>
 
 #include "model/Rule.h"
-#include "model/rules/AccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"

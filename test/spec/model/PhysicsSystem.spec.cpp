@@ -4,7 +4,7 @@
 #include "GmockBDDAliases.h"
 
 #include "model/PhysicsSystem.h"
-#include "model/rules/AccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.h"
 #include "model/Circle.h"
 #include "mock/MockRule.h"
 #include "mock/MockEntity.h"
@@ -44,7 +44,7 @@ go_bandit([]()
 
             AssertThat(physicsSystem.getRules(), IsEmpty());
 
-            Rule * gravity = new AccelerationRule(Vec2(0.f, -10.f));
+            Rule * gravity = new DirectionAccelerationRule(Vec2(0.f, -10.f));
             physicsSystem.addRule(gravity);
 
             AssertThat(physicsSystem.getRules(), HasLength(1));

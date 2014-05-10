@@ -2,7 +2,7 @@
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
-#include "model/rules/AccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/rules/CollisionRule.h"
 #include "model/rules/GravityRule.h"
@@ -27,7 +27,7 @@ int main(void)
     PhysicsSystem physicsSystem;
 
     // Create Rules
-    AccelerationRule gravity(Vec2(0.f, -20.f));
+    DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(6400, 6400));
     CollisionRule collisions(physicsSystem.getEntities());
     GravityRule attraction(physicsSystem.getEntities());

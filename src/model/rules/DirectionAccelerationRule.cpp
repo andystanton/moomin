@@ -1,21 +1,21 @@
-#include "model/rules/AccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.h"
 
-AccelerationRule::AccelerationRule(const Vec2& acceleration)
+DirectionAccelerationRule::DirectionAccelerationRule(const Vec2& acceleration)
     : acceleration(acceleration)
 {
 }
 
-AccelerationRule::~AccelerationRule()
+DirectionAccelerationRule::~DirectionAccelerationRule()
 {
     
 }
 
-const Vec2& AccelerationRule::getAcceleration()
+const Vec2& DirectionAccelerationRule::getAcceleration()
 {
     return acceleration;
 }
 
-void AccelerationRule::apply(Entity& entity, float deltaMilliseconds)
+void DirectionAccelerationRule::apply(Entity& entity, float deltaMilliseconds)
 {
     Vec2& velocity = entity.getVelocity();
     Vec2& pos = entity.getPos();

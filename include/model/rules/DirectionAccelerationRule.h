@@ -4,12 +4,12 @@
 #include "model/Rule.h"
 #include "core/Vec2.h"
 
-class AccelerationRule
+class DirectionAccelerationRule
     : public Rule
 {
 public:
-    AccelerationRule(const Vec2&);
-    ~AccelerationRule();
+    DirectionAccelerationRule(const Vec2&);
+    ~DirectionAccelerationRule();
 
     const Vec2& getAcceleration();
     void apply(Entity&, float delta);
