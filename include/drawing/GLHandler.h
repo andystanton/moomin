@@ -9,6 +9,9 @@
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
 
+#include "model/PhysicsSystem.h"
+#include "model/Circle.h"
+
 #include "drawing/Renderer.h"
 #include "drawing/FreeTypeRenderer.h"
 #include "drawing/EntityRenderer.h"
@@ -19,6 +22,7 @@ using std::set;
 using std::stringstream;
 using std::setprecision;
 using std::fixed;
+using std::cout;
 using std::cerr;
 using std::endl;
 
@@ -29,6 +33,8 @@ namespace GLHandler
 
     FreeTypeRenderer * freeTypeRenderer = nullptr;
     EntityRenderer * entityRenderer = nullptr;
+
+    PhysicsSystem * physicsSystem;
     
     string titleString;
     string fpsString;
@@ -65,6 +71,11 @@ namespace GLHandler
         renderer->handleResize(width, height);
     }
 
+    void registerPhysicsSystem(PhysicsSystem * newPhysicsSystem)
+    {
+        physicsSystem = newPhysicsSystem;
+    }
+
     void setFreeTypeRenderer(FreeTypeRenderer * newFreeTypeRenderer)
     {
         freeTypeRenderer = newFreeTypeRenderer;
@@ -83,13 +94,33 @@ namespace GLHandler
         registerRenderer(entityRenderer);
     }
 
-    void handleKey(GLFWwindow* window, int key, int scancode, int action, int mods)
+    void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
         {
             physics = !physics;
         }
-    }    
+    }
+
+    double clickStartX, clickStartY;
+    double clickEndX, clickEndY;
+
+    void handleClick(GLFWwindow *, int button, int action, int mods)
+    {
+        if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
+        {
+            glfwGetCursorPos(window, &clickStartX, &clickStartY);
+        } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
+        {
+            Circle * c = new Circle(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 20 );
+            glfwGetCursorPos(window, &clickEndX, &clickEndY);
+
+            c->getVelocity().setX(clickEndX - clickStartX);
+            c->getVelocity().setY(-(clickEndY - clickStartY));
+
+            physicsSystem->addEntity(c);
+        }
+    }
 
     void handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
     {
@@ -131,6 +162,7 @@ namespace GLHandler
         glfwMakeContextCurrent(window);
         glfwSetWindowSizeCallback(window, GLHandler::handleResize);
         glfwSetKeyCallback(window, GLHandler::handleKey);
+        glfwSetMouseButtonCallback(window, GLHandler::handleClick);
 
         GLenum err = glewInit();
         if (GLEW_OK != err)
