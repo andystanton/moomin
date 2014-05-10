@@ -1,7 +1,7 @@
 #include <bandit/bandit.h>
 
 #include "model/Rule.h"
-#include "model/rules/AccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"
 
@@ -11,11 +11,11 @@ using namespace bandit;
 
 go_bandit([]() 
 {
-    describe("an Acceleration Rule", []()
+    describe("a Direction Acceleration Rule", []()
     {
         it("is an instance of a Rule", []()
         {
-            Rule * gravity = new AccelerationRule(Vec2(0.f, -10.f));
+            Rule * gravity = new DirectionAccelerationRule(Vec2(0.f, -10.f));
             
             MockEntity entity;
             gravity->apply(entity, 100.f);
@@ -23,7 +23,7 @@ go_bandit([]()
 
         it("accepts a Vec2 that defines its acceleration in units/second^2", []() 
         {
-            AccelerationRule gravity(Vec2(0.f, -10.f));
+            DirectionAccelerationRule gravity(Vec2(0.f, -10.f));
 
             AssertThat(gravity.getAcceleration().getX(), Is().EqualTo(0.f));
             AssertThat(gravity.getAcceleration().getY(), Is().EqualTo(-10.f));
@@ -32,7 +32,7 @@ go_bandit([]()
         it("applies its acceleration to an Entity's velocity given a time delta in ms", []() 
         {
             // set gravity to (0, -10) units/second^2
-            AccelerationRule gravity(Vec2(0.f, -10.f));
+            DirectionAccelerationRule gravity(Vec2(0.f, -10.f));
 
             Circle entity(100.f, 100.f, 10.f);
 
