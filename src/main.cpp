@@ -46,13 +46,13 @@ int main(void)
     // Register Rules with Physics System
     physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
-    //physicsSystem.addRule(&collisions);
+    physicsSystem.addRule(&collisions);
     //physicsSystem.addRule(&attraction);
 
 
     for (int i=0; i < 50; i++)
     {
-        physicsSystem.addEntity(createRandomCircle());
+        //physicsSystem.addEntity(createRandomCircle());
         physicsSystem.addEntity(createRandomAABB());
     }
 

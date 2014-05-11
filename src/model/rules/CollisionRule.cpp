@@ -19,9 +19,12 @@ void CollisionRule::apply(Entity & entity, float delta)
         if (collision->getDepth() > 0)
         {
             Vec2 & primaryVelocity = entity.getVelocity();
-            float circleElasticity = 0.65f;
-            primaryVelocity.setX((primaryVelocity.getX() + collision->getResultantVelocity().getX()) * circleElasticity);
-            primaryVelocity.setY((primaryVelocity.getY() + collision->getResultantVelocity().getY()) * circleElasticity);
+            float elasticity = 0.65f;
+
+            cout << collision->getResultantVelocity().getX() << ", " << collision->getResultantVelocity().getY() << endl;
+
+            primaryVelocity.setX((primaryVelocity.getX() + collision->getResultantVelocity().getX()) * elasticity);
+            primaryVelocity.setY((primaryVelocity.getY() + collision->getResultantVelocity().getY()) * elasticity);
         }
     }
 }

@@ -6,6 +6,7 @@
 #include "model/Entity.h"
 #include "model/Collision.h"
 #include "model/Circle.h"
+#include "model/AABB.h"
 
 using namespace bandit;
 
@@ -17,13 +18,15 @@ go_bandit([]()
     {
         Circle primaryA(0.f, 0.f, 3.f);
         Circle secondaryA(4.f, 3.f, 3.f);
+
         Collision collisionA(primaryA, secondaryA);
 
         Circle primaryB(0.f, 0.f, 3.f);
         Circle secondaryB(-4.f, -3.f, 3.f);
+
         Collision collisionB(primaryB, secondaryB);
 
-        it("has primary and secondary entities", [&]() 
+        it("has primary and secondary Circles", [&]() 
         {
             AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
             AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
@@ -32,10 +35,29 @@ go_bandit([]()
             AssertThat(&collisionB.getSecondary(), Is().EqualTo(&secondaryB));
         });
 
-        it("records the depth of the collision", [&]()
+        it("records the depth of the Collision", [&]()
         {
             AssertThat(collisionA.getDepth(), Is().EqualTo(1.f));
             AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));
+        });
+    });
+
+    describe("a Collision between two AABBs", []()
+    {
+        AABB primaryA(     0.f,   0.f, 40.f, 30.f);
+        AABB secondaryA( -36.f, -27.f, 40.f, 30.f);
+
+        Collision collisionA(primaryA, secondaryA);
+
+        it("has primary and secondary AABBs", [&]() 
+        {
+            AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
+            AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
+        });
+
+        it("records the depth of the Collision", [&]()
+        {
+            //AssertThat(collisionA.getDepth(), Is().EqualTo(5.f));
         });
     });
 });

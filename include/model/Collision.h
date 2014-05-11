@@ -3,6 +3,7 @@
 
 #include "model/Entity.h"
 #include "model/Circle.h"
+#include "model/AABB.h"
 
 #include <iostream>
 using namespace std;
@@ -22,6 +23,9 @@ private:
     Entity & primary, & secondary;
     float depth;
     Vec2 resultantVelocity;
+
+    void resolveCircleCircle();
+    void resolveAABBAABB();
 };
 
 #endif
