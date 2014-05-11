@@ -48,10 +48,10 @@ go_bandit([]()
             AssertThat(points[3], Is().EqualTo(60.f));
 
             AssertThat(points[4], Is().EqualTo(40.f));
-            AssertThat(points[5], Is().EqualTo(60.f));
+            AssertThat(points[5], Is().EqualTo(0.f));
 
             AssertThat(points[6], Is().EqualTo(40.f));
-            AssertThat(points[7], Is().EqualTo(0.f));
+            AssertThat(points[7], Is().EqualTo(60.f));
         });
     });
 });
