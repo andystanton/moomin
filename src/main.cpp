@@ -14,9 +14,11 @@ using namespace std;
 
 int width = 640, height = 640;
 
+int worldWidth = 6400, worldHeight = 6400;
+
 Circle * createRandomCircle()
 {
-    Circle * c = new Circle(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 20) + 20);
+    Circle * c = new Circle(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 20) + 20);
     c->getVelocity().setX((rand() % 30) - 15);
     c->getVelocity().setY(rand() % 30);
     return c;
@@ -24,7 +26,7 @@ Circle * createRandomCircle()
 
 AABB * createRandomAABB()
 {
-    AABB * aabb = new AABB(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 40) + 40, (rand() % 40) + 40);
+    AABB * aabb = new AABB(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 40) + 40, (rand() % 40) + 40);
     aabb->getVelocity().setX((rand() % 30) - 15);
     aabb->getVelocity().setY(rand() % 30);
     return aabb;
@@ -37,7 +39,7 @@ int main(void)
 
     // Create Rules
     DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
-    BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(6400, 6400));
+    BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(worldWidth, worldHeight));
     CollisionRule collisions(physicsSystem.getEntities());
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
