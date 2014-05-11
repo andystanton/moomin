@@ -29,9 +29,13 @@ void EntityRenderer::draw(Entity* entity)
     }
     glPushMatrix();
         glTranslatef(entity->getPos().getX(), entity->getPos().getY(), 0);
-        Circle * circle = static_cast<Circle *>(entity);
-        float scaleFactor = circle->getRadius() / 10.f;
-        glScalef(scaleFactor, scaleFactor, scaleFactor);
+
+        if (entity->getCollisionType() == Entity::CollisionType::circle)
+        {
+            Circle * circle = static_cast<Circle *>(entity);
+            float scaleFactor = circle->getRadius() / 10.f;
+            glScalef(scaleFactor, scaleFactor, scaleFactor);
+        }
         glBegin(mode);
             glColor3f(0.f, 1.f, 0.f);
             

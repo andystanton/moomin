@@ -4,6 +4,7 @@
 #include "model/rules/DirectionAccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/Circle.h"
+#include "model/AABB.h"
 #include "core/Vec2.h"
 
 #include "mock/MockEntity.h"
@@ -37,12 +38,37 @@ go_bandit([]()
             AssertThat(area.getUpperRight().getY(), Is().EqualTo(480.f));
         });
 
+        describe("when an AABB crosses the rule's bounds", [&]()
+        {
+            AABB aabb(100.f, 100.f, 20.f, 10.f);
+            float timeDeltaMilliseconds = 100;
+
+            it("inverts the components of the AABB's velocity", [&]()
+            {
+                aabb.setPos(Vec2(-10.f, 100.f));
+                aabb.setVelocity(Vec2(-100.f, 0.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getVelocity().getX(), Is().GreaterThan(0.f));
+                AssertThat(aabb.getVelocity().getY(), Is().EqualTo(0.f));
+
+                aabb.setPos(Vec2(650.f, 500.f));
+                aabb.setVelocity(Vec2(10.f, 15.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getVelocity().getX(), Is().LessThan(0.f));
+                AssertThat(aabb.getVelocity().getY(), Is().LessThan(0.f));
+            });
+        });
+
         describe("when a Circle crosses the rule's bounds", [&]()
         {
             Circle circle(100.f, 100.f, 10.f);
             float timeDeltaMilliseconds = 100;
 
-            it("inverts the components of an circle's velocity", [&]()
+            it("inverts the components of the Circle's velocity", [&]()
             {
                 circle.setPos(Vec2(-10.f, 100.f));
                 circle.setVelocity(Vec2(-100.f, 0.f));
@@ -59,7 +85,6 @@ go_bandit([]()
 
                 AssertThat(circle.getVelocity().getX(), Is().LessThan(0.f));
                 AssertThat(circle.getVelocity().getY(), Is().LessThan(0.f));
-
             });
 
             it("moves the circle to the nearest bound", [&]()

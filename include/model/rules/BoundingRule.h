@@ -4,6 +4,7 @@
 #include <cmath>
 
 #include "model/Circle.h"
+#include "model/AABB.h"
 #include "model/Rule.h"
 #include "core/Vec2.h"
 
@@ -15,6 +16,10 @@ public:
     ~BoundingRule();
     
     void apply(Entity&, float delta);
+
+    void applyToCircle(Circle&, float delta);
+    void applyToAABB(AABB&, float delta);
+
     float getElasticity() const;
     const Vec2& getLowerLeft() const;
     const Vec2& getUpperRight() const;

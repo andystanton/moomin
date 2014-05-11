@@ -17,16 +17,16 @@ int width = 640, height = 640;
 Circle * createRandomCircle()
 {
     Circle * c = new Circle(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 20) + 20);
-    c->getVelocity().setX(rand() % 3);
-    c->getVelocity().setY(rand() % 3);
+    c->getVelocity().setX((rand() % 30) - 15);
+    c->getVelocity().setY(rand() % 30);
     return c;
 }
 
 AABB * createRandomAABB()
 {
-    AABB * aabb = new AABB(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 20) + 20, (rand() % 20) + 20);
-    // aabb->getVelocity().setX(rand() % 3);
-    // aabb->getVelocity().setY(rand() % 3);
+    AABB * aabb = new AABB(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 40) + 40, (rand() % 40) + 40);
+    aabb->getVelocity().setX((rand() % 30) - 15);
+    aabb->getVelocity().setY(rand() % 30);
     return aabb;
 }
 
@@ -42,15 +42,15 @@ int main(void)
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    //physicsSystem.addRule(&gravity);
-    //physicsSystem.addRule(&area);
+    physicsSystem.addRule(&gravity);
+    physicsSystem.addRule(&area);
     //physicsSystem.addRule(&collisions);
     //physicsSystem.addRule(&attraction);
 
 
     for (int i=0; i < 50; i++)
     {
-        //physicsSystem.addEntity(createRandomCircle());
+        physicsSystem.addEntity(createRandomCircle());
         physicsSystem.addEntity(createRandomAABB());
     }
 
