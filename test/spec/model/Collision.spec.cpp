@@ -15,12 +15,12 @@ go_bandit([]()
 {
     describe("a Collision between two Circles", []() 
     {
-        Entity primaryA = Circle(0.f, 0.f, 3.f);
-        Entity secondaryA = Circle(4.f, 3.f, 3.f);
+        Circle primaryA(0.f, 0.f, 3.f);
+        Circle secondaryA(4.f, 3.f, 3.f);
         Collision collisionA(primaryA, secondaryA);
 
-        Entity primaryB = Circle(0.f, 0.f, 3.f);
-        Entity secondaryB = Circle(-4.f, -3.f, 3.f);
+        Circle primaryB(0.f, 0.f, 3.f);
+        Circle secondaryB(-4.f, -3.f, 3.f);
         Collision collisionB(primaryB, secondaryB);
 
         it("has primary and secondary entities", [&]() 

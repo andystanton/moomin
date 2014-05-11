@@ -1,8 +1,7 @@
 #include "model/Entity.h"
 
-Entity::Entity(float x, float y, const Mesh& mesh)
+Entity::Entity(float x, float y)
     : pos(x, y)
-    , mesh(mesh)
     , collisionType(Entity::CollisionType::circle)
 {
 
@@ -11,11 +10,6 @@ Entity::Entity(float x, float y, const Mesh& mesh)
 Entity::~Entity() 
 {
 
-}
-
-const Mesh& Entity::getMesh() const
-{
-    return mesh;
 }
 
 Vec2& Entity::getPos()

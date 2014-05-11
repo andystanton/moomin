@@ -39,6 +39,8 @@ go_bandit([]()
 
             float * points = aabb.getMesh().getPoints();
 
+            AssertThat(aabb.getMesh().getType(), Is().EqualTo(Mesh::MeshType::quads));
+
             AssertThat(points[0], Is().EqualTo(0.f));
             AssertThat(points[1], Is().EqualTo(0.f));
 

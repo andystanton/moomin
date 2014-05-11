@@ -12,6 +12,8 @@ public:
 
     Vec2 & getBounding();
 
+    const Mesh & getMesh() const;
+
 private:
     Vec2 bounding;
     Mesh mesh
