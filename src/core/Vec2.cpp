@@ -45,10 +45,15 @@ float Vec2::getMagnitude() const
 
 float Vec2::distanceTo(const Vec2 & other)
 {
-    return sqrt(pow(fabs(other.x - x), 2) + pow(fabs(other.y - y), 2));
+    return sqrt(pow(other.x - x, 2) + pow(other.y - y, 2));
 }
 
 unique_ptr<Vec2> Vec2::subtractFrom(const Vec2 & other)
 {
-    return unique_ptr<Vec2>(new Vec2(other.getX()-x, other.getY()-y));
+    return unique_ptr<Vec2>(new Vec2(other.getX() - x, other.getY() - y));
+}
+
+unique_ptr<Vec2> Vec2::addTo(const Vec2 & other)
+{
+    return unique_ptr<Vec2>(new Vec2(other.getX() + x, other.getY() + y));
 }

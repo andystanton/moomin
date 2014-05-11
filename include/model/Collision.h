@@ -18,11 +18,13 @@ public:
     Entity & getSecondary();
     float getDepth();
     Vec2 & getResultantVelocity();
+    Vec2 & getEscapeTranslation();
 
 private:
     Entity & primary, & secondary;
     float depth;
     Vec2 resultantVelocity;
+    Vec2 escapeTranslation;
 
     void resolveCircleCircle();
     void resolveAABBAABB();

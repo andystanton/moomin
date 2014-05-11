@@ -5,6 +5,7 @@ Collision::Collision(Entity& primary, Entity& secondary)
     , secondary(secondary)
     , depth(0)
     , resultantVelocity()
+    , escapeTranslation()
 {
     if (&primary != &secondary)
     {
@@ -30,27 +31,42 @@ void Collision::resolveAABBAABB()
     AABB & primaryAABB = static_cast<AABB &>(primary);
     AABB & secondaryAABB = static_cast<AABB &>(secondary);
 
-    Vec2 & primaryPosition = primaryAABB.getPos();
-    Vec2 & primaryBounding = primaryAABB.getBounding();
+    Vec2 & primaryMin = primaryAABB.getPos();
+    unique_ptr<Vec2> primaryMax = primaryMin.addTo(primaryAABB.getBounding());
 
-    Vec2 & secondaryPosition = secondaryAABB.getPos();
-    Vec2 & secondaryBounding = secondaryAABB.getBounding();
+    Vec2 & secondaryMin = secondaryAABB.getPos();
+    unique_ptr<Vec2> secondaryMax = secondaryMin.addTo(secondaryAABB.getBounding());
 
-    if (primaryPosition.getX() > (secondaryPosition.getX() + secondaryBounding.getX()) ||
-        primaryPosition.getY() > (secondaryPosition.getY() + secondaryBounding.getY()) ||
-        (primaryPosition.getX() + primaryBounding.getX()) < secondaryPosition.getX() ||
-        (primaryPosition.getY() + primaryBounding.getY()) < secondaryPosition.getY())
+    if (primaryMin.getX() > secondaryMax.get()->getX() ||
+        primaryMin.getY() > secondaryMax.get()->getY() ||
+        primaryMax.get()->getX() < secondaryMin.getX() ||
+        primaryMax.get()->getY() < secondaryMin.getY())
     {
         return;
     } else
     {
-        cout << "collision aabb" << endl;
-        unique_ptr<Vec2> difference = secondaryPosition.subtractFrom(primaryPosition);
+        float left = secondaryMin.getX() - primaryMax.get()->getX();
+        float right = secondaryMax.get()->getX() - primaryMin.getX();
 
-        depth = difference.get()->getMagnitude();
+        float top = secondaryMin.getY() - primaryMax.get()->getY();
+        float bottom = secondaryMax.get()->getY() - primaryMin.getY();
 
-        //resultantVelocity.setX(difference.get()->getX() / depth);
-        //resultantVelocity.setY(difference.get()->getY() / depth);
+        escapeTranslation.setX(abs(left) < right ? left : right);
+        escapeTranslation.setY(abs(top) < bottom ? top : bottom);
+
+        unique_ptr<Vec2> difference = secondaryMin.subtractFrom(primaryMin);
+
+        depth = escapeTranslation.getMagnitude();
+
+        if (escapeTranslation.getX() < escapeTranslation.getY())
+        {
+            escapeTranslation.setY(0);
+        } else {
+            escapeTranslation.setX(0);
+        }
+
+        resultantVelocity.setX(difference.get()->getX() / depth);
+        resultantVelocity.setY(difference.get()->getY() / depth);
     }
 }
 
@@ -90,4 +106,9 @@ float Collision::getDepth()
 Vec2 & Collision::getResultantVelocity()
 {
     return resultantVelocity;
+}
+
+Vec2 & Collision::getEscapeTranslation()
+{
+    return escapeTranslation;
 }

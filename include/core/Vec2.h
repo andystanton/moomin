@@ -24,6 +24,7 @@ public:
     float distanceTo(const Vec2 &);
 
     unique_ptr<Vec2> subtractFrom(const Vec2 &);
+    unique_ptr<Vec2> addTo(const Vec2 &);
 private:
     float x, y;
 };
