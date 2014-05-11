@@ -8,6 +8,7 @@
 #include "model/rules/EntityAccelerationRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
+#include "model/AABB.h"
 
 using namespace std;
 
@@ -19,6 +20,14 @@ Circle * createRandomCircle()
     c->getVelocity().setX(rand() % 3);
     c->getVelocity().setY(rand() % 3);
     return c;
+}
+
+AABB * createRandomAABB()
+{
+    AABB * aabb = new AABB(800 + (rand() % 4800), 800 + (rand() % 4800), (rand() % 20) + 20, (rand() % 20) + 20);
+    // aabb->getVelocity().setX(rand() % 3);
+    // aabb->getVelocity().setY(rand() % 3);
+    return aabb;
 }
 
 int main(void) 
@@ -33,15 +42,16 @@ int main(void)
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    physicsSystem.addRule(&gravity);
-    physicsSystem.addRule(&area);
-    physicsSystem.addRule(&collisions);
+    //physicsSystem.addRule(&gravity);
+    //physicsSystem.addRule(&area);
+    //physicsSystem.addRule(&collisions);
     //physicsSystem.addRule(&attraction);
 
 
     for (int i=0; i < 50; i++)
     {
-        physicsSystem.addEntity(createRandomCircle());
+        //physicsSystem.addEntity(createRandomCircle());
+        physicsSystem.addEntity(createRandomAABB());
     }
 
     // physicsSystem.addEntity(new Circle(320, 400, 10));

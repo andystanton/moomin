@@ -16,15 +16,12 @@ public:
     MOCK_METHOD1(setPos, void(Vec2&));
     MOCK_METHOD1(setVelocity, void(Vec2&));
 
+    MOCK_CONST_METHOD0_T(getMesh, const Mesh&());
+
     MockEntity()
-        : Entity(0.f, 0.f, mesh)
+        : Entity(0.f, 0.f)
     {
     }
-private:
-    Mesh mesh
-    {
-
-    };
 };
 
 #endif

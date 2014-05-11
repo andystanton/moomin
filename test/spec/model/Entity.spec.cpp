@@ -1,7 +1,7 @@
 #include <bandit/bandit.h>
 
-#include "model/Entity.h"
-#include "drawing/Mesh.h"
+#include "model/Circle.h"
+#include "model/AABB.h"
 
 using namespace bandit;
 
@@ -9,28 +9,31 @@ go_bandit([]()
 {
     describe("an Entity", []() 
     {
-        Mesh mesh 
+        Entity * e1 = new Circle(23.0f, 12.0f, 5.f);
+        Entity * e2 = new AABB(20.f, 20.f, 5.f, 5.f);
+
+        e1->getVelocity().setX(5.f);
+        e1->getVelocity().setY(7.f);
+
+        it("has a position and a velocity", [&]() 
         {
-            0.0f, 0.0f,
-            0.0f, 1.0f,
-            1.0f, 1.0f,
-            1.0f, 0.0f
-        };
-        mesh.setType(Mesh::MeshType::quads);
+            AssertThat(e1->getPos().getX(), Is().EqualTo(23.0f));
+            AssertThat(e1->getPos().getY(), Is().EqualTo(12.0f));
 
-        Entity entity(23.0f, 12.0f, mesh);
+            AssertThat(e1->getVelocity().getX(), Is().EqualTo(5.f));
+            AssertThat(e1->getVelocity().getY(), Is().EqualTo(7.f));
 
-        it("accepts a Vec2 position and a Mesh", [&]() 
-        {
-            AssertThat(entity.getPos().getX(), Is().EqualTo(23.0f));
-            AssertThat(entity.getPos().getY(), Is().EqualTo(12.0f));
+            AssertThat(e2->getPos().getX(), Is().EqualTo(20.0f));
+            AssertThat(e2->getPos().getY(), Is().EqualTo(20.0f));
 
-            AssertThat(&entity.getMesh(), Is().EqualTo(&mesh));
+            AssertThat(e2->getVelocity().getX(), Is().EqualTo(0.f));
+            AssertThat(e2->getVelocity().getY(), Is().EqualTo(0.f));
         });
 
         it("has a Collision Type", [&]()
         {
-            AssertThat(entity.getCollisionType(), Is().EqualTo(Entity::CollisionType::circle));
+            AssertThat(e1->getCollisionType(), Is().EqualTo(Entity::CollisionType::circle));
+            AssertThat(e2->getCollisionType(), Is().EqualTo(Entity::CollisionType::aabb));
         });
     });
 });

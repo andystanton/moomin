@@ -12,6 +12,7 @@ public:
     ~Circle();
 
     float getRadius();
+    const Mesh & getMesh() const;
 private:
     float radius;
     Mesh mesh

@@ -13,13 +13,14 @@ class Entity
 public:
     enum class CollisionType
     {
-        circle
+        circle,
+        aabb
     };
 
-    Entity(float x, float y, const Mesh&);
+    Entity(float x, float y);
     ~Entity();
 
-    const Mesh& getMesh() const;
+    virtual const Mesh & getMesh() const = 0;
 
     Vec2& getPos();
     Vec2& getVelocity();
@@ -31,7 +32,6 @@ public:
 private:
     Vec2 pos;
     Vec2 velocity;
-    const Mesh& mesh;
     CollisionType collisionType;
 };
 
