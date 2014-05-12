@@ -23,7 +23,7 @@ go_bandit([]()
         Circle secondaryB(-4.f, -3.f, 3.f);
         Collision collisionB(primaryB, secondaryB);
 
-        it("has primary and secondary entities", [&]() 
+        it("has primary and secondary Circles", [&]() 
         {
             AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
             AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
@@ -36,6 +36,11 @@ go_bandit([]()
         {
             AssertThat(collisionA.getDepth(), Is().EqualTo(1.f));
             AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));
+        });
+
+        it("calculates the exit position for the primary Circle", [&]()
+        {
+            //AssertThat(collisionA.getExit)
         });
     });
 });
