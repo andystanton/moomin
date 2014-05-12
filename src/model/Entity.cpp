@@ -3,6 +3,7 @@
 Entity::Entity(float x, float y)
     : pos(x, y)
     , collisionType(Entity::CollisionType::circle)
+    , mass(0)
 {
 
 }
@@ -40,4 +41,14 @@ Entity::CollisionType Entity::getCollisionType()
 void Entity::setCollisionType(CollisionType collisionType)
 {
     this->collisionType = collisionType;
+}
+
+void Entity::setMass(float mass)
+{
+    this->mass = mass;
+}
+
+float Entity::getMass()
+{
+    return mass;
 }

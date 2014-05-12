@@ -22,14 +22,20 @@ public:
 
     virtual const Mesh & getMesh() const = 0;
 
+    float getMass();
+    void setMass(float);
+
     Vec2& getPos();
-    Vec2& getVelocity();
     void setPos(Vec2);
+
+    Vec2& getVelocity();
     void setVelocity(Vec2);
 
-    void setCollisionType(CollisionType);
     CollisionType getCollisionType();
+    void setCollisionType(CollisionType);
+
 private:
+    float mass;
     Vec2 pos;
     Vec2 velocity;
     CollisionType collisionType;
