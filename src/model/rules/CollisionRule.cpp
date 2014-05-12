@@ -18,10 +18,20 @@ void CollisionRule::apply(Entity & entity, float delta)
         unique_ptr<Collision> collision = unique_ptr<Collision>(new Collision(entity, *other));
         if (collision->getDepth() > 0)
         {
+            Vec2 & primaryPos = entity.getPos();
             Vec2 & primaryVelocity = entity.getVelocity();
-            float circleElasticity = 0.65f;
-            primaryVelocity.setX((primaryVelocity.getX() + collision->getResultantVelocity().getX()) * circleElasticity);
-            primaryVelocity.setY((primaryVelocity.getY() + collision->getResultantVelocity().getY()) * circleElasticity);
+
+            Vec2 & escapeTranslation = collision.get()->getEscapeTranslation();
+
+            float elasticity = 0.65f;
+
+            //cout << collision->getResultantVelocity().getX() << ", " << collision->getResultantVelocity().getY() << endl;
+
+            primaryPos.setX(primaryPos.getX() + escapeTranslation.getX());
+            primaryPos.setY(primaryPos.getY() + escapeTranslation.getY());
+
+            primaryVelocity.setX((primaryVelocity.getX() + collision->getResultantVelocity().getX()) * elasticity);
+            primaryVelocity.setY((primaryVelocity.getY() + collision->getResultantVelocity().getY()) * elasticity);
         }
     }
 }
