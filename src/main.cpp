@@ -1,3 +1,5 @@
+#include <iostream>
+
 #include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
@@ -44,16 +46,28 @@ int main(void)
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    physicsSystem.addRule(&gravity);
+    //physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
     //physicsSystem.addRule(&attraction);
 
+    AABB * aabb1 = new AABB(2000.f, 600.f, 200.f, 200.f);
+    AABB * aabb2 = new AABB(2500.f, 1000.f, 200.f, 200.f);
+    AABB * aabb3 = new AABB(3000.f, 600.f, 200.f, 200.f);
+
+    aabb1->getVelocity().setX(10);
+    aabb1->getVelocity().setY(10);
+
+    aabb3->getVelocity().setX(-10);
+
+    physicsSystem.addEntity(aabb1);
+    physicsSystem.addEntity(aabb2);
+    //physicsSystem.addEntity(aabb3);
 
     for (int i=0; i < 50; i++)
     {
         //physicsSystem.addEntity(createRandomCircle());
-        physicsSystem.addEntity(createRandomAABB());
+        //physicsSystem.addEntity(createRandomAABB());
     }
 
     // physicsSystem.addEntity(new Circle(320, 400, 10));
@@ -83,6 +97,9 @@ int main(void)
         {
             physicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
             lastUpdate = glfwGetTime();
+
+            cout << "aabb1 velocity: " << aabb1->getVelocity().getX() << ", " << aabb1->getVelocity().getY() << endl;
+            cout << "aabb2 velocity: " << aabb2->getVelocity().getX() << ", " << aabb2->getVelocity().getY() << endl;
         }
     }
     

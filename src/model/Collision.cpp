@@ -54,19 +54,18 @@ void Collision::resolveAABBAABB()
         escapeTranslation.setX(abs(left) < right ? left : right);
         escapeTranslation.setY(abs(top) < bottom ? top : bottom);
 
-        unique_ptr<Vec2> difference = secondaryMin.subtractFrom(primaryMin);
-
         depth = escapeTranslation.getMagnitude();
 
         if (escapeTranslation.getX() < escapeTranslation.getY())
         {
             escapeTranslation.setY(0);
-        } else {
+        } else if(escapeTranslation.getX() > escapeTranslation.getY()) 
+        {
             escapeTranslation.setX(0);
         }
 
-        resultantVelocity.setX(difference.get()->getX() / depth);
-        resultantVelocity.setY(difference.get()->getY() / depth);
+        resultantVelocity.setX(escapeTranslation.getX() * secondary.getVelocity().getX() / depth);
+        resultantVelocity.setY(escapeTranslation.getY() * secondary.getVelocity().getY() / depth);
     }
 }
 
