@@ -46,7 +46,7 @@ int main(void)
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
     // Register Rules with Physics System
-    //physicsSystem.addRule(&gravity);
+    physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
     //physicsSystem.addRule(&attraction);
@@ -60,13 +60,13 @@ int main(void)
 
     aabb3->getVelocity().setX(-10);
 
-    physicsSystem.addEntity(aabb1);
-    physicsSystem.addEntity(aabb2);
-    //physicsSystem.addEntity(aabb3);
+    // physicsSystem.addEntity(aabb1);
+    // physicsSystem.addEntity(aabb2);
+    // physicsSystem.addEntity(aabb3);
 
     for (int i=0; i < 50; i++)
     {
-        //physicsSystem.addEntity(createRandomCircle());
+        physicsSystem.addEntity(createRandomCircle());
         //physicsSystem.addEntity(createRandomAABB());
     }
 
@@ -98,8 +98,8 @@ int main(void)
             physicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
             lastUpdate = glfwGetTime();
 
-            cout << "aabb1 velocity: " << aabb1->getVelocity().getX() << ", " << aabb1->getVelocity().getY() << endl;
-            cout << "aabb2 velocity: " << aabb2->getVelocity().getX() << ", " << aabb2->getVelocity().getY() << endl;
+            // cout << "aabb1 velocity: " << aabb1->getVelocity().getX() << ", " << aabb1->getVelocity().getY() << endl;
+            // cout << "aabb2 velocity: " << aabb2->getVelocity().getX() << ", " << aabb2->getVelocity().getY() << endl;
         }
     }
     
