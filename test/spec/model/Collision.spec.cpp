@@ -26,6 +26,8 @@ go_bandit([]()
 
         Collision collisionB(primaryB, secondaryB);
 
+        float tolerance = 0.00001;
+
         it("has primary and secondary Circles", [&]() 
         {
             AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
@@ -41,9 +43,10 @@ go_bandit([]()
             AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));
         });
 
-        it("calculates the exit position for the primary Circle", [&]()
+        it("calculates the escape translation for the primary Circle", [&]()
         {
-            //AssertThat(collisionA.getExit)
+            AssertThat(collisionA.getEscapeTranslation().getX(), Is().EqualToWithDelta(-0.4, tolerance));
+            AssertThat(collisionA.getEscapeTranslation().getY(), Is().EqualToWithDelta(-0.3, tolerance));
         });
     });
 
