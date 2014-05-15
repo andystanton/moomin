@@ -111,14 +111,26 @@ go_bandit([]()
 
         it("calculates the escape translation for the primary AABB", [&]()
         {
-            AssertThat(collisionA.getEscapeTranslation().getX(), Is().EqualToWithDelta(4.f, tolerance));
-            AssertThat(collisionA.getEscapeTranslation().getY(), Is().EqualToWithDelta(0.f, tolerance));
+            AssertThat(collisionA.getEscapeTranslation().getX(), Is().EqualToWithDelta(0.f, tolerance));
+            AssertThat(collisionA.getEscapeTranslation().getY(), Is().EqualToWithDelta(3.f, tolerance));
 
             AssertThat(collisionB.getEscapeTranslation().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-            AssertThat(collisionB.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));            
+            AssertThat(collisionB.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));
 
             AssertThat(collisionC.getEscapeTranslation().getX(), Is().EqualToWithDelta(-5.f, tolerance));
-            AssertThat(collisionC.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));            
+            AssertThat(collisionC.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));
+
+            AssertThat(collisionD.getEscapeTranslation().getX(), Is().EqualToWithDelta( 0.f, tolerance));
+            AssertThat(collisionD.getEscapeTranslation().getY(), Is().EqualToWithDelta( 5.f, tolerance));
+
+            AssertThat(collisionE.getEscapeTranslation().getX(), Is().EqualToWithDelta( 5.f, tolerance));
+            AssertThat(collisionE.getEscapeTranslation().getY(), Is().EqualToWithDelta( 0.f, tolerance));
+
+            AssertThat(collisionF.getEscapeTranslation().getX(), Is().EqualToWithDelta(-3.f, tolerance));
+            AssertThat(collisionF.getEscapeTranslation().getY(), Is().EqualToWithDelta( 0.f, tolerance));
+
+            AssertThat(collisionG.getEscapeTranslation().getX(), Is().EqualToWithDelta( 6.f, tolerance));
+            AssertThat(collisionG.getEscapeTranslation().getY(), Is().EqualToWithDelta( 6.f, tolerance));
         });
     });
 });

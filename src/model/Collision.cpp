@@ -48,19 +48,19 @@ void Collision::resolveAABBAABB()
         return;
     } else
     {
-        float left = abs(secondaryMin.getX() - primaryMax.get()->getX());
+        float left = secondaryMin.getX() - primaryMax.get()->getX();
         float right = secondaryMax.get()->getX() - primaryMin.getX();
 
-        float top = abs(secondaryMin.getY() - primaryMax.get()->getY());
+        float top = secondaryMin.getY() - primaryMax.get()->getY();
         float bottom = secondaryMax.get()->getY() - primaryMin.getY();
 
-        escapeTranslation.setX(left < right ? left : right);
-        escapeTranslation.setY(top < bottom ? top : bottom);
+        escapeTranslation.setX(abs(left) < right ? left : right);
+        escapeTranslation.setY(abs(top) < bottom ? top : bottom);
 
-        if (escapeTranslation.getX() < escapeTranslation.getY())
+        if (abs(escapeTranslation.getX()) < abs(escapeTranslation.getY()))
         {
             escapeTranslation.setY(0);
-        } else if(escapeTranslation.getX() > escapeTranslation.getY()) 
+        } else if(abs(escapeTranslation.getX()) > abs(escapeTranslation.getY()))
         {
             escapeTranslation.setX(0);
         }
