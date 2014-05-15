@@ -32,10 +32,10 @@ void Collision::resolveAABBAABB()
     AABB & secondaryAABB = static_cast<AABB &>(secondary);
 
     Vec2 & primaryMin = primaryAABB.getPos();
-    unique_ptr<Vec2> primaryMax = primaryMin.addTo(primaryAABB.getBounding());
+    unique_ptr<Vec2> primaryMax = primaryMin.add(primaryAABB.getBounding());
 
     Vec2 & secondaryMin = secondaryAABB.getPos();
-    unique_ptr<Vec2> secondaryMax = secondaryMin.addTo(secondaryAABB.getBounding());
+    unique_ptr<Vec2> secondaryMax = secondaryMin.add(secondaryAABB.getBounding());
 
     if (primaryMin.getX() > secondaryMax.get()->getX() ||
         primaryMin.getY() > secondaryMax.get()->getY() ||
@@ -74,16 +74,21 @@ void Collision::resolveCircleCircle()
     Circle & primaryCircle = static_cast<Circle &>(primary);
     Circle & secondaryCircle = static_cast<Circle &>(secondary);
 
-    float distance = abs(primaryCircle.getPos().distanceTo(secondaryCircle.getPos()));
+
+    unique_ptr<Vec2> difference = secondaryCircle.getPos().subtract(primaryCircle.getPos());
+    float distance = difference.get()->getMagnitude();
+
     depth = primaryCircle.getRadius() + secondaryCircle.getRadius() - distance;
 
     if (depth > 0)
     {
-        float scale = distance / depth;
-        unique_ptr<Vec2> difference = secondaryCircle.getPos().subtractFrom(primaryCircle.getPos());
+        float scale = distance / depth;              
 
-        resultantVelocity.setX(difference.get()->getX() / scale);
-        resultantVelocity.setY(difference.get()->getY() / scale);
+        escapeTranslation.setX(-0.5 * (difference.get()->getX() / scale));
+        escapeTranslation.setY(-0.5 * (difference.get()->getY() / scale));
+
+        resultantVelocity.setX(-difference.get()->getX() / scale);
+        resultantVelocity.setY(-difference.get()->getY() / scale);
     }
 }
 

@@ -44,6 +44,9 @@ go_bandit([]()
 
         describe("when two Circles collide", []()
         {
+            float tolerance = 0.001;
+            float circleElasticity = 0.65;
+
             set<Entity *> entities;
 
             Circle c1(0.f, 0.f, 3.f);
@@ -63,10 +66,17 @@ go_bandit([]()
                 circleCollision.apply(*entity, 100.f);
             }
 
+            it("repositions the Entities so that they are no longer colliding", [&]()
+            {
+                AssertThat(c1.getNextPos().getX(), Is().EqualToWithDelta(-0.4, tolerance));
+                AssertThat(c1.getNextPos().getY(), Is().EqualToWithDelta(-0.3, tolerance));
+
+                AssertThat(c2.getNextPos().getX(), Is().EqualToWithDelta(4.4, tolerance));
+                AssertThat(c2.getNextPos().getY(), Is().EqualToWithDelta(3.3, tolerance));
+            });
+
             it("gives the Circle an impulse in the opposite direction of the Collision", [&]()
             {
-                float tolerance = 0.001;
-                float circleElasticity = 0.65;
                 AssertThat(c1.getVelocity().getX(), Is().EqualToWithDelta(-0.8 * circleElasticity, tolerance));
                 AssertThat(c1.getVelocity().getY(), Is().EqualToWithDelta(-0.6 * circleElasticity, tolerance));
 

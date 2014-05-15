@@ -112,7 +112,7 @@ void BoundingRule::applyToAABB(AABB & aabb, float deltaMilliseconds)
 
 void BoundingRule::applyToCircle(Circle & c, float deltaMilliseconds)
 {
-    Vec2& pos = c.getPos();
+    Vec2 & pos = c.getPos();
     float posX = pos.getX(), posY = pos.getY();
 
     if (posX >= lowerLeft.getX() + c.getRadius() && posX <= upperRight.getX() - c.getRadius()
@@ -121,7 +121,8 @@ void BoundingRule::applyToCircle(Circle & c, float deltaMilliseconds)
         return;
     } else
     {
-        Vec2& velocity = c.getVelocity();
+        Vec2 & velocity = c.getVelocity();
+        Vec2 & nextPos = c.getNextPos();
 
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
@@ -174,8 +175,8 @@ void BoundingRule::applyToCircle(Circle & c, float deltaMilliseconds)
             }
         }
 
-        pos.setX(newPosX);
-        pos.setY(newPosY);
+        nextPos.setX(newPosX);
+        nextPos.setY(newPosY);
 
         velocity.setX(newVelocityX);
         velocity.setY(newVelocityY);

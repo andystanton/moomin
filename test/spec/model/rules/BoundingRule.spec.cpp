@@ -95,8 +95,8 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getPos().getX(), Is().EqualTo(circle.getRadius()));
-                AssertThat(circle.getPos().getY(), Is().EqualTo(100.f));
+                AssertThat(circle.getNextPos().getX(), Is().EqualTo(circle.getRadius()));
+                AssertThat(circle.getNextPos().getY(), Is().EqualTo(100.f));
 
                 // second test - move to the nearest corner
                 circle.setPos(Vec2(-10.f, -12.f));
@@ -104,8 +104,8 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getPos().getX(), Is().EqualTo(circle.getRadius()));
-                AssertThat(circle.getPos().getY(), Is().EqualTo(circle.getRadius()));
+                AssertThat(circle.getNextPos().getX(), Is().EqualTo(circle.getRadius()));
+                AssertThat(circle.getNextPos().getY(), Is().EqualTo(circle.getRadius()));
             });
 
             it("applies its coefficient of elasticity", [&]()
