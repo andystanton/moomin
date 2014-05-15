@@ -20,8 +20,7 @@ Collision::Collision(Entity& primary, Entity& secondary)
         }
     }
 }
-#include <iostream>
-using namespace std;
+
 Collision::~Collision()
 {
 
@@ -85,20 +84,11 @@ void Collision::resolveCircleCircle()
     {
         float scale = distance / depth;              
 
-        cout << endl;
-        cout << "|difference| : " << difference.get()->getMagnitude() << endl;
-        cout << "depth        : " << depth << endl;
-        cout << "scale        : " << scale << endl;
-
         escapeTranslation.setX(-0.5 * (difference.get()->getX() / scale));
         escapeTranslation.setY(-0.5 * (difference.get()->getY() / scale));
 
         resultantVelocity.setX(-difference.get()->getX() / scale);
         resultantVelocity.setY(-difference.get()->getY() / scale);
-
-        cout << "resultant velocity: " << endl;
-        cout << "x="<< -difference.get()->getX() << "/" << scale << "=" << resultantVelocity.getX() << endl;
-        cout << "y="<< -difference.get()->getY() << "/" << scale << "=" << resultantVelocity.getY() << endl;
     }
 }
 

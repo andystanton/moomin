@@ -25,11 +25,14 @@ public:
     float getMass();
     void setMass(float);
 
-    Vec2& getPos();
+    Vec2 & getPos();
     void setPos(Vec2);
 
-    Vec2& getVelocity();
+    Vec2 & getVelocity();
     void setVelocity(Vec2);
+
+    Vec2 & getNextPos();
+    void setNextPos(Vec2);
 
     CollisionType getCollisionType();
     void setCollisionType(CollisionType);
@@ -37,6 +40,7 @@ public:
 private:
     float mass;
     Vec2 pos;
+    Vec2 nextPos;
     Vec2 velocity;
     CollisionType collisionType;
 };

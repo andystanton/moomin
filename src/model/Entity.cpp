@@ -2,6 +2,7 @@
 
 Entity::Entity(float x, float y)
     : pos(x, y)
+    , nextPos(x, y)
     , collisionType(Entity::CollisionType::circle)
     , mass(0)
 {
@@ -13,7 +14,7 @@ Entity::~Entity()
 
 }
 
-Vec2& Entity::getPos()
+Vec2 & Entity::getPos()
 {
     return pos;
 }
@@ -23,7 +24,17 @@ void Entity::setPos(Vec2 pos)
     this->pos = Vec2(pos);
 }
 
-Vec2& Entity::getVelocity()
+Vec2 & Entity::getNextPos()
+{
+    return nextPos;
+}
+
+void Entity::setNextPos(Vec2 nextPos)
+{
+    this->nextPos = Vec2(nextPos);
+}
+
+Vec2 & Entity::getVelocity()
 {
     return velocity;
 }

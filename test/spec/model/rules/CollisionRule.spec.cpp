@@ -68,7 +68,11 @@ go_bandit([]()
 
             it("repositions the Entities so that they are no longer colliding", [&]()
             {
-                //AssertThat(c1.getPos().getX(), Is().EqualToWithDelta(-0.8, tolerance));
+                AssertThat(c1.getNextPos().getX(), Is().EqualToWithDelta(-0.4, tolerance));
+                AssertThat(c1.getNextPos().getY(), Is().EqualToWithDelta(-0.3, tolerance));
+
+                AssertThat(c2.getNextPos().getX(), Is().EqualToWithDelta(4.4, tolerance));
+                AssertThat(c2.getNextPos().getY(), Is().EqualToWithDelta(3.3, tolerance));
             });
 
             it("gives the Circle an impulse in the opposite direction of the Collision", [&]()
