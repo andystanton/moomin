@@ -20,6 +20,7 @@ install:
     - cd /usr/lib && sudo ln -sf libc++abi.so.1.0 libc++abi.so
     - sudo ln -sf libc++abi.so.1.0 libc++abi.so.1 && cd $cwd
 # required x11 and opengl libs
+    - sudo apt-get -qq update
     - sudo apt-get -qq install xorg-dev
     - sudo apt-get -qq install libglu1-mesa-dev
 # cmake
