@@ -32,6 +32,7 @@ using namespace std;
 void BoundingRule::applyToAABB(AABB & aabb, float deltaMilliseconds)
 {
     Vec2 & pos = aabb.getPos();
+    Vec2 & nextPos = aabb.getNextPos();
     Vec2 & bounding = aabb.getBounding();
 
     float aabbWidth = bounding.getX();
@@ -102,8 +103,8 @@ void BoundingRule::applyToAABB(AABB & aabb, float deltaMilliseconds)
             }
         }
 
-        pos.setX(newPosX);
-        pos.setY(newPosY);
+        nextPos.setX(newPosX);
+        nextPos.setY(newPosY);
 
         velocity.setX(newVelocityX);
         velocity.setY(newVelocityY);
