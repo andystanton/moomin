@@ -51,10 +51,8 @@ void Collision::resolveAABBAABB()
         float top = secondaryMin.getY() - primaryMax.get()->getY();
         float bottom = secondaryMax.get()->getY() - primaryMin.getY();
 
-        escapeTranslation.setX(abs(left) < right ? left : right);
-        escapeTranslation.setY(abs(top) < bottom ? top : bottom);
-
-        depth = escapeTranslation.getMagnitude();
+        escapeTranslation.setX(abs(left) < right ? abs(left) : right);
+        escapeTranslation.setY(abs(top) < bottom ? abs(top) : bottom);
 
         if (escapeTranslation.getX() < escapeTranslation.getY())
         {
@@ -63,6 +61,8 @@ void Collision::resolveAABBAABB()
         {
             escapeTranslation.setX(0);
         }
+
+        depth = escapeTranslation.getMagnitude();
 
         resultantVelocity.setX(escapeTranslation.getX() * secondary.getVelocity().getX() / depth);
         resultantVelocity.setY(escapeTranslation.getY() * secondary.getVelocity().getY() / depth);
