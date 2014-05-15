@@ -26,6 +26,9 @@ Collision::~Collision()
 
 }
 
+#include <iostream>
+using namespace std;
+
 void Collision::resolveAABBAABB()
 {
     AABB & primaryAABB = static_cast<AABB &>(primary);
@@ -45,14 +48,14 @@ void Collision::resolveAABBAABB()
         return;
     } else
     {
-        float left = secondaryMin.getX() - primaryMax.get()->getX();
+        float left = abs(secondaryMin.getX() - primaryMax.get()->getX());
         float right = secondaryMax.get()->getX() - primaryMin.getX();
 
-        float top = secondaryMin.getY() - primaryMax.get()->getY();
+        float top = abs(secondaryMin.getY() - primaryMax.get()->getY());
         float bottom = secondaryMax.get()->getY() - primaryMin.getY();
 
-        escapeTranslation.setX(abs(left) < right ? abs(left) : right);
-        escapeTranslation.setY(abs(top) < bottom ? abs(top) : bottom);
+        escapeTranslation.setX(left < right ? left : right);
+        escapeTranslation.setY(top < bottom ? top : bottom);
 
         if (escapeTranslation.getX() < escapeTranslation.getY())
         {
