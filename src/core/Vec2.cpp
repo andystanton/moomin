@@ -61,29 +61,29 @@ ostream & operator<<(ostream & os, const Vec2 & vec2)
     return os;
 }
 
-unique_ptr<Vec2> operator+(const Vec2 & primary, const Vec2 & secondary)
+Vec2 operator+(const Vec2 & primary, const Vec2 & secondary)
 {
-    return unique_ptr<Vec2>(new Vec2(primary.x + secondary.x, primary.y + secondary.y));
+    return Vec2(primary.x + secondary.x, primary.y + secondary.y);
 }
 
-unique_ptr<Vec2> operator-(const Vec2 & primary, const Vec2 & secondary)
+Vec2 operator-(const Vec2 & primary, const Vec2 & secondary)
 {
-    return unique_ptr<Vec2>(new Vec2(primary.x - secondary.x, primary.y - secondary.y));
+    return Vec2(primary.x - secondary.x, primary.y - secondary.y);
 }
 
-unique_ptr<Vec2> operator*(const Vec2 & primary, float scalar)
+Vec2 operator*(const Vec2 & primary, float scalar)
 {
-    return unique_ptr<Vec2>(new Vec2(primary.x * scalar, primary.y * scalar));
+    return Vec2(primary.x * scalar, primary.y * scalar);
 }
 
-unique_ptr<Vec2> operator*(float scalar, const Vec2 & primary)
+Vec2 operator*(float scalar, const Vec2 & primary)
 {
     return primary * scalar;
 }
 
-unique_ptr<Vec2> operator/(const Vec2 & primary, float scalar)
+Vec2 operator/(const Vec2 & primary, float scalar)
 {
-    return unique_ptr<Vec2>(new Vec2(primary.x / scalar, primary.y / scalar));
+    return Vec2(primary.x / scalar, primary.y / scalar);
 }
 
 Vec2 & operator+=(Vec2 & primary, const Vec2 & secondary)

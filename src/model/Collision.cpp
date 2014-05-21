@@ -35,24 +35,24 @@ void Collision::resolveAABBAABB()
     AABB & secondaryAABB = static_cast<AABB &>(secondary);
 
     Vec2 & primaryMin = primaryAABB.getPos();
-    unique_ptr<Vec2> primaryMax = primaryMin + primaryAABB.getBounding();
+    Vec2 primaryMax = primaryMin + primaryAABB.getBounding();
 
     Vec2 & secondaryMin = secondaryAABB.getPos();
-    unique_ptr<Vec2> secondaryMax = secondaryMin + secondaryAABB.getBounding();
+    Vec2 secondaryMax = secondaryMin + secondaryAABB.getBounding();
 
-    if (primaryMin.getX() > secondaryMax.get()->getX() ||
-        primaryMin.getY() > secondaryMax.get()->getY() ||
-        primaryMax.get()->getX() < secondaryMin.getX() ||
-        primaryMax.get()->getY() < secondaryMin.getY())
+    if (primaryMin.getX() > secondaryMax.getX() ||
+        primaryMin.getY() > secondaryMax.getY() ||
+        primaryMax.getX() < secondaryMin.getX() ||
+        primaryMax.getY() < secondaryMin.getY())
     {
         return;
     } else
     {
-        float left = secondaryMin.getX() - primaryMax.get()->getX();
-        float right = secondaryMax.get()->getX() - primaryMin.getX();
+        float left = secondaryMin.getX() - primaryMax.getX();
+        float right = secondaryMax.getX() - primaryMin.getX();
 
-        float top = secondaryMin.getY() - primaryMax.get()->getY();
-        float bottom = secondaryMax.get()->getY() - primaryMin.getY();
+        float top = secondaryMin.getY() - primaryMax.getY();
+        float bottom = secondaryMax.getY() - primaryMin.getY();
 
         escapeTranslation.setX(abs(left) < right ? left : right);
         escapeTranslation.setY(abs(top) < bottom ? top : bottom);
@@ -78,8 +78,8 @@ void Collision::resolveCircleCircle()
     Circle & secondaryCircle = static_cast<Circle &>(secondary);
 
 
-    unique_ptr<Vec2> difference = secondaryCircle.getPos() - primaryCircle.getPos();
-    float distance = difference.get()->getMagnitude();
+    Vec2 difference = secondaryCircle.getPos() - primaryCircle.getPos();
+    float distance = difference.getMagnitude();
 
     depth = primaryCircle.getRadius() + secondaryCircle.getRadius() - distance;
 
@@ -87,11 +87,11 @@ void Collision::resolveCircleCircle()
     {
         float scale = distance / depth;
 
-        escapeTranslation.setX(-0.5 * (difference.get()->getX() / scale));
-        escapeTranslation.setY(-0.5 * (difference.get()->getY() / scale));
+        escapeTranslation.setX(-0.5 * (difference.getX() / scale));
+        escapeTranslation.setY(-0.5 * (difference.getY() / scale));
 
-        resultantVelocity.setX(-difference.get()->getX() / scale);
-        resultantVelocity.setY(-difference.get()->getY() / scale);
+        resultantVelocity.setX(-difference.getX() / scale);
+        resultantVelocity.setY(-difference.getY() / scale);
     }
 }
 
