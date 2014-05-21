@@ -52,6 +52,8 @@ go_bandit([]()
 
     describe("Vec2 operations", []()
     {
+        float threshold = 0.000001;
+
         describe("finding the magnitude of a Vec2", []()
         {
             it("should obey Pythagoras' theorem", []()
@@ -66,15 +68,16 @@ go_bandit([]()
             });
         });
 
-        describe("adding two Vec2 together", []()
+        describe("adding two Vec2 together", [&]()
         {
-            it("should give the sum of the Vec2", []()
+            it("should give the sum of the Vec2", [&]()
             {
                 Vec2 origin = Vec2(-12.f, -0.3f);
 
                 Vec2 target1 = Vec2(100.f, 100.f);
                 Vec2 target2 = Vec2(-12.f, -0.7f);
                 Vec2 target3 = Vec2(-9.3f, 25.f);
+                Vec2 target4 = Vec2( 14.f, 1.3f);
 
                 unique_ptr<Vec2> result1 = origin + target1;
                 unique_ptr<Vec2> result2 = origin + target2;
@@ -88,12 +91,17 @@ go_bandit([]()
 
                 AssertThat(result3->getX(), Is().EqualTo(-21.3f));
                 AssertThat(result3->getY(), Is().EqualTo(24.7f));
+
+                origin += target4;
+
+                AssertThat(origin.getX(), Is().EqualToWithDelta(2.f, threshold));
+                AssertThat(origin.getY(), Is().EqualToWithDelta(1.f, threshold));
             });
         });
 
-        describe("subtracting one Vec2 from another", []()
+        describe("subtracting one Vec2 from another", [&]()
         {
-            it("should give the position of the second relative to the first", []()
+            it("should give the position of the second relative to the first", [&]()
             {
                 Vec2 origin = Vec2(0.f, 0.f);
 
@@ -102,12 +110,14 @@ go_bandit([]()
                 Vec2 target3 = Vec2(-0.19f, -87.f);
                 Vec2 target4 = Vec2(-1241.f, 3.f);
                 Vec2 target5 = Vec2(0.f, 0.f);
+                Vec2 target6 = Vec2(10.f, 15.f);
 
                 unique_ptr<Vec2> offset1 = origin - target1;
                 unique_ptr<Vec2> offset2 = origin - target2;
                 unique_ptr<Vec2> offset3 = origin - target3;
                 unique_ptr<Vec2> offset4 = origin - target4;
                 unique_ptr<Vec2> offset5 = origin - target5;
+                origin -= target6;
 
                 AssertThat(offset1->getX(), Is().EqualTo(-10.f));
                 AssertThat(offset1->getY(), Is().EqualTo(-12.f));
@@ -123,6 +133,50 @@ go_bandit([]()
 
                 AssertThat(offset5->getX(), Is().EqualTo(-0.f));
                 AssertThat(offset5->getY(), Is().EqualTo(-0.f));
+
+                AssertThat(origin.getX(), Is().EqualToWithDelta(-10.f, threshold));
+                AssertThat(origin.getY(), Is().EqualToWithDelta(-15.f, threshold));
+            });
+        });
+
+        describe("scaling a Vec2 by a constant scale factor", [&]()
+        {
+            it("should scale both components of the Vec2 UP by the scale factor", [&]()
+            {
+                Vec2 source = Vec2(5.31f, 3.1f);
+
+                unique_ptr<Vec2> scaled1 = source * 5;
+                unique_ptr<Vec2> scaled2 = 100 * source;
+
+                source *= 10;
+
+                AssertThat(scaled1->getX(), Is().EqualToWithDelta(26.55, threshold));
+                AssertThat(scaled1->getY(), Is().EqualToWithDelta(15.5, threshold));
+
+                AssertThat(scaled2->getX(), Is().EqualToWithDelta(531.f, threshold));
+                AssertThat(scaled2->getY(), Is().EqualToWithDelta(310.f, threshold));
+
+                AssertThat(source.getX(), Is().EqualToWithDelta(53.1f, threshold));
+                AssertThat(source.getY(), Is().EqualToWithDelta(31.0f, threshold));
+            });
+
+            it("should scale both components of the Vec2 DOWN by the scale factor", [&]()
+            {
+                Vec2 source = Vec2(5.31f, 3.1f);
+
+                unique_ptr<Vec2> scaled3 = source / 10;
+                unique_ptr<Vec2> scaled4 = source / 2;
+
+                source /= 3;
+
+                AssertThat(scaled3->getX(), Is().EqualToWithDelta(0.531f, threshold));
+                AssertThat(scaled3->getY(), Is().EqualToWithDelta(0.31f, threshold));
+
+                AssertThat(scaled4->getX(), Is().EqualToWithDelta(2.655f, threshold));
+                AssertThat(scaled4->getY(), Is().EqualToWithDelta(1.55f, threshold));
+
+                AssertThat(source.getX(), Is().EqualToWithDelta(1.77f, threshold));
+                AssertThat(source.getY(), Is().EqualToWithDelta(1.033333333f, threshold));
             });
         });
     });
