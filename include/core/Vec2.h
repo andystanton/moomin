@@ -31,6 +31,13 @@ public:
 
     friend unique_ptr<Vec2> operator+(const Vec2 &, const Vec2 &);
     friend unique_ptr<Vec2> operator-(const Vec2 &, const Vec2 &);
+    friend unique_ptr<Vec2> operator*(const Vec2 &, float);
+    friend unique_ptr<Vec2> operator/(const Vec2 &, float);
+    friend unique_ptr<Vec2> operator*(float, const Vec2 &);
+    friend Vec2 & operator +=(Vec2 &, const Vec2 &);
+    friend Vec2 & operator -=(Vec2 &, const Vec2 &);
+    friend Vec2 & operator *=(Vec2 &, float);
+    friend Vec2 & operator /=(Vec2 &, float);
 
     string toString();
     friend ostream & operator<<(ostream & os, const Vec2 &);

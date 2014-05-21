@@ -66,8 +66,8 @@ int main(void)
 
     for (int i=0; i < 50; i++)
     {
-        physicsSystem.addEntity(createRandomCircle());
-        //physicsSystem.addEntity(createRandomAABB());
+        //physicsSystem.addEntity(createRandomCircle());
+        physicsSystem.addEntity(createRandomAABB());
     }
 
     // physicsSystem.addEntity(new Circle(320, 400, 10));
