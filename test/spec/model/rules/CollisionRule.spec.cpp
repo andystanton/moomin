@@ -93,22 +93,30 @@ go_bandit([]()
             AABB aabb2( -36.f, -27.f, 40.f, 30.f);
             AABB aabb3( 100.f, 100.f, 20.f, 10.f);
 
+            entities.insert(&aabb1);
+            entities.insert(&aabb2);
+            entities.insert(&aabb3);
+
+            CollisionRule aabbCollision(entities);
+
+            for (auto entity : entities)
+            {
+                aabbCollision.apply(*entity, 100.f);
+            }
+
             it("gives the AABB an impulse in the opposite direction of the Collision", [&]()
             {
-                float tolerance = 0.001;
+                float tolerance = 0.0000001;
                 float aabbElasticity = 0.65;
 
-                Vec2 & velocity1 = aabb1.getVelocity();
-                Vec2 & pos1 = aabb2.getPos();
-                // cout << endl;
-                // cout << pos1 << endl;
-                // cout << velocity1.toString() << endl;
+                AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
+                AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 3.f * aabbElasticity, tolerance));
 
-                // AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta(-0.8 * aabbElasticity, tolerance));
-                // AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta(-0.6 * aabbElasticity, tolerance));
+                AssertThat(aabb2.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
+                AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(-3.f * aabbElasticity, tolerance));
 
-                // AssertThat(aabb2.getVelocity().getX(), Is().EqualToWithDelta((-1 + 0.8) * aabbElasticity, tolerance));
-                // AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(0.6 * aabbElasticity, tolerance));
+                AssertThat(aabb3.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
+                AssertThat(aabb3.getVelocity().getY(), Is().EqualToWithDelta( 0.f * aabbElasticity, tolerance));
             });
         });
     });
