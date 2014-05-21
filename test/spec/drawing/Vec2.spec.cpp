@@ -79,18 +79,18 @@ go_bandit([]()
                 Vec2 target3 = Vec2(-9.3f, 25.f);
                 Vec2 target4 = Vec2( 14.f, 1.3f);
 
-                unique_ptr<Vec2> result1 = origin + target1;
-                unique_ptr<Vec2> result2 = origin + target2;
-                unique_ptr<Vec2> result3 = origin + target3;
+                Vec2 result1 = origin + target1;
+                Vec2 result2 = origin + target2;
+                Vec2 result3 = origin + target3;
 
-                AssertThat(result1->getX(), Is().EqualTo(88.f));
-                AssertThat(result1->getY(), Is().EqualTo(99.7f));
+                AssertThat(result1.getX(), Is().EqualTo(88.f));
+                AssertThat(result1.getY(), Is().EqualTo(99.7f));
 
-                AssertThat(result2->getX(), Is().EqualTo(-24.f));
-                AssertThat(result2->getY(), Is().EqualTo(-1.f));
+                AssertThat(result2.getX(), Is().EqualTo(-24.f));
+                AssertThat(result2.getY(), Is().EqualTo(-1.f));
 
-                AssertThat(result3->getX(), Is().EqualTo(-21.3f));
-                AssertThat(result3->getY(), Is().EqualTo(24.7f));
+                AssertThat(result3.getX(), Is().EqualTo(-21.3f));
+                AssertThat(result3.getY(), Is().EqualTo(24.7f));
 
                 origin += target4;
 
@@ -112,27 +112,27 @@ go_bandit([]()
                 Vec2 target5 = Vec2(0.f, 0.f);
                 Vec2 target6 = Vec2(10.f, 15.f);
 
-                unique_ptr<Vec2> offset1 = origin - target1;
-                unique_ptr<Vec2> offset2 = origin - target2;
-                unique_ptr<Vec2> offset3 = origin - target3;
-                unique_ptr<Vec2> offset4 = origin - target4;
-                unique_ptr<Vec2> offset5 = origin - target5;
+                Vec2 offset1 = origin - target1;
+                Vec2 offset2 = origin - target2;
+                Vec2 offset3 = origin - target3;
+                Vec2 offset4 = origin - target4;
+                Vec2 offset5 = origin - target5;
                 origin -= target6;
 
-                AssertThat(offset1->getX(), Is().EqualTo(-10.f));
-                AssertThat(offset1->getY(), Is().EqualTo(-12.f));
+                AssertThat(offset1.getX(), Is().EqualTo(-10.f));
+                AssertThat(offset1.getY(), Is().EqualTo(-12.f));
 
-                AssertThat(offset2->getX(), Is().EqualTo(-9.f));
-                AssertThat(offset2->getY(), Is().EqualTo(213.f));
+                AssertThat(offset2.getX(), Is().EqualTo(-9.f));
+                AssertThat(offset2.getY(), Is().EqualTo(213.f));
 
-                AssertThat(offset3->getX(), Is().EqualTo(0.19f));
-                AssertThat(offset3->getY(), Is().EqualTo(87.f));
+                AssertThat(offset3.getX(), Is().EqualTo(0.19f));
+                AssertThat(offset3.getY(), Is().EqualTo(87.f));
 
-                AssertThat(offset4->getX(), Is().EqualTo(1241.f));
-                AssertThat(offset4->getY(), Is().EqualTo(-3.f));
+                AssertThat(offset4.getX(), Is().EqualTo(1241.f));
+                AssertThat(offset4.getY(), Is().EqualTo(-3.f));
 
-                AssertThat(offset5->getX(), Is().EqualTo(-0.f));
-                AssertThat(offset5->getY(), Is().EqualTo(-0.f));
+                AssertThat(offset5.getX(), Is().EqualTo(-0.f));
+                AssertThat(offset5.getY(), Is().EqualTo(-0.f));
 
                 AssertThat(origin.getX(), Is().EqualToWithDelta(-10.f, threshold));
                 AssertThat(origin.getY(), Is().EqualToWithDelta(-15.f, threshold));
@@ -145,16 +145,16 @@ go_bandit([]()
             {
                 Vec2 source = Vec2(5.31f, 3.1f);
 
-                unique_ptr<Vec2> scaled1 = source * 5;
-                unique_ptr<Vec2> scaled2 = 100 * source;
+                Vec2 scaled1 = source * 5;
+                Vec2 scaled2 = 100 * source;
 
                 source *= 10;
 
-                AssertThat(scaled1->getX(), Is().EqualToWithDelta(26.55, threshold));
-                AssertThat(scaled1->getY(), Is().EqualToWithDelta(15.5, threshold));
+                AssertThat(scaled1.getX(), Is().EqualToWithDelta(26.55, threshold));
+                AssertThat(scaled1.getY(), Is().EqualToWithDelta(15.5, threshold));
 
-                AssertThat(scaled2->getX(), Is().EqualToWithDelta(531.f, threshold));
-                AssertThat(scaled2->getY(), Is().EqualToWithDelta(310.f, threshold));
+                AssertThat(scaled2.getX(), Is().EqualToWithDelta(531.f, threshold));
+                AssertThat(scaled2.getY(), Is().EqualToWithDelta(310.f, threshold));
 
                 AssertThat(source.getX(), Is().EqualToWithDelta(53.1f, threshold));
                 AssertThat(source.getY(), Is().EqualToWithDelta(31.0f, threshold));
@@ -164,16 +164,16 @@ go_bandit([]()
             {
                 Vec2 source = Vec2(5.31f, 3.1f);
 
-                unique_ptr<Vec2> scaled3 = source / 10;
-                unique_ptr<Vec2> scaled4 = source / 2;
+                Vec2 scaled3 = source / 10;
+                Vec2 scaled4 = source / 2;
 
                 source /= 3;
 
-                AssertThat(scaled3->getX(), Is().EqualToWithDelta(0.531f, threshold));
-                AssertThat(scaled3->getY(), Is().EqualToWithDelta(0.31f, threshold));
+                AssertThat(scaled3.getX(), Is().EqualToWithDelta(0.531f, threshold));
+                AssertThat(scaled3.getY(), Is().EqualToWithDelta(0.31f, threshold));
 
-                AssertThat(scaled4->getX(), Is().EqualToWithDelta(2.655f, threshold));
-                AssertThat(scaled4->getY(), Is().EqualToWithDelta(1.55f, threshold));
+                AssertThat(scaled4.getX(), Is().EqualToWithDelta(2.655f, threshold));
+                AssertThat(scaled4.getY(), Is().EqualToWithDelta(1.55f, threshold));
 
                 AssertThat(source.getX(), Is().EqualToWithDelta(1.77f, threshold));
                 AssertThat(source.getY(), Is().EqualToWithDelta(1.033333333f, threshold));
