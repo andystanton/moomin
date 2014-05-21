@@ -2,12 +2,10 @@
 #define _MOOMIN_COLLISION_RULE
 
 #include <set>
-#include <memory>
 #include "model/Collision.h"
 #include "model/Rule.h"
 
 using std::set;
-using std::unique_ptr;
 
 class CollisionRule
     : public Rule
