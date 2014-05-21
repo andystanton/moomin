@@ -34,4 +34,3 @@ void CollisionRule::apply(Entity & entity, float delta)
         }
     }
 }
-
