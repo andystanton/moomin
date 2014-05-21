@@ -61,6 +61,27 @@ go_bandit([]()
                 AssertThat(aabb.getVelocity().getX(), Is().LessThan(0.f));
                 AssertThat(aabb.getVelocity().getY(), Is().LessThan(0.f));
             });
+
+            it("moves the AABB to the nearest bound", [&]()
+            {
+                // first test - move to the nearest bound
+                aabb.setPos(Vec2(-10.f, 100.f));
+                aabb.setVelocity(Vec2(-100.f, 0.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getNextPos().getX(), Is().EqualTo(0.f));
+                AssertThat(aabb.getNextPos().getY(), Is().EqualTo(100.f));
+
+                // second test - move to the nearest corner
+                aabb.setPos(Vec2(-10.f, -12.f));
+                aabb.setVelocity(Vec2(-3.f, -4.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getNextPos().getX(), Is().EqualTo(0.f));
+                AssertThat(aabb.getNextPos().getY(), Is().EqualTo(0.f));
+            });
         });
 
         describe("when a Circle crosses the rule's bounds", [&]()
@@ -87,7 +108,7 @@ go_bandit([]()
                 AssertThat(circle.getVelocity().getY(), Is().LessThan(0.f));
             });
 
-            it("moves the circle to the nearest bound", [&]()
+            it("moves the Circle to the nearest bound", [&]()
             {
                 // first test - move to the nearest bound
                 circle.setPos(Vec2(-10.f, 100.f));

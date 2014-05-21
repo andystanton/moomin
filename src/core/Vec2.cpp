@@ -8,27 +8,27 @@ Vec2::Vec2(float x, float y)
 }
 
 Vec2::Vec2()
-    : x(0.0), y(0.0) 
-{
-    
-}
-
-Vec2::~Vec2() 
+    : x(0.0), y(0.0)
 {
 
 }
 
-void Vec2::setX(float x) 
+Vec2::~Vec2()
+{
+
+}
+
+void Vec2::setX(float x)
 {
     this->x = x;
 }
 
-void Vec2::setY(float y) 
+void Vec2::setY(float y)
 {
     this->y = y;
 }
 
-float Vec2::getX() const 
+float Vec2::getX() const
 {
     return x;
 }
@@ -48,12 +48,25 @@ float Vec2::distanceTo(const Vec2 & other)
     return sqrt(pow(other.x - x, 2) + pow(other.y - y, 2));
 }
 
-unique_ptr<Vec2> Vec2::subtract(const Vec2 & other)
+string Vec2::toString()
 {
-    return unique_ptr<Vec2>(new Vec2(x - other.x, y - other.y));
+    stringstream vecString;
+    vecString << *this;
+    return vecString.str();
 }
 
-unique_ptr<Vec2> Vec2::add(const Vec2 & other)
+ostream & operator<<(ostream & os, const Vec2 & vec2)
 {
-    return unique_ptr<Vec2>(new Vec2(other.x + x, other.y + y));
+    os << vec2.x << ", " << vec2.y;
+    return os;
+}
+
+unique_ptr<Vec2> operator+(const Vec2 & primary, const Vec2 & secondary)
+{
+    return unique_ptr<Vec2>(new Vec2(primary.x + secondary.x, primary.y + secondary.y));
+}
+
+unique_ptr<Vec2> operator-(const Vec2 & primary, const Vec2 & secondary)
+{
+    return unique_ptr<Vec2>(new Vec2(primary.x - secondary.x, primary.y - secondary.y));
 }

@@ -3,8 +3,14 @@
 
 #include <cmath>
 #include <memory>
+#include <string>
+#include <iostream>
+#include <sstream>
 
 using std::unique_ptr;
+using std::string;
+using std::ostream;
+using std::stringstream;
 
 class Vec2
 {
@@ -12,7 +18,7 @@ public:
     Vec2(float, float);
     Vec2();
     ~Vec2();
-    
+
     void setX(float);
     void setY(float);
 
@@ -23,8 +29,11 @@ public:
 
     float distanceTo(const Vec2 &);
 
-    unique_ptr<Vec2> subtract(const Vec2 &);
-    unique_ptr<Vec2> add(const Vec2 &);
+    friend unique_ptr<Vec2> operator+(const Vec2 &, const Vec2 &);
+    friend unique_ptr<Vec2> operator-(const Vec2 &, const Vec2 &);
+
+    string toString();
+    friend ostream & operator<<(ostream & os, const Vec2 &);
 private:
     float x, y;
 };

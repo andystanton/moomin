@@ -2,13 +2,13 @@
 
 #include "core/Vec2.h"
 
-using namespace bandit; 
+using namespace bandit;
 
-go_bandit([]() 
+go_bandit([]()
 {
-    describe("a Vec2", []() 
+    describe("a Vec2", []()
     {
-        it("defaults to the origin", []() 
+        it("defaults to the origin", []()
         {
             Vec2 coord;
 
@@ -16,7 +16,7 @@ go_bandit([]()
             AssertThat(coord.getY(), Is().EqualTo(0.0));
         });
 
-        it("accepts two floats that specify its position", []() 
+        it("accepts two floats that specify its position", []()
         {
             Vec2 coord(5.0, 6.0);
 
@@ -24,7 +24,7 @@ go_bandit([]()
             AssertThat(coord.getY(), Is().EqualTo(6.0));
         });
 
-        it("accepts updates to its position", []() 
+        it("accepts updates to its position", []()
         {
             Vec2 coord(32.0, 126.0);
 
@@ -35,7 +35,7 @@ go_bandit([]()
             coord.setY(43.0);
 
             AssertThat(coord.getX(), Is().EqualTo(13.0));
-            AssertThat(coord.getY(), Is().EqualTo(43.0));            
+            AssertThat(coord.getY(), Is().EqualTo(43.0));
         });
 
         describe("the set of Vec2 operations", []()
@@ -76,9 +76,9 @@ go_bandit([]()
                 Vec2 target2 = Vec2(-12.f, -0.7f);
                 Vec2 target3 = Vec2(-9.3f, 25.f);
 
-                unique_ptr<Vec2> result1 = origin.add(target1);
-                unique_ptr<Vec2> result2 = origin.add(target2);
-                unique_ptr<Vec2> result3 = origin.add(target3);
+                unique_ptr<Vec2> result1 = origin + target1;
+                unique_ptr<Vec2> result2 = origin + target2;
+                unique_ptr<Vec2> result3 = origin + target3;
 
                 AssertThat(result1->getX(), Is().EqualTo(88.f));
                 AssertThat(result1->getY(), Is().EqualTo(99.7f));
@@ -103,11 +103,11 @@ go_bandit([]()
                 Vec2 target4 = Vec2(-1241.f, 3.f);
                 Vec2 target5 = Vec2(0.f, 0.f);
 
-                unique_ptr<Vec2> offset1 = origin.subtract(target1);
-                unique_ptr<Vec2> offset2 = origin.subtract(target2);
-                unique_ptr<Vec2> offset3 = origin.subtract(target3);
-                unique_ptr<Vec2> offset4 = origin.subtract(target4);
-                unique_ptr<Vec2> offset5 = origin.subtract(target5);
+                unique_ptr<Vec2> offset1 = origin - target1;
+                unique_ptr<Vec2> offset2 = origin - target2;
+                unique_ptr<Vec2> offset3 = origin - target3;
+                unique_ptr<Vec2> offset4 = origin - target4;
+                unique_ptr<Vec2> offset5 = origin - target5;
 
                 AssertThat(offset1->getX(), Is().EqualTo(-10.f));
                 AssertThat(offset1->getY(), Is().EqualTo(-12.f));

@@ -26,16 +26,19 @@ Collision::~Collision()
 
 }
 
+#include <iostream>
+using namespace std;
+
 void Collision::resolveAABBAABB()
 {
     AABB & primaryAABB = static_cast<AABB &>(primary);
     AABB & secondaryAABB = static_cast<AABB &>(secondary);
 
     Vec2 & primaryMin = primaryAABB.getPos();
-    unique_ptr<Vec2> primaryMax = primaryMin.add(primaryAABB.getBounding());
+    unique_ptr<Vec2> primaryMax = primaryMin + primaryAABB.getBounding();
 
     Vec2 & secondaryMin = secondaryAABB.getPos();
-    unique_ptr<Vec2> secondaryMax = secondaryMin.add(secondaryAABB.getBounding());
+    unique_ptr<Vec2> secondaryMax = secondaryMin + secondaryAABB.getBounding();
 
     if (primaryMin.getX() > secondaryMax.get()->getX() ||
         primaryMin.getY() > secondaryMax.get()->getY() ||
@@ -54,18 +57,18 @@ void Collision::resolveAABBAABB()
         escapeTranslation.setX(abs(left) < right ? left : right);
         escapeTranslation.setY(abs(top) < bottom ? top : bottom);
 
-        depth = escapeTranslation.getMagnitude();
-
-        if (escapeTranslation.getX() < escapeTranslation.getY())
+        if (abs(escapeTranslation.getX()) < abs(escapeTranslation.getY()))
         {
             escapeTranslation.setY(0);
-        } else if(escapeTranslation.getX() > escapeTranslation.getY()) 
+        } else if(abs(escapeTranslation.getX()) > abs(escapeTranslation.getY()))
         {
             escapeTranslation.setX(0);
         }
 
-        resultantVelocity.setX(escapeTranslation.getX() * secondary.getVelocity().getX() / depth);
-        resultantVelocity.setY(escapeTranslation.getY() * secondary.getVelocity().getY() / depth);
+        depth = escapeTranslation.getMagnitude();
+
+        resultantVelocity.setX(escapeTranslation.getX() / depth);
+        resultantVelocity.setY(escapeTranslation.getY() / depth);
     }
 }
 
@@ -75,14 +78,14 @@ void Collision::resolveCircleCircle()
     Circle & secondaryCircle = static_cast<Circle &>(secondary);
 
 
-    unique_ptr<Vec2> difference = secondaryCircle.getPos().subtract(primaryCircle.getPos());
+    unique_ptr<Vec2> difference = secondaryCircle.getPos() - primaryCircle.getPos();
     float distance = difference.get()->getMagnitude();
 
     depth = primaryCircle.getRadius() + secondaryCircle.getRadius() - distance;
 
     if (depth > 0)
     {
-        float scale = distance / depth;              
+        float scale = distance / depth;
 
         escapeTranslation.setX(-0.5 * (difference.get()->getX() / scale));
         escapeTranslation.setY(-0.5 * (difference.get()->getY() / scale));
