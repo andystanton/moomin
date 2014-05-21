@@ -11,6 +11,7 @@
 
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
+#include "model/AABB.h"
 
 #include "drawing/Renderer.h"
 #include "drawing/FreeTypeRenderer.h"
@@ -112,7 +113,8 @@ namespace GLHandler
             glfwGetCursorPos(window, &clickStartX, &clickStartY);
         } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
         {
-            Circle * c = new Circle(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 20 );
+            //Circle * c = new Circle(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 20 );
+            AABB * c = new AABB(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 50, (rand() % 20) + 50);
             glfwGetCursorPos(window, &clickEndX, &clickEndY);
 
             c->getVelocity().setX(clickEndX - clickStartX);

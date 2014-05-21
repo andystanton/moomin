@@ -14,7 +14,7 @@
 using std::set;
 using namespace bandit;
 
-go_bandit([]() 
+go_bandit([]()
 {
     describe("a Collision Detection Rule", []()
     {
@@ -97,6 +97,13 @@ go_bandit([]()
             {
                 float tolerance = 0.001;
                 float aabbElasticity = 0.65;
+
+                Vec2 & velocity1 = aabb1.getVelocity();
+                Vec2 & pos1 = aabb2.getPos();
+                // cout << endl;
+                // cout << pos1 << endl;
+                // cout << velocity1.toString() << endl;
+                //
                 // AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta(-0.8 * aabbElasticity, tolerance));
                 // AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta(-0.6 * aabbElasticity, tolerance));
 

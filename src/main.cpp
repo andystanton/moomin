@@ -34,8 +34,8 @@ AABB * createRandomAABB()
     return aabb;
 }
 
-int main(void) 
-{  
+int main(void)
+{
     // Create Physics System
     PhysicsSystem physicsSystem;
 
@@ -90,7 +90,7 @@ int main(void)
 
     // Moomin!
     float lastUpdate = glfwGetTime();
-    while (GLHandler::isActive()) 
+    while (GLHandler::isActive())
     {
         GLHandler::draw();
         if (GLHandler::isPhysics())
@@ -102,7 +102,7 @@ int main(void)
             // cout << "aabb2 velocity: " << aabb2->getVelocity().getX() << ", " << aabb2->getVelocity().getY() << endl;
         }
     }
-    
+
     GLHandler::quit();
     return 0;
 }
