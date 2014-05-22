@@ -3,7 +3,8 @@
 using namespace std;
 
 BoundingRule::BoundingRule(float elasticity, Vec2 lowerLeft, Vec2 upperRight)
-    : lowerLeft(lowerLeft)
+    : Rule(Rule::RuleType::bounding)
+    , lowerLeft(lowerLeft)
     , upperRight(upperRight)
     , elasticity(elasticity)
 {
@@ -128,7 +129,7 @@ void BoundingRule::applyToCircle(Circle & c, float deltaMilliseconds)
         float newPosX = posX, newPosY = posY;
         float newVelocityX = velocity.getX(), newVelocityY = velocity.getY();
 
-        if (posX < lowerLeft.getX() + c.getRadius()) 
+        if (posX < lowerLeft.getX() + c.getRadius())
         {
             newPosX = lowerLeft.getX() + c.getRadius();
 

@@ -8,11 +8,11 @@ class DirectionAccelerationRule
     : public Rule
 {
 public:
-    DirectionAccelerationRule(const Vec2&);
+    DirectionAccelerationRule(const Vec2 &);
     ~DirectionAccelerationRule();
 
-    const Vec2& getAcceleration();
-    void apply(Entity&, float delta);
+    Vec2 & getAcceleration();
+    void apply(Entity &, float delta);
 private:
     Vec2 acceleration;
 };

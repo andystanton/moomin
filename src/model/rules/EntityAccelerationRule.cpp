@@ -1,7 +1,8 @@
 #include "model/rules/EntityAccelerationRule.h"
 
 EntityAccelerationRule::EntityAccelerationRule(const set<Entity *> & entities)
-    : entities(entities)
+    : Rule(Rule::RuleType::entity_acceleration)
+    , entities(entities)
 {
 
 }
@@ -20,7 +21,7 @@ void EntityAccelerationRule::apply(Entity & entity, float delta)
         Vec2 & otherPos = other->getPos();
         float distance = pos.distanceTo(otherPos);
         Circle & c = static_cast<Circle &>(entity);
-        Vec2 difference = pos - otherPos;
+        Vec2 difference = otherPos - pos;
         otherVelocity.setX(otherVelocity.getX() - difference.getX() / ((c.getRadius() * 10000000.f) / distance));
         otherVelocity.setY(otherVelocity.getY() - difference.getY() / ((c.getRadius() * 10000000.f) / distance));
     }

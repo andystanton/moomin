@@ -43,7 +43,10 @@ void PhysicsSystem::step(float deltaInMilliseconds)
 
         for (auto rule : rules)
         {
-            rule->apply(*entity, deltaInMilliseconds);
+            if (rule->isEnabled())
+            {
+                rule->apply(*entity, deltaInMilliseconds);
+            }
         }
 
         Vec2 & velocity = entity->getVelocity();

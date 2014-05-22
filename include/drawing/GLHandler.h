@@ -19,6 +19,8 @@
 #include "drawing/Text.h"
 #include "drawing/FontProvider.h"
 
+#include "model/rules/DirectionAccelerationRule.h"
+
 using std::set;
 using std::stringstream;
 using std::setprecision;
@@ -28,7 +30,7 @@ using std::cerr;
 using std::endl;
 
 namespace GLHandler
-{   
+{
     GLFWwindow * window;
     set<Renderer *> renderers;
 
@@ -36,7 +38,7 @@ namespace GLHandler
     EntityRenderer * entityRenderer = nullptr;
 
     PhysicsSystem * physicsSystem;
-    
+
     string titleString;
     string fpsString;
 
@@ -57,7 +59,7 @@ namespace GLHandler
         {
             fps = frameCount / (currentTime - lastFpsUpdate);
             lastFpsUpdate = currentTime;
-            
+
             stringstream fpsStream;
             fpsStream << setprecision(1) << fixed << fps;
             fpsString = fpsStream.str();
@@ -101,6 +103,58 @@ namespace GLHandler
         {
             physics = !physics;
         }
+
+        if (action == GLFW_PRESS && (key == GLFW_KEY_O || key == GLFW_KEY_P))
+        {
+            for (auto rule : physicsSystem->getRules())
+            {
+                if (rule->getType() == Rule::RuleType::direction_acceleration)
+                {
+                    rule->setEnabled(false);
+                } else if(rule->getType() == Rule::RuleType::entity_acceleration)
+                {
+                    rule->setEnabled(true);
+                }
+            }
+        }
+
+        if (action == GLFW_PRESS
+                && (key == GLFW_KEY_DOWN
+                    || key == GLFW_KEY_UP
+                    || key == GLFW_KEY_LEFT
+                    || key == GLFW_KEY_RIGHT))
+        {
+            for (auto rule : physicsSystem->getRules())
+            {
+                if (rule->getType() == Rule::RuleType::direction_acceleration)
+                {
+                    rule->setEnabled(true);
+                    auto gravity = static_cast<DirectionAccelerationRule *>(rule);
+                    Vec2 & acceleration = gravity->getAcceleration();
+                    float magnitude = acceleration.getMagnitude();
+                    if (key == GLFW_KEY_DOWN)
+                    {
+                        acceleration.setX(0.f);
+                        acceleration.setY(-magnitude);
+                    } else if (key == GLFW_KEY_UP)
+                    {
+                        acceleration.setX(0.f);
+                        acceleration.setY(magnitude);
+                    } else if (key == GLFW_KEY_LEFT)
+                    {
+                        acceleration.setX(-magnitude);
+                        acceleration.setY(0.f);
+                    } else if (key == GLFW_KEY_RIGHT)
+                    {
+                        acceleration.setX(magnitude);
+                        acceleration.setY(0.f);
+                    }
+                } else if(rule->getType() == Rule::RuleType::entity_acceleration)
+                {
+                    rule->setEnabled(false);
+                }
+            }
+        }
     }
 
     double clickStartX, clickStartY;
@@ -142,8 +196,8 @@ namespace GLHandler
         }
     }
 
-    void init(const string& newTitle, int width, int height) 
-    {   
+    void init(const string& newTitle, int width, int height)
+    {
         titleString = string(newTitle);
 
         if (!glfwInit()) {
@@ -160,7 +214,7 @@ namespace GLHandler
             cerr << "Error: Unable to create GLFW Window" << endl;
             exit( EXIT_FAILURE );
         }
-        
+
         glfwMakeContextCurrent(window);
         glfwSetWindowSizeCallback(window, GLHandler::handleResize);
         glfwSetKeyCallback(window, GLHandler::handleKey);
@@ -172,10 +226,10 @@ namespace GLHandler
             cerr << "Error: Unable to initialise GLEW" << endl;
             exit( EXIT_FAILURE );
         }
-        
+
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-        
+
         glClearColor(0.1, 0.1, 0.1, 1.0);
 
         handleResize(window, width, height);

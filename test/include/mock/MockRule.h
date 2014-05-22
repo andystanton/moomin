@@ -8,6 +8,8 @@ class MockRule
     : public Rule
 {
 public:
+    MockRule()
+        : Rule(Rule::RuleType::mock) {}
     MOCK_METHOD2(apply, void(Entity& entity, float timeDelta));
 };
 

@@ -45,11 +45,13 @@ int main(void)
     CollisionRule collisions(physicsSystem.getEntities());
     EntityAccelerationRule attraction(physicsSystem.getEntities());
 
+    attraction.setEnabled(false);
+
     // Register Rules with Physics System
     physicsSystem.addRule(&gravity);
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
-    //physicsSystem.addRule(&attraction);
+    physicsSystem.addRule(&attraction);
 
     AABB * aabb1 = new AABB(2000.f, 600.f, 200.f, 200.f);
     AABB * aabb2 = new AABB(2500.f, 1000.f, 200.f, 200.f);
