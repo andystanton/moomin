@@ -17,6 +17,8 @@ Collision::Collision(Entity& primary, Entity& secondary)
             case Entity::CollisionType::aabb:
                 if (secondary.getCollisionType() == Entity::CollisionType::aabb) resolveAABBAABB();
                 break;
+            default:
+                break;
         }
     }
 }

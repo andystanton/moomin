@@ -25,6 +25,9 @@ void BoundingRule::apply(Entity & entity, float deltaMilliseconds)
             break;
         case Entity::CollisionType::aabb:
             applyToAABB(static_cast<AABB &>(entity), deltaMilliseconds);
+            break;
+        default:
+            break;
     }
 }
 

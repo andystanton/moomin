@@ -1,7 +1,7 @@
 #include "model/Circle.h"
 
 Circle::Circle(float x, float y, float radius)
-    : Entity(x, y)
+    : Entity(x, y, Entity::CollisionType::circle)
     , radius(radius)
 {
 

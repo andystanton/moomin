@@ -13,11 +13,12 @@ class Entity
 public:
     enum class CollisionType
     {
+        mock,
         circle,
         aabb
     };
 
-    Entity(float x, float y);
+    Entity(float x, float y, CollisionType);
     ~Entity();
 
     virtual const Mesh & getMesh() const = 0;
@@ -35,7 +36,6 @@ public:
     void setNextPos(Vec2);
 
     CollisionType getCollisionType();
-    void setCollisionType(CollisionType);
 
 private:
     float mass;

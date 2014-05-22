@@ -1,15 +1,15 @@
 #include "model/Entity.h"
 
-Entity::Entity(float x, float y)
+Entity::Entity(float x, float y, Entity::CollisionType collisionType)
     : pos(x, y)
+    , collisionType(collisionType)
     , nextPos(x, y)
-    , collisionType(Entity::CollisionType::circle)
     , mass(0)
 {
 
 }
 
-Entity::~Entity() 
+Entity::~Entity()
 {
 
 }
@@ -47,11 +47,6 @@ void Entity::setVelocity(Vec2 velocity)
 Entity::CollisionType Entity::getCollisionType()
 {
     return collisionType;
-}
-
-void Entity::setCollisionType(CollisionType collisionType)
-{
-    this->collisionType = collisionType;
 }
 
 void Entity::setMass(float mass)

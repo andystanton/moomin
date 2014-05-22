@@ -43,13 +43,13 @@ go_bandit([]()
         //     float timeDeltaMilliseconds = 100;
         //
         //     // after 100ms, assert the expected change in velocity
-        //     gravity.apply(entity, timeDeltaMilliseconds);
+        //     singularity.apply(entity, timeDeltaMilliseconds);
         //
         //     AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
         //     AssertThat(entity.getVelocity().getY(), Is().EqualTo(-1.f))
         //
         //     // after another 100ms, assert the expected change in velocity
-        //     gravity.apply(entity, timeDeltaMilliseconds);
+        //     singularity.apply(entity, timeDeltaMilliseconds);
         //
         //     AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
         //     AssertThat(entity.getVelocity().getY(), Is().EqualTo(-2.f))
@@ -57,7 +57,7 @@ go_bandit([]()
         //     float longerTimeDeltaMilliseconds = 500;
         //
         //     // this time increase delta to 500 ms
-        //     gravity.apply(entity, longerTimeDeltaMilliseconds);
+        //     singularity.apply(entity, longerTimeDeltaMilliseconds);
         //
         //     AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
         //     AssertThat(entity.getVelocity().getY(), Is().EqualTo(-7.f))

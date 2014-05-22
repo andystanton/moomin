@@ -1,11 +1,10 @@
 #include "model/AABB.h"
 
 AABB::AABB(float x, float y, float boundingX, float boundingY)
-    : Entity(x, y)
+    : Entity(x, y, Entity::CollisionType::aabb)
     , bounding(boundingX, boundingY)
 {
     mesh.setType(Mesh::MeshType::quads);
-    setCollisionType(Entity::CollisionType::aabb);
 }
 
 AABB::~AABB()

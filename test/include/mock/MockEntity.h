@@ -19,7 +19,7 @@ public:
     MOCK_CONST_METHOD0_T(getMesh, const Mesh&());
 
     MockEntity()
-        : Entity(0.f, 0.f)
+        : Entity(0.f, 0.f, Entity::CollisionType::mock)
     {
     }
 };
