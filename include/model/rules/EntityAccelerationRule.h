@@ -1,8 +1,7 @@
-#ifndef _MOOMIN_GRAVITY_RULE
-#define _MOOMIN_GRAVITY_RULE
+#ifndef _MOOMIN_ENTITY_ACCELERATION_RULE
+#define _MOOMIN_ENTITY_ACCELERATION_RULE
 
 #include "model/Rule.h"
-#include "model/Circle.h"
 #include <set>
 
 using std::set;

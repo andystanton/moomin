@@ -1,5 +1,5 @@
-#ifndef _MOOMIN_ACCELERATION_RULE
-#define _MOOMIN_ACCELERATION_RULE
+#ifndef _MOOMIN_DIRECTION_ACCELERATION_RULE
+#define _MOOMIN_DIRECTION_ACCELERATION_RULE
 
 #include "model/Rule.h"
 #include "core/Vec2.h"

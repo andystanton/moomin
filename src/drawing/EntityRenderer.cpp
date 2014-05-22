@@ -18,7 +18,7 @@ void EntityRenderer::draw()
     }
 }
 
-void EntityRenderer::draw(Entity* entity) 
+void EntityRenderer::draw(Entity* entity)
 {
     const Mesh& mesh = entity->getMesh();
     unique_ptr<float> meshPoints(mesh.getPoints());
@@ -37,9 +37,9 @@ void EntityRenderer::draw(Entity* entity)
             glScalef(scaleFactor, scaleFactor, scaleFactor);
         }
         glBegin(mode);
-            glColor3f(0.f, 1.f, 0.f);
-            
-            for(int i = 0; i < mesh.getSize(); i+=2) 
+            glColor3f(0.4f, 0.8f, 0.8f);
+
+            for(int i = 0; i < mesh.getSize(); i+=2)
             {
                 glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
             }
@@ -49,5 +49,5 @@ void EntityRenderer::draw(Entity* entity)
 
 void EntityRenderer::handleResize(int width, int height)
 {
-    
+
 }

@@ -13,7 +13,8 @@ public:
         bounding,
         collision,
         direction_acceleration,
-        entity_acceleration
+        entity_acceleration,
+        position_acceleration
     };
 
     RuleType getType();
