@@ -28,7 +28,7 @@ Circle * createRandomCircle()
 
 AABB * createRandomAABB()
 {
-    AABB * aabb = new AABB(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 40) + 40, (rand() % 40) + 40);
+    AABB * aabb = new AABB(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 80) + 40, (rand() % 80) + 40);
     aabb->getVelocity().setX((rand() % 30) - 15);
     aabb->getVelocity().setY(rand() % 30);
     return aabb;
