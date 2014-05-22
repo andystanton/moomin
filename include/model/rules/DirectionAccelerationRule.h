@@ -13,8 +13,10 @@ public:
 
     Vec2 & getAcceleration();
     void apply(Entity &, float delta);
+    void setInverted(bool);
 private:
     Vec2 acceleration;
+    int directionScale;
 };
 
 #endif

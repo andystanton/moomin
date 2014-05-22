@@ -19,6 +19,7 @@
 #include "drawing/Text.h"
 #include "drawing/FontProvider.h"
 
+#include "model/rules/EntityAccelerationRule.h"
 #include "model/rules/DirectionAccelerationRule.h"
 
 using std::set;
@@ -114,6 +115,14 @@ namespace GLHandler
                 } else if(rule->getType() == Rule::RuleType::entity_acceleration)
                 {
                     rule->setEnabled(true);
+                    auto attraction = static_cast<EntityAccelerationRule *>(rule);
+                    if (key == GLFW_KEY_O)
+                    {
+                        attraction->setInverted(false);
+                    } else if (key == GLFW_KEY_P)
+                    {
+                        attraction->setInverted(true);
+                    }
                 }
             }
         }

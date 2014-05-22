@@ -16,8 +16,10 @@ public:
 
     void apply(Entity&, float delta);
     const set<Entity *> & getEntities();
+    void setInverted(bool);
 private:
     const set<Entity *> & entities;
+    int directionScale;
 };
 
 #endif
