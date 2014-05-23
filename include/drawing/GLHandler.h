@@ -21,6 +21,7 @@
 
 #include "model/rules/EntityAccelerationRule.h"
 #include "model/rules/DirectionAccelerationRule.h"
+#include "model/rules/PositionAccelerationRule.h"
 
 using std::set;
 using std::stringstream;
@@ -105,11 +106,35 @@ namespace GLHandler
             physics = !physics;
         }
 
+        if (action == GLFW_PRESS && (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET))
+        {
+            for (auto rule : physicsSystem->getRules())
+            {
+                if (rule->getType() == Rule::RuleType::direction_acceleration
+                        || rule->getType() == Rule::RuleType::entity_acceleration)
+                {
+                    rule->setEnabled(false);
+                } else if(rule->getType() == Rule::RuleType::position_acceleration)
+                {
+                    rule->setEnabled(true);
+                    auto singularity = static_cast<PositionAccelerationRule *>(rule);
+                    if (key == GLFW_KEY_LEFT_BRACKET)
+                    {
+                        singularity->setInverted(false);
+                    } else if (key == GLFW_KEY_RIGHT_BRACKET)
+                    {
+                        singularity->setInverted(true);
+                    }
+                }
+            }
+        }
+
         if (action == GLFW_PRESS && (key == GLFW_KEY_O || key == GLFW_KEY_P))
         {
             for (auto rule : physicsSystem->getRules())
             {
-                if (rule->getType() == Rule::RuleType::direction_acceleration)
+                if (rule->getType() == Rule::RuleType::direction_acceleration
+                        || rule->getType() == Rule::RuleType::position_acceleration)
                 {
                     rule->setEnabled(false);
                 } else if(rule->getType() == Rule::RuleType::entity_acceleration)
@@ -158,7 +183,8 @@ namespace GLHandler
                         acceleration.setX(magnitude);
                         acceleration.setY(0.f);
                     }
-                } else if(rule->getType() == Rule::RuleType::entity_acceleration)
+                } else if(rule->getType() == Rule::RuleType::entity_acceleration
+                            || rule->getType() == Rule::RuleType::position_acceleration)
                 {
                     rule->setEnabled(false);
                 }

@@ -5,9 +5,10 @@
 #include "drawing/FreeTypeRenderer.h"
 
 #include "model/rules/DirectionAccelerationRule.h"
+#include "model/rules/EntityAccelerationRule.h"
+#include "model/rules/PositionAccelerationRule.h"
 #include "model/rules/BoundingRule.h"
 #include "model/rules/CollisionRule.h"
-#include "model/rules/EntityAccelerationRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/Circle.h"
 #include "model/AABB.h"
@@ -40,18 +41,23 @@ int main(void)
     PhysicsSystem physicsSystem;
 
     // Create Rules
-    DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
     BoundingRule area(0.55f, Vec2(0.f, 0.f), Vec2(worldWidth, worldHeight));
     CollisionRule collisions(physicsSystem.getEntities());
+
+    DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
     EntityAccelerationRule attraction(physicsSystem.getEntities());
+    PositionAccelerationRule singularity(Vec2(worldWidth * 0.5, worldHeight * 0.5), 20.f);
 
     attraction.setEnabled(false);
+    gravity.setEnabled(false);
 
     // Register Rules with Physics System
     physicsSystem.addRule(&gravity);
+    physicsSystem.addRule(&attraction);
+    physicsSystem.addRule(&singularity);
+
     physicsSystem.addRule(&area);
     physicsSystem.addRule(&collisions);
-    physicsSystem.addRule(&attraction);
 
     AABB * aabb1 = new AABB(2000.f, 600.f, 200.f, 200.f);
     AABB * aabb2 = new AABB(2500.f, 1000.f, 200.f, 200.f);
