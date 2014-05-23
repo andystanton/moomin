@@ -54,6 +54,24 @@ go_bandit([]()
     {
         float threshold = 0.000001;
 
+        describe("normalising a Vec2", []()
+        {
+            it("should result in a new Vec2 with a magnitude of 1", []()
+            {
+                Vec2 someVec1 = Vec2(3.f, 4.f);
+                Vec2 normalised1 = someVec1.getNormalised();
+                AssertThat(normalised1.getMagnitude(), Is().EqualTo(1.f));
+                AssertThat(normalised1.getX(), Is().EqualTo(0.6f));
+                AssertThat(normalised1.getY(), Is().EqualTo(0.8f));
+
+                Vec2 someVec2 = Vec2(-4.f, -3.f);
+                Vec2 normalised2 = someVec2.getNormalised();
+                AssertThat(normalised2.getMagnitude(), Is().EqualTo(1.f));
+                AssertThat(normalised2.getX(), Is().EqualTo(-0.8f));
+                AssertThat(normalised2.getY(), Is().EqualTo(-0.6f));
+            });
+        });
+
         describe("finding the magnitude of a Vec2", []()
         {
             it("should obey Pythagoras' theorem", []()

@@ -1,5 +1,12 @@
 #include "core/Vec2.h"
 
+Vec2::Vec2(const Vec2 & other)
+    : x(other.x)
+    , y(other.y)
+{
+
+}
+
 Vec2::Vec2(float x, float y)
     : x(x)
     , y(y)
@@ -46,6 +53,13 @@ float Vec2::getMagnitude() const
 float Vec2::distanceTo(const Vec2 & other)
 {
     return sqrt(pow(other.x - x, 2) + pow(other.y - y, 2));
+}
+
+Vec2 Vec2::getNormalised() const
+{
+    Vec2 normalised = Vec2(*this);
+    normalised /= getMagnitude();
+    return normalised;
 }
 
 string Vec2::toString()

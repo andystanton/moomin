@@ -14,6 +14,7 @@ class Vec2
 {
 public:
     Vec2(float, float);
+    Vec2(const Vec2 &);
     Vec2();
     ~Vec2();
 
@@ -24,6 +25,8 @@ public:
     float getY() const;
 
     float getMagnitude() const;
+
+    Vec2 getNormalised() const;
 
     float distanceTo(const Vec2 &);
 
