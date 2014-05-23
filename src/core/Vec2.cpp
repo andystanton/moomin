@@ -55,11 +55,16 @@ float Vec2::distanceTo(const Vec2 & other)
     return sqrt(pow(other.x - x, 2) + pow(other.y - y, 2));
 }
 
+void Vec2::normalise()
+{
+    *this /= getMagnitude();
+}
+
 Vec2 Vec2::getNormalised() const
 {
-    Vec2 normalised = Vec2(*this);
-    normalised /= getMagnitude();
-    return normalised;
+    Vec2 copy = Vec2(*this);
+    copy.normalise();
+    return copy;
 }
 
 string Vec2::toString()

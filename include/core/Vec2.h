@@ -20,15 +20,14 @@ public:
 
     void setX(float);
     void setY(float);
+    void normalise();
 
     float getX() const;
     float getY() const;
-
     float getMagnitude() const;
+    float distanceTo(const Vec2 &);
 
     Vec2 getNormalised() const;
-
-    float distanceTo(const Vec2 &);
 
     friend Vec2 operator+(const Vec2 &, const Vec2 &);
     friend Vec2 operator-(const Vec2 &, const Vec2 &);

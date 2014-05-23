@@ -56,6 +56,24 @@ go_bandit([]()
 
         describe("normalising a Vec2", []()
         {
+            it("should result in the Vec2 having a magnitude of 1", []()
+            {
+                Vec2 someVec1 = Vec2(3.f, 4.f);
+                someVec1.normalise();
+                AssertThat(someVec1.getMagnitude(), Is().EqualTo(1.f));
+                AssertThat(someVec1.getX(), Is().EqualTo(0.6f));
+                AssertThat(someVec1.getY(), Is().EqualTo(0.8f));
+
+                Vec2 someVec2 = Vec2(-4.f, -3.f);
+                someVec2.normalise();
+                AssertThat(someVec2.getMagnitude(), Is().EqualTo(1.f));
+                AssertThat(someVec2.getX(), Is().EqualTo(-0.8f));
+                AssertThat(someVec2.getY(), Is().EqualTo(-0.6f));
+            });
+        });
+
+        describe("getting a normalised copy of a Vec2", []()
+        {
             it("should result in a new Vec2 with a magnitude of 1", []()
             {
                 Vec2 someVec1 = Vec2(3.f, 4.f);
