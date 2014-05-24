@@ -16,7 +16,7 @@ using namespace bandit;
 
 go_bandit([]()
 {
-    describe("a Collision Detection Rule", []()
+    describe("a Collision Rule", []()
     {
         it("is an instance of a Rule", []()
         {
@@ -35,9 +35,11 @@ go_bandit([]()
 
             Circle c1(10.f, 10.f, 10.f);
             Circle c2(50.f, 10.f, 10.f);
+            AABB aabb1(20.f, 12.f, 10.f, 10.f);
 
             entities.insert(&c1);
             entities.insert(&c2);
+            entities.insert(&aabb1);
 
             CollisionRule circleCollision(entities);
         });
@@ -66,7 +68,7 @@ go_bandit([]()
                 circleCollision.apply(*entity, 100.f);
             }
 
-            it("repositions the Entities so that they are no longer colliding", [&]()
+            it("repositions the Circles so that they are no longer colliding", [&]()
             {
                 AssertThat(c1.getNextPos().getX(), Is().EqualToWithDelta(-0.4, tolerance));
                 AssertThat(c1.getNextPos().getY(), Is().EqualToWithDelta(-0.3, tolerance));
@@ -104,16 +106,26 @@ go_bandit([]()
                 aabbCollision.apply(*entity, 100.f);
             }
 
+            it("repositions the AABBs so that they are no longer colliding", [&]()
+            {
+                float tolerance = 0.0000001;
+                AssertThat(aabb1.getNextPos().getX(), Is().EqualToWithDelta(0.f, tolerance));
+                AssertThat(aabb1.getNextPos().getY(), Is().EqualToWithDelta(1.5f, tolerance));
+
+                AssertThat(aabb2.getNextPos().getX(), Is().EqualToWithDelta(-36.f, tolerance));
+                AssertThat(aabb2.getNextPos().getY(), Is().EqualToWithDelta(-28.5f, tolerance));
+            });
+
             it("gives the AABB an impulse in the opposite direction of the Collision", [&]()
             {
                 float tolerance = 0.0000001;
                 float aabbElasticity = 0.65;
 
                 AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-                AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 3.f * aabbElasticity, tolerance));
+                AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 1.5f * aabbElasticity, tolerance));
 
                 AssertThat(aabb2.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-                AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(-3.f * aabbElasticity, tolerance));
+                AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(-1.5f * aabbElasticity, tolerance));
 
                 AssertThat(aabb3.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
                 AssertThat(aabb3.getVelocity().getY(), Is().EqualToWithDelta( 0.f * aabbElasticity, tolerance));

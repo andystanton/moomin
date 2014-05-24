@@ -68,6 +68,7 @@ void Collision::resolveAABBAABB()
         }
 
         depth = escapeTranslation.getMagnitude();
+        escapeTranslation /= 2;
 
         resultantVelocity.setX(escapeTranslation.getX());
         resultantVelocity.setY(escapeTranslation.getY());

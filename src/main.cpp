@@ -21,7 +21,7 @@ int worldWidth = 6400, worldHeight = 6400;
 
 Circle * createRandomCircle()
 {
-    Circle * c = new Circle(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 20) + 20);
+    Circle * c = new Circle(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 20) + 20);
     c->getVelocity().setX((rand() % 30) - 15);
     c->getVelocity().setY(rand() % 30);
     return c;
@@ -29,7 +29,7 @@ Circle * createRandomCircle()
 
 AABB * createRandomAABB()
 {
-    AABB * aabb = new AABB(rand() % worldWidth, 800 + (rand() % 4800), (rand() % 80) + 40, (rand() % 80) + 40);
+    AABB * aabb = new AABB(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 80) + 40, (rand() % 80) + 40);
     aabb->getVelocity().setX((rand() % 30) - 15);
     aabb->getVelocity().setY(rand() % 30);
     return aabb;

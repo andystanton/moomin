@@ -14,9 +14,9 @@ using namespace bandit;
 
 using ::testing::Ref;
 
-go_bandit([]() 
+go_bandit([]()
 {
-    describe("a Collision between two Circles", []() 
+    describe("a Collision between two Circles", []()
     {
         Circle primaryA(0.f, 0.f, 3.f);
         Circle secondaryA(4.f, 3.f, 3.f);
@@ -30,7 +30,7 @@ go_bandit([]()
 
         float tolerance = 0.00001;
 
-        it("has primary and secondary Circles", [&]() 
+        it("has primary and secondary Circles", [&]()
         {
             AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
             AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
@@ -74,7 +74,7 @@ go_bandit([]()
 
         float tolerance = 0.00001;
 
-        it("has primary and secondary AABBs", [&]() 
+        it("has primary and secondary AABBs", [&]()
         {
             AssertThat(&collisionA.getPrimary(),   Is().EqualTo(&primary));
             AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
@@ -111,26 +111,26 @@ go_bandit([]()
 
         it("calculates the escape translation for the primary AABB", [&]()
         {
-            AssertThat(collisionA.getEscapeTranslation().getX(), Is().EqualToWithDelta(0.f, tolerance));
-            AssertThat(collisionA.getEscapeTranslation().getY(), Is().EqualToWithDelta(3.f, tolerance));
+            AssertThat(collisionA.getEscapeTranslation().getX(), Is().EqualToWithDelta( 0.f, tolerance));
+            AssertThat(collisionA.getEscapeTranslation().getY(), Is().EqualToWithDelta( 1.5f, tolerance));
 
             AssertThat(collisionB.getEscapeTranslation().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-            AssertThat(collisionB.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));
+            AssertThat(collisionB.getEscapeTranslation().getY(), Is().EqualToWithDelta(-2.5f, tolerance));
 
-            AssertThat(collisionC.getEscapeTranslation().getX(), Is().EqualToWithDelta(-5.f, tolerance));
-            AssertThat(collisionC.getEscapeTranslation().getY(), Is().EqualToWithDelta(-5.f, tolerance));
+            AssertThat(collisionC.getEscapeTranslation().getX(), Is().EqualToWithDelta(-2.5f, tolerance));
+            AssertThat(collisionC.getEscapeTranslation().getY(), Is().EqualToWithDelta(-2.5f, tolerance));
 
             AssertThat(collisionD.getEscapeTranslation().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-            AssertThat(collisionD.getEscapeTranslation().getY(), Is().EqualToWithDelta( 5.f, tolerance));
+            AssertThat(collisionD.getEscapeTranslation().getY(), Is().EqualToWithDelta( 2.5f, tolerance));
 
-            AssertThat(collisionE.getEscapeTranslation().getX(), Is().EqualToWithDelta( 5.f, tolerance));
+            AssertThat(collisionE.getEscapeTranslation().getX(), Is().EqualToWithDelta( 2.5f, tolerance));
             AssertThat(collisionE.getEscapeTranslation().getY(), Is().EqualToWithDelta( 0.f, tolerance));
 
-            AssertThat(collisionF.getEscapeTranslation().getX(), Is().EqualToWithDelta(-3.f, tolerance));
+            AssertThat(collisionF.getEscapeTranslation().getX(), Is().EqualToWithDelta(-1.5f, tolerance));
             AssertThat(collisionF.getEscapeTranslation().getY(), Is().EqualToWithDelta( 0.f, tolerance));
 
-            AssertThat(collisionG.getEscapeTranslation().getX(), Is().EqualToWithDelta( 6.f, tolerance));
-            AssertThat(collisionG.getEscapeTranslation().getY(), Is().EqualToWithDelta( 6.f, tolerance));
+            AssertThat(collisionG.getEscapeTranslation().getX(), Is().EqualToWithDelta( 3.f, tolerance));
+            AssertThat(collisionG.getEscapeTranslation().getY(), Is().EqualToWithDelta( 3.f, tolerance));
         });
     });
 });
