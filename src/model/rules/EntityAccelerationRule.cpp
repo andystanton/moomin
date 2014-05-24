@@ -1,8 +1,9 @@
 #include "model/rules/EntityAccelerationRule.h"
 
-EntityAccelerationRule::EntityAccelerationRule(const set<Entity *> & entities)
+EntityAccelerationRule::EntityAccelerationRule(const set<Entity *> & entities, float acceleration)
     : Rule(Rule::RuleType::entity_acceleration)
     , entities(entities)
+    , acceleration(acceleration)
     , directionScale(1)
 {
 
@@ -18,16 +19,18 @@ void EntityAccelerationRule::apply(Entity & entity, float delta)
     Vec2 & pos = entity.getPos();
     for (auto other : entities)
     {
-        Vec2 & otherVelocity = other->getVelocity();
-        Vec2 & otherPos = other->getPos();
+        if (&entity != other)
+        {
+            Vec2 & otherPos = other->getPos();
+            Vec2 & otherVelocity = other->getVelocity();
 
-        Vec2 difference = otherPos - pos;
-        float distance = difference.getMagnitude();
-
-        int fudgeFactor = 5000000;
-
-        otherVelocity.setX(otherVelocity.getX() - directionScale * (difference.getX() / fudgeFactor) * distance * delta/1000);
-        otherVelocity.setY(otherVelocity.getY() - directionScale * (difference.getY() / fudgeFactor) * distance * delta/1000);
+            Vec2 direction = otherPos - pos;
+            direction.normalise();
+            direction *= (-directionScale * acceleration * delta/1000);
+            otherVelocity += direction;
+            // otherVelocity.setX(otherVelocity.getX() + (directionScale * -direction.getX() * acceleration * delta / 1000));
+            // otherVelocity.setY(otherVelocity.getY() + (directionScale * -direction.getY() * acceleration * delta / 1000));
+        }
     }
 }
 
@@ -39,4 +42,9 @@ const set<Entity *> & EntityAccelerationRule::getEntities()
 void EntityAccelerationRule::setInverted(bool inverted)
 {
     directionScale = inverted ? -1 : 1;
+}
+
+float EntityAccelerationRule::getAcceleration()
+{
+    return acceleration;
 }

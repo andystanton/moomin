@@ -25,6 +25,12 @@ Vec2::~Vec2()
 
 }
 
+void Vec2::setFrom(const Vec2 & other)
+{
+    this->x = other.x;
+    this->y = other.y;
+}
+
 void Vec2::setX(float x)
 {
     this->x = x;

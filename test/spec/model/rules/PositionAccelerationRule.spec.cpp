@@ -27,11 +27,12 @@ go_bandit([]()
 
             AssertThat(bigCrunch.getOrigin().getX(), Is().EqualTo(100.f));
             AssertThat(bigCrunch.getOrigin().getY(), Is().EqualTo(50.f));
+            AssertThat(bigCrunch.getAcceleration(), Is().EqualTo(10.f));
         });
 
         it("applies its acceleration to an Entity's velocity towards itself given a time delta in ms", []()
         {
-            // set bigCrunch to 10 units/second^2 toward of 0,0
+            // set bigCrunch to 10 units/second^2 toward 0,0
             PositionAccelerationRule bigCrunch(Vec2(0.f, 0.f), 10.f);
 
             Circle entity(400.f, 300.f, 10.f);

@@ -10,11 +10,11 @@ using namespace std;
 
 using namespace bandit;
 
-go_bandit([]() 
+go_bandit([]()
 {
-    describe("an Axis-Aligned Bounding Box", []() 
+    describe("an Axis-Aligned Bounding Box", []()
     {
-        it("is a subclass of Entity", []() 
+        it("is a subclass of Entity", []()
         {
             Entity * aabb = new AABB(50.f, 50.f, 10.f, 10.f);
 
@@ -22,7 +22,7 @@ go_bandit([]()
             AssertThat(aabb->getPos().getY(), Is().EqualTo(50.f));
         });
 
-        it("accepts a position and a radius", []()
+        it("accepts a position and dimensions", []()
         {
             AABB aabb(50.f, 50.f, 10.f, 10.f);
 

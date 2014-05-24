@@ -26,12 +26,17 @@ void PositionAccelerationRule::apply(Entity & entity, float delta)
 
     Vec2 direction = pos - origin;
     direction.normalise();
+    direction *= (-directionScale * acceleration * delta/1000);
 
-    velocity.setX(velocity.getX() + (directionScale * -direction.getX() * acceleration * delta / 1000));
-    velocity.setY(velocity.getY() + (directionScale * -direction.getY() * acceleration * delta / 1000));
+    velocity += direction;
 }
 
 void PositionAccelerationRule::setInverted(bool inverted)
 {
     directionScale = inverted ? -1 : 1;
+}
+
+float PositionAccelerationRule::getAcceleration()
+{
+    return acceleration;
 }

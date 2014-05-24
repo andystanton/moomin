@@ -14,6 +14,7 @@ public:
     Vec2 & getOrigin();
     void apply(Entity &, float delta);
     void setInverted(bool);
+    float getAcceleration();
 private:
     Vec2 origin;
     float acceleration;

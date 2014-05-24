@@ -18,6 +18,7 @@ public:
     Vec2();
     ~Vec2();
 
+    void setFrom(const Vec2 &);
     void setX(float);
     void setY(float);
     void normalise();

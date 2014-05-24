@@ -33,13 +33,11 @@ void PhysicsSystem::addRule(Rule * rule)
 
 void PhysicsSystem::step(float deltaInMilliseconds)
 {
+    // Calculate next position for all entities
     for (auto entity : entities)
     {
-        Vec2 & pos = entity->getPos();
         Vec2 & nextPos = entity->getNextPos();
-
-        nextPos.setX(pos.getX());
-        nextPos.setY(pos.getY());
+        nextPos.setFrom(entity->getPos());
 
         for (auto rule : rules)
         {
@@ -49,18 +47,13 @@ void PhysicsSystem::step(float deltaInMilliseconds)
             }
         }
 
-        Vec2 & velocity = entity->getVelocity();
-
-        nextPos.setX(nextPos.getX() + velocity.getX());
-        nextPos.setY(nextPos.getY() + velocity.getY());
+        nextPos += entity->getVelocity();
     }
+
+    // Update entity positions
     for (auto entity : entities)
     {
-        Vec2 & pos = entity->getPos();
-        Vec2 & nextPos = entity->getNextPos();
-
-        pos.setX(nextPos.getX());
-        pos.setY(nextPos.getY());
+        entity->getPos().setFrom(entity->getNextPos());
     }
 }
 
