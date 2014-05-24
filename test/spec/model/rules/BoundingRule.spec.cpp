@@ -11,7 +11,7 @@
 
 using namespace bandit;
 
-go_bandit([]() 
+go_bandit([]()
 {
     describe("a Bounding Rule", []()
     {
@@ -81,6 +81,26 @@ go_bandit([]()
 
                 AssertThat(aabb.getNextPos().getX(), Is().EqualTo(0.f));
                 AssertThat(aabb.getNextPos().getY(), Is().EqualTo(0.f));
+            });
+
+            it("applies its coefficient of elasticity", [&]()
+            {
+                aabb.setPos(Vec2(-10.f, 100.f));
+                aabb.setVelocity(Vec2(-100.f, 0.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getVelocity().getX(), Is().EqualTo(50.f));
+            });
+
+            it("applies its coefficient of friction", [&]()
+            {
+                aabb.setPos(Vec2(50.f, -1.f));
+                aabb.setVelocity(Vec2(10.f, 0.f));
+
+                area.apply(aabb, timeDeltaMilliseconds);
+
+                AssertThat(aabb.getVelocity().getX(), Is().EqualTo(9.f));
             });
         });
 
