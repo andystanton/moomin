@@ -20,11 +20,7 @@ Vec2 & DirectionAccelerationRule::getAcceleration()
 
 void DirectionAccelerationRule::apply(Entity & entity, float deltaMilliseconds)
 {
-    Vec2 & velocity = entity.getVelocity();
-    Vec2 & pos = entity.getPos();
-
-    velocity.setX(velocity.getX() + (directionScale * acceleration.getX() * deltaMilliseconds/1000));
-    velocity.setY(velocity.getY() + (directionScale * acceleration.getY() * deltaMilliseconds/1000));
+    entity.getVelocity() += (acceleration * (directionScale * deltaMilliseconds/1000));
 }
 
 void DirectionAccelerationRule::setInverted(bool inverted)
