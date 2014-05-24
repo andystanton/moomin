@@ -63,3 +63,8 @@ void PhysicsSystem::step(float deltaInMilliseconds)
         pos.setY(nextPos.getY());
     }
 }
+
+void PhysicsSystem::clearEntities()
+{
+    entities.clear();
+}

@@ -99,11 +99,57 @@ namespace GLHandler
         registerRenderer(entityRenderer);
     }
 
+    Circle * createRandomCircle()
+    {
+        int worldWidth = 6400, worldHeight = 6400;
+        Circle * c = new Circle(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 20) + 20);
+        c->getVelocity().setX((rand() % 30) - 15);
+        c->getVelocity().setY(rand() % 30);
+        return c;
+    }
+
+    AABB * createRandomAABB()
+    {
+        int worldWidth = 6400, worldHeight = 6400;
+        AABB * aabb = new AABB(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 80) + 40, (rand() % 80) + 40);
+        aabb->getVelocity().setX((rand() % 30) - 15);
+        aabb->getVelocity().setY(rand() % 30);
+        return aabb;
+    }
+
+
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
         {
             physics = !physics;
+        }
+
+        if (action == GLFW_PRESS && (key == GLFW_KEY_1 || key == GLFW_KEY_2 || key==GLFW_KEY_3))
+        {
+            physicsSystem->clearEntities();
+            if (key == GLFW_KEY_1)
+            {
+                for (int i=0; i < 50; i++)
+                {
+                    physicsSystem->addEntity(createRandomCircle());
+                }
+            } else if (key == GLFW_KEY_2)
+            {
+                for (int i=0; i < 50; i++)
+                {
+                    physicsSystem->addEntity(createRandomAABB());
+                }
+            } else if (key == GLFW_KEY_3)
+            {
+                for (int i=0; i < 10; i++)
+                {
+                    for (int j=0; j < 10; j++)
+                    {
+                        physicsSystem->addEntity(new AABB(2700 + i * 100, 2700 + j * 100, 100, 100));
+                    }
+                }
+            }
         }
 
         if (action == GLFW_PRESS && (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET))

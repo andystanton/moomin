@@ -77,7 +77,7 @@ void Collision::resolveAABBAABB()
         // also be doing half the work. an alternative approach might be to
         // only move one, but I would need a way to decide which, and flag
         // other as having already been resolved against this AABB.
-        escapeTranslation /= 2;
+        escapeTranslation /= 2.f;
 
         // placeholder for resultant velocity. currently move the
         // AABB in the direction of the escape translation.
@@ -95,10 +95,10 @@ void Collision::resolveCircleCircle()
 
     depth = primaryCircle.getRadius() + secondaryCircle.getRadius() - distance;
 
-    if (depth > 0)
+    if (depth > 0.f)
     {
         float scale = distance / depth;
-        escapeTranslation = 0.5 * difference / -scale;
+        escapeTranslation = 0.5f * difference / -scale;
         resultantVelocity = difference / -scale;
     }
 }

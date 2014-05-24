@@ -19,6 +19,7 @@ public:
     void addRule(Rule *);
     const set<Entity *> & getEntities() const;
     const set<Rule *> & getRules() const;
+    void clearEntities();
 private:
     set<Entity *> entities;
     set<Rule *> rules;
