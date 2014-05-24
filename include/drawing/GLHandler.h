@@ -76,11 +76,6 @@ namespace GLHandler
         renderer->handleResize(width, height);
     }
 
-    void registerPhysicsSystem(PhysicsSystem * newPhysicsSystem)
-    {
-        physicsSystem = newPhysicsSystem;
-    }
-
     void setFreeTypeRenderer(FreeTypeRenderer * newFreeTypeRenderer)
     {
         freeTypeRenderer = newFreeTypeRenderer;
@@ -155,6 +150,13 @@ namespace GLHandler
         }
     }
 
+    void registerPhysicsSystem(PhysicsSystem * newPhysicsSystem)
+    {
+        physicsSystem = newPhysicsSystem;
+
+        createCirclesLattice();
+    }
+
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
         if (key == GLFW_KEY_SPACE && action == GLFW_PRESS)
@@ -198,7 +200,8 @@ namespace GLHandler
         {
             for (auto rule : physicsSystem->getRules())
             {
-                if (rule->getType() == Rule::RuleType::direction_acceleration || rule->getType() == Rule::RuleType::position_acceleration)
+                if (rule->getType() == Rule::RuleType::direction_acceleration
+                        || rule->getType() == Rule::RuleType::position_acceleration)
                 {
                     rule->setEnabled(false);
                 } else if(rule->getType() == Rule::RuleType::entity_acceleration)
