@@ -27,9 +27,8 @@ void EntityAccelerationRule::apply(Entity & entity, float delta)
             Vec2 direction = otherPos - pos;
             direction.normalise();
             direction *= (-directionScale * acceleration * delta/1000);
+
             otherVelocity += direction;
-            // otherVelocity.setX(otherVelocity.getX() + (directionScale * -direction.getX() * acceleration * delta / 1000));
-            // otherVelocity.setY(otherVelocity.getY() + (directionScale * -direction.getY() * acceleration * delta / 1000));
         }
     }
 }

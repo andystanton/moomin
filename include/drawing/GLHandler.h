@@ -117,6 +117,43 @@ namespace GLHandler
         return aabb;
     }
 
+    void createCirclesRandom()
+    {
+        for (int i=0; i < 50; i++)
+        {
+            physicsSystem->addEntity(createRandomCircle());
+        }
+    }
+
+    void createAABBsRandom()
+    {
+        for (int i=0; i < 50; i++)
+        {
+            physicsSystem->addEntity(createRandomAABB());
+        }
+    }
+
+    void createCirclesLattice()
+    {
+        for (int i=0; i < 10; i++)
+        {
+            for (int j=0; j < 10; j++)
+            {
+                physicsSystem->addEntity(new Circle(2700 + i * 100, 2700 + j * 100, 50));
+            }
+        }
+    }
+
+    void createAABBLattice()
+    {
+        for (int i=0; i < 10; i++)
+        {
+            for (int j=0; j < 10; j++)
+            {
+                physicsSystem->addEntity(new AABB(2650 + i * 100, 2650 + j * 100, 100, 100));
+            }
+        }
+    }
 
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
@@ -125,31 +162,13 @@ namespace GLHandler
             physics = !physics;
         }
 
-        if (action == GLFW_PRESS && (key == GLFW_KEY_1 || key == GLFW_KEY_2 || key==GLFW_KEY_3))
+        if (action == GLFW_PRESS && (key == GLFW_KEY_1 || key == GLFW_KEY_2 || key==GLFW_KEY_3 || key==GLFW_KEY_4))
         {
             physicsSystem->clearEntities();
-            if (key == GLFW_KEY_1)
-            {
-                for (int i=0; i < 50; i++)
-                {
-                    physicsSystem->addEntity(createRandomCircle());
-                }
-            } else if (key == GLFW_KEY_2)
-            {
-                for (int i=0; i < 50; i++)
-                {
-                    physicsSystem->addEntity(createRandomAABB());
-                }
-            } else if (key == GLFW_KEY_3)
-            {
-                for (int i=0; i < 10; i++)
-                {
-                    for (int j=0; j < 10; j++)
-                    {
-                        physicsSystem->addEntity(new AABB(2700 + i * 100, 2700 + j * 100, 100, 100));
-                    }
-                }
-            }
+            if (key == GLFW_KEY_1) createCirclesRandom();
+            else if (key == GLFW_KEY_2) createAABBsRandom();
+            else if (key == GLFW_KEY_3) createCirclesLattice();
+            else if (key == GLFW_KEY_4) createAABBLattice();
         }
 
         if (action == GLFW_PRESS && (key == GLFW_KEY_LEFT_BRACKET || key == GLFW_KEY_RIGHT_BRACKET))
@@ -179,8 +198,7 @@ namespace GLHandler
         {
             for (auto rule : physicsSystem->getRules())
             {
-                if (rule->getType() == Rule::RuleType::direction_acceleration
-                        || rule->getType() == Rule::RuleType::position_acceleration)
+                if (rule->getType() == Rule::RuleType::direction_acceleration || rule->getType() == Rule::RuleType::position_acceleration)
                 {
                     rule->setEnabled(false);
                 } else if(rule->getType() == Rule::RuleType::entity_acceleration)

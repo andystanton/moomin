@@ -29,7 +29,7 @@ int main(void)
 
     // Create Physics Rules
     DirectionAccelerationRule gravity(Vec2(0.f, -20.f));
-    EntityAccelerationRule attraction(physicsSystem.getEntities(), 10.f);
+    EntityAccelerationRule attraction(physicsSystem.getEntities(), 1.f);
     PositionAccelerationRule singularity(Vec2(worldWidth * 0.5, worldHeight * 0.5), 20.f);
 
     // Register Rules with Physics System
