@@ -198,6 +198,19 @@ namespace GLHandler
             }
         }
 
+        if (action == GLFW_PRESS && key == GLFW_KEY_0)
+        {
+            for (auto rule : physicsSystem->getRules())
+            {
+                if (rule->getType() == Rule::RuleType::direction_acceleration
+                        || rule->getType() == Rule::RuleType::position_acceleration
+                        || rule->getType() == Rule::RuleType::entity_acceleration)
+                {
+                    rule->setEnabled(false);
+                }
+            }
+        }
+
         if (action == GLFW_PRESS
                 && (key == GLFW_KEY_DOWN
                     || key == GLFW_KEY_UP
