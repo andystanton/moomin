@@ -59,19 +59,29 @@ void Collision::resolveAABBAABB()
         escapeTranslation.setX(abs(left) < right ? left : right);
         escapeTranslation.setY(abs(top) < bottom ? top : bottom);
 
+        // use the nearest edge for the escape translation. If the nearest
+        // horizontal and vertical edges are equidistant, the escape translation
+        // is the corner.
         if (abs(escapeTranslation.getX()) < abs(escapeTranslation.getY()))
         {
-            escapeTranslation.setY(0);
+            escapeTranslation.setY(0.f);
         } else if(abs(escapeTranslation.getX()) > abs(escapeTranslation.getY()))
         {
-            escapeTranslation.setX(0);
+            escapeTranslation.setX(0.f);
         }
 
+        // the collision depth is the magnitude of the full escape translation
         depth = escapeTranslation.getMagnitude();
+
+        // then halve the escape translation because the other AABB should
+        // also be doing half the work. an alternative approach might be to
+        // only move one, but I would need a way to decide which, and flag
+        // other as having already been resolved against this AABB.
         escapeTranslation /= 2;
 
-        resultantVelocity.setX(escapeTranslation.getX());
-        resultantVelocity.setY(escapeTranslation.getY());
+        // placeholder for resultant velocity. currently move the
+        // AABB in the direction of the escape translation.
+        resultantVelocity = escapeTranslation;
     }
 }
 
@@ -79,7 +89,6 @@ void Collision::resolveCircleCircle()
 {
     Circle & primaryCircle = static_cast<Circle &>(primary);
     Circle & secondaryCircle = static_cast<Circle &>(secondary);
-
 
     Vec2 difference = secondaryCircle.getPos() - primaryCircle.getPos();
     float distance = difference.getMagnitude();
@@ -89,12 +98,8 @@ void Collision::resolveCircleCircle()
     if (depth > 0)
     {
         float scale = distance / depth;
-
-        escapeTranslation.setX(-0.5 * (difference.getX() / scale));
-        escapeTranslation.setY(-0.5 * (difference.getY() / scale));
-
-        resultantVelocity.setX(-difference.getX() / scale);
-        resultantVelocity.setY(-difference.getY() / scale);
+        escapeTranslation = 0.5 * difference / -scale;
+        resultantVelocity = difference / -scale;
     }
 }
 

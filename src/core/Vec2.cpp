@@ -90,6 +90,11 @@ Vec2 operator-(const Vec2 & primary, const Vec2 & secondary)
     return Vec2(primary.x - secondary.x, primary.y - secondary.y);
 }
 
+Vec2 operator-(const Vec2 & primary)
+{
+    return Vec2(-primary.x, -primary.y);
+}
+
 Vec2 operator*(const Vec2 & primary, float scalar)
 {
     return Vec2(primary.x * scalar, primary.y * scalar);

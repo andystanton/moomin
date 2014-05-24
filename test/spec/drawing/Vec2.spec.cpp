@@ -54,6 +54,22 @@ go_bandit([]()
     {
         float threshold = 0.000001;
 
+        describe("negating a Vec2", []()
+        {
+            it("should result in the Vec2 having negated x and y components", []()
+            {
+                Vec2 someVec1 = Vec2(3.f, 4.f);
+                Vec2 negatedVec1 = -someVec1;
+                AssertThat(negatedVec1.getX(), Is().EqualTo(-3.f));
+                AssertThat(negatedVec1.getY(), Is().EqualTo(-4.f));
+
+                Vec2 someVec2 = Vec2(-4.f, -3.f);
+                Vec2 negatedVec2 = -someVec2;
+                AssertThat(negatedVec2.getX(), Is().EqualTo(4.f));
+                AssertThat(negatedVec2.getY(), Is().EqualTo(3.f));
+            });
+        });
+
         describe("normalising a Vec2", []()
         {
             it("should result in the Vec2 having a magnitude of 1", []()
