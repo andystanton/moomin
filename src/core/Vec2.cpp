@@ -56,7 +56,7 @@ float Vec2::getMagnitude() const
     return sqrt(x * x + y * y);
 }
 
-float Vec2::distanceTo(const Vec2 & other)
+float Vec2::distanceTo(const Vec2 & other) const
 {
     return sqrt(pow(other.x - x, 2) + pow(other.y - y, 2));
 }
@@ -73,11 +73,68 @@ Vec2 Vec2::getNormalised() const
     return copy;
 }
 
-string Vec2::toString()
+bool Vec2::operator==(const Vec2 & secondary) const
 {
-    stringstream vecString;
-    vecString << *this;
-    return vecString.str();
+    return this->x == secondary.x && this->y == secondary.y;
+}
+
+bool Vec2::operator!=(const Vec2 & secondary) const
+{
+    return this->x != secondary.x || this->y != secondary.y;
+}
+
+Vec2 Vec2::operator+(const Vec2 & secondary) const
+{
+    return Vec2(this->x + secondary.x, this->y + secondary.y);
+}
+
+Vec2 Vec2::operator-(const Vec2 & secondary) const
+{
+    return Vec2(this->x - secondary.x, this->y - secondary.y);
+}
+
+Vec2 Vec2::operator-() const
+{
+    return Vec2(-this->x, -this->y);
+}
+
+Vec2 Vec2::operator*(float scalar) const
+{
+    return Vec2(this->x * scalar, this->y * scalar);
+}
+
+Vec2 Vec2::operator/(float scalar) const
+{
+    return Vec2(this->x / scalar, this->y / scalar);
+}
+
+void Vec2::operator+=(const Vec2 & secondary)
+{
+    this->x += secondary.x;
+    this->y += secondary.y;
+}
+
+void Vec2::operator-=(const Vec2 & secondary)
+{
+    this->x -= secondary.x;
+    this->y -= secondary.y;
+}
+
+void Vec2::operator*=(float scalar)
+{
+    this->x *= scalar;
+    this->y *= scalar;
+}
+
+void Vec2::operator/=(float scalar)
+{
+    this->x /= scalar;
+    this->y /= scalar;
+}
+
+Vec2 operator*(float scalar, const Vec2 & primary)
+{
+    return primary * scalar;
 }
 
 ostream & operator<<(ostream & os, const Vec2 & vec2)
@@ -86,71 +143,9 @@ ostream & operator<<(ostream & os, const Vec2 & vec2)
     return os;
 }
 
-bool operator==(const Vec2 & primary, const Vec2 & secondary)
+string Vec2::toString() const
 {
-    return primary.x == secondary.x && primary.y == secondary.y;
-}
-
-bool operator!=(const Vec2 & primary, const Vec2 & secondary)
-{
-    return primary.x != secondary.x || primary.y != secondary.y;
-}
-
-
-Vec2 operator+(const Vec2 & primary, const Vec2 & secondary)
-{
-    return Vec2(primary.x + secondary.x, primary.y + secondary.y);
-}
-
-Vec2 operator-(const Vec2 & primary, const Vec2 & secondary)
-{
-    return Vec2(primary.x - secondary.x, primary.y - secondary.y);
-}
-
-Vec2 operator-(const Vec2 & primary)
-{
-    return Vec2(-primary.x, -primary.y);
-}
-
-Vec2 operator*(const Vec2 & primary, float scalar)
-{
-    return Vec2(primary.x * scalar, primary.y * scalar);
-}
-
-Vec2 operator*(float scalar, const Vec2 & primary)
-{
-    return primary * scalar;
-}
-
-Vec2 operator/(const Vec2 & primary, float scalar)
-{
-    return Vec2(primary.x / scalar, primary.y / scalar);
-}
-
-Vec2 & operator+=(Vec2 & primary, const Vec2 & secondary)
-{
-    primary.x += secondary.x;
-    primary.y += secondary.y;
-    return primary;
-}
-
-Vec2 & operator-=(Vec2 & primary, const Vec2 & secondary)
-{
-    primary.x -= secondary.x;
-    primary.y -= secondary.y;
-    return primary;
-}
-
-Vec2 & operator*=(Vec2 & primary, float scalar)
-{
-    primary.x *= scalar;
-    primary.y *= scalar;
-    return primary;
-}
-
-Vec2 & operator/=(Vec2 & primary, float scalar)
-{
-    primary.x /= scalar;
-    primary.y /= scalar;
-    return primary;
+    stringstream vecString;
+    vecString << *this;
+    return vecString.str();
 }

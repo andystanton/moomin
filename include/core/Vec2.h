@@ -26,25 +26,28 @@ public:
     float getX() const;
     float getY() const;
     float getMagnitude() const;
-    float distanceTo(const Vec2 &);
+    float distanceTo(const Vec2 &) const;
 
     Vec2 getNormalised() const;
 
-    friend bool operator==(const Vec2 &, const Vec2 &);
-    friend bool operator!=(const Vec2 &, const Vec2 &);
-    friend Vec2 operator+(const Vec2 &, const Vec2 &);
-    friend Vec2 operator-(const Vec2 &, const Vec2 &);
-    friend Vec2 operator-(const Vec2 &);
-    friend Vec2 operator*(const Vec2 &, float);
-    friend Vec2 operator/(const Vec2 &, float);
-    friend Vec2 operator*(float, const Vec2 &);
-    friend Vec2 & operator +=(Vec2 &, const Vec2 &);
-    friend Vec2 & operator -=(Vec2 &, const Vec2 &);
-    friend Vec2 & operator *=(Vec2 &, float);
-    friend Vec2 & operator /=(Vec2 &, float);
+    Vec2 operator-() const;
+    Vec2 operator+(const Vec2 &) const;
+    Vec2 operator-(const Vec2 &) const;
+    Vec2 operator*(float) const;
+    Vec2 operator/(float) const;
 
-    string toString();
+    bool operator==(const Vec2 &) const;
+    bool operator!=(const Vec2 &) const;
+
+    void operator +=(const Vec2 &);
+    void operator -=(const Vec2 &);
+    void operator *=(float);
+    void operator /=(float);
+
+    friend Vec2 operator*(float, const Vec2 &);
     friend ostream & operator<<(ostream & os, const Vec2 &);
+
+    string toString() const;
 private:
     float x, y;
 };
