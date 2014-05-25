@@ -30,6 +30,8 @@ public:
 
     Vec2 getNormalised() const;
 
+    friend bool operator==(const Vec2 &, const Vec2 &);
+    friend bool operator!=(const Vec2 &, const Vec2 &);
     friend Vec2 operator+(const Vec2 &, const Vec2 &);
     friend Vec2 operator-(const Vec2 &, const Vec2 &);
     friend Vec2 operator-(const Vec2 &);
