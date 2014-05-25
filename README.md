@@ -43,7 +43,7 @@ CMake can also be used to [generate project files for IDEs](https://github.com/a
 
 ### Rake
 
-Rake is used to provide a convenient and uniform way to invoke the CMake and make tasks, as well as performing a cleanup operation and starting the application.
+Rake is used to provide a convenient and uniform way to invoke the CMake and make tasks, as well as being able to perform the cleanup operation and start the application.
 
 | Command             | Operation                                                        |
 | ------------------- | ---------------------------------------------------------------- |
