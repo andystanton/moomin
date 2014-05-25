@@ -13,7 +13,7 @@ task :clean do
 end
 
 task :configure do
-    sh 'mkdir -p build && cd build >/dev/null 2>&1 && cmake .. "$@"'
+    sh 'mkdir -p build && cd build && cmake ..'
 end
 
 task :compile do
