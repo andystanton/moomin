@@ -46,6 +46,6 @@ Rake is used to provide an easy way to invoke CMake and make tasks.
 | rake configure | Generates makefiles using CMake.                                 |
 | rake compile   | Executes the generated makefiles to build application and tests. |
 | rake test      | Executes the unit tests.                                         |
-| rake moomin    | Starts the application.                                          |
+| rake start     | Starts the application.                                          |
 | rake all       | Alias for ```rake clean configure compile test```                |
 | rake           | Alias for ```rake configure compile test```                      |

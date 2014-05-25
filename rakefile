@@ -27,7 +27,7 @@ task :test do
     sh "cat build/Testing/Temporary/LastTest.log"
 end
 
-task :moomin do
+task :start do
     sh "bin/moomin"
 end
 
