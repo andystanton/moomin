@@ -17,9 +17,9 @@ rake default start
 
 ## Build Tools
 
-### CMake
+### CMake & Make
 
-CMake is used to generate makefiles for building and testing the application.
+CMake is used to generate makefiles. The makefiles are the configuration that tell Make how to build the application and unit tests. All dependent libraries are included as CMake projects which are compiled as part of the Moomin engine build.
 
 The build process is as follows:
 
