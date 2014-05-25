@@ -86,6 +86,17 @@ ostream & operator<<(ostream & os, const Vec2 & vec2)
     return os;
 }
 
+bool operator==(const Vec2 & primary, const Vec2 & secondary)
+{
+    return primary.x == secondary.x && primary.y == secondary.y;
+}
+
+bool operator!=(const Vec2 & primary, const Vec2 & secondary)
+{
+    return primary.x != secondary.x || primary.y != secondary.y;
+}
+
+
 Vec2 operator+(const Vec2 & primary, const Vec2 & secondary)
 {
     return Vec2(primary.x + secondary.x, primary.y + secondary.y);
