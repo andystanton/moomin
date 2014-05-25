@@ -30,9 +30,9 @@ make
 make test
 ```
 
-The test output can be found in ```build/Testing/Temporary/LastTest.log```.
+The test output can be found in ```build/Testing/Temporary/LastTest.log```
 
-The application can then be run using
+Once built, the application can be run using
 
 ```
 bin/moomin
