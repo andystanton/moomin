@@ -11,10 +11,8 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 ## Quick Start
 
 ```
-git clone https://github.com/andystanton/moomin.git --recursive
-cd moomin
-rake
-bin/moomin
+git clone https://github.com/andystanton/moomin.git --recursive && cd moomin
+rake default start
 ```
 
 ## Build Tools
@@ -33,12 +31,18 @@ make -C build test
 cat build/Testing/Temporary/LastTest.log
 ```
 
+The application can then be run using
+
+```
+bin/moomin
+```
+
 CMake can also be used to [generate project files for IDEs](https://github.com/andystanton/moomin/wiki/Generating%20Xcode%20Project%20Files).
 
 
 ### Rake
 
-Rake is used to provide an easy way to invoke CMake and make tasks.
+Rake is used to provide a convenient and uniform way to invoke the CMake and make tasks.
 
 | Command        | Operation                                                        |
 | -------------- | ---------------------------------------------------------------- |
