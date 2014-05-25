@@ -27,8 +27,18 @@ task :test do
     sh "cat build/Testing/Temporary/LastTest.log"
 end
 
+task :moomin do
+    sh "bin/moomin"
+end
+
 task :all do
     Rake::Task["clean"].invoke
+    Rake::Task["configure"].invoke
+    Rake::Task["compile"].invoke
+    Rake::Task["test"].invoke
+end
+
+task :default do
     Rake::Task["configure"].invoke
     Rake::Task["compile"].invoke
     Rake::Task["test"].invoke
