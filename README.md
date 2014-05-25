@@ -6,6 +6,7 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 
 - Clang >= 3.4
 - CMake >= 2.8
+- Make >= 3.81
 - Rake >= 10.3
 
 ## Quick Start
