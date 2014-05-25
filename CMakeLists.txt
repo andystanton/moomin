@@ -87,7 +87,7 @@ endif ()
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
 
 #
-# Locate Project Prerequisites 
+# Locate Project Prerequisites
 #
 
 # FREETYPE 2
@@ -134,6 +134,7 @@ set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
 #
 # Add Build Targets
 #
+enable_testing()
 ADD_SUBDIRECTORY(src)
 ADD_SUBDIRECTORY(test)
 
@@ -144,4 +145,3 @@ ADD_SUBDIRECTORY(test)
 IF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
     INSTALL(DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}" DESTINATION "include")
 ENDIF (EXISTS "${MAINFOLDER}/include/${PROJECT_NAME}" AND IS_DIRECTORY "${MAINFOLDER}/include/${PROJECT_NAME}")
-

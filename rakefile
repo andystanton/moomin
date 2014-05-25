@@ -1,0 +1,27 @@
+task :clean do
+    file = File.new(".gitignore", "r")
+    while (line = file.gets)
+        sh "rm -rf #{line}"
+    end
+    file.close
+end
+
+task :configure do
+    sh "./configure"
+end
+
+task :compile do
+    sh "make -C build"
+end
+
+task :test do
+    sh "make -C build test"
+    sh "cat build/Testing/Temporary/LastTest.log"
+end
+
+task :all do
+    Rake::Task["clean"].invoke
+    Rake::Task["configure"].invoke
+    Rake::Task["compile"].invoke
+    Rake::Task["test"].invoke
+end

@@ -25,5 +25,4 @@ install:
     - sudo apt-get -qq install libglu1-mesa-dev
 # cmake
     - sudo apt-get -qq install cmake
-script: ./configure && make -C build
-
+script: rake all
