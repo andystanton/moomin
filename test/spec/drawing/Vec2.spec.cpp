@@ -54,6 +54,49 @@ go_bandit([]()
     {
         float threshold = 0.000001;
 
+        describe("positively comparing two Vec2", []()
+        {
+            Vec2 first(25.f, 6.f);
+            Vec2 second(25.f, 6.f);
+            Vec2 third(5.f * 5.f, 6.f);
+            Vec2 fourth(13.f, 12.f);
+            Vec2 fifth(25.f, 6.1f);
+
+            it("should return true when both Vec2 components are equal", [&]()
+            {
+                AssertThat(first == second, Is().EqualTo(true));
+                AssertThat(first == third, Is().EqualTo(true));
+            });
+
+            it("should return false when both Vec2 components are not equal", [&]()
+            {
+                AssertThat(first == fourth, Is().EqualTo(false));
+                AssertThat(first == fifth, Is().EqualTo(false));
+            });
+        });
+
+        describe("negatively comparing two Vec2", []()
+        {
+            Vec2 first(25.f, 6.f);
+            Vec2 second(25.f, 6.f);
+            Vec2 third(5.f * 5.f, 6.f);
+            Vec2 fourth(13.f, 12.f);
+            Vec2 fifth(25.f, 6.1f);
+
+            it("should return true when both Vec2 components are not equal", [&]()
+            {
+                AssertThat(first != fourth, Is().EqualTo(true));
+                AssertThat(first != fifth, Is().EqualTo(true));
+            });
+
+            it("should return false when both Vec2 components are equal", [&]()
+            {
+                AssertThat(first != second, Is().EqualTo(false));
+                AssertThat(first != third, Is().EqualTo(false));
+            });
+        });
+
+
         describe("negating a Vec2", []()
         {
             it("should result in the Vec2 having negated x and y components", []()
