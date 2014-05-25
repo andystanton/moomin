@@ -44,12 +44,12 @@ CMake can also be used to [generate project files for IDEs](https://github.com/a
 
 Rake is used to provide a convenient and uniform way to invoke the CMake and make tasks.
 
-| Command        | Operation                                                        |
-| -------------- | ---------------------------------------------------------------- |
-| rake clean     | Erases all files listed in .gitignore.                           |
-| rake configure | Generates makefiles using CMake.                                 |
-| rake compile   | Executes the generated makefiles to build application and tests. |
-| rake test      | Executes the unit tests.                                         |
-| rake start     | Starts the application.                                          |
-| rake all       | Alias for ```rake clean configure compile test```                |
-| rake           | Alias for ```rake configure compile test```                      |
+| Command             | Operation                                                        |
+| ------------------- | ---------------------------------------------------------------- |
+| rake clean          | Erases all files listed in .gitignore.                           |
+| rake configure      | Generates makefiles using CMake.                                 |
+| rake compile        | Executes the generated makefiles to build application and tests. |
+| rake test           | Executes the unit tests.                                         |
+| rake start          | Starts the application.                                          |
+| rake default / rake | Alias for ```rake configure compile test```                      |
+| rake all            | Alias for ```rake clean default```                               |

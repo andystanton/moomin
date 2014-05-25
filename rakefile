@@ -31,15 +31,13 @@ task :start do
     sh "bin/moomin"
 end
 
-task :all do
-    Rake::Task["clean"].invoke
+task :default do
     Rake::Task["configure"].invoke
     Rake::Task["compile"].invoke
     Rake::Task["test"].invoke
 end
 
-task :default do
-    Rake::Task["configure"].invoke
-    Rake::Task["compile"].invoke
-    Rake::Task["test"].invoke
+task :all do
+    Rake::Task["clean"].invoke
+    Rake::Task["default"].invoke
 end
