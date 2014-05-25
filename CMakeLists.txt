@@ -134,8 +134,12 @@ set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
 #
 # Add Build Targets
 #
-enable_testing()
 ADD_SUBDIRECTORY(src)
+
+#
+# Add Test Targets
+#
+enable_testing()
 ADD_SUBDIRECTORY(test)
 
 

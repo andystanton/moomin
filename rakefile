@@ -1,3 +1,9 @@
+def safe_task(&block)
+  yield
+rescue Exception => problem
+    puts "rake task interupted: #{problem}"
+end
+
 task :clean do
     file = File.new(".gitignore", "r")
     while (line = file.gets)
@@ -7,7 +13,7 @@ task :clean do
 end
 
 task :configure do
-    sh "./configure"
+    sh 'mkdir -p build && cd build >/dev/null 2>&1 && cmake .. "$@"'
 end
 
 task :compile do
@@ -15,7 +21,9 @@ task :compile do
 end
 
 task :test do
-    sh "make -C build test"
+    safe_task do
+        sh "make -C build test"
+    end
     sh "cat build/Testing/Temporary/LastTest.log"
 end
 
