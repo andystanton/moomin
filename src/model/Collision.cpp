@@ -28,9 +28,6 @@ Collision::~Collision()
 
 }
 
-#include <iostream>
-using namespace std;
-
 void Collision::resolveAABBAABB()
 {
     AABB & primaryAABB = static_cast<AABB &>(primary);

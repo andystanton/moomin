@@ -1,15 +1,12 @@
 #include "util/PathHelper.h"
 
-#include <iostream>
-using namespace std;
-
 PathHelper::PathHelper()
 {
     string fullPath;
 
     #if defined (__APPLE__)
         int ret;
-        pid_t pid; 
+        pid_t pid;
         char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
         pid = getpid();

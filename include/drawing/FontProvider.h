@@ -3,7 +3,6 @@
 
 #include <map>
 #include <string>
-#include <iostream>
 #include <freetype-gl.h>
 
 #include "util/PathHelper.h"
@@ -12,13 +11,11 @@ using std::map;
 using std::pair;
 using std::make_pair;
 using std::string;
-using std::cout;
-using std::endl;
 
 class FontProvider
 {
 public:
-    enum class FontFamily 
+    enum class FontFamily
     {
         ObelixPro,
         Vera,
@@ -39,7 +36,7 @@ public:
 protected:
     FontProvider();
     FontProvider(const FontProvider&);
-    FontProvider& operator=(const FontProvider&); 
+    FontProvider& operator=(const FontProvider&);
     ~FontProvider();
 
 private:

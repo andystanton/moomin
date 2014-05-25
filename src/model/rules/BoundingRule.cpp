@@ -31,8 +31,6 @@ void BoundingRule::apply(Entity & entity, float deltaMilliseconds)
     }
 }
 
-#include <iostream>
-using namespace std;
 void BoundingRule::applyToAABB(AABB & aabb, float deltaMilliseconds)
 {
     Vec2 & pos = aabb.getPos();
