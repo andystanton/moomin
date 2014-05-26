@@ -2,6 +2,8 @@
 
 #include <set>
 
+#include "TestConstants.h"
+
 #include "model/Rule.h"
 #include "model/rules/CollisionRule.h"
 #include "model/Collision.h"
@@ -46,8 +48,7 @@ go_bandit([]()
 
         describe("when two Circles collide", []()
         {
-            float tolerance = 0.001;
-            float circleElasticity = 0.65;
+            float circleElasticity = 0.65f;
 
             set<Entity *> entities;
 
@@ -70,20 +71,20 @@ go_bandit([]()
 
             it("repositions the Circles so that they are no longer colliding", [&]()
             {
-                AssertThat(c1.getNextPos().getX(), Is().EqualToWithDelta(-0.4, tolerance));
-                AssertThat(c1.getNextPos().getY(), Is().EqualToWithDelta(-0.3, tolerance));
+                AssertThat(c1.getNextPos().getX(), Is().EqualToWithDelta(-0.4f, FLOAT_EPSILON));
+                AssertThat(c1.getNextPos().getY(), Is().EqualToWithDelta(-0.3f, FLOAT_EPSILON));
 
-                AssertThat(c2.getNextPos().getX(), Is().EqualToWithDelta(4.4, tolerance));
-                AssertThat(c2.getNextPos().getY(), Is().EqualToWithDelta(3.3, tolerance));
+                AssertThat(c2.getNextPos().getX(), Is().EqualToWithDelta( 4.4f, FLOAT_EPSILON));
+                AssertThat(c2.getNextPos().getY(), Is().EqualToWithDelta( 3.3f, FLOAT_EPSILON));
             });
 
             it("gives the Circle an impulse in the opposite direction of the Collision", [&]()
             {
-                AssertThat(c1.getVelocity().getX(), Is().EqualToWithDelta(-0.8 * circleElasticity, tolerance));
-                AssertThat(c1.getVelocity().getY(), Is().EqualToWithDelta(-0.6 * circleElasticity, tolerance));
+                AssertThat(c1.getVelocity().getX(), Is().EqualToWithDelta(-0.8f * circleElasticity, FLOAT_EPSILON));
+                AssertThat(c1.getVelocity().getY(), Is().EqualToWithDelta(-0.6f * circleElasticity, FLOAT_EPSILON));
 
-                AssertThat(c2.getVelocity().getX(), Is().EqualToWithDelta((-1 + 0.8) * circleElasticity, tolerance));
-                AssertThat(c2.getVelocity().getY(), Is().EqualToWithDelta(0.6 * circleElasticity, tolerance));
+                AssertThat(c2.getVelocity().getX(), Is().EqualToWithDelta((-1.f + 0.8f) * circleElasticity, FLOAT_EPSILON));
+                AssertThat(c2.getVelocity().getY(), Is().EqualToWithDelta(0.6f * circleElasticity, FLOAT_EPSILON));
             });
         });
 
@@ -108,27 +109,25 @@ go_bandit([]()
 
             it("repositions the AABBs so that they are no longer colliding", [&]()
             {
-                float tolerance = 0.0000001;
-                AssertThat(aabb1.getNextPos().getX(), Is().EqualToWithDelta(0.f, tolerance));
-                AssertThat(aabb1.getNextPos().getY(), Is().EqualToWithDelta(1.5f, tolerance));
+                AssertThat(aabb1.getNextPos().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+                AssertThat(aabb1.getNextPos().getY(), Is().EqualToWithDelta(1.5f, FLOAT_EPSILON));
 
-                AssertThat(aabb2.getNextPos().getX(), Is().EqualToWithDelta(-36.f, tolerance));
-                AssertThat(aabb2.getNextPos().getY(), Is().EqualToWithDelta(-28.5f, tolerance));
+                AssertThat(aabb2.getNextPos().getX(), Is().EqualToWithDelta(-36.f, FLOAT_EPSILON));
+                AssertThat(aabb2.getNextPos().getY(), Is().EqualToWithDelta(-28.5f, FLOAT_EPSILON));
             });
 
             it("gives the AABB an impulse in the opposite direction of the Collision", [&]()
             {
-                float tolerance = 0.0000001;
-                float aabbElasticity = 0.65;
+                float aabbElasticity = 0.65f;
 
-                AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-                AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 1.5f * aabbElasticity, tolerance));
+                AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+                AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 1.5f * aabbElasticity, FLOAT_EPSILON));
 
-                AssertThat(aabb2.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-                AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(-1.5f * aabbElasticity, tolerance));
+                AssertThat(aabb2.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+                AssertThat(aabb2.getVelocity().getY(), Is().EqualToWithDelta(-1.5f * aabbElasticity, FLOAT_EPSILON));
 
-                AssertThat(aabb3.getVelocity().getX(), Is().EqualToWithDelta( 0.f, tolerance));
-                AssertThat(aabb3.getVelocity().getY(), Is().EqualToWithDelta( 0.f * aabbElasticity, tolerance));
+                AssertThat(aabb3.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+                AssertThat(aabb3.getVelocity().getY(), Is().EqualToWithDelta( 0.f * aabbElasticity, FLOAT_EPSILON));
             });
         });
     });
