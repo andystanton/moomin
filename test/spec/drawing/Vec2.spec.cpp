@@ -1,5 +1,6 @@
 #include <bandit/bandit.h>
 
+#include "TestConstants.h"
 #include "core/Vec2.h"
 
 using namespace bandit;
@@ -12,30 +13,30 @@ go_bandit([]()
         {
             Vec2 coord;
 
-            AssertThat(coord.getX(), Is().EqualTo(0.0));
-            AssertThat(coord.getY(), Is().EqualTo(0.0));
+            AssertThat(coord.getX(), Is().EqualToWithDelta(0.0, FLOAT_EPSILON));
+            AssertThat(coord.getY(), Is().EqualToWithDelta(0.0, FLOAT_EPSILON));
         });
 
         it("accepts two floats that specify its position", []()
         {
             Vec2 coord(5.0, 6.0);
 
-            AssertThat(coord.getX(), Is().EqualTo(5.0));
-            AssertThat(coord.getY(), Is().EqualTo(6.0));
+            AssertThat(coord.getX(), Is().EqualToWithDelta(5.0, FLOAT_EPSILON));
+            AssertThat(coord.getY(), Is().EqualToWithDelta(6.0, FLOAT_EPSILON));
         });
 
         it("accepts updates to its position", []()
         {
             Vec2 coord(32.0, 126.0);
 
-            AssertThat(coord.getX(), Is().EqualTo(32.0));
-            AssertThat(coord.getY(), Is().EqualTo(126.0));
+            AssertThat(coord.getX(), Is().EqualToWithDelta(32.0, FLOAT_EPSILON));
+            AssertThat(coord.getY(), Is().EqualToWithDelta(126.0, FLOAT_EPSILON));
 
             coord.setX(13.0);
             coord.setY(43.0);
 
-            AssertThat(coord.getX(), Is().EqualTo(13.0));
-            AssertThat(coord.getY(), Is().EqualTo(43.0));
+            AssertThat(coord.getX(), Is().EqualToWithDelta(13.0, FLOAT_EPSILON));
+            AssertThat(coord.getY(), Is().EqualToWithDelta(43.0, FLOAT_EPSILON));
         });
 
         describe("the set of Vec2 operations", []()
@@ -45,15 +46,13 @@ go_bandit([]()
                 Vec2 positionA(0.f, 0.f);
                 Vec2 positionB(4.f, 3.f);
 
-                AssertThat(positionA.distanceTo(positionB), Is().EqualTo(5.f));
+                AssertThat(positionA.distanceTo(positionB), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
             });
         });
     });
 
     describe("Vec2 operations", []()
     {
-        float threshold = 0.000001;
-
         describe("positively comparing two Vec2", []()
         {
             Vec2 first(25.f, 6.f);
@@ -103,13 +102,13 @@ go_bandit([]()
             {
                 Vec2 someVec1 = Vec2(3.f, 4.f);
                 Vec2 negatedVec1 = -someVec1;
-                AssertThat(negatedVec1.getX(), Is().EqualTo(-3.f));
-                AssertThat(negatedVec1.getY(), Is().EqualTo(-4.f));
+                AssertThat(negatedVec1.getX(), Is().EqualToWithDelta(-3.f, FLOAT_EPSILON));
+                AssertThat(negatedVec1.getY(), Is().EqualToWithDelta(-4.f, FLOAT_EPSILON));
 
                 Vec2 someVec2 = Vec2(-4.f, -3.f);
                 Vec2 negatedVec2 = -someVec2;
-                AssertThat(negatedVec2.getX(), Is().EqualTo(4.f));
-                AssertThat(negatedVec2.getY(), Is().EqualTo(3.f));
+                AssertThat(negatedVec2.getX(), Is().EqualToWithDelta(4.f, FLOAT_EPSILON));
+                AssertThat(negatedVec2.getY(), Is().EqualToWithDelta(3.f, FLOAT_EPSILON));
             });
         });
 
@@ -119,15 +118,15 @@ go_bandit([]()
             {
                 Vec2 someVec1 = Vec2(3.f, 4.f);
                 someVec1.normalise();
-                AssertThat(someVec1.getMagnitude(), Is().EqualTo(1.f));
-                AssertThat(someVec1.getX(), Is().EqualTo(0.6f));
-                AssertThat(someVec1.getY(), Is().EqualTo(0.8f));
+                AssertThat(someVec1.getMagnitude(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
+                AssertThat(someVec1.getX(), Is().EqualToWithDelta(0.6f, FLOAT_EPSILON));
+                AssertThat(someVec1.getY(), Is().EqualToWithDelta(0.8f, FLOAT_EPSILON));
 
                 Vec2 someVec2 = Vec2(-4.f, -3.f);
                 someVec2.normalise();
-                AssertThat(someVec2.getMagnitude(), Is().EqualTo(1.f));
-                AssertThat(someVec2.getX(), Is().EqualTo(-0.8f));
-                AssertThat(someVec2.getY(), Is().EqualTo(-0.6f));
+                AssertThat(someVec2.getMagnitude(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
+                AssertThat(someVec2.getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
+                AssertThat(someVec2.getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON));
             });
         });
 
@@ -137,15 +136,15 @@ go_bandit([]()
             {
                 Vec2 someVec1 = Vec2(3.f, 4.f);
                 Vec2 normalised1 = someVec1.getNormalised();
-                AssertThat(normalised1.getMagnitude(), Is().EqualTo(1.f));
-                AssertThat(normalised1.getX(), Is().EqualTo(0.6f));
-                AssertThat(normalised1.getY(), Is().EqualTo(0.8f));
+                AssertThat(normalised1.getMagnitude(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
+                AssertThat(normalised1.getX(), Is().EqualToWithDelta(0.6f, FLOAT_EPSILON));
+                AssertThat(normalised1.getY(), Is().EqualToWithDelta(0.8f, FLOAT_EPSILON));
 
                 Vec2 someVec2 = Vec2(-4.f, -3.f);
                 Vec2 normalised2 = someVec2.getNormalised();
-                AssertThat(normalised2.getMagnitude(), Is().EqualTo(1.f));
-                AssertThat(normalised2.getX(), Is().EqualTo(-0.8f));
-                AssertThat(normalised2.getY(), Is().EqualTo(-0.6f));
+                AssertThat(normalised2.getMagnitude(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
+                AssertThat(normalised2.getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
+                AssertThat(normalised2.getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON));
             });
         });
 
@@ -157,9 +156,9 @@ go_bandit([]()
                 Vec2 test2 = Vec2(3.f, 4.f);
                 Vec2 test3 = Vec2(-12.f, 5.f);
 
-                AssertThat(test1.getMagnitude(), Is().EqualTo(0.f));
-                AssertThat(test2.getMagnitude(), Is().EqualTo(5.f));
-                AssertThat(test3.getMagnitude(), Is().EqualTo(13.f));
+                AssertThat(test1.getMagnitude(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+                AssertThat(test2.getMagnitude(), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
+                AssertThat(test3.getMagnitude(), Is().EqualToWithDelta(13.f, FLOAT_EPSILON));
             });
         });
 
@@ -178,19 +177,19 @@ go_bandit([]()
                 Vec2 result2 = origin + target2;
                 Vec2 result3 = origin + target3;
 
-                AssertThat(result1.getX(), Is().EqualTo(88.f));
-                AssertThat(result1.getY(), Is().EqualTo(99.7f));
+                AssertThat(result1.getX(), Is().EqualToWithDelta(88.f, FLOAT_EPSILON));
+                AssertThat(result1.getY(), Is().EqualToWithDelta(99.7f, FLOAT_EPSILON));
 
-                AssertThat(result2.getX(), Is().EqualTo(-24.f));
-                AssertThat(result2.getY(), Is().EqualTo(-1.f));
+                AssertThat(result2.getX(), Is().EqualToWithDelta(-24.f, FLOAT_EPSILON));
+                AssertThat(result2.getY(), Is().EqualToWithDelta(-1.f, FLOAT_EPSILON));
 
-                AssertThat(result3.getX(), Is().EqualTo(-21.3f));
-                AssertThat(result3.getY(), Is().EqualTo(24.7f));
+                AssertThat(result3.getX(), Is().EqualToWithDelta(-21.3f, FLOAT_EPSILON));
+                AssertThat(result3.getY(), Is().EqualToWithDelta(24.7f, FLOAT_EPSILON));
 
                 origin += target4;
 
-                AssertThat(origin.getX(), Is().EqualToWithDelta(2.f, threshold));
-                AssertThat(origin.getY(), Is().EqualToWithDelta(1.f, threshold));
+                AssertThat(origin.getX(), Is().EqualToWithDelta(2.f, FLOAT_EPSILON));
+                AssertThat(origin.getY(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
             });
         });
 
@@ -214,23 +213,23 @@ go_bandit([]()
                 Vec2 offset5 = origin - target5;
                 origin -= target6;
 
-                AssertThat(offset1.getX(), Is().EqualTo(-10.f));
-                AssertThat(offset1.getY(), Is().EqualTo(-12.f));
+                AssertThat(offset1.getX(), Is().EqualToWithDelta(-10.f, FLOAT_EPSILON));
+                AssertThat(offset1.getY(), Is().EqualToWithDelta(-12.f, FLOAT_EPSILON));
 
-                AssertThat(offset2.getX(), Is().EqualTo(-9.f));
-                AssertThat(offset2.getY(), Is().EqualTo(213.f));
+                AssertThat(offset2.getX(), Is().EqualToWithDelta(-9.f, FLOAT_EPSILON));
+                AssertThat(offset2.getY(), Is().EqualToWithDelta(213.f, FLOAT_EPSILON));
 
-                AssertThat(offset3.getX(), Is().EqualTo(0.19f));
-                AssertThat(offset3.getY(), Is().EqualTo(87.f));
+                AssertThat(offset3.getX(), Is().EqualToWithDelta(0.19f, FLOAT_EPSILON));
+                AssertThat(offset3.getY(), Is().EqualToWithDelta(87.f, FLOAT_EPSILON));
 
-                AssertThat(offset4.getX(), Is().EqualTo(1241.f));
-                AssertThat(offset4.getY(), Is().EqualTo(-3.f));
+                AssertThat(offset4.getX(), Is().EqualToWithDelta(1241.f, FLOAT_EPSILON));
+                AssertThat(offset4.getY(), Is().EqualToWithDelta(-3.f, FLOAT_EPSILON));
 
-                AssertThat(offset5.getX(), Is().EqualTo(-0.f));
-                AssertThat(offset5.getY(), Is().EqualTo(-0.f));
+                AssertThat(offset5.getX(), Is().EqualToWithDelta(-0.f, FLOAT_EPSILON));
+                AssertThat(offset5.getY(), Is().EqualToWithDelta(-0.f, FLOAT_EPSILON));
 
-                AssertThat(origin.getX(), Is().EqualToWithDelta(-10.f, threshold));
-                AssertThat(origin.getY(), Is().EqualToWithDelta(-15.f, threshold));
+                AssertThat(origin.getX(), Is().EqualToWithDelta(-10.f, FLOAT_EPSILON));
+                AssertThat(origin.getY(), Is().EqualToWithDelta(-15.f, FLOAT_EPSILON));
             });
         });
 
@@ -245,14 +244,14 @@ go_bandit([]()
 
                 source *= 10;
 
-                AssertThat(scaled1.getX(), Is().EqualToWithDelta(26.55, threshold));
-                AssertThat(scaled1.getY(), Is().EqualToWithDelta(15.5, threshold));
+                AssertThat(scaled1.getX(), Is().EqualToWithDelta(26.55f, FLOAT_EPSILON));
+                AssertThat(scaled1.getY(), Is().EqualToWithDelta(15.5f, FLOAT_EPSILON));
 
-                AssertThat(scaled2.getX(), Is().EqualToWithDelta(531.f, threshold));
-                AssertThat(scaled2.getY(), Is().EqualToWithDelta(310.f, threshold));
+                AssertThat(scaled2.getX(), Is().EqualToWithDelta(531.f, FLOAT_EPSILON));
+                AssertThat(scaled2.getY(), Is().EqualToWithDelta(310.f, FLOAT_EPSILON));
 
-                AssertThat(source.getX(), Is().EqualToWithDelta(53.1f, threshold));
-                AssertThat(source.getY(), Is().EqualToWithDelta(31.0f, threshold));
+                AssertThat(source.getX(), Is().EqualToWithDelta(53.1f, FLOAT_EPSILON));
+                AssertThat(source.getY(), Is().EqualToWithDelta(31.0f, FLOAT_EPSILON));
             });
 
             it("should scale both components of the Vec2 DOWN by the scale factor", [&]()
@@ -264,14 +263,14 @@ go_bandit([]()
 
                 source /= 3;
 
-                AssertThat(scaled3.getX(), Is().EqualToWithDelta(0.531f, threshold));
-                AssertThat(scaled3.getY(), Is().EqualToWithDelta(0.31f, threshold));
+                AssertThat(scaled3.getX(), Is().EqualToWithDelta(0.531f, FLOAT_EPSILON));
+                AssertThat(scaled3.getY(), Is().EqualToWithDelta(0.31f, FLOAT_EPSILON));
 
-                AssertThat(scaled4.getX(), Is().EqualToWithDelta(2.655f, threshold));
-                AssertThat(scaled4.getY(), Is().EqualToWithDelta(1.55f, threshold));
+                AssertThat(scaled4.getX(), Is().EqualToWithDelta(2.655f, FLOAT_EPSILON));
+                AssertThat(scaled4.getY(), Is().EqualToWithDelta(1.55f, FLOAT_EPSILON));
 
-                AssertThat(source.getX(), Is().EqualToWithDelta(1.77f, threshold));
-                AssertThat(source.getY(), Is().EqualToWithDelta(1.033333333f, threshold));
+                AssertThat(source.getX(), Is().EqualToWithDelta(1.77f, FLOAT_EPSILON));
+                AssertThat(source.getY(), Is().EqualToWithDelta(1.033333333f, FLOAT_EPSILON));
             });
         });
     });

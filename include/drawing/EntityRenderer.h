@@ -19,12 +19,12 @@ class EntityRenderer : public Renderer
 public:
     EntityRenderer(const set<Entity *>&);
     ~EntityRenderer();
- 
+
+    void handleResize(int width, int height);
     void draw();
 private:
     const set<Entity *>& entities;
     void draw(Entity *);
-    void handleResize(int width, int height);
 };
 
 #endif

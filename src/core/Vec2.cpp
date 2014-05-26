@@ -1,5 +1,15 @@
 #include "core/Vec2.h"
 
+
+bool almostEqual(float x, float y, int ulp)
+{
+    // the machine epsilon has to be scaled to the magnitude of the larger value
+    // and multiplied by the desired precision in ULPs (units in the last place)
+    return std::abs(x-y) <=   std::numeric_limits<float>::epsilon()
+                            * std::max(std::abs(x), std::abs(y))
+                            * ulp;
+}
+
 Vec2::Vec2(const Vec2 & other)
     : x(other.x)
     , y(other.y)
@@ -15,7 +25,7 @@ Vec2::Vec2(float x, float y)
 }
 
 Vec2::Vec2()
-    : x(0.0), y(0.0)
+    : x(0.f), y(0.f)
 {
 
 }
@@ -75,12 +85,13 @@ Vec2 Vec2::getNormalised() const
 
 bool Vec2::operator==(const Vec2 & secondary) const
 {
-    return this->x == secondary.x && this->y == secondary.y;
+    int ulp = 2;
+    return almostEqual(this->x, secondary.x, ulp) && almostEqual(this->y, secondary.y, ulp);
 }
 
 bool Vec2::operator!=(const Vec2 & secondary) const
 {
-    return this->x != secondary.x || this->y != secondary.y;
+    return !(*this == secondary);
 }
 
 Vec2 Vec2::operator+(const Vec2 & secondary) const

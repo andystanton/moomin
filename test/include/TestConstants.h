@@ -1,0 +1,6 @@
+#ifndef _MOOMIN_TEST_CONSTANTS
+#define _MOOMIN_TEST_CONSTANTS
+
+const float FLOAT_EPSILON = 0.0000001;
+
+#endif

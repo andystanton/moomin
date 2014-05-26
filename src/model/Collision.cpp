@@ -53,16 +53,16 @@ void Collision::resolveAABBAABB()
         float top = secondaryMin.getY() - primaryMax.getY();
         float bottom = secondaryMax.getY() - primaryMin.getY();
 
-        escapeTranslation.setX(abs(left) < right ? left : right);
-        escapeTranslation.setY(abs(top) < bottom ? top : bottom);
+        escapeTranslation.setX(fabs(left) < right ? left : right);
+        escapeTranslation.setY(fabs(top) < bottom ? top : bottom);
 
         // use the nearest edge for the escape translation. If the nearest
         // horizontal and vertical edges are equidistant, the escape translation
         // is the corner.
-        if (abs(escapeTranslation.getX()) < abs(escapeTranslation.getY()))
+        if (fabs(escapeTranslation.getX()) < fabs(escapeTranslation.getY()))
         {
             escapeTranslation.setY(0.f);
-        } else if(abs(escapeTranslation.getX()) > abs(escapeTranslation.getY()))
+        } else if(fabs(escapeTranslation.getX()) > fabs(escapeTranslation.getY()))
         {
             escapeTranslation.setX(0.f);
         }

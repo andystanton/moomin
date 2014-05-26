@@ -1,16 +1,15 @@
 #include <bandit/bandit.h>
 
+#include "TestConstants.h"
 #include "model/Rule.h"
 #include "model/rules/EntityAccelerationRule.h"
 #include "model/Circle.h"
+#include "mock/MockEntity.h"
 #include "core/Vec2.h"
 
 #include <set>
 
-#include "mock/MockEntity.h"
-
 using namespace bandit;
-
 using std::set;
 
 go_bandit([]()
@@ -38,7 +37,7 @@ go_bandit([]()
             EntityAccelerationRule gravityField(entities, 10.f);
 
             AssertThat(gravityField.getEntities(), HasLength(2));
-            AssertThat(gravityField.getAcceleration(), Is().EqualTo(10.f));
+            AssertThat(gravityField.getAcceleration(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
         });
 
         it("applies its acceleration to the set of Entities given a time delta in ms toward the target Entity", []()
@@ -54,11 +53,11 @@ go_bandit([]()
             EntityAccelerationRule gravityField(entities, 10.f);
 
             // assert that both circles have zero velocity at the start
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo(0.f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
 
             float timeDeltaMilliseconds = 100;
 
@@ -66,21 +65,21 @@ go_bandit([]()
             gravityField.apply(circle1, timeDeltaMilliseconds);
             gravityField.apply(circle2, timeDeltaMilliseconds);
 
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo( 0.8f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo( 0.6f));
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta( 0.8f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta( 0.6f, FLOAT_EPSILON));
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo(-0.8f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo(-0.6f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON));
 
             // after another 100ms, assert the expected change in velocity
             gravityField.apply(circle1, timeDeltaMilliseconds);
             gravityField.apply(circle2, timeDeltaMilliseconds);
 
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo( 1.6f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo( 1.2f));
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta( 1.6f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta( 1.2f, FLOAT_EPSILON));
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo(-1.6f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo(-1.2f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta(-1.6f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta(-1.2f, FLOAT_EPSILON));
         });
 
         it("can be inverted", []()
@@ -99,11 +98,11 @@ go_bandit([]()
             gravityField.setInverted(true);
 
             // assert that both circles have zero velocity at the start
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo(0.f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
 
             float timeDeltaMilliseconds = 100;
 
@@ -111,21 +110,21 @@ go_bandit([]()
             gravityField.apply(circle1, timeDeltaMilliseconds);
             gravityField.apply(circle2, timeDeltaMilliseconds);
 
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo(-0.8f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo(-0.6f));
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON));
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo( 0.8f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo( 0.6f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta( 0.8f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta( 0.6f, FLOAT_EPSILON));
 
             // after another 100ms, assert the expected change in velocity
             gravityField.apply(circle1, timeDeltaMilliseconds);
             gravityField.apply(circle2, timeDeltaMilliseconds);
 
-            AssertThat(circle1.getVelocity().getX(), Is().EqualTo(-1.6f));
-            AssertThat(circle1.getVelocity().getY(), Is().EqualTo(-1.2f));
+            AssertThat(circle1.getVelocity().getX(), Is().EqualToWithDelta(-1.6f, FLOAT_EPSILON));
+            AssertThat(circle1.getVelocity().getY(), Is().EqualToWithDelta(-1.2f, FLOAT_EPSILON));
 
-            AssertThat(circle2.getVelocity().getX(), Is().EqualTo( 1.6f));
-            AssertThat(circle2.getVelocity().getY(), Is().EqualTo( 1.2f));
+            AssertThat(circle2.getVelocity().getX(), Is().EqualToWithDelta( 1.6f, FLOAT_EPSILON));
+            AssertThat(circle2.getVelocity().getY(), Is().EqualToWithDelta( 1.2f, FLOAT_EPSILON));
         });
     });
 });

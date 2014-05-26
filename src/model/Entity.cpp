@@ -2,8 +2,9 @@
 
 Entity::Entity(float x, float y, Entity::CollisionType collisionType)
     : pos(x, y)
-    , collisionType(collisionType)
     , nextPos(x, y)
+    , velocity(0.f, 0.f)
+    , collisionType(collisionType)
     , mass(0)
 {
 
