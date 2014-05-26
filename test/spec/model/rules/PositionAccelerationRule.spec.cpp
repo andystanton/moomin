@@ -1,10 +1,10 @@
 #include <bandit/bandit.h>
 
+#include "TestConstants.h"
 #include "model/Rule.h"
 #include "model/rules/PositionAccelerationRule.h"
 #include "model/Circle.h"
 #include "core/Vec2.h"
-
 #include "mock/MockEntity.h"
 
 using namespace bandit;
@@ -25,9 +25,9 @@ go_bandit([]()
         {
             PositionAccelerationRule bigCrunch(Vec2(100.f, 50.f), 10.f);
 
-            AssertThat(bigCrunch.getOrigin().getX(), Is().EqualTo(100.f));
-            AssertThat(bigCrunch.getOrigin().getY(), Is().EqualTo(50.f));
-            AssertThat(bigCrunch.getAcceleration(), Is().EqualTo(10.f));
+            AssertThat(bigCrunch.getOrigin().getX(), Is().EqualToWithDelta(100.f, FLOAT_EPSILON));
+            AssertThat(bigCrunch.getOrigin().getY(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+            AssertThat(bigCrunch.getAcceleration(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
         });
 
         it("applies its acceleration to an Entity's velocity towards itself given a time delta in ms", []()
@@ -38,22 +38,22 @@ go_bandit([]()
             Circle entity(400.f, 300.f, 10.f);
 
             // assert that the entity has zero velocity at the start
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
             float timeDeltaMilliseconds = 100;
 
             // after 100ms, assert the expected change in velocity
             bigCrunch.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(-0.8f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(-0.6f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
             bigCrunch.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(-1.6f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(-1.2f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(-1.6f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-1.2f, FLOAT_EPSILON))
         });
 
         it("can be inverted", []()
@@ -67,22 +67,22 @@ go_bandit([]()
             Circle entity(400.f, 300.f, 10.f);
 
             // assert that the entity has zero velocity at the start
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
             float timeDeltaMilliseconds = 100;
 
             // after 100ms, assert the expected change in velocity
             bigBang.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.8f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.6f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.8f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.6f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
             bigBang.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(1.6f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(1.2f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(1.6f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(1.2f, FLOAT_EPSILON))
         });
     });
 });

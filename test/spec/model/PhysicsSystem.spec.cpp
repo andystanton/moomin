@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 
 #include "GmockBDDAliases.h"
+#include "TestConstants.h"
 
 #include "model/PhysicsSystem.h"
 #include "model/rules/DirectionAccelerationRule.h"
@@ -12,12 +13,13 @@
 using namespace bandit;
 
 using ::testing::Ref;
+using ::testing::FloatEq;
 
-go_bandit([]() 
+go_bandit([]()
 {
-    describe("a Physics System", []() 
+    describe("a Physics System", []()
     {
-        it("contains no rules or entities when it is created", []() 
+        it("contains no rules or entities when it is created", []()
         {
             PhysicsSystem physicsSystem;
 
@@ -63,9 +65,9 @@ go_bandit([]()
                 physicsSystem.addRule(&rule);
                 physicsSystem.addEntity(&entity);
 
-                Verify(rule, apply(Ref(entity), 100));
+                Verify(rule, apply(Ref(entity), FloatEq(100.f)));
 
-                physicsSystem.step(100);
+                physicsSystem.step(100.f);
             });
         });
     });

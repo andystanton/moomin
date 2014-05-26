@@ -72,7 +72,7 @@ LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}")
 INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 
 # set compiler warnings
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror -Wfloat-equal")
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror -Wfloat-equal -Wno-unused-parameter")
 
 # set c++ 11
 

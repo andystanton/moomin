@@ -1,5 +1,6 @@
 #include <bandit/bandit.h>
 
+#include "TestConstants.h"
 #include "core/Core.h"
 #include "model/AABB.h"
 #include "drawing/Mesh.h"
@@ -14,19 +15,19 @@ go_bandit([]()
         {
             Entity * aabb = new AABB(50.f, 50.f, 10.f, 10.f);
 
-            AssertThat(aabb->getPos().getX(), Is().EqualTo(50.f));
-            AssertThat(aabb->getPos().getY(), Is().EqualTo(50.f));
+            AssertThat(aabb->getPos().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+            AssertThat(aabb->getPos().getY(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
         });
 
         it("accepts a position and dimensions", []()
         {
             AABB aabb(50.f, 50.f, 10.f, 10.f);
 
-            AssertThat(aabb.getPos().getX(), Is().EqualTo(50.f));
-            AssertThat(aabb.getPos().getY(), Is().EqualTo(50.f));
+            AssertThat(aabb.getPos().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+            AssertThat(aabb.getPos().getY(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
 
-            AssertThat(aabb.getBounding().getX(), Is().EqualTo(10.f));
-            AssertThat(aabb.getBounding().getY(), Is().EqualTo(10.f));
+            AssertThat(aabb.getBounding().getX(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
+            AssertThat(aabb.getBounding().getY(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
         });
 
         it("has a Mesh defined by its Bounding coordinates", []()
@@ -37,17 +38,17 @@ go_bandit([]()
 
             AssertThat(aabb.getMesh().getType(), Is().EqualTo(Mesh::MeshType::quads));
 
-            AssertThat(points[0], Is().EqualTo(0.f));
-            AssertThat(points[1], Is().EqualTo(0.f));
+            AssertThat(points[0], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(points[1], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
 
-            AssertThat(points[2], Is().EqualTo(0.f));
-            AssertThat(points[3], Is().EqualTo(60.f));
+            AssertThat(points[2], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(points[3], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
 
-            AssertThat(points[4], Is().EqualTo(40.f));
-            AssertThat(points[5], Is().EqualTo(0.f));
+            AssertThat(points[4], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
+            AssertThat(points[5], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
 
-            AssertThat(points[6], Is().EqualTo(40.f));
-            AssertThat(points[7], Is().EqualTo(60.f));
+            AssertThat(points[6], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
+            AssertThat(points[7], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
         });
     });
 });

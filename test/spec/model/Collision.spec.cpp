@@ -2,6 +2,7 @@
 #include <gmock/gmock.h>
 
 #include "GmockBDDAliases.h"
+#include "TestConstants.h"
 
 #include <cmath>
 
@@ -41,8 +42,8 @@ go_bandit([]()
 
         it("records the depth of the Collision", [&]()
         {
-            AssertThat(collisionA.getDepth(), Is().EqualTo(1.f));
-            AssertThat(collisionB.getDepth(), Is().EqualTo(1.f));
+            AssertThat(collisionA.getDepth(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
+            AssertThat(collisionB.getDepth(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON));
         });
 
         it("calculates the escape translation for the primary Circle", [&]()
@@ -100,12 +101,12 @@ go_bandit([]()
 
         it("records the depth of the Collision", [&]()
         {
-            AssertThat(collisionA.getDepth(), Is().EqualTo(3.f));
-            AssertThat(collisionB.getDepth(), Is().EqualTo(5.f));
+            AssertThat(collisionA.getDepth(), Is().EqualToWithDelta(3.f, FLOAT_EPSILON));
+            AssertThat(collisionB.getDepth(), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
             AssertThat(collisionC.getDepth(), Is().EqualToWithDelta(sqrt(50.f), tolerance));
-            AssertThat(collisionD.getDepth(), Is().EqualTo(5.f));
-            AssertThat(collisionE.getDepth(), Is().EqualTo(5.f));
-            AssertThat(collisionF.getDepth(), Is().EqualTo(3.f));
+            AssertThat(collisionD.getDepth(), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
+            AssertThat(collisionE.getDepth(), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
+            AssertThat(collisionF.getDepth(), Is().EqualToWithDelta(3.f, FLOAT_EPSILON));
             AssertThat(collisionG.getDepth(), Is().EqualToWithDelta(sqrt(72.f), tolerance));
         });
 

@@ -1,5 +1,6 @@
 #include <bandit/bandit.h>
 
+#include "TestConstants.h"
 #include "model/Rule.h"
 #include "model/rules/DirectionAccelerationRule.h"
 #include "model/Circle.h"
@@ -25,8 +26,8 @@ go_bandit([]()
         {
             DirectionAccelerationRule gravity(Vec2(0.f, -10.f));
 
-            AssertThat(gravity.getAcceleration().getX(), Is().EqualTo(0.f));
-            AssertThat(gravity.getAcceleration().getY(), Is().EqualTo(-10.f));
+            AssertThat(gravity.getAcceleration().getX(), Is().EqualToWithDelta(  0.f, FLOAT_EPSILON));
+            AssertThat(gravity.getAcceleration().getY(), Is().EqualToWithDelta(-10.f, FLOAT_EPSILON));
         });
 
         it("applies its acceleration to an Entity's velocity given a time delta in ms", []()
@@ -37,30 +38,30 @@ go_bandit([]()
             Circle entity(100.f, 100.f, 10.f);
 
             // assert that the entity has zero velocity at the start
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
             float timeDeltaMilliseconds = 100;
 
             // after 100ms, assert the expected change in velocity
             gravity.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(-1.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-1.f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
             gravity.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(-2.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-2.f, FLOAT_EPSILON))
 
             float longerTimeDeltaMilliseconds = 500;
 
             // this time increase delta to 500 ms
             gravity.apply(entity, longerTimeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(-7.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-7.f, FLOAT_EPSILON))
         });
 
         it("can be inverted", []()
@@ -72,30 +73,30 @@ go_bandit([]()
             Circle entity(100.f, 100.f, 10.f);
 
             // assert that the entity has zero velocity at the start
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(0.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
             float timeDeltaMilliseconds = 100;
 
             // after 100ms, assert the expected change in velocity
             gravity.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(1.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(1.f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
             gravity.apply(entity, timeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(2.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(2.f, FLOAT_EPSILON))
 
             float longerTimeDeltaMilliseconds = 500;
 
             // this time increase delta to 500 ms
             gravity.apply(entity, longerTimeDeltaMilliseconds);
 
-            AssertThat(entity.getVelocity().getX(), Is().EqualTo(0.f));
-            AssertThat(entity.getVelocity().getY(), Is().EqualTo(7.f))
+            AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(7.f, FLOAT_EPSILON))
         });
     });
 });
