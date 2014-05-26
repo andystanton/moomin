@@ -38,11 +38,11 @@ public:
     CollisionType getCollisionType();
 
 private:
-    float mass;
-    Vec2 pos;
     Vec2 nextPos;
+    Vec2 pos;
     Vec2 velocity;
     CollisionType collisionType;
+    float mass;
 };
 
 #endif

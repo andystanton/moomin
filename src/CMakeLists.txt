@@ -1,14 +1,14 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 
-SET (project_LIBS 
+SET (project_LIBS
      freetype
-     ${GLFW_LIBRARIES} 
-     glfw 
+     ${GLFW_LIBRARIES}
+     glfw
      libglew_static
      freetype-gl)
 
 SET (project_INCLUDES
-     ${FREETYPE_INCLUDE_PATH} 
+     ${FREETYPE_INCLUDE_PATH}
      ${FREETYPE_GL_INCLUDE_PATH}
      ${GLFW_INCLUDE_PATH}
      ${GLEW_INCLUDE_PATH})
@@ -24,8 +24,6 @@ foreach(sourceFile ${project_SRCS})
         set(ALL_SRCS ${ALL_SRCS} ${sourceFile} CACHE INTERNAL "description")
     endif()
 endforeach()
-
-#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -O0")
 
 ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
 

@@ -71,12 +71,15 @@ SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/lib")
 LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}")
 INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 
+# set compiler warnings
+set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror -Wfloat-equal")
+
 # set c++ 11
 
 if (CMAKE_COMPILER_IS_GNUCXX)
-    set(CMAKE_CXX_FLAGS "-std=c++11")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 elseif (CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
-    set(CMAKE_CXX_FLAGS "-std=c++11 -stdlib=libc++")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -stdlib=libc++")
     if (${CMAKE_SYSTEM_NAME} MATCHES "Darwin")
         set(CMAKE_XCODE_ATTRIBUTE_CLANG_CXX_LIBRARY "libc++")
     endif ()
@@ -123,6 +126,10 @@ set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
 # GMOCK
 
 add_subdirectory(lib/gmock)
+set_property(TARGET gmock APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
+set_property(TARGET gmock_main APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
+set_property(TARGET gtest APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
+set_property(TARGET gtest_main APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
 set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
 set(GMOCK_INCLUDE_PATH "${gmock_SOURCE_DIR}/include")
 
