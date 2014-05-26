@@ -3,8 +3,6 @@
 
 bool almostEqual(float x, float y, int ulp)
 {
-    // the machine epsilon has to be scaled to the magnitude of the larger value
-    // and multiplied by the desired precision in ULPs (units in the last place)
     return std::abs(x-y) <=   std::numeric_limits<float>::epsilon()
                             * std::max(std::abs(x), std::abs(y))
                             * ulp;
@@ -15,6 +13,14 @@ Vec2::Vec2(const Vec2 & other)
     , y(other.y)
 {
 
+}
+
+Vec2::Vec2(Vec2 && other)
+    : x(other.x)
+    , y(other.y)
+{
+    other.x = 0.f;
+    other.y = 0.f;
 }
 
 Vec2::Vec2(float x, float y)
@@ -82,6 +88,17 @@ Vec2 Vec2::getNormalised() const
     copy.normalise();
     return copy;
 }
+
+ Vec2 Vec2::operator=(const Vec2 & other) {
+      // First, make a copy of the right-hand side
+      Vec2 tmp(other);
+
+      // Now, swap the data members with the temporary:
+      std::swap(x, tmp.x);
+      std::swap(y, tmp.y);
+
+      return *this;
+  }
 
 bool Vec2::operator==(const Vec2 & secondary) const
 {

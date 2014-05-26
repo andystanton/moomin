@@ -15,6 +15,7 @@ class Vec2
 public:
     Vec2(float, float);
     Vec2(const Vec2 &);
+    Vec2(Vec2 &&);
     Vec2();
     ~Vec2();
 
@@ -30,6 +31,7 @@ public:
 
     Vec2 getNormalised() const;
 
+    Vec2 operator=(const Vec2 &);
     Vec2 operator-() const;
     Vec2 operator+(const Vec2 &) const;
     Vec2 operator-(const Vec2 &) const;
