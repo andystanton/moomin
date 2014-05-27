@@ -28,6 +28,7 @@ private:
 
     void resolveCircleCircle();
     void resolveAABBAABB();
+    void resolveAABBCircle();
 };
 
 #endif
