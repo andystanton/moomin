@@ -135,13 +135,13 @@ go_bandit([]()
 
         describe("a Collision between a Circle and an AABB", []()
         {
-            it("has a primary Circle and a secondary AABB", []()
+            Circle primaryA(0.f, 10.f, 3.f);
+            AABB secondaryA(-10.f, -10.f, 20.f, 20.f);
+
+            Collision collisionA(primaryA, secondaryA);
+
+            it("has a primary Circle and a secondary AABB", [&]()
             {
-                Circle primaryA(0.f, 0.f, 6.f);
-                AABB secondaryA(4.f, 3.f, 3.f, 5.f);
-
-                Collision collisionA(primaryA, secondaryA);
-
                 AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
                 AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
             });
@@ -149,15 +149,41 @@ go_bandit([]()
 
         describe("a Collision between an AABB and a Circle", []()
         {
-            it("has a primary AABB and a secondary Circle", []()
+            AABB primary(-10.f, -10.f, 20.f, 20.f);
+            Circle secondaryA(  0.f,  10.f, 3.f);
+            Circle secondaryB(  0.f, -10.f, 4.f);
+            Circle secondaryC(-10.f,   0.f, 2.5f);
+            Circle secondaryD( 10.f,   0.f, 1.5f);
+            Circle secondaryE(-10.f,  10.f, 1.15f);
+            Circle secondaryF( 10.f,  10.f, 1.25f);
+            Circle secondaryG( 10.f, -10.f, 1.35f);
+            Circle secondaryH(-10.f, -10.f, 1.45f);
+
+            Collision collisionA(primary, secondaryA);
+            Collision collisionB(primary, secondaryB);
+            Collision collisionC(primary, secondaryC);
+            Collision collisionD(primary, secondaryD);
+            Collision collisionE(primary, secondaryE);
+            Collision collisionF(primary, secondaryF);
+            Collision collisionG(primary, secondaryG);
+            Collision collisionH(primary, secondaryH);
+
+            it("has a primary AABB and a secondary Circle", [&]()
             {
-                AABB primaryA(4.f, 3.f, 3.f, 5.f);
-                Circle secondaryA(0.f, 0.f, 6.f);
-
-                Collision collisionA(primaryA, secondaryA);
-
-                AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primaryA));
+                AssertThat(&collisionA.getPrimary(), Is().EqualTo(&primary));
                 AssertThat(&collisionA.getSecondary(), Is().EqualTo(&secondaryA));
+            });
+
+            it("records the depth of the Collision", [&]()
+            {
+                AssertThat(collisionA.getDepth(), Is().EqualToWithDelta(3.f, FLOAT_EPSILON));
+                AssertThat(collisionB.getDepth(), Is().EqualToWithDelta(4.f, FLOAT_EPSILON));
+                AssertThat(collisionC.getDepth(), Is().EqualToWithDelta(2.5f, FLOAT_EPSILON));
+                AssertThat(collisionD.getDepth(), Is().EqualToWithDelta(1.5f, FLOAT_EPSILON));
+                AssertThat(collisionE.getDepth(), Is().EqualToWithDelta(1.15f, FLOAT_EPSILON));
+                AssertThat(collisionF.getDepth(), Is().EqualToWithDelta(1.25f, FLOAT_EPSILON));
+                AssertThat(collisionG.getDepth(), Is().EqualToWithDelta(1.35f, FLOAT_EPSILON));
+                AssertThat(collisionH.getDepth(), Is().EqualToWithDelta(1.45f, FLOAT_EPSILON));
             });
         });
     });
