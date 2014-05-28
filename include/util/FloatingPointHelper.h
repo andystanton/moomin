@@ -6,7 +6,7 @@
 #include <algorithm>
 
 namespace floatingPointHelper {
-    const static int DEFAULT_ULP = 3;
+    const static int DEFAULT_ULP = 4;
 
     bool almostEqual(float x, float y, int ulp = DEFAULT_ULP);
 

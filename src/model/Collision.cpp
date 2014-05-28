@@ -78,19 +78,20 @@ void Collision::resolveAABBCircle()
         } else if(fabs(escapeTranslation.getX()) > fabs(escapeTranslation.getY()))
         {
             escapeTranslation.setX(0.f);
+        } else
+        {
+            float escapeMagnitude = escapeTranslation.getX(); // x or y will do
+
+            float side = sqrt((escapeMagnitude * escapeMagnitude)/2.f);
+            float cx = escapeTranslation.getX();
+            float cy = escapeTranslation.getY();
+            escapeTranslation = Vec2((cx / abs(cx)) * side, (cy / abs(cy)) * side);
         }
 
-        // the collision depth is the magnitude of the full escape translation
         depth = escapeTranslation.getMagnitude();
 
-        // then halve the escape translation because the other AABB should
-        // also be doing half the work. an alternative approach might be to
-        // only move one, but I would need a way to decide which, and flag
-        // other as having already been resolved against this AABB.
         escapeTranslation /= 2.f;
 
-        // placeholder for resultant velocity. currently move the
-        // AABB in the direction of the escape translation.
         resultantVelocity = escapeTranslation;
     }
 }
