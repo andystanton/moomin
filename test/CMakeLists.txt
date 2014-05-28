@@ -25,6 +25,8 @@ include_directories(${test_INCLUDES})
 
 INCLUDE_DIRECTORIES("${CMAKE_CURRENT_LIST_DIR}/include")
 
+set_source_files_properties("${CMAKE_CURRENT_LIST_DIR}/spec/util/FloatingPointHelper.spec.cpp" PROPERTIES COMPILE_FLAGS "-Wno-float-equal")
+
 # message("Output sources")
 # foreach(source ${ALL_SRCS})
 #     message(${source})

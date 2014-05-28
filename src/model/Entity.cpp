@@ -22,7 +22,7 @@ Vec2 & Entity::getPos()
 
 void Entity::setPos(Vec2 pos)
 {
-    this->pos = Vec2(pos);
+    this->pos = pos;
 }
 
 Vec2 & Entity::getNextPos()
@@ -32,7 +32,7 @@ Vec2 & Entity::getNextPos()
 
 void Entity::setNextPos(Vec2 nextPos)
 {
-    this->nextPos = Vec2(nextPos);
+    this->nextPos = nextPos;
 }
 
 Vec2 & Entity::getVelocity()
@@ -42,7 +42,7 @@ Vec2 & Entity::getVelocity()
 
 void Entity::setVelocity(Vec2 velocity)
 {
-    this->velocity = Vec2(velocity);
+    this->velocity = velocity;
 }
 
 Entity::CollisionType Entity::getCollisionType()

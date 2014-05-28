@@ -32,11 +32,8 @@ go_bandit([]()
 
         it("accepts two Vec2 for its lower left and upper right bounds", [&]()
         {
-            AssertThat(area.getLowerLeft().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
-            AssertThat(area.getLowerLeft().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
-
-            AssertThat(area.getUpperRight().getX(), Is().EqualToWithDelta(640.f, FLOAT_EPSILON));
-            AssertThat(area.getUpperRight().getY(), Is().EqualToWithDelta(480.f, FLOAT_EPSILON));
+            AssertThat(area.getLowerLeft(), Is().EqualTo(Vec2(0.f, 0.f)));
+            AssertThat(area.getUpperRight(), Is().EqualTo(Vec2(640.f, 480.f)));
         });
 
         describe("when an AABB crosses the rule's bounds", [&]()
@@ -71,8 +68,7 @@ go_bandit([]()
 
                 area.apply(aabb, timeDeltaMilliseconds);
 
-                AssertThat(aabb.getNextPos().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
-                AssertThat(aabb.getNextPos().getY(), Is().EqualToWithDelta(100.f, FLOAT_EPSILON));
+                AssertThat(aabb.getNextPos(), Is().EqualTo(Vec2(0.f, 100.f)));
 
                 // second test - move to the nearest corner
                 aabb.setPos(Vec2(-10.f, -12.f));
@@ -80,8 +76,7 @@ go_bandit([]()
 
                 area.apply(aabb, timeDeltaMilliseconds);
 
-                AssertThat(aabb.getNextPos().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
-                AssertThat(aabb.getNextPos().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+                AssertThat(aabb.getNextPos(), Is().EqualTo(Vec2(0.f, 0.f)));
             });
 
             it("applies its coefficient of elasticity", [&]()
@@ -91,7 +86,7 @@ go_bandit([]()
 
                 area.apply(aabb, timeDeltaMilliseconds);
 
-                AssertThat(aabb.getVelocity().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+                AssertThat(aabb.getVelocity(), Is().EqualTo(Vec2(50.f, 0.f)));
             });
 
             it("applies its coefficient of friction", [&]()
@@ -101,7 +96,7 @@ go_bandit([]()
 
                 area.apply(aabb, timeDeltaMilliseconds);
 
-                AssertThat(aabb.getVelocity().getX(), Is().EqualToWithDelta(9.f, FLOAT_EPSILON));
+                AssertThat(aabb.getVelocity(), Is().EqualTo(Vec2(9.f, 0.f)));
             });
         });
 
@@ -137,8 +132,7 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getNextPos().getX(), Is().EqualToWithDelta(circle.getRadius(), FLOAT_EPSILON));
-                AssertThat(circle.getNextPos().getY(), Is().EqualToWithDelta(100.f, FLOAT_EPSILON));
+                AssertThat(circle.getNextPos(), Is().EqualTo(Vec2(circle.getRadius(), 100.f)));
 
                 // second test - move to the nearest corner
                 circle.setPos(Vec2(-10.f, -12.f));
@@ -146,8 +140,7 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getNextPos().getX(), Is().EqualToWithDelta(circle.getRadius(), FLOAT_EPSILON));
-                AssertThat(circle.getNextPos().getY(), Is().EqualToWithDelta(circle.getRadius(), FLOAT_EPSILON));
+                AssertThat(circle.getNextPos(), Is().EqualTo(Vec2(circle.getRadius(), circle.getRadius())));
             });
 
             it("applies its coefficient of elasticity", [&]()
@@ -157,7 +150,7 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getVelocity().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+                AssertThat(circle.getVelocity(), Is().EqualTo(Vec2(50.f, 0.f)));
             });
 
             it("applies its coefficient of friction", [&]()
@@ -167,7 +160,7 @@ go_bandit([]()
 
                 area.apply(circle, timeDeltaMilliseconds);
 
-                AssertThat(circle.getVelocity().getX(), Is().EqualToWithDelta(9.f, FLOAT_EPSILON));
+                AssertThat(circle.getVelocity(), Is().EqualTo(Vec2(9.f, 0.f)));
             });
         });
     });

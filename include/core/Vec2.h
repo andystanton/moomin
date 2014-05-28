@@ -6,9 +6,13 @@
 #include <iostream>
 #include <sstream>
 
+#include "util/FloatingPointHelper.h"
+
 using std::string;
 using std::ostream;
 using std::stringstream;
+
+using namespace floatingPointHelper;
 
 class Vec2
 {

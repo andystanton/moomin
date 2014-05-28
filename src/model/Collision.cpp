@@ -13,9 +13,11 @@ Collision::Collision(Entity& primary, Entity& secondary)
         {
             case Entity::CollisionType::circle:
                 if (secondary.getCollisionType() == Entity::CollisionType::circle) resolveCircleCircle();
+                if (secondary.getCollisionType() == Entity::CollisionType::aabb) resolveCircleAABB();
                 break;
             case Entity::CollisionType::aabb:
                 if (secondary.getCollisionType() == Entity::CollisionType::aabb) resolveAABBAABB();
+                if (secondary.getCollisionType() == Entity::CollisionType::circle) resolveAABBCircle();
                 break;
             default:
                 break;
@@ -26,6 +28,127 @@ Collision::Collision(Entity& primary, Entity& secondary)
 Collision::~Collision()
 {
 
+}
+
+bool significantlyLessThan(float x, float y, int ulp)
+{
+    return std::abs(x-y) <=   std::numeric_limits<float>::epsilon()
+                            * std::max(std::abs(x), std::abs(y))
+                            * ulp;
+}
+
+void Collision::resolveCircleAABB()
+{
+    Circle & primaryCircle = static_cast<Circle &>(primary);
+    AABB & secondaryAABB = static_cast<AABB &>(secondary);
+
+    float radius = primaryCircle.getRadius();
+    Vec2 radiusVec(radius, radius);
+
+    Vec2 & primaryPos = primaryCircle.getPos();
+
+    Vec2 primaryMin = primaryPos - radiusVec;
+    Vec2 primaryMax = primaryPos + radiusVec;
+
+    Vec2 & secondaryMin = secondaryAABB.getPos();
+    Vec2 secondaryMax = secondaryMin + secondaryAABB.getBounding();
+
+    if (primaryMin.getX() > secondaryMax.getX() ||
+        primaryMin.getY() > secondaryMax.getY() ||
+        primaryMax.getX() < secondaryMin.getX() ||
+        primaryMax.getY() < secondaryMin.getY())
+    {
+        return;
+    } else
+    {
+        float left = secondaryMin.getX() - primaryMax.getX();
+        float right = secondaryMax.getX() - primaryMin.getX();
+
+        float top = secondaryMin.getY() - primaryMax.getY();
+        float bottom = secondaryMax.getY() - primaryMin.getY();
+
+        escapeTranslation.setX(fabs(left) < right ? left : right);
+        escapeTranslation.setY(fabs(top) < bottom ? top : bottom);
+
+        if (fabs(escapeTranslation.getX()) < fabs(escapeTranslation.getY()))
+        {
+            escapeTranslation.setY(0.f);
+        } else if(fabs(escapeTranslation.getX()) > fabs(escapeTranslation.getY()))
+        {
+            escapeTranslation.setX(0.f);
+        } else
+        {
+            float escapeMagnitude = escapeTranslation.getX(); // x or y will do
+
+            float side = sqrt((escapeMagnitude * escapeMagnitude)/2.f);
+            float cx = escapeTranslation.getX();
+            float cy = escapeTranslation.getY();
+            escapeTranslation = Vec2((cx / abs(cx)) * side, (cy / abs(cy)) * side);
+        }
+
+        depth = escapeTranslation.getMagnitude();
+
+        escapeTranslation /= 2.f;
+
+        resultantVelocity = escapeTranslation;
+    }
+}
+
+void Collision::resolveAABBCircle()
+{
+    AABB & primaryAABB = static_cast<AABB &>(primary);
+    Circle & secondaryCircle = static_cast<Circle &>(secondary);
+
+    Vec2 & primaryMin = primaryAABB.getPos();
+    Vec2 primaryMax = primaryMin + primaryAABB.getBounding();
+
+    float radius = secondaryCircle.getRadius();
+    Vec2 radiusVec(radius, radius);
+
+    Vec2 & secondaryPos = secondaryCircle.getPos();
+
+    Vec2 secondaryMin = secondaryPos - radiusVec;
+    Vec2 secondaryMax = secondaryPos + radiusVec;
+
+    if (primaryMin.getX() > secondaryMax.getX() ||
+        primaryMin.getY() > secondaryMax.getY() ||
+        primaryMax.getX() < secondaryMin.getX() ||
+        primaryMax.getY() < secondaryMin.getY())
+    {
+        return;
+    } else
+    {
+        float left = secondaryMin.getX() - primaryMax.getX();
+        float right = secondaryMax.getX() - primaryMin.getX();
+
+        float top = secondaryMin.getY() - primaryMax.getY();
+        float bottom = secondaryMax.getY() - primaryMin.getY();
+
+        escapeTranslation.setX(fabs(left) < right ? left : right);
+        escapeTranslation.setY(fabs(top) < bottom ? top : bottom);
+
+        if (fabs(escapeTranslation.getX()) < fabs(escapeTranslation.getY()))
+        {
+            escapeTranslation.setY(0.f);
+        } else if(fabs(escapeTranslation.getX()) > fabs(escapeTranslation.getY()))
+        {
+            escapeTranslation.setX(0.f);
+        } else
+        {
+            float escapeMagnitude = escapeTranslation.getX(); // x or y will do
+
+            float side = sqrt((escapeMagnitude * escapeMagnitude)/2.f);
+            float cx = escapeTranslation.getX();
+            float cy = escapeTranslation.getY();
+            escapeTranslation = Vec2((cx / abs(cx)) * side, (cy / abs(cy)) * side);
+        }
+
+        depth = escapeTranslation.getMagnitude();
+
+        escapeTranslation /= 2.f;
+
+        resultantVelocity = escapeTranslation;
+    }
 }
 
 void Collision::resolveAABBAABB()

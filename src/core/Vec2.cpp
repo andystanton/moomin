@@ -1,13 +1,5 @@
 #include "core/Vec2.h"
 
-
-bool almostEqual(float x, float y, int ulp)
-{
-    return std::abs(x-y) <=   std::numeric_limits<float>::epsilon()
-                            * std::max(std::abs(x), std::abs(y))
-                            * ulp;
-}
-
 Vec2::Vec2(const Vec2 & other)
     : x(other.x)
     , y(other.y)
@@ -84,26 +76,20 @@ void Vec2::normalise()
 
 Vec2 Vec2::getNormalised() const
 {
-    Vec2 copy = Vec2(*this);
+    Vec2 copy = *this;
     copy.normalise();
     return copy;
 }
 
  Vec2 Vec2::operator=(const Vec2 & other) {
-      // First, make a copy of the right-hand side
-      Vec2 tmp(other);
-
-      // Now, swap the data members with the temporary:
-      std::swap(x, tmp.x);
-      std::swap(y, tmp.y);
-
+      this->x = other.x;
+      this->y = other.y;
       return *this;
   }
 
 bool Vec2::operator==(const Vec2 & secondary) const
 {
-    int ulp = 2;
-    return almostEqual(this->x, secondary.x, ulp) && almostEqual(this->y, secondary.y, ulp);
+    return almostEqual(this->x, secondary.x) && almostEqual(this->y, secondary.y);
 }
 
 bool Vec2::operator!=(const Vec2 & secondary) const

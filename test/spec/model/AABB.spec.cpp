@@ -15,19 +15,15 @@ go_bandit([]()
         {
             Entity * aabb = new AABB(50.f, 50.f, 10.f, 10.f);
 
-            AssertThat(aabb->getPos().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
-            AssertThat(aabb->getPos().getY(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
+            AssertThat(aabb->getPos(), Is().EqualTo(Vec2(50.f, 50.f)));
         });
 
         it("accepts a position and dimensions", []()
         {
             AABB aabb(50.f, 50.f, 10.f, 10.f);
 
-            AssertThat(aabb.getPos().getX(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
-            AssertThat(aabb.getPos().getY(), Is().EqualToWithDelta(50.f, FLOAT_EPSILON));
-
-            AssertThat(aabb.getBounding().getX(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
-            AssertThat(aabb.getBounding().getY(), Is().EqualToWithDelta(10.f, FLOAT_EPSILON));
+            AssertThat(aabb.getPos(), Is().EqualTo(Vec2(50.f, 50.f)));
+            AssertThat(aabb.getBounding(), Is().EqualTo(Vec2(10.f, 10.f)));
         });
 
         it("has a Mesh defined by its Bounding coordinates", []()
