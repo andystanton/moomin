@@ -18,17 +18,10 @@ go_bandit([]()
 
         it("has a position and a velocity", [&]()
         {
-            AssertThat(e1->getPos().getX(), Is().EqualToWithDelta(23.0f, FLOAT_EPSILON));
-            AssertThat(e1->getPos().getY(), Is().EqualToWithDelta(12.0f, FLOAT_EPSILON));
-
-            AssertThat(e1->getVelocity().getX(), Is().EqualToWithDelta(5.f, FLOAT_EPSILON));
-            AssertThat(e1->getVelocity().getY(), Is().EqualToWithDelta(7.f, FLOAT_EPSILON));
-
-            AssertThat(e2->getPos().getX(), Is().EqualToWithDelta(20.0f, FLOAT_EPSILON));
-            AssertThat(e2->getPos().getY(), Is().EqualToWithDelta(20.0f, FLOAT_EPSILON));
-
-            AssertThat(e2->getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
-            AssertThat(e2->getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(e1->getPos(), Is().EqualTo(Vec2(23.0f, 12.0f)));
+            AssertThat(e1->getVelocity(), Is().EqualTo(Vec2(5.f, 7.f)));
+            AssertThat(e2->getPos(), Is().EqualTo(Vec2(20.0f, 20.0f)));
+            AssertThat(e2->getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
         });
 
         it("has a Collision Type", [&]()
