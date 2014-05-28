@@ -48,7 +48,7 @@ go_bandit([]()
 
         describe("when two Circles collide", []()
         {
-            float circleElasticity = 0.65f;
+            float circleElasticity = 0.99f;
 
             set<Entity *> entities;
 
@@ -118,7 +118,7 @@ go_bandit([]()
 
             it("gives the AABB an impulse in the opposite direction of the Collision", [&]()
             {
-                float aabbElasticity = 0.65f;
+                float aabbElasticity = 0.99f;
 
                 AssertThat(aabb1.getVelocity().getX(), Is().EqualToWithDelta( 0.f, FLOAT_EPSILON));
                 AssertThat(aabb1.getVelocity().getY(), Is().EqualToWithDelta( 1.5f * aabbElasticity, FLOAT_EPSILON));

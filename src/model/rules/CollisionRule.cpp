@@ -19,7 +19,7 @@ void CollisionRule::apply(Entity & entity, float delta)
         unique_ptr<Collision> collision = unique_ptr<Collision>(new Collision(entity, *other));
         if (collision->getDepth() > 0)
         {
-            float elasticity = 0.65f;
+            float elasticity = 0.99f;
 
             Vec2 & primaryNextPos = collision->getPrimary().getNextPos();
             primaryNextPos += collision->getEscapeTranslation();
