@@ -35,9 +35,13 @@ void EntityRenderer::draw(Entity* entity)
             Circle * circle = static_cast<Circle *>(entity);
             float scaleFactor = circle->getRadius() / 10.f;
             glScalef(scaleFactor, scaleFactor, scaleFactor);
+            glColor3f(0.4f, 0.8f, 0.5f);
+        } else
+        {
+            glColor3f(0.8f, 0.8f, 0.4f);
         }
         glBegin(mode);
-            glColor3f(0.4f, 0.8f, 0.8f);
+
 
             for(int i = 0; i < mesh.getSize(); i+=2)
             {
