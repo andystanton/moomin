@@ -6,17 +6,47 @@ rescue Exception => problem
     puts "rake task interupted: #{problem}"
 end
 
+laundry_list = [
+    "cmake_install.cmake",
+    "CMakeCache.txt",
+    "CMakeFiles",
+    "CMakeScripts",
+    "CPackConfig.cmake",
+    "CPackSourceConfig.cmake",
+    "*.xcodeproj",
+    "src/cmake_install.cmake",
+    "src/CMakeCache.txt",
+    "src/CMakeFiles",
+    "src/CMakeScripts",
+    "test/cmake_install.cmake",
+    "test/CMakeCache.txt",
+    "test/CMakeFiles",
+    "test/CMakeScripts",
+    "lib/*/*.build",
+    "lib/*/*.xcodeproj",
+    "lib/*/cmake_install.cmake",
+    "lib/*/CMakeFiles",
+    "lib/*/CMakeScripts",
+    "lib/*.a",
+    "lib/gmock/gtest",
+    "lib/freetype2/include/ftconfig.h",
+    "lib/Debug",
+    "lib/Release",
+    "Makefile",
+    "bin",
+    "build",
+    "*.build"
+]
+
 desc 'Cleans the project by deleting everything listed in .gitignore'
 task :clean do
     puts 'Executing clean...'
 
     count = 0
-    file = File.new(".gitignore", "r")
-    while (line = file.gets)
+    laundry_list.each do |laundry_item|
         count += 1
-        sh "rm -rf #{line}"
+        sh "rm -rf #{laundry_item}"
     end
-    file.close
 
     puts "Cleaned #{count} files"
 end
