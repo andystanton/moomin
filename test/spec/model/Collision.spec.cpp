@@ -210,6 +210,8 @@ go_bandit([]()
             Circle secondaryG( 10.f, -10.f, 1.35f);
             Circle secondaryH(-10.f, -10.f, 1.45f);
             Circle secondaryI(100.f, 100.f,20.f);
+            Circle secondaryJ( 15.f,  15.f, 10.f);
+            Circle secondaryK( 15.f,  12.f, 10.f);
 
             Collision collisionA(primary, secondaryA);
             Collision collisionB(primary, secondaryB);
@@ -220,6 +222,8 @@ go_bandit([]()
             Collision collisionG(primary, secondaryG);
             Collision collisionH(primary, secondaryH);
             Collision collisionI(primary, secondaryI);
+            Collision collisionJ(primary, secondaryJ);
+            Collision collisionK(primary, secondaryK);
 
             it("has a primary AABB and a secondary Circle", [&]()
             {
@@ -249,6 +253,12 @@ go_bandit([]()
 
                 AssertThat(&collisionI.getPrimary(), Is().EqualTo(&primary));
                 AssertThat(&collisionI.getSecondary(), Is().EqualTo(&secondaryI));
+
+                AssertThat(&collisionJ.getPrimary(), Is().EqualTo(&primary));
+                AssertThat(&collisionJ.getSecondary(), Is().EqualTo(&secondaryJ));
+
+                AssertThat(&collisionK.getPrimary(), Is().EqualTo(&primary));
+                AssertThat(&collisionK.getSecondary(), Is().EqualTo(&secondaryK));
             });
 
             it("records the depth of the Collision", [&]()
@@ -262,6 +272,7 @@ go_bandit([]()
                 AssertThat(collisionG.getDepth(), Is().EqualToWithDelta(1.35f, FLOAT_EPSILON));
                 AssertThat(collisionH.getDepth(), Is().EqualToWithDelta(1.45f, FLOAT_EPSILON));
                 AssertThat(collisionI.getDepth(), Is().EqualToWithDelta(0.f,   FLOAT_EPSILON));
+                AssertThat(collisionJ.getDepth(), Is().EqualToWithDelta(5.f,   FLOAT_EPSILON));
             });
 
             it("calculates the escape translation for the primary AABB", [&]()
@@ -274,6 +285,9 @@ go_bandit([]()
                 AssertThat(collisionF.getEscapeTranslation(), Is().EqualTo(Vec2(-0.4419417f, -0.4419417f)));
                 AssertThat(collisionG.getEscapeTranslation(), Is().EqualTo(Vec2(-0.4772970f,  0.4772970f)));
                 AssertThat(collisionH.getEscapeTranslation(), Is().EqualTo(Vec2( 0.5126524f,  0.5126524f)));
+                AssertThat(collisionI.getEscapeTranslation(), Is().EqualTo(Vec2(0, 0)));
+                AssertThat(collisionJ.getEscapeTranslation(), Is().EqualTo(Vec2(-1.7677669f, -1.7677669f)));
+                //AssertThat(collisionK.getEscapeTranslation(), Is().EqualTo(Vec2(-1.7677669f, -1.7677669f)));
             });
         });
     });

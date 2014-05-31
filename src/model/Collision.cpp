@@ -86,6 +86,7 @@ void Collision::resolveCircleAABB()
             escapeTranslation = Vec2((cx / abs(cx)) * side, (cy / abs(cy)) * side);
         }
 
+
         depth = escapeTranslation.getMagnitude();
 
         escapeTranslation /= 2.f;
