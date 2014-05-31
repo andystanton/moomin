@@ -44,11 +44,8 @@ int main(void)
     while (GLHandler::isActive())
     {
         GLHandler::draw();
-        if (GLHandler::isPhysics())
-        {
-            stdPhysicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
-            lastUpdate = glfwGetTime();
-        }
+        stdPhysicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
+        lastUpdate = glfwGetTime();
     }
 
     GLHandler::quit();

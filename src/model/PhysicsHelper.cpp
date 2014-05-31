@@ -8,7 +8,7 @@ PhysicsHelper::PhysicsHelper(StandardPhysicsSystem & physicsSystem)
 
 PhysicsHelper::~PhysicsHelper()
 {
-    
+
 }
 
 void PhysicsHelper::enablePositionAccelerationRule(bool inverted)
@@ -44,20 +44,16 @@ void PhysicsHelper::enableDirectionAccelerationRule(char direction)
     switch (direction)
     {
         case 'N':
-            acceleration.setX(0.f);
-            acceleration.setY(magnitude);
+            acceleration = Vec2(0.f, magnitude);
             break;
         case 'S':
-            acceleration.setX(0.f);
-            acceleration.setY(-magnitude);
+            acceleration = Vec2(0.f, -magnitude);
             break;
         case 'E':
-            acceleration.setX(magnitude);
-            acceleration.setY(0.f);
+            acceleration = Vec2(magnitude, 0.f);
             break;
         case 'W':
-            acceleration.setX(-magnitude);
-            acceleration.setY(0.f);
+            acceleration = Vec2(-magnitude, 0.f);
             break;
     }
     gravity.setEnabled(true);
@@ -68,4 +64,9 @@ void PhysicsHelper::disableAccelerationRules()
     physicsSystem.gravity().setEnabled(false);
     physicsSystem.singularity().setEnabled(false);
     physicsSystem.attraction().setEnabled(false);
+}
+
+void PhysicsHelper::togglePause()
+{
+    physicsSystem.setPaused(!physicsSystem.isPaused());
 }

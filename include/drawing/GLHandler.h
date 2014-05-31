@@ -53,8 +53,6 @@ namespace GLHandler
     float lastFpsUpdate = 0;
     float fps           = 0;
 
-    bool physics = true;
-
     void recalculateFps()
     {
         frameCount++;
@@ -192,7 +190,7 @@ namespace GLHandler
         {
             switch (key) {
                 case GLFW_KEY_SPACE:
-                    physics = !physics;
+                    physicsHelper->togglePause();
                     break;
                 case GLFW_KEY_1:
                     physicsSystem->clearEntities();
@@ -325,11 +323,6 @@ namespace GLHandler
         glClearColor(0.1, 0.1, 0.1, 1.0);
 
         handleResize(window, width, height);
-    }
-
-    bool isPhysics()
-    {
-        return physics;
     }
 
     bool isActive()

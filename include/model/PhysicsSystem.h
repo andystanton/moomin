@@ -14,6 +14,8 @@ public:
     PhysicsSystem();
     ~PhysicsSystem();
 
+    bool isPaused();
+    void setPaused(bool paused);
     void step(float delta);
     void addEntity(Entity *);
     void addRule(Rule *);
@@ -23,6 +25,7 @@ public:
 protected:
     set<Entity *> entities;
     set<Rule *> rules;
+    bool paused;
 };
 
 #endif

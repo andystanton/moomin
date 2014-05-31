@@ -13,6 +13,8 @@ public:
     void enableEntityAccelerationRule(bool inverted);
     void enableDirectionAccelerationRule(char direction);
     void disableAccelerationRules();
+
+    void togglePause();
 private:
     StandardPhysicsSystem & physicsSystem;
 };

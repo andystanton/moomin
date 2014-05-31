@@ -2,6 +2,8 @@
 
 PhysicsSystem::PhysicsSystem()
     : entities()
+    , rules()
+    , paused(false)
 {
 
 }
@@ -33,31 +35,44 @@ void PhysicsSystem::addRule(Rule * rule)
 
 void PhysicsSystem::step(float deltaInMilliseconds)
 {
-    // Calculate next position for all entities
-    for (auto entity : entities)
+    if (!paused)
     {
-        Vec2 & nextPos = entity->getNextPos();
-        nextPos.setFrom(entity->getPos());
-
-        for (auto rule : rules)
+        // Calculate next position for all entities
+        for (auto entity : entities)
         {
-            if (rule->isEnabled())
+            Vec2 & nextPos = entity->getNextPos();
+            nextPos.setFrom(entity->getPos());
+
+            for (auto rule : rules)
             {
-                rule->apply(*entity, deltaInMilliseconds);
+                if (rule->isEnabled())
+                {
+                    rule->apply(*entity, deltaInMilliseconds);
+                }
             }
+
+            nextPos += entity->getVelocity();
         }
 
-        nextPos += entity->getVelocity();
-    }
-
-    // Update entity positions
-    for (auto entity : entities)
-    {
-        entity->getPos().setFrom(entity->getNextPos());
+        // Update entity positions
+        for (auto entity : entities)
+        {
+            entity->getPos().setFrom(entity->getNextPos());
+        }
     }
 }
 
 void PhysicsSystem::clearEntities()
 {
     entities.clear();
+}
+
+bool PhysicsSystem::isPaused()
+{
+    return paused;
+}
+
+void PhysicsSystem::setPaused(bool paused)
+{
+    this->paused = paused;
 }
