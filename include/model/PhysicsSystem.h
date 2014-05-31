@@ -20,7 +20,7 @@ public:
     const set<Entity *> & getEntities() const;
     const set<Rule *> & getRules() const;
     void clearEntities();
-private:
+protected:
     set<Entity *> entities;
     set<Rule *> rules;
 };

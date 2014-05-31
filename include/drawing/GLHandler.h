@@ -9,7 +9,7 @@
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
 
-#include "model/PhysicsSystem.h"
+#include "model/StandardPhysicsSystem.h"
 #include "model/Circle.h"
 #include "model/AABB.h"
 
@@ -39,7 +39,7 @@ namespace GLHandler
     FreeTypeRenderer * freeTypeRenderer = nullptr;
     EntityRenderer * entityRenderer = nullptr;
 
-    PhysicsSystem * physicsSystem;
+    StandardPhysicsSystem * physicsSystem;
 
     string titleString;
     string fpsString;
@@ -175,7 +175,7 @@ namespace GLHandler
         }
     }
 
-    void registerPhysicsSystem(PhysicsSystem * newPhysicsSystem)
+    void registerPhysicsSystem(StandardPhysicsSystem * newPhysicsSystem)
     {
         physicsSystem = newPhysicsSystem;
         createCirclesLattice();
@@ -183,88 +183,61 @@ namespace GLHandler
 
     void enablePositionAccelerationRule(bool inverted)
     {
-        for (auto rule : physicsSystem->getRules())
-        {
-            if (rule->getType() == Rule::RuleType::direction_acceleration
-                    || rule->getType() == Rule::RuleType::entity_acceleration)
-            {
-                rule->setEnabled(false);
-            } else if(rule->getType() == Rule::RuleType::position_acceleration)
-            {
-                rule->setEnabled(true);
-                auto singularity = static_cast<PositionAccelerationRule *>(rule);
-                if (!inverted) singularity->setInverted(false);
-                if (inverted) singularity->setInverted(true);
-            }
-        }
+        physicsSystem->gravity().setEnabled(false);
+        physicsSystem->attraction().setEnabled(false);
+
+        PositionAccelerationRule & singularity = physicsSystem->singularity();
+        if (!inverted) singularity.setInverted(false);
+        if (inverted) singularity.setInverted(true);
+        singularity.setEnabled(true);
     }
 
     void enableEntityAccelerationRule(bool inverted)
     {
-        for (auto rule : physicsSystem->getRules())
-        {
-            if (rule->getType() == Rule::RuleType::direction_acceleration
-                    || rule->getType() == Rule::RuleType::position_acceleration)
-            {
-                rule->setEnabled(false);
-            } else if(rule->getType() == Rule::RuleType::entity_acceleration)
-            {
-                rule->setEnabled(true);
-                auto attraction = static_cast<EntityAccelerationRule *>(rule);
-                if (!inverted) attraction->setInverted(false);
-                if (inverted) attraction->setInverted(true);
-            }
-        }
+        physicsSystem->gravity().setEnabled(false);
+        physicsSystem->singularity().setEnabled(false);
+
+        EntityAccelerationRule & attraction = physicsSystem->attraction();
+        if (!inverted) attraction.setInverted(false);
+        if (inverted) attraction.setInverted(true);
+        attraction.setEnabled(true);
     }
 
     void enableDirectionAccelerationRule(char direction)
     {
-        for (auto rule : physicsSystem->getRules())
+        physicsSystem->attraction().setEnabled(false);
+        physicsSystem->singularity().setEnabled(false);
+
+        DirectionAccelerationRule & gravity = physicsSystem->gravity();
+        Vec2 & acceleration = gravity.getAcceleration();
+        float magnitude = acceleration.getMagnitude();
+        switch (direction)
         {
-            if (rule->getType() == Rule::RuleType::direction_acceleration)
-            {
-                rule->setEnabled(true);
-                auto gravity = static_cast<DirectionAccelerationRule *>(rule);
-                Vec2 & acceleration = gravity->getAcceleration();
-                float magnitude = acceleration.getMagnitude();
-                switch (direction)
-                {
-                    case 'N':
-                        acceleration.setX(0.f);
-                        acceleration.setY(magnitude);
-                        break;
-                    case 'S':
-                        acceleration.setX(0.f);
-                        acceleration.setY(-magnitude);
-                        break;
-                    case 'E':
-                        acceleration.setX(magnitude);
-                        acceleration.setY(0.f);
-                        break;
-                    case 'W':
-                        acceleration.setX(-magnitude);
-                        acceleration.setY(0.f);
-                        break;
-                }
-            } else if(rule->getType() == Rule::RuleType::entity_acceleration
-                        || rule->getType() == Rule::RuleType::position_acceleration)
-            {
-                rule->setEnabled(false);
-            }
+            case 'N':
+                acceleration.setX(0.f);
+                acceleration.setY(magnitude);
+                break;
+            case 'S':
+                acceleration.setX(0.f);
+                acceleration.setY(-magnitude);
+                break;
+            case 'E':
+                acceleration.setX(magnitude);
+                acceleration.setY(0.f);
+                break;
+            case 'W':
+                acceleration.setX(-magnitude);
+                acceleration.setY(0.f);
+                break;
         }
+        gravity.setEnabled(true);
     }
 
     void disableAccelerationRules()
     {
-        for (auto rule : physicsSystem->getRules())
-        {
-            if (rule->getType() == Rule::RuleType::direction_acceleration
-                    || rule->getType() == Rule::RuleType::position_acceleration
-                    || rule->getType() == Rule::RuleType::entity_acceleration)
-            {
-                rule->setEnabled(false);
-            }
-        }
+        physicsSystem->gravity().setEnabled(false);
+        physicsSystem->singularity().setEnabled(false);
+        physicsSystem->attraction().setEnabled(false);
     }
 
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
