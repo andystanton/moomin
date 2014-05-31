@@ -11,6 +11,7 @@
 #include "model/rules/CollisionRule.h"
 #include "model/PhysicsSystem.h"
 #include "model/StandardPhysicsSystem.h"
+#include "model/PhysicsHelper.h"
 
 
 using namespace std;
@@ -23,6 +24,7 @@ int main(void)
 {
     // Create Physics System
     StandardPhysicsSystem stdPhysicsSystem(worldWidth, worldHeight);
+    PhysicsHelper physicsHelper(stdPhysicsSystem);
 
     // Initialise Graphics System
     GLHandler::init("Moomin Engine v1.0", width, height);
@@ -35,7 +37,7 @@ int main(void)
     GLHandler::setEntityRenderer(&er);
     GLHandler::setFreeTypeRenderer(&fr);
 
-    GLHandler::registerPhysicsSystem(&stdPhysicsSystem);
+    GLHandler::registerPhysicsSystem(&stdPhysicsSystem, &physicsHelper);
 
     // Moomin!
     float lastUpdate = glfwGetTime();

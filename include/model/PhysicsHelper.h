@@ -1,12 +1,20 @@
 #ifndef _MOOMIN_PHYSICS_HELPER
 #define _MOOMIN_PHYSICS_HELPER
 
-#include "model/PhysicsSystem.h"
+#include "model/StandardPhysicsSystem.h"
 
 class PhysicsHelper
 {
 public:
-    PhysicsSystem createPhysicsSystem(int width, int height);
+    PhysicsHelper(StandardPhysicsSystem &);
+    ~PhysicsHelper();
+
+    void enablePositionAccelerationRule(bool inverted);
+    void enableEntityAccelerationRule(bool inverted);
+    void enableDirectionAccelerationRule(char direction);
+    void disableAccelerationRules();
+private:
+    StandardPhysicsSystem & physicsSystem;
 };
 
 #endif

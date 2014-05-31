@@ -9,6 +9,7 @@
 #include <freetype-gl.h>
 #include <GLFW/glfw3.h>
 
+#include "model/PhysicsHelper.h"
 #include "model/StandardPhysicsSystem.h"
 #include "model/Circle.h"
 #include "model/AABB.h"
@@ -40,6 +41,8 @@ namespace GLHandler
     EntityRenderer * entityRenderer = nullptr;
 
     StandardPhysicsSystem * physicsSystem;
+
+    PhysicsHelper * physicsHelper;
 
     string titleString;
     string fpsString;
@@ -158,11 +161,9 @@ namespace GLHandler
         }
     }
 
-    void disableAccelerationRules();
-
     void createChaosLattice(bool inverted)
     {
-        disableAccelerationRules();
+        physicsHelper->disableAccelerationRules();
         float speed = 30;
         if (!inverted)
         {
@@ -175,70 +176,15 @@ namespace GLHandler
         }
     }
 
-    void registerPhysicsSystem(StandardPhysicsSystem * newPhysicsSystem)
+    void registerPhysicsSystem(StandardPhysicsSystem * newPhysicsSystem, PhysicsHelper * newPhysicsHelper)
     {
         physicsSystem = newPhysicsSystem;
+        physicsHelper = newPhysicsHelper;
+
         createCirclesLattice();
     }
 
-    void enablePositionAccelerationRule(bool inverted)
-    {
-        physicsSystem->gravity().setEnabled(false);
-        physicsSystem->attraction().setEnabled(false);
 
-        PositionAccelerationRule & singularity = physicsSystem->singularity();
-        if (!inverted) singularity.setInverted(false);
-        if (inverted) singularity.setInverted(true);
-        singularity.setEnabled(true);
-    }
-
-    void enableEntityAccelerationRule(bool inverted)
-    {
-        physicsSystem->gravity().setEnabled(false);
-        physicsSystem->singularity().setEnabled(false);
-
-        EntityAccelerationRule & attraction = physicsSystem->attraction();
-        if (!inverted) attraction.setInverted(false);
-        if (inverted) attraction.setInverted(true);
-        attraction.setEnabled(true);
-    }
-
-    void enableDirectionAccelerationRule(char direction)
-    {
-        physicsSystem->attraction().setEnabled(false);
-        physicsSystem->singularity().setEnabled(false);
-
-        DirectionAccelerationRule & gravity = physicsSystem->gravity();
-        Vec2 & acceleration = gravity.getAcceleration();
-        float magnitude = acceleration.getMagnitude();
-        switch (direction)
-        {
-            case 'N':
-                acceleration.setX(0.f);
-                acceleration.setY(magnitude);
-                break;
-            case 'S':
-                acceleration.setX(0.f);
-                acceleration.setY(-magnitude);
-                break;
-            case 'E':
-                acceleration.setX(magnitude);
-                acceleration.setY(0.f);
-                break;
-            case 'W':
-                acceleration.setX(-magnitude);
-                acceleration.setY(0.f);
-                break;
-        }
-        gravity.setEnabled(true);
-    }
-
-    void disableAccelerationRules()
-    {
-        physicsSystem->gravity().setEnabled(false);
-        physicsSystem->singularity().setEnabled(false);
-        physicsSystem->attraction().setEnabled(false);
-    }
 
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
@@ -273,31 +219,31 @@ namespace GLHandler
                     createChaosLattice(true);
                     break;
                 case GLFW_KEY_0:
-                    disableAccelerationRules();
+                    physicsHelper->disableAccelerationRules();
                     break;
                 case GLFW_KEY_LEFT_BRACKET:
-                    enablePositionAccelerationRule(false);
+                    physicsHelper->enablePositionAccelerationRule(false);
                     break;
                 case GLFW_KEY_RIGHT_BRACKET:
-                    enablePositionAccelerationRule(true);
+                    physicsHelper->enablePositionAccelerationRule(true);
                     break;
                 case GLFW_KEY_O:
-                    enableEntityAccelerationRule(false);
+                    physicsHelper->enableEntityAccelerationRule(false);
                     break;
                 case GLFW_KEY_P:
-                    enableEntityAccelerationRule(true);
+                    physicsHelper->enableEntityAccelerationRule(true);
                     break;
                 case GLFW_KEY_UP:
-                    enableDirectionAccelerationRule('N');
+                    physicsHelper->enableDirectionAccelerationRule('N');
                     break;
                 case GLFW_KEY_DOWN:
-                    enableDirectionAccelerationRule('S');
+                    physicsHelper->enableDirectionAccelerationRule('S');
                     break;
                 case GLFW_KEY_LEFT:
-                    enableDirectionAccelerationRule('W');
+                    physicsHelper->enableDirectionAccelerationRule('W');
                     break;
                 case GLFW_KEY_RIGHT:
-                    enableDirectionAccelerationRule('E');
+                    physicsHelper->enableDirectionAccelerationRule('E');
                     break;
             }
         }
