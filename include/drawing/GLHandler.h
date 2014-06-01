@@ -86,12 +86,6 @@ namespace GLHandler
         registerRenderer(entityRenderer);
     }
 
-    void registerPhysicsHelper(PhysicsHelper * newPhysicsHelper)
-    {
-        physicsHelper = newPhysicsHelper;
-        physicsHelper->addCirclesLatticeCentre();
-    }
-
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
         if (action == GLFW_PRESS)
@@ -161,13 +155,13 @@ namespace GLHandler
         {
             glfwGetCursorPos(window, &clickEndX, &clickEndY);
 
-            Vec2 pos(clickStartX * 10, 6400 - (clickStartY * 10));
+            Vec2 pos(clickStartX * 10, physicsHelper->getHeight() - (clickStartY * 10));
             Vec2 bounding(Vec2((rand() % 20) + 50, (rand() % 20) + 50));
             Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
 
             physicsHelper->addAABB(pos, bounding, velocity);
 
-            // Vec2 pos(clickStartX * 10, 6400 - (clickStartY * 10));
+            // Vec2 pos(clickStartX * 10, physicsHelper->getHeight() - (clickStartY * 10));
             // float radius = (rand() % 20) + 20;
             // Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
             //
@@ -183,7 +177,7 @@ namespace GLHandler
         glMatrixMode(GL_PROJECTION );
         glLoadIdentity();
 
-        glOrtho(0, 6400, 0, 6400, 0, 1);
+        glOrtho(0, physicsHelper->getWidth(), 0, physicsHelper->getHeight(), 0, 1);
         glMatrixMode(GL_MODELVIEW);
         glLoadIdentity();
 
@@ -193,8 +187,14 @@ namespace GLHandler
         }
     }
 
-    void init(const string& newTitle, int width, int height)
+    void init(const string& newTitle,
+              int width,
+              int height,
+              PhysicsHelper * newPhysicsHelper)
     {
+        physicsHelper = newPhysicsHelper;
+        physicsHelper->addCirclesLatticeCentre();
+
         titleString = string(newTitle);
 
         if (!glfwInit()) {

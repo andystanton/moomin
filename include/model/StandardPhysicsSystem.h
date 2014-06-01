@@ -20,13 +20,13 @@ public:
     EntityAccelerationRule & attraction();
     DirectionAccelerationRule & gravity();
 
-    float getWidth();
-    float getHeight();
+    int getWidth();
+    int getHeight();
 
     void resize(float width, float height);
 
 private:
-    float width, height;
+    int width, height;
 
     BoundingRule ruleBounding;
     CollisionRule ruleCollision;

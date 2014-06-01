@@ -11,6 +11,16 @@ PhysicsHelper::~PhysicsHelper()
 
 }
 
+int PhysicsHelper::getWidth()
+{
+    return physicsSystem.getWidth();
+}
+
+int PhysicsHelper::getHeight()
+{
+    return physicsSystem.getHeight();
+}
+
 void PhysicsHelper::enablePositionAccelerationRule(bool inverted)
 {
     physicsSystem.gravity().setEnabled(false);
@@ -81,26 +91,28 @@ void PhysicsHelper::addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity)
     physicsSystem.addEntity(new AABB(pos, bounds, velocity));
 }
 
-void PhysicsHelper::addCircleRandom()
+void PhysicsHelper::addCircleRandom(Vec2 velocity)
 {
     int worldWidth = (int) physicsSystem.getWidth();
     int worldHeight = (int) physicsSystem.getHeight();
 
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     float radius = (rand() % 20) + 20;
-    Vec2 velocity((rand() % 30) - 15, rand() % 30);
+
+    if (velocity == Vec2(0.f, 0.f)) velocity = Vec2((rand() % 30) - 15, rand() % 30);
 
     addCircle(pos, radius, velocity);
 }
 
-void PhysicsHelper::addAABBRandom()
+void PhysicsHelper::addAABBRandom(Vec2 velocity)
 {
     int worldWidth = (int) physicsSystem.getWidth();
     int worldHeight = (int) physicsSystem.getHeight();
 
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     Vec2 bounding((rand() % 160) + 80, (rand() % 160) + 80);
-    Vec2 velocity((rand() % 30) - 15, rand() % 30);
+
+    if (velocity == Vec2(0.f, 0.f)) velocity = Vec2((rand() % 30) - 15, rand() % 30);
 
     addAABB(pos, bounding, velocity);
 }

@@ -27,7 +27,7 @@ int main(void)
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLHandler::init("Moomin Engine v1.0", width, height);
+    GLHandler::init("Moomin Engine v1.0", width, height, &physicsHelper);
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
@@ -36,8 +36,6 @@ int main(void)
     // Register Renderers with Graphics System
     GLHandler::setEntityRenderer(&er);
     GLHandler::setFreeTypeRenderer(&fr);
-
-    GLHandler::registerPhysicsHelper(&physicsHelper);
 
     // Moomin!
     float lastUpdate = glfwGetTime();

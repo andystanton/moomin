@@ -41,12 +41,12 @@ DirectionAccelerationRule & StandardPhysicsSystem::gravity()
     return ruleGravity;
 }
 
-float StandardPhysicsSystem::getWidth()
+int StandardPhysicsSystem::getWidth()
 {
     return width;
 }
 
-float StandardPhysicsSystem::getHeight()
+int StandardPhysicsSystem::getHeight()
 {
     return height;
 }

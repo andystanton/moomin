@@ -9,6 +9,9 @@ public:
     PhysicsHelper(StandardPhysicsSystem &);
     ~PhysicsHelper();
 
+    int getWidth();
+    int getHeight();
+
     void enablePositionAccelerationRule(bool inverted);
     void enableEntityAccelerationRule(bool inverted);
     void enableDirectionAccelerationRule(char direction);
@@ -17,8 +20,8 @@ public:
     void addCircle(Vec2 pos, float radius, Vec2 velocity = Vec2(0.f, 0.f));
     void addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity = Vec2(0.f, 0.f));
 
-    void addCircleRandom();
-    void addAABBRandom();
+    void addCircleRandom(Vec2 velocity = Vec2(0.f, 0.f));
+    void addAABBRandom(Vec2 velocity = Vec2(0.f, 0.f));
 
     void addCirclesRandom(int count = 50);
     void addAABBsRandom(int count = 50);
