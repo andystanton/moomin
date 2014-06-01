@@ -19,8 +19,8 @@ go_bandit([]()
         it("is an instance of a Rule", []()
         {
             set<Entity *> entities;
-            entities.insert(new Circle(0.f, 0.f, 10.f));
-            entities.insert(new Circle(100.f, 0.f, 10.f));
+            entities.insert(new Circle(Vec2(0.f, 0.f), 10.f));
+            entities.insert(new Circle(Vec2(100.f, 0.f), 10.f));
 
             Rule * gravityField = new EntityAccelerationRule(entities, 10.f);
 
@@ -31,8 +31,8 @@ go_bandit([]()
         it("accepts a set of Entities to apply acceleration too and an acceleration in units/second^2", []()
         {
             set<Entity *> entities;
-            entities.insert(new Circle(0.f, 0.f, 10.f));
-            entities.insert(new Circle(100.f, 0.f, 10.f));
+            entities.insert(new Circle(Vec2(0.f, 0.f), 10.f));
+            entities.insert(new Circle(Vec2(100.f, 0.f), 10.f));
 
             EntityAccelerationRule gravityField(entities, 10.f);
 
@@ -42,8 +42,8 @@ go_bandit([]()
 
         it("applies its acceleration to the set of Entities given a time delta in ms toward the target Entity", []()
         {
-            Circle circle1(0.f, 0.f, 10.f);
-            Circle circle2(400.f, 300.f, 10.f);
+            Circle circle1(Vec2(0.f, 0.f),   10.f);
+            Circle circle2(Vec2(400.f, 300.f),   10.f);
 
             set<Entity *> entities;
             entities.insert(&circle1);
@@ -75,8 +75,8 @@ go_bandit([]()
 
         it("can be inverted", []()
         {
-            Circle circle1(0.f, 0.f, 10.f);
-            Circle circle2(400.f, 300.f, 10.f);
+            Circle circle1(Vec2(0.f, 0.f),   10.f);
+            Circle circle2(Vec2(400.f, 300.f),   10.f);
 
             set<Entity *> entities;
             entities.insert(&circle1);

@@ -34,7 +34,7 @@ go_bandit([]()
             // set gravity to (0, -10) units/second^2
             DirectionAccelerationRule gravity(Vec2(0.f, -10.f));
 
-            Circle entity(100.f, 100.f, 10.f);
+            Circle entity(Vec2(100.f, 100.f),   10.f);
 
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
@@ -65,7 +65,7 @@ go_bandit([]()
             DirectionAccelerationRule gravity(Vec2(0.f, -10.f));
             gravity.setInverted(true);
 
-            Circle entity(100.f, 100.f, 10.f);
+            Circle entity(Vec2(100.f, 100.f),   10.f);
 
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));

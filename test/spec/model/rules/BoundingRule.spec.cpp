@@ -38,7 +38,7 @@ go_bandit([]()
 
         describe("when an AABB crosses the rule's bounds", [&]()
         {
-            AABB aabb(100.f, 100.f, 20.f, 10.f);
+            AABB aabb(Vec2(100.f, 100.f), Vec2( 20.f, 10.f));
             float timeDeltaMilliseconds = 100;
 
             it("inverts the components of the AABB's velocity", [&]()
@@ -102,7 +102,7 @@ go_bandit([]()
 
         describe("when a Circle crosses the rule's bounds", [&]()
         {
-            Circle circle(100.f, 100.f, 10.f);
+            Circle circle(Vec2(100.f, 100.f),  10.f);
             float timeDeltaMilliseconds = 100;
 
             it("inverts the components of the Circle's velocity", [&]()

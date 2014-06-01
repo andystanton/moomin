@@ -8,7 +8,7 @@ class Circle
     : public Entity
 {
 public:
-    Circle(float x, float y, float radius);
+    Circle(Vec2 pos, float radius, Vec2 velocity = Vec2(0.f, 0.f));
     ~Circle();
 
     float getRadius();

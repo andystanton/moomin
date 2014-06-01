@@ -35,9 +35,9 @@ go_bandit([]()
         {
             set<Entity *> entities;
 
-            Circle c1(10.f, 10.f, 10.f);
-            Circle c2(50.f, 10.f, 10.f);
-            AABB aabb1(20.f, 12.f, 10.f, 10.f);
+            Circle c1(Vec2(10.f, 10.f),   10.f);
+            Circle c2(Vec2(50.f, 10.f),   10.f);
+            AABB aabb1(Vec2(20.f, 12.f), Vec2( 10.f, 10.f));
 
             entities.insert(&c1);
             entities.insert(&c2);
@@ -52,9 +52,9 @@ go_bandit([]()
 
             set<Entity *> entities;
 
-            Circle c1(0.f, 0.f, 3.f);
-            Circle c2(4.f, 3.f, 3.f);
-            Circle c3(100.f, 100.f, 3.f);
+            Circle c1(Vec2(0.f, 0.f),   3.f);
+            Circle c2(Vec2(4.f, 3.f),   3.f);
+            Circle c3(Vec2(100.f, 100.f),   3.f);
 
             c2.getVelocity().setX(-1.f);
 
@@ -92,9 +92,9 @@ go_bandit([]()
         {
             set<Entity *> entities;
 
-            AABB aabb1(   0.f,   0.f, 40.f, 30.f);
-            AABB aabb2( -36.f, -27.f, 40.f, 30.f);
-            AABB aabb3( 100.f, 100.f, 20.f, 10.f);
+            AABB aabb1(Vec2(   0.f,   0.f), Vec2( 40.f, 30.f));
+            AABB aabb2(Vec2( -36.f, -27.f), Vec2( 40.f, 30.f));
+            AABB aabb3(Vec2( 100.f, 100.f), Vec2( 20.f, 10.f));
 
             entities.insert(&aabb1);
             entities.insert(&aabb2);

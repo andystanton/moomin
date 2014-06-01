@@ -14,15 +14,18 @@ public:
     PhysicsSystem();
     ~PhysicsSystem();
 
+    bool isPaused();
+    void setPaused(bool paused);
     void step(float delta);
     void addEntity(Entity *);
     void addRule(Rule *);
     const set<Entity *> & getEntities() const;
     const set<Rule *> & getRules() const;
     void clearEntities();
-private:
+protected:
     set<Entity *> entities;
     set<Rule *> rules;
+    bool paused;
 };
 
 #endif

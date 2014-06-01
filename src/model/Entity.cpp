@@ -1,9 +1,9 @@
 #include "model/Entity.h"
 
-Entity::Entity(float x, float y, Entity::CollisionType collisionType)
-    : pos(x, y)
-    , nextPos(x, y)
-    , velocity(0.f, 0.f)
+Entity::Entity(Vec2 pos, Entity::CollisionType collisionType, Vec2 velocity)
+    : pos(pos)
+    , nextPos(pos)
+    , velocity(velocity)
     , collisionType(collisionType)
     , mass(0)
 {
