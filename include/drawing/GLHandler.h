@@ -98,7 +98,7 @@ namespace GLHandler
     Circle * createRandomCircle()
     {
         int worldWidth = 6400, worldHeight = 6400;
-        Circle * c = new Circle(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 20) + 20);
+        Circle * c = new Circle(Vec2(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75))), (rand() % 20) + 20);
         c->getVelocity().setX((rand() % 30) - 15);
         c->getVelocity().setY(rand() % 30);
         return c;
@@ -107,7 +107,7 @@ namespace GLHandler
     AABB * createRandomAABB()
     {
         int worldWidth = 6400, worldHeight = 6400;
-        AABB * aabb = new AABB(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75)), (rand() % 160) + 80, (rand() % 160) + 80);
+        AABB * aabb = new AABB(Vec2(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75))), Vec2((rand() % 160) + 80, (rand() % 160) + 80));
         aabb->getVelocity().setX((rand() % 30) - 15);
         aabb->getVelocity().setY(rand() % 30);
         return aabb;
@@ -137,7 +137,7 @@ namespace GLHandler
         {
             for (int j=0; j < 10; j++)
             {
-                Circle * temp = new Circle(x + i * diameter, y + j * diameter, radius);
+                Circle * temp = new Circle(Vec2(x + i * diameter, y + j * diameter), radius);
                 temp->getVelocity() = velocity;
                 physicsSystem->addEntity(temp);
             }
@@ -152,7 +152,7 @@ namespace GLHandler
         {
             for (int j=0; j < 10; j++)
             {
-                AABB * temp = new AABB(x + i * width, y + j * height, width, height);
+                AABB * temp = new AABB(Vec2(x + i * width, y + j * height), Vec2(width, height));
                 temp->getVelocity() = velocity;
                 physicsSystem->addEntity(temp);
             }
@@ -258,7 +258,7 @@ namespace GLHandler
         } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
         {
             //Circle * c = new Circle(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 20 );
-            AABB * c = new AABB(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 50, (rand() % 20) + 50);
+            AABB * c = new AABB(Vec2(clickStartX * 10, 6400 - (clickStartY * 10)), Vec2((rand() % 20) + 50, (rand() % 20) + 50));
             glfwGetCursorPos(window, &clickEndX, &clickEndY);
 
             c->getVelocity().setX(clickEndX - clickStartX);

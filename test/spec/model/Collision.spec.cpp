@@ -21,13 +21,13 @@ go_bandit([]()
     {
         describe("a Collision between two Circles", []()
         {
-            Circle primaryA(0.f, 0.f, 3.f);
-            Circle secondaryA(4.f, 3.f, 3.f);
+            Circle primaryA(Vec2(0.f, 0.f),  3.f);
+            Circle secondaryA(Vec2(4.f, 3.f),  3.f);
 
             Collision collisionA(primaryA, secondaryA);
 
-            Circle primaryB(0.f, 0.f, 3.f);
-            Circle secondaryB(-4.f, -3.f, 3.f);
+            Circle primaryB(Vec2(0.f, 0.f),  3.f);
+            Circle secondaryB(Vec2(-4.f, -3.f),  3.f);
 
             Collision collisionB(primaryB, secondaryB);
 
@@ -54,15 +54,15 @@ go_bandit([]()
 
         describe("a Collision between two AABBs", []()
         {
-            AABB primary(      0.f,   0.f, 40.f, 30.f);
+            AABB primary(Vec2(      0.f,   0.f), Vec2( 40.f, 30.f));
 
-            AABB secondaryA( -36.f, -27.f, 40.f, 30.f);
-            AABB secondaryB(  20.f,  25.f, 10.f, 10.f);
-            AABB secondaryC(  35.f,  25.f, 40.f, 30.f);
-            AABB secondaryD(  20.f,  -5.f, 10.f, 10.f);
-            AABB secondaryE( -15.f,  10.f, 20.f, 10.f);
-            AABB secondaryF(  37.f,  20.f,  5.f,  5.f);
-            AABB secondaryG(   1.f,   1.f,  5.f,  5.f);
+            AABB secondaryA(Vec2( -36.f, -27.f), Vec2( 40.f, 30.f));
+            AABB secondaryB(Vec2(  20.f,  25.f), Vec2( 10.f, 10.f));
+            AABB secondaryC(Vec2(  35.f,  25.f), Vec2( 40.f, 30.f));
+            AABB secondaryD(Vec2(  20.f,  -5.f), Vec2( 10.f, 10.f));
+            AABB secondaryE(Vec2( -15.f,  10.f), Vec2( 20.f, 10.f));
+            AABB secondaryF(Vec2(  37.f,  20.f), Vec2(  5.f,  5.f));
+            AABB secondaryG(Vec2(   1.f,   1.f), Vec2(  5.f,  5.f));
 
             Collision collisionA(primary, secondaryA);
             Collision collisionB(primary, secondaryB);
@@ -121,16 +121,16 @@ go_bandit([]()
 
         describe("a Collision between a Circle and an AABB", []()
         {
-            AABB secondary(-10.f, -10.f, 20.f, 20.f);
-            Circle primaryA(  0.f,  10.f, 3.f);
-            Circle primaryB(  0.f, -10.f, 4.f);
-            Circle primaryC(-10.f,   0.f, 2.5f);
-            Circle primaryD( 10.f,   0.f, 1.5f);
-            Circle primaryE(-10.f,  10.f, 1.15f);
-            Circle primaryF( 10.f,  10.f, 1.25f);
-            Circle primaryG( 10.f, -10.f, 1.35f);
-            Circle primaryH(-10.f, -10.f, 1.45f);
-            Circle primaryI(100.f, 100.f,20.f);
+            AABB secondary(Vec2(-10.f, -10.f), Vec2( 20.f, 20.f));
+            Circle primaryA(Vec2(  0.f,  10.f),  3.f);
+            Circle primaryB(Vec2(  0.f, -10.f),  4.f);
+            Circle primaryC(Vec2(-10.f,   0.f),  2.5f);
+            Circle primaryD(Vec2( 10.f,   0.f),  1.5f);
+            Circle primaryE(Vec2(-10.f,  10.f),  1.15f);
+            Circle primaryF(Vec2( 10.f,  10.f),  1.25f);
+            Circle primaryG(Vec2( 10.f, -10.f),  1.35f);
+            Circle primaryH(Vec2(-10.f, -10.f),  1.45f);
+            Circle primaryI(Vec2(100.f, 100.f), 20.f);
 
             Collision collisionA(primaryA, secondary);
             Collision collisionB(primaryB, secondary);
@@ -200,18 +200,18 @@ go_bandit([]()
 
         describe("a Collision between an AABB and a Circle", []()
         {
-            AABB primary(-10.f, -10.f, 20.f, 20.f);
-            Circle secondaryA(  0.f,  10.f, 3.f);
-            Circle secondaryB(  0.f, -10.f, 4.f);
-            Circle secondaryC(-10.f,   0.f, 2.5f);
-            Circle secondaryD( 10.f,   0.f, 1.5f);
-            Circle secondaryE(-10.f,  10.f, 1.15f);
-            Circle secondaryF( 10.f,  10.f, 1.25f);
-            Circle secondaryG( 10.f, -10.f, 1.35f);
-            Circle secondaryH(-10.f, -10.f, 1.45f);
-            Circle secondaryI(100.f, 100.f,20.f);
-            Circle secondaryJ( 15.f,  15.f, 10.f);
-            Circle secondaryK( 15.f,  12.f, 10.f);
+            AABB primary(Vec2(-10.f, -10.f), Vec2( 20.f, 20.f));
+            Circle secondaryA(Vec2(  0.f,  10.f),  3.f);
+            Circle secondaryB(Vec2(  0.f, -10.f),  4.f);
+            Circle secondaryC(Vec2(-10.f,   0.f),  2.5f);
+            Circle secondaryD(Vec2( 10.f,   0.f),  1.5f);
+            Circle secondaryE(Vec2(-10.f,  10.f),  1.15f);
+            Circle secondaryF(Vec2( 10.f,  10.f),  1.25f);
+            Circle secondaryG(Vec2( 10.f, -10.f),  1.35f);
+            Circle secondaryH(Vec2(-10.f, -10.f),  1.45f);
+            Circle secondaryI(Vec2(100.f, 100.f), 20.f);
+            Circle secondaryJ(Vec2( 15.f,  15.f),  10.f);
+            Circle secondaryK(Vec2( 15.f,  12.f),  10.f);
 
             Collision collisionA(primary, secondaryA);
             Collision collisionB(primary, secondaryB);

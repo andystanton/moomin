@@ -7,7 +7,7 @@ class AABB
     : public Entity
 {
 public:
-    AABB(float x, float y, float boundingX, float boundingY);
+    AABB(Vec2 pos, Vec2 bounding, Vec2 velocity = Vec2(0.f, 0.f));
     ~AABB();
 
     Vec2 & getBounding();
@@ -18,8 +18,8 @@ private:
     Vec2 bounding;
     Mesh mesh
     {
-        0.f, 0.f, 
-        0.f, bounding.getY(), 
+        0.f, 0.f,
+        0.f, bounding.getY(),
         bounding.getX(), 0.f,
         bounding.getX(), bounding.getY()
     };

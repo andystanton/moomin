@@ -10,11 +10,8 @@ go_bandit([]()
 {
     describe("an Entity", []()
     {
-        Entity * e1 = new Circle(23.0f, 12.0f, 5.f);
-        Entity * e2 = new AABB(20.f, 20.f, 5.f, 5.f);
-
-        e1->getVelocity().setX(5.f);
-        e1->getVelocity().setY(7.f);
+        Entity * e1 = new Circle(Vec2(23.0f, 12.0f), 5.f, Vec2(5.f, 7.f));
+        Entity * e2 = new AABB(Vec2(20.f, 20.f), Vec2(5.f, 5.f));
 
         it("has a position and a velocity", [&]()
         {

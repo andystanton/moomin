@@ -33,7 +33,7 @@ go_bandit([]()
 
             AssertThat(physicsSystem.getEntities(), IsEmpty());
 
-            Circle someCircle = Circle(100.f, 100.f, 10.f);
+            Circle someCircle = Circle(Vec2(100.f, 100.f), 10.f);
             physicsSystem.addEntity(&someCircle);
 
             AssertThat(physicsSystem.getEntities(), HasLength(1));

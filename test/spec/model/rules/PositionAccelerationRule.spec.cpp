@@ -35,7 +35,7 @@ go_bandit([]()
             // set bigCrunch to 10 units/second^2 toward 0,0
             PositionAccelerationRule bigCrunch(Vec2(0.f, 0.f), 10.f);
 
-            Circle entity(400.f, 300.f, 10.f);
+            Circle entity(Vec2(400.f, 300.f),   10.f);
 
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
@@ -64,7 +64,7 @@ go_bandit([]()
             // then invert it
             bigBang.setInverted(true);
 
-            Circle entity(400.f, 300.f, 10.f);
+            Circle entity(Vec2(400.f, 300.f),   10.f);
 
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));

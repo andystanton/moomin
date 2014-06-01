@@ -70,3 +70,13 @@ void PhysicsHelper::togglePause()
 {
     physicsSystem.setPaused(!physicsSystem.isPaused());
 }
+
+void PhysicsHelper::addCircle(Vec2 pos, float radius, Vec2 velocity)
+{
+    physicsSystem.addEntity(new Circle(pos, radius, velocity));
+}
+
+void PhysicsHelper::addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity)
+{
+    physicsSystem.addEntity(new AABB(pos, bounds, velocity));
+}

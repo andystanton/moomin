@@ -9,14 +9,14 @@
 
 using namespace bandit;
 
-go_bandit([]() 
+go_bandit([]()
 {
-    describe("a Rule", []() 
+    describe("a Rule", []()
     {
         it("affects an Entity with a time delta in ms", []()
         {
             Rule * gravity = new DirectionAccelerationRule(Vec2(0.f, -10.f));
-            Entity * entity = new Circle(100.f, 100.f, 10.f);
+            Entity * entity = new Circle(Vec2(100.f, 100.f), 10.f);
 
             gravity->apply(*entity, 100.f);
         });
