@@ -37,7 +37,7 @@ int main(void)
     GLHandler::setEntityRenderer(&er);
     GLHandler::setFreeTypeRenderer(&fr);
 
-    GLHandler::registerPhysicsSystem(&stdPhysicsSystem, &physicsHelper);
+    GLHandler::registerPhysicsHelper(&physicsHelper);
 
     // Moomin!
     float lastUpdate = glfwGetTime();

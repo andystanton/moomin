@@ -10,7 +10,6 @@
 #include <GLFW/glfw3.h>
 
 #include "model/PhysicsHelper.h"
-#include "model/StandardPhysicsSystem.h"
 #include "model/Circle.h"
 #include "model/AABB.h"
 
@@ -39,8 +38,6 @@ namespace GLHandler
 
     FreeTypeRenderer * freeTypeRenderer = nullptr;
     EntityRenderer * entityRenderer = nullptr;
-
-    StandardPhysicsSystem * physicsSystem;
 
     PhysicsHelper * physicsHelper;
 
@@ -95,76 +92,11 @@ namespace GLHandler
         registerRenderer(entityRenderer);
     }
 
-    void createCirclesRandom()
+    void registerPhysicsHelper(PhysicsHelper * newPhysicsHelper)
     {
-        for (int i=0; i < 50; i++)
-        {
-            physicsHelper->addRandomCircle();
-        }
-    }
-
-    void createAABBsRandom()
-    {
-        for (int i=0; i < 50; i++)
-        {
-            physicsHelper->addRandomAABB();
-        }
-    }
-
-    void createCirclesLattice(float x = 2700, float y = 2700, Vec2 velocity = Vec2(0,0))
-    {
-        float radius = 50;
-        float diameter = 2 * radius;
-        for (int i=0; i < 10; i++)
-        {
-            for (int j=0; j < 10; j++)
-            {
-                Circle * temp = new Circle(Vec2(x + i * diameter, y + j * diameter), radius);
-                temp->getVelocity() = velocity;
-                physicsSystem->addEntity(temp);
-            }
-        }
-    }
-
-    void createAABBLattice(float x = 2650, float y = 2650, Vec2 velocity = Vec2(0,0))
-    {
-        float width = 100;
-        float height = width;
-        for (int i=0; i < 10; i++)
-        {
-            for (int j=0; j < 10; j++)
-            {
-                AABB * temp = new AABB(Vec2(x + i * width, y + j * height), Vec2(width, height));
-                temp->getVelocity() = velocity;
-                physicsSystem->addEntity(temp);
-            }
-        }
-    }
-
-    void createChaosLattice(bool inverted)
-    {
-        physicsHelper->disableAccelerationRules();
-        float speed = 30;
-        if (!inverted)
-        {
-            createCirclesLattice(100, 100, Vec2(speed,speed));
-            createAABBLattice(5300, 5300, Vec2(-speed,-speed));
-        } else
-        {
-            createCirclesLattice(100, 5300, Vec2(speed,-speed));
-            createAABBLattice(5300, 100, Vec2(-speed,speed));
-        }
-    }
-
-    void registerPhysicsSystem(StandardPhysicsSystem * newPhysicsSystem, PhysicsHelper * newPhysicsHelper)
-    {
-        physicsSystem = newPhysicsSystem;
         physicsHelper = newPhysicsHelper;
-
-        createCirclesLattice();
+        physicsHelper->addCirclesLatticeCentre(Vec2(1000, 1000), 10);
     }
-
-
 
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
     {
@@ -175,28 +107,22 @@ namespace GLHandler
                     physicsHelper->togglePause();
                     break;
                 case GLFW_KEY_1:
-                    physicsSystem->clearEntities();
-                    createCirclesRandom();
+                    physicsHelper->addCirclesRandom();
                     break;
                 case GLFW_KEY_2:
-                    physicsSystem->clearEntities();
-                    createAABBsRandom();
+                    physicsHelper->addAABBsRandom();
                     break;
                 case GLFW_KEY_3:
-                    physicsSystem->clearEntities();
-                    createCirclesLattice();
+                    physicsHelper->addCirclesLatticeCentre(Vec2(1000, 1000), 10);
                     break;
                 case GLFW_KEY_4:
-                    physicsSystem->clearEntities();
-                    createAABBLattice();
+                    physicsHelper->addAABBsLatticeCentre(Vec2(1000, 1000), 10);
                     break;
                 case GLFW_KEY_5:
-                    physicsSystem->clearEntities();
-                    createChaosLattice(false);
+                    physicsHelper->addChaosLattice(false);
                     break;
                 case GLFW_KEY_6:
-                    physicsSystem->clearEntities();
-                    createChaosLattice(true);
+                    physicsHelper->addChaosLattice(true);
                     break;
                 case GLFW_KEY_0:
                     physicsHelper->disableAccelerationRules();
@@ -239,14 +165,19 @@ namespace GLHandler
             glfwGetCursorPos(window, &clickStartX, &clickStartY);
         } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
         {
-            //Circle * c = new Circle(clickStartX * 10, 6400 - (clickStartY * 10), (rand() % 20) + 20 );
-            AABB * c = new AABB(Vec2(clickStartX * 10, 6400 - (clickStartY * 10)), Vec2((rand() % 20) + 50, (rand() % 20) + 50));
             glfwGetCursorPos(window, &clickEndX, &clickEndY);
 
-            c->getVelocity().setX(clickEndX - clickStartX);
-            c->getVelocity().setY(-(clickEndY - clickStartY));
+            Vec2 pos(clickStartX * 10, 6400 - (clickStartY * 10));
+            Vec2 bounding(Vec2((rand() % 20) + 50, (rand() % 20) + 50));
+            Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
 
-            physicsSystem->addEntity(c);
+            physicsHelper->addAABB(pos, bounding, velocity);
+
+            // Vec2 pos(clickStartX * 10, 6400 - (clickStartY * 10));
+            // float radius = (rand() % 20) + 20;
+            // Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
+            //
+            // physicsHelper->addCircle(pos, radius, velocity);
         }
     }
 

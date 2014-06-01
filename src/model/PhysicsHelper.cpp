@@ -81,7 +81,7 @@ void PhysicsHelper::addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity)
     physicsSystem.addEntity(new AABB(pos, bounds, velocity));
 }
 
-void PhysicsHelper::addRandomCircle()
+void PhysicsHelper::addCircleRandom()
 {
     int worldWidth = (int) physicsSystem.getWidth();
     int worldHeight = (int) physicsSystem.getHeight();
@@ -93,7 +93,7 @@ void PhysicsHelper::addRandomCircle()
     addCircle(pos, radius, velocity);
 }
 
-void PhysicsHelper::addRandomAABB()
+void PhysicsHelper::addAABBRandom()
 {
     int worldWidth = (int) physicsSystem.getWidth();
     int worldHeight = (int) physicsSystem.getHeight();
@@ -103,4 +103,84 @@ void PhysicsHelper::addRandomAABB()
     Vec2 velocity((rand() % 30) - 15, rand() % 30);
 
     addAABB(pos, bounding, velocity);
+}
+
+void PhysicsHelper::addCirclesRandom(int count)
+{
+    physicsSystem.clearEntities();
+
+    for (int i=0; i < count; i++)
+    {
+        addCircleRandom();
+    }
+}
+
+void PhysicsHelper::addAABBsRandom(int count)
+{
+    physicsSystem.clearEntities();
+
+    for (int i=0; i < count; i++)
+    {
+        addAABBRandom();
+    }
+}
+
+void PhysicsHelper::addCirclesLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity)
+{
+    float x = pos.getX();
+    float y = pos.getY();
+    float diameter = dimensions.getX() / divisions;
+    float radius = diameter / 2;
+    for (int i=0; i < divisions; i++)
+    {
+        for (int j=0; j < divisions; j++)
+        {
+            addCircle(Vec2(x + i * diameter, y + j * diameter), radius, velocity);
+        }
+    }
+}
+
+void PhysicsHelper::addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity)
+{
+    float width = dimensions.getX() / divisions;
+    float height = dimensions.getY() / divisions;
+    float x = pos.getX();
+    float y = pos.getY();
+    for (int i=0; i < 10; i++)
+    {
+        for (int j=0; j < 10; j++)
+        {
+            addAABB(Vec2(x + i * width, y + j * height), Vec2(width, height), velocity);
+        }
+    }
+}
+
+void PhysicsHelper::addCirclesLatticeCentre(Vec2 dimensions, int divisions)
+{
+    physicsSystem.clearEntities();
+    float halfWidth = (physicsSystem.getWidth() - dimensions.getX()) / 2;
+    addCirclesLattice(Vec2(halfWidth, halfWidth), dimensions, divisions);
+}
+
+void PhysicsHelper::addAABBsLatticeCentre(Vec2 dimensions, int divisions)
+{
+    physicsSystem.clearEntities();
+    float halfWidth = (physicsSystem.getWidth() - dimensions.getX()) / 2;
+    addAABBsLattice(Vec2(halfWidth, halfWidth), dimensions, divisions);
+}
+
+void PhysicsHelper::addChaosLattice(bool inverted)
+{
+    physicsSystem.clearEntities();
+    disableAccelerationRules();
+    float speed = 30;
+    if (!inverted)
+    {
+        addCirclesLattice(Vec2(100, 100), Vec2(1000, 1000), 10, Vec2(speed,speed));
+        addAABBsLattice(Vec2(5300, 5300), Vec2(1000, 1000), 10, Vec2(-speed,-speed));
+    } else
+    {
+        addCirclesLattice(Vec2(100, 5300), Vec2(1000, 1000), 10, Vec2(speed,-speed));
+        addAABBsLattice(Vec2(5300, 100), Vec2(1000, 1000), 10, Vec2(-speed,speed));
+    }
 }
