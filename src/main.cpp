@@ -1,18 +1,9 @@
-#include <iostream>
-
 #include "drawing/GLFWGLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/rules/EntityAccelerationRule.h"
-#include "model/rules/PositionAccelerationRule.h"
-#include "model/rules/BoundingRule.h"
-#include "model/rules/CollisionRule.h"
-#include "model/PhysicsSystem.h"
 #include "model/StandardPhysicsSystem.h"
 #include "model/PhysicsHelper.h"
-
 
 using namespace std;
 
@@ -36,7 +27,7 @@ int main(void)
     glHandler.setFreeTypeRenderer(&fr);
 
     // Moomin!
-    float lastUpdate = glfwGetTime();
+    float lastUpdate = glHandler.getTime();
     while (glHandler.isActive())
     {
         glHandler.draw();
@@ -47,5 +38,6 @@ int main(void)
     }
 
     glHandler.quit();
+
     return 0;
 }
