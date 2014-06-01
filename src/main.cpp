@@ -12,11 +12,11 @@ int main(void)
     int width = 800, height = 600;
 
     // Create Physics System
-    StandardPhysicsSystem physicsSystem(10 * width, 10 * height);
+    StandardPhysicsSystem physicsSystem(width * 10, height * 10);
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, &physicsHelper);
+    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());

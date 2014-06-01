@@ -37,7 +37,7 @@ using std::endl;
 class GLHandler
 {
 public:
-    GLHandler(const string& title, int width, int height, PhysicsHelper *);
+    GLHandler(const string& title, int width, int height, PhysicsHelper &);
     ~GLHandler();
 
     void setEntityRenderer(EntityRenderer *);
@@ -57,7 +57,7 @@ protected:
     string title;
     int width;
     int height;
-    PhysicsHelper * physicsHelper;
+    PhysicsHelper & physicsHelper;
 
 private:
     set<Renderer *> renderers;

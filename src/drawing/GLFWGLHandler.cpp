@@ -3,7 +3,7 @@
 GLFWGLHandler::GLFWGLHandler(const string& title,
                              int width,
                              int height,
-                             PhysicsHelper * physicsHelper)
+                             PhysicsHelper & physicsHelper)
     : GLHandler(title, width, height, physicsHelper)
 {
     if (!glfwInit()) {
@@ -68,58 +68,58 @@ void GLFWGLHandler::handleKey(int key, int action)
     {
         switch (key) {
             case GLFW_KEY_SPACE:
-                physicsHelper->togglePause();
+                physicsHelper.togglePause();
                 break;
             case GLFW_KEY_1:
-                physicsHelper->addCirclesRandom();
+                physicsHelper.addCirclesRandom();
                 break;
             case GLFW_KEY_2:
-                physicsHelper->addAABBsRandom();
+                physicsHelper.addAABBsRandom();
                 break;
             case GLFW_KEY_3:
-                physicsHelper->addCirclesLatticeCentre();
+                physicsHelper.addCirclesLatticeCentre();
                 break;
             case GLFW_KEY_4:
-                physicsHelper->addAABBsLatticeCentre();
+                physicsHelper.addAABBsLatticeCentre();
                 break;
             case GLFW_KEY_5:
-                physicsHelper->addChaosLattice(false);
+                physicsHelper.addChaosLattice(false);
                 break;
             case GLFW_KEY_6:
-                physicsHelper->addChaosLattice(true);
+                physicsHelper.addChaosLattice(true);
                 break;
             case GLFW_KEY_0:
-                physicsHelper->disableAccelerationRules();
+                physicsHelper.disableAccelerationRules();
                 break;
             case GLFW_KEY_LEFT_BRACKET:
-                physicsHelper->enablePositionAccelerationRule(false);
+                physicsHelper.enablePositionAccelerationRule(false);
                 break;
             case GLFW_KEY_RIGHT_BRACKET:
-                physicsHelper->enablePositionAccelerationRule(true);
+                physicsHelper.enablePositionAccelerationRule(true);
                 break;
             case GLFW_KEY_Q:
-                physicsHelper->setSpawnModeCircle();
+                physicsHelper.setSpawnModeCircle();
                 break;
             case GLFW_KEY_W:
-                physicsHelper->setSpawnModeAABB();
+                physicsHelper.setSpawnModeAABB();
                 break;
             case GLFW_KEY_O:
-                physicsHelper->enableEntityAccelerationRule(false);
+                physicsHelper.enableEntityAccelerationRule(false);
                 break;
             case GLFW_KEY_P:
-                physicsHelper->enableEntityAccelerationRule(true);
+                physicsHelper.enableEntityAccelerationRule(true);
                 break;
             case GLFW_KEY_UP:
-                physicsHelper->enableDirectionAccelerationRule('N');
+                physicsHelper.enableDirectionAccelerationRule('N');
                 break;
             case GLFW_KEY_DOWN:
-                physicsHelper->enableDirectionAccelerationRule('S');
+                physicsHelper.enableDirectionAccelerationRule('S');
                 break;
             case GLFW_KEY_LEFT:
-                physicsHelper->enableDirectionAccelerationRule('W');
+                physicsHelper.enableDirectionAccelerationRule('W');
                 break;
             case GLFW_KEY_RIGHT:
-                physicsHelper->enableDirectionAccelerationRule('E');
+                physicsHelper.enableDirectionAccelerationRule('E');
                 break;
         }
     }
@@ -133,7 +133,7 @@ void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);
-        physicsHelper->spawnEntityOnTrajectory(Vec2(clickStartX, clickStartY), Vec2(clickEndX, clickEndY));
+        physicsHelper.spawnEntityOnTrajectory(Vec2(clickStartX, clickStartY), Vec2(clickEndX, clickEndY));
     }
 }
 

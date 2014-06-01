@@ -3,7 +3,7 @@
 GLHandler::GLHandler(const string& title,
                      int width,
                      int height,
-                     PhysicsHelper * physicsHelper)
+                     PhysicsHelper & physicsHelper)
     : title(title)
     , width(width)
     , height(height)
@@ -96,7 +96,7 @@ void GLHandler::resize()
     glMatrixMode(GL_PROJECTION );
     glLoadIdentity();
 
-    glOrtho(0, physicsHelper->getWidth(), 0, physicsHelper->getHeight(), 0, 1);
+    glOrtho(0, physicsHelper.getWidth(), 0, physicsHelper.getHeight(), 0, 1);
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
 

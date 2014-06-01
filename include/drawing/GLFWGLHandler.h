@@ -8,7 +8,7 @@ class GLFWGLHandler
     : public GLHandler
 {
 public:
-    GLFWGLHandler(const string& title, int width, int height, PhysicsHelper *);
+    GLFWGLHandler(const string& title, int width, int height, PhysicsHelper &);
     ~GLFWGLHandler();
 
     void draw();
