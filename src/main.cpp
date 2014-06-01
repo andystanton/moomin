@@ -16,14 +16,12 @@
 
 using namespace std;
 
-int width = 640, height = 640;
-
-int worldWidth = width * 10, worldHeight = height * 10;
-
 int main(void)
 {
+    int width = 800, height = 600;
+
     // Create Physics System
-    StandardPhysicsSystem physicsSystem(worldWidth, worldHeight);
+    StandardPhysicsSystem physicsSystem(10 * width, 10 * height);
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
@@ -42,8 +40,10 @@ int main(void)
     while (glHandler.isActive())
     {
         glHandler.draw();
-        physicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
-        lastUpdate = glfwGetTime();
+
+        float time = glHandler.getTime();
+        physicsSystem.step(1000 * (time - lastUpdate));
+        lastUpdate = time;
     }
 
     glHandler.quit();

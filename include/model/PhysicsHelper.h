@@ -35,8 +35,14 @@ public:
     void addChaosLattice(bool inverted, int divisions = 10);
 
     void togglePause();
+
+    void setSpawnModeCircle();
+    void setSpawnModeAABB();
+
+    void spawnEntityOnTrajectory(Vec2 trajectoryStart, Vec2 trajectoryEnd);
 private:
     StandardPhysicsSystem & physicsSystem;
+    Entity::CollisionType spawnMode;
 };
 
 #endif

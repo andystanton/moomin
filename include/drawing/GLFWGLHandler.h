@@ -14,10 +14,11 @@ public:
     void draw();
     bool isActive();
     void quit();
+    double getTime();
 
     void handleKey(int key, int action);
-    void handleClick(int button, int action);
-    void handleResize(GLFWwindow * window, int windowWidth, int windowHeight);
+    void handleClick(GLFWwindow *, int button, int action);
+    void handleResize(GLFWwindow *, int width, int height);
 
     static GLFWGLHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);

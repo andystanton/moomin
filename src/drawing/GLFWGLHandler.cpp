@@ -57,6 +57,11 @@ void GLFWGLHandler::quit()
     glfwTerminate();
 }
 
+double GLFWGLHandler::getTime()
+{
+    return glfwGetTime();
+}
+
 void GLFWGLHandler::handleKey(int key, int action)
 {
     if (action == GLFW_PRESS)
@@ -92,6 +97,12 @@ void GLFWGLHandler::handleKey(int key, int action)
             case GLFW_KEY_RIGHT_BRACKET:
                 physicsHelper->enablePositionAccelerationRule(true);
                 break;
+            case GLFW_KEY_Q:
+                physicsHelper->setSpawnModeCircle();
+                break;
+            case GLFW_KEY_W:
+                physicsHelper->setSpawnModeAABB();
+                break;
             case GLFW_KEY_O:
                 physicsHelper->enableEntityAccelerationRule(false);
                 break;
@@ -114,7 +125,7 @@ void GLFWGLHandler::handleKey(int key, int action)
     }
 }
 
-void GLFWGLHandler::handleClick(int button, int action)
+void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
@@ -122,18 +133,7 @@ void GLFWGLHandler::handleClick(int button, int action)
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);
-
-        Vec2 pos(clickStartX * 10, physicsHelper->getHeight() - (clickStartY * 10));
-        Vec2 bounding(Vec2((rand() % 20) + 50, (rand() % 20) + 50));
-        Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
-
-        physicsHelper->addAABB(pos, bounding, velocity);
-
-        // Vec2 pos(clickStartX * 10, physicsHelper->getHeight() - (clickStartY * 10));
-        // float radius = (rand() % 20) + 20;
-        // Vec2 velocity(clickEndX - clickStartX, -(clickEndY - clickStartY));
-        //
-        // physicsHelper->addCircle(pos, radius, velocity);
+        physicsHelper->spawnEntityOnTrajectory(Vec2(clickStartX, clickStartY), Vec2(clickEndX, clickEndY));
     }
 }
 
@@ -150,10 +150,10 @@ void GLFWGLHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode,
 
 void GLFWGLHandler::handleClickWrapper(GLFWwindow * window, int button, int action, int mods)
 {
-    GLFWGLHandler::instance->handleClick(button, action);
+    GLFWGLHandler::instance->handleClick(window, button, action);
 }
 
-void GLFWGLHandler::handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight)
+void GLFWGLHandler::handleResizeWrapper(GLFWwindow * window, int width, int height)
 {
-    GLFWGLHandler::instance->handleResize(window, windowWidth, windowHeight);
+    GLFWGLHandler::instance->handleResize(window, width, height);
 }
