@@ -89,7 +89,7 @@ namespace GLHandler
     void registerPhysicsHelper(PhysicsHelper * newPhysicsHelper)
     {
         physicsHelper = newPhysicsHelper;
-        physicsHelper->addCirclesLatticeCentre(Vec2(1000, 1000), 10);
+        physicsHelper->addCirclesLatticeCentre();
     }
 
     void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
@@ -107,10 +107,10 @@ namespace GLHandler
                     physicsHelper->addAABBsRandom();
                     break;
                 case GLFW_KEY_3:
-                    physicsHelper->addCirclesLatticeCentre(Vec2(1000, 1000), 10);
+                    physicsHelper->addCirclesLatticeCentre();
                     break;
                 case GLFW_KEY_4:
-                    physicsHelper->addAABBsLatticeCentre(Vec2(1000, 1000), 10);
+                    physicsHelper->addAABBsLatticeCentre();
                     break;
                 case GLFW_KEY_5:
                     physicsHelper->addChaosLattice(false);

@@ -155,32 +155,44 @@ void PhysicsHelper::addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Ve
     }
 }
 
-void PhysicsHelper::addCirclesLatticeCentre(Vec2 dimensions, int divisions)
+void PhysicsHelper::addCirclesLatticeCentre(int divisions)
 {
     physicsSystem.clearEntities();
-    float halfWidth = (physicsSystem.getWidth() - dimensions.getX()) / 2;
-    addCirclesLattice(Vec2(halfWidth, halfWidth), dimensions, divisions);
+    float latticeWidth = physicsSystem.getWidth() / 8;
+    float halfWidth = (physicsSystem.getWidth() -latticeWidth) / 2;
+    addCirclesLattice(Vec2(halfWidth, halfWidth), Vec2(latticeWidth, latticeWidth), divisions);
 }
 
-void PhysicsHelper::addAABBsLatticeCentre(Vec2 dimensions, int divisions)
+void PhysicsHelper::addAABBsLatticeCentre(int divisions)
 {
     physicsSystem.clearEntities();
-    float halfWidth = (physicsSystem.getWidth() - dimensions.getX()) / 2;
-    addAABBsLattice(Vec2(halfWidth, halfWidth), dimensions, divisions);
+    float latticeWidth = physicsSystem.getWidth() / 8;
+    float halfWidth = (physicsSystem.getWidth() - latticeWidth - (latticeWidth / divisions)) / 2;
+    addAABBsLattice(Vec2(halfWidth, halfWidth), Vec2(latticeWidth, latticeWidth), divisions);
 }
 
-void PhysicsHelper::addChaosLattice(bool inverted)
+void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
 {
     physicsSystem.clearEntities();
     disableAccelerationRules();
     float speed = 30;
+
+    float latticeWidth = physicsSystem.getWidth() / 8;
+    float entitySize = latticeWidth / divisions;
+
+    //float circleWidthOffset = physicsSystem.getWidth() - latticeWidth + entitySize / 2;
+    float circleHeightOffset = physicsSystem.getHeight() - latticeWidth - (entitySize / 2);
+
+    float aabbWidthOffset = physicsSystem.getWidth() - latticeWidth - entitySize;
+    float aabbHeightOffset = physicsSystem.getWidth() - latticeWidth - entitySize;
+
     if (!inverted)
     {
-        addCirclesLattice(Vec2(100, 100), Vec2(1000, 1000), 10, Vec2(speed,speed));
-        addAABBsLattice(Vec2(5300, 5300), Vec2(1000, 1000), 10, Vec2(-speed,-speed));
+        addCirclesLattice(Vec2(entitySize * 1.5, entitySize * 1.5), Vec2(latticeWidth, latticeWidth), divisions, Vec2( speed, speed));
+        addAABBsLattice(Vec2(aabbWidthOffset, aabbHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, Vec2(-speed,-speed));
     } else
     {
-        addCirclesLattice(Vec2(100, 5300), Vec2(1000, 1000), 10, Vec2(speed,-speed));
-        addAABBsLattice(Vec2(5300, 100), Vec2(1000, 1000), 10, Vec2(-speed,speed));
+        addCirclesLattice(Vec2(entitySize * 1.5, circleHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, Vec2(speed,-speed));
+        addAABBsLattice(Vec2(aabbWidthOffset, entitySize), Vec2(latticeWidth, latticeWidth), divisions, Vec2(-speed,speed));
     }
 }

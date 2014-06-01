@@ -26,10 +26,10 @@ public:
     void addCirclesLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2(0,0));
     void addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2(0,0));
 
-    void addCirclesLatticeCentre(Vec2 dimensions, int divisions);
-    void addAABBsLatticeCentre(Vec2 dimensions, int divisions);
+    void addCirclesLatticeCentre(int divisions = 10);
+    void addAABBsLatticeCentre(int divisions = 10);
 
-    void addChaosLattice(bool inverted);
+    void addChaosLattice(bool inverted, int divisions = 10);
 
     void togglePause();
 private:

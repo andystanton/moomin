@@ -23,14 +23,14 @@ int worldWidth = 6400, worldHeight = 6400;
 int main(void)
 {
     // Create Physics System
-    StandardPhysicsSystem stdPhysicsSystem(worldWidth, worldHeight);
-    PhysicsHelper physicsHelper(stdPhysicsSystem);
+    StandardPhysicsSystem physicsSystem(worldWidth, worldHeight);
+    PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
     GLHandler::init("Moomin Engine v1.0", width, height);
 
     // Create Renderers
-    EntityRenderer er(stdPhysicsSystem.getEntities());
+    EntityRenderer er(physicsSystem.getEntities());
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     // Register Renderers with Graphics System
@@ -44,7 +44,7 @@ int main(void)
     while (GLHandler::isActive())
     {
         GLHandler::draw();
-        stdPhysicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
+        physicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
         lastUpdate = glfwGetTime();
     }
 
