@@ -1,8 +1,10 @@
 #ifndef _MOOMIN_GLFW_GL_HANDLER
 #define _MOOMIN_GLFW_GL_HANDLER
 
-#include "drawing/GLHandler.h"
+#define GLFW_INCLUDE_GLCOREARB
 #include <GLFW/glfw3.h>
+
+#include "drawing/GLHandler.h"
 
 class GLFWGLHandler
     : public GLHandler

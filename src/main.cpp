@@ -1,6 +1,5 @@
 #include "drawing/GLFWGLHandler.h"
 #include "drawing/EntityRenderer.h"
-#include "drawing/FreeTypeRenderer.h"
 
 #include "model/StandardPhysicsSystem.h"
 #include "model/PhysicsHelper.h"
@@ -20,11 +19,9 @@ int main(void)
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
-    FreeTypeRenderer fr;
 
     // Register Renderers with Graphics System
     glHandler.setEntityRenderer(&er);
-    glHandler.setFreeTypeRenderer(&fr);
 
     // Moomin!
     float lastUpdate = glHandler.getTime();

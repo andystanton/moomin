@@ -1,13 +1,12 @@
 #ifndef _MOOMIN_ENTITY_RENDERER
 #define _MOOMIN_ENTITY_RENDERER
 
+#define GLFW_INCLUDE_GLCOREARB
+#include <GLFW/glfw3.h>
+
 #include <set>
 
 #include "Renderer.h"
-
-#include <freetype-gl.h>
-#include <GLFW/glfw3.h>
-
 #include "model/Entity.h"
 #include "model/Circle.h"
 

@@ -1,28 +1,18 @@
 #ifndef _MOOMIN_GL_HANDLER
 #define _MOOMIN_GL_HANDLER
 
+#define GLFW_INCLUDE_GLCOREARB
+#include <GLFW/glfw3.h>
+
 #include <set>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
-#include <freetype-gl.h>
-
-#ifdef __APPLE__
-    #include "OpenGL/gl.h"
-    #include "OpenGL/glu.h"
-#else
-    #include "GL/gl.h"
-    #include "GL/glu.h"
-#endif
-
 #include "model/PhysicsHelper.h"
 
 #include "drawing/Renderer.h"
-#include "drawing/FreeTypeRenderer.h"
 #include "drawing/EntityRenderer.h"
-#include "drawing/Text.h"
-#include "drawing/FontProvider.h"
 
 using std::set;
 using std::stringstream;
@@ -39,7 +29,6 @@ public:
     ~GLHandler();
 
     void setEntityRenderer(EntityRenderer *);
-    void setFreeTypeRenderer(FreeTypeRenderer *);
 
     virtual double getTime() = 0;
     virtual bool isActive() = 0;
