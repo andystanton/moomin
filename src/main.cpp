@@ -18,7 +18,7 @@ using namespace std;
 
 int width = 640, height = 640;
 
-int worldWidth = 6400, worldHeight = 6400;
+int worldWidth = width * 10, worldHeight = height * 10;
 
 int main(void)
 {

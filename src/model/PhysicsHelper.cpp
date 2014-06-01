@@ -186,13 +186,45 @@ void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
     float aabbWidthOffset = physicsSystem.getWidth() - latticeWidth - entitySize;
     float aabbHeightOffset = physicsSystem.getWidth() - latticeWidth - entitySize;
 
+    // TODO: make this less shit
+
     if (!inverted)
     {
-        addCirclesLattice(Vec2(entitySize * 1.5, entitySize * 1.5), Vec2(latticeWidth, latticeWidth), divisions, Vec2( speed, speed));
-        addAABBsLattice(Vec2(aabbWidthOffset, aabbHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, Vec2(-speed,-speed));
+        Vec2 circleCentre(entitySize + latticeWidth / 2, entitySize + latticeWidth / 2);
+        Vec2 aabbCentre(aabbWidthOffset + latticeWidth / 2, aabbHeightOffset + latticeWidth / 2);
+
+        Vec2 circleVelocity = Vec2(physicsSystem.getWidth(), physicsSystem.getHeight()) - circleCentre;
+        circleVelocity.normalise();
+        circleVelocity *= speed;
+        circleVelocity.setX((int) circleVelocity.getX());
+        circleVelocity.setY((int) circleVelocity.getY());
+
+        Vec2 aabbVelocity = Vec2(0.f, 0.f) - aabbCentre;
+        aabbVelocity.normalise();
+        aabbVelocity *= speed;
+        aabbVelocity.setX((int) aabbVelocity.getX());
+        aabbVelocity.setY((int) aabbVelocity.getY());
+
+        addCirclesLattice(Vec2(entitySize * 1.5, entitySize * 1.5), Vec2(latticeWidth, latticeWidth), divisions, circleVelocity);
+        addAABBsLattice(Vec2(aabbWidthOffset, aabbHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, aabbVelocity);
     } else
     {
-        addCirclesLattice(Vec2(entitySize * 1.5, circleHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, Vec2(speed,-speed));
-        addAABBsLattice(Vec2(aabbWidthOffset, entitySize), Vec2(latticeWidth, latticeWidth), divisions, Vec2(-speed,speed));
+        Vec2 circleCentre(entitySize + latticeWidth / 2, aabbHeightOffset + latticeWidth / 2);
+        Vec2 aabbCentre(aabbWidthOffset + latticeWidth / 2, entitySize + latticeWidth / 2);
+
+        Vec2 circleVelocity = Vec2(physicsSystem.getWidth(), 0.f) - circleCentre;
+        circleVelocity.normalise();
+        circleVelocity *= speed;
+        circleVelocity.setX((int) circleVelocity.getX());
+        circleVelocity.setY((int) circleVelocity.getY());
+
+        Vec2 aabbVelocity = Vec2(0.f, physicsSystem.getWidth()) - aabbCentre;
+        aabbVelocity.normalise();
+        aabbVelocity *= speed;
+        aabbVelocity.setX((int) aabbVelocity.getX());
+        aabbVelocity.setY((int) aabbVelocity.getY());
+
+        addCirclesLattice(Vec2(entitySize * 1.5, circleHeightOffset), Vec2(latticeWidth, latticeWidth), divisions, circleVelocity);
+        addAABBsLattice(Vec2(aabbWidthOffset, entitySize), Vec2(latticeWidth, latticeWidth), divisions, aabbVelocity);
     }
 }
