@@ -57,7 +57,7 @@ void GLFWGLHandler::quit()
     glfwTerminate();
 }
 
-void GLFWGLHandler::handleKey(GLFWwindow * window, int key, int scancode, int action, int mods)
+void GLFWGLHandler::handleKey(int key, int action)
 {
     if (action == GLFW_PRESS)
     {
@@ -114,7 +114,7 @@ void GLFWGLHandler::handleKey(GLFWwindow * window, int key, int scancode, int ac
     }
 }
 
-void GLFWGLHandler::handleClick(GLFWwindow *, int button, int action, int mods)
+void GLFWGLHandler::handleClick(int button, int action)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
@@ -145,12 +145,12 @@ void GLFWGLHandler::handleResize(GLFWwindow * window, int windowWidth, int windo
 
 void GLFWGLHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
-    GLFWGLHandler::instance->handleKey(window, key, scancode, action, mods);
+    GLFWGLHandler::instance->handleKey(key, action);
 }
 
 void GLFWGLHandler::handleClickWrapper(GLFWwindow * window, int button, int action, int mods)
 {
-    GLFWGLHandler::instance->handleClick(window, button, action, mods);
+    GLFWGLHandler::instance->handleClick(button, action);
 }
 
 void GLFWGLHandler::handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight)

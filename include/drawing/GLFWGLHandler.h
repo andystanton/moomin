@@ -2,6 +2,7 @@
 #define _MOOMIN_GLFW_GL_HANDLER
 
 #include "drawing/GLHandler.h"
+#include <GLFW/glfw3.h>
 
 class GLFWGLHandler
     : public GLHandler
@@ -14,12 +15,12 @@ public:
     bool isActive();
     void quit();
 
-    void handleKey(GLFWwindow * window, int key, int scancode, int action, int mods);
-    void handleClick(GLFWwindow *, int button, int action, int mods);
+    void handleKey(int key, int action);
+    void handleClick(int button, int action);
     void handleResize(GLFWwindow * window, int windowWidth, int windowHeight);
 
     static GLFWGLHandler * instance;
-    static void handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods);
+    static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
     static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
 
