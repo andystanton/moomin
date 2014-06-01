@@ -16,8 +16,6 @@
     #include "GL/glu.h"
 #endif
 
-
-
 #include "model/PhysicsHelper.h"
 
 #include "drawing/Renderer.h"

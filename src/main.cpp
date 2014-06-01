@@ -20,7 +20,7 @@ int main(void)
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
-    FreeTypeRenderer fr = FreeTypeRenderer();
+    FreeTypeRenderer fr;
 
     // Register Renderers with Graphics System
     glHandler.setEntityRenderer(&er);
