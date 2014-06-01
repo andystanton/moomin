@@ -20,6 +20,9 @@ public:
     EntityAccelerationRule & attraction();
     DirectionAccelerationRule & gravity();
 
+    float getWidth();
+    float getHeight();
+
     void resize(float width, float height);
 
 private:

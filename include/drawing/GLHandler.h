@@ -95,29 +95,11 @@ namespace GLHandler
         registerRenderer(entityRenderer);
     }
 
-    Circle * createRandomCircle()
-    {
-        int worldWidth = 6400, worldHeight = 6400;
-        Circle * c = new Circle(Vec2(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75))), (rand() % 20) + 20);
-        c->getVelocity().setX((rand() % 30) - 15);
-        c->getVelocity().setY(rand() % 30);
-        return c;
-    }
-
-    AABB * createRandomAABB()
-    {
-        int worldWidth = 6400, worldHeight = 6400;
-        AABB * aabb = new AABB(Vec2(rand() % worldWidth, worldHeight/8 + (rand() % (int)(worldHeight * 0.75))), Vec2((rand() % 160) + 80, (rand() % 160) + 80));
-        aabb->getVelocity().setX((rand() % 30) - 15);
-        aabb->getVelocity().setY(rand() % 30);
-        return aabb;
-    }
-
     void createCirclesRandom()
     {
         for (int i=0; i < 50; i++)
         {
-            physicsSystem->addEntity(createRandomCircle());
+            physicsHelper->addRandomCircle();
         }
     }
 
@@ -125,7 +107,7 @@ namespace GLHandler
     {
         for (int i=0; i < 50; i++)
         {
-            physicsSystem->addEntity(createRandomAABB());
+            physicsHelper->addRandomAABB();
         }
     }
 

@@ -40,3 +40,13 @@ DirectionAccelerationRule & StandardPhysicsSystem::gravity()
 {
     return ruleGravity;
 }
+
+float StandardPhysicsSystem::getWidth()
+{
+    return width;
+}
+
+float StandardPhysicsSystem::getHeight()
+{
+    return height;
+}

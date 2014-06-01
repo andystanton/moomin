@@ -80,3 +80,27 @@ void PhysicsHelper::addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity)
 {
     physicsSystem.addEntity(new AABB(pos, bounds, velocity));
 }
+
+void PhysicsHelper::addRandomCircle()
+{
+    int worldWidth = (int) physicsSystem.getWidth();
+    int worldHeight = (int) physicsSystem.getHeight();
+
+    Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
+    float radius = (rand() % 20) + 20;
+    Vec2 velocity((rand() % 30) - 15, rand() % 30);
+
+    addCircle(pos, radius, velocity);
+}
+
+void PhysicsHelper::addRandomAABB()
+{
+    int worldWidth = (int) physicsSystem.getWidth();
+    int worldHeight = (int) physicsSystem.getHeight();
+
+    Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
+    Vec2 bounding((rand() % 160) + 80, (rand() % 160) + 80);
+    Vec2 velocity((rand() % 30) - 15, rand() % 30);
+
+    addAABB(pos, bounding, velocity);
+}
