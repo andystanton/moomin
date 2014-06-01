@@ -7,8 +7,16 @@
 #include <iomanip>
 
 #include <freetype-gl.h>
-#include "OpenGL/gl.h"
-#include "OpenGL/glu.h"
+
+#ifdef __APPLE__
+    #include "OpenGL/gl.h"
+    #include "OpenGL/glu.h"
+#else
+    #include "gl/gl.h"
+    #include "gl/glu.h"
+#endif
+
+
 
 #include "model/PhysicsHelper.h"
 
