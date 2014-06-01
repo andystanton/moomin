@@ -1,53 +1,43 @@
-#include <iostream>
-
-#include "drawing/GLHandler.h"
+#include "drawing/GLFWGLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/rules/EntityAccelerationRule.h"
-#include "model/rules/PositionAccelerationRule.h"
-#include "model/rules/BoundingRule.h"
-#include "model/rules/CollisionRule.h"
-#include "model/PhysicsSystem.h"
 #include "model/StandardPhysicsSystem.h"
 #include "model/PhysicsHelper.h"
 
-
 using namespace std;
-
-int width = 640, height = 640;
-
-int worldWidth = 6400, worldHeight = 6400;
 
 int main(void)
 {
+    int width = 800, height = 600;
+
     // Create Physics System
-    StandardPhysicsSystem stdPhysicsSystem(worldWidth, worldHeight);
-    PhysicsHelper physicsHelper(stdPhysicsSystem);
+    StandardPhysicsSystem physicsSystem(10 * width, 10 * height);
+    PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLHandler::init("Moomin Engine v1.0", width, height);
+    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, &physicsHelper);
 
     // Create Renderers
-    EntityRenderer er(stdPhysicsSystem.getEntities());
+    EntityRenderer er(physicsSystem.getEntities());
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     // Register Renderers with Graphics System
-    GLHandler::setEntityRenderer(&er);
-    GLHandler::setFreeTypeRenderer(&fr);
-
-    GLHandler::registerPhysicsHelper(&physicsHelper);
+    glHandler.setEntityRenderer(&er);
+    glHandler.setFreeTypeRenderer(&fr);
 
     // Moomin!
-    float lastUpdate = glfwGetTime();
-    while (GLHandler::isActive())
+    float lastUpdate = glHandler.getTime();
+    while (glHandler.isActive())
     {
-        GLHandler::draw();
-        stdPhysicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
-        lastUpdate = glfwGetTime();
+        glHandler.draw();
+
+        float time = glHandler.getTime();
+        physicsSystem.step(1000 * (time - lastUpdate));
+        lastUpdate = time;
     }
 
-    GLHandler::quit();
+    glHandler.quit();
+
     return 0;
 }
