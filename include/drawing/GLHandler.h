@@ -10,18 +10,12 @@
 #include <GLFW/glfw3.h>
 
 #include "model/PhysicsHelper.h"
-#include "model/Circle.h"
-#include "model/AABB.h"
 
 #include "drawing/Renderer.h"
 #include "drawing/FreeTypeRenderer.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/Text.h"
 #include "drawing/FontProvider.h"
-
-#include "model/rules/EntityAccelerationRule.h"
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/rules/PositionAccelerationRule.h"
 
 using std::set;
 using std::stringstream;
@@ -233,7 +227,7 @@ namespace GLHandler
         glEnable(GL_BLEND);
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
-        glClearColor(0.1, 0.1, 0.1, 1.0);
+        glClearColor(0.2, 0.2, 0.5, 1.0);
 
         handleResize(window, width, height);
     }
