@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "drawing/GLHandler.h"
+#include "drawing/GLFWGLHandler.h"
 #include "drawing/EntityRenderer.h"
 #include "drawing/FreeTypeRenderer.h"
 
@@ -27,25 +27,25 @@ int main(void)
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLHandler::init("Moomin Engine v1.0", width, height, &physicsHelper);
+    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, &physicsHelper);
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
     FreeTypeRenderer fr = FreeTypeRenderer();
 
     // Register Renderers with Graphics System
-    GLHandler::setEntityRenderer(&er);
-    GLHandler::setFreeTypeRenderer(&fr);
+    glHandler.setEntityRenderer(&er);
+    glHandler.setFreeTypeRenderer(&fr);
 
     // Moomin!
     float lastUpdate = glfwGetTime();
-    while (GLHandler::isActive())
+    while (glHandler.isActive())
     {
-        GLHandler::draw();
+        glHandler.draw();
         physicsSystem.step((glfwGetTime() - lastUpdate) * 1000);
         lastUpdate = glfwGetTime();
     }
 
-    GLHandler::quit();
+    glHandler.quit();
     return 0;
 }

@@ -3,7 +3,7 @@
 PhysicsHelper::PhysicsHelper(StandardPhysicsSystem & physicsSystem)
     : physicsSystem(physicsSystem)
 {
-
+    addCirclesLatticeCentre();
 }
 
 PhysicsHelper::~PhysicsHelper()
