@@ -53,6 +53,12 @@ void GLHandler::setEntityRenderer(EntityRenderer * entityRenderer)
     registerRenderer(this->entityRenderer);
 }
 
+// static const GLfloat g_vertex_buffer_data[] = {
+// 	-1.0f, -1.0f, 0.0f,
+// 	 1.0f, -1.0f, 0.0f,
+// 	 0.0f,  1.0f, 0.0f
+// };
+
 void GLHandler::init()
 {
     glewExperimental = true; // Needed for core profile
@@ -61,40 +67,62 @@ void GLHandler::init()
         exit(-1);
     }
 
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.2, 0.2, 0.5, 1.0);
 
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
+    // glGenVertexArrays(1, &VertexArrayID);
+    // glBindVertexArray(VertexArrayID);
+    //
+    // programID = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
+    //
+	// glGenBuffers(1, &vertexbuffer);
+	// glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	// glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+}
 
-    GLuint programID = LoadShaders( "AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader" );
-
-    cout << VertexArrayID << endl;
-    cout << programID << endl;
+void GLHandler::quit()
+{
+    glDeleteBuffers(1, &vertexbuffer);
+	glDeleteVertexArrays(1, &VertexArrayID);
+	glDeleteProgram(programID);
 }
 
 void GLHandler::draw()
 {
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT);
 
-    recalculateFps();
+    //recalculateFps();
 
-    entityRenderer->draw();
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glVertexAttribPointer(
+        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+        3,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                  // stride
+        (void*)0            // array buffer offset
+    );
+
+    // Draw the triangle !
+    glDrawArrays(GL_TRIANGLES, 0, 3); // 3 indices starting at 0 -> 1 triangle
+
+    glDisableVertexAttribArray(0);
+
+    //entityRenderer->draw();
 }
 
 void GLHandler::resize()
 {
-    glViewport(0, 0, width, height);
-    glMatrixMode(GL_PROJECTION );
-    glLoadIdentity();
-
-    glOrtho(0, physicsHelper.getWidth(), 0, physicsHelper.getHeight(), 0, 1);
-    glMatrixMode(GL_MODELVIEW);
-    glLoadIdentity();
-
-    for (auto renderer : renderers)
-    {
-        renderer->handleResize(width, height);
-    }
+    // glViewport(0, 0, width, height);
+    // glMatrixMode(GL_PROJECTION );
+    // glLoadIdentity();
+    //
+    // glOrtho(0, physicsHelper.getWidth(), 0, physicsHelper.getHeight(), 0, 1);
+    // glMatrixMode(GL_MODELVIEW);
+    // glLoadIdentity();
+    //
+    // for (auto renderer : renderers)
+    // {
+    //     renderer->handleResize(width, height);
+    // }
 }

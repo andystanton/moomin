@@ -32,7 +32,7 @@ GLFWGLHandler::GLFWGLHandler(const string& title,
     glfwSetWindowSizeCallback(window, GLFWGLHandler::handleResizeWrapper);
     glfwSetKeyCallback(window, GLFWGLHandler::handleKeyWrapper);
     glfwSetMouseButtonCallback(window, GLFWGLHandler::handleClickWrapper);
-    handleResize(window, width, height);
+    //handleResize(window, width, height);
 
     GLHandler::init();
 }
@@ -59,6 +59,7 @@ bool GLFWGLHandler::isActive()
 
 void GLFWGLHandler::quit()
 {
+    GLHandler::quit();
     glfwTerminate();
 }
 
@@ -130,6 +131,11 @@ void GLFWGLHandler::handleKey(int key, int action)
     }
 }
 
+GLFWwindow * GLFWGLHandler::getWindow()
+{
+    return window;
+}
+
 void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
@@ -144,8 +150,8 @@ void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
 
 void GLFWGLHandler::handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
 {
-    glfwGetFramebufferSize(window, &width, &height);
-    GLFWGLHandler::instance->resize();
+    //glfwGetFramebufferSize(window, &width, &height);
+    //GLFWGLHandler::instance->resize();
 }
 
 void GLFWGLHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods)

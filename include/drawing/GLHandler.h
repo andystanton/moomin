@@ -32,7 +32,7 @@ public:
 
     virtual double getTime() = 0;
     virtual bool isActive() = 0;
-    virtual void quit() = 0;
+    virtual void quit();
     virtual void draw();
 
 protected:
@@ -56,6 +56,8 @@ private:
     string fpsString;
 
     GLuint VertexArrayID;
+    GLuint programID;
+    GLuint vertexbuffer;
 };
 
 #endif

@@ -19,6 +19,8 @@ public:
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
 
+    GLFWwindow * getWindow();
+
     static GLFWGLHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
