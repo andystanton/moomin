@@ -6,6 +6,10 @@
 #include <sstream>
 #include <iomanip>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "drawing/shader.h"
+
 #include "model/PhysicsHelper.h"
 #include "drawing/Renderer.h"
 #include "drawing/EntityRenderer.h"
