@@ -27,8 +27,7 @@ include_directories(${project_INCLUDES})
 
 TARGET_LINK_LIBRARIES(${project_BIN} ${project_LIBS} ${project_LIBS})
 
-copy_files("${MAINFOLDER}/lib/freetype-gl/shaders" "${EXECUTABLE_OUTPUT_PATH}/resources/shaders")
-copy_files("${MAINFOLDER}/lib/freetype-gl/fonts" "${EXECUTABLE_OUTPUT_PATH}/resources/fonts")
+copy_files("${MAINFOLDER}/src/shaders" "${EXECUTABLE_OUTPUT_PATH}")
 
 SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
 

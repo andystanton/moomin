@@ -64,6 +64,14 @@ void GLHandler::init()
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.2, 0.2, 0.5, 1.0);
+
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
+
+    GLuint programID = LoadShaders( "AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader" );
+
+    cout << VertexArrayID << endl;
+    cout << programID << endl;
 }
 
 void GLHandler::draw()

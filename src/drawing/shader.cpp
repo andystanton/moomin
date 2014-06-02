@@ -13,7 +13,16 @@ using namespace std;
 
 #include "drawing/shader.h"
 
-GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path){
+// TODO: Use PathHelper here
+
+GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path){
+	PathHelper pathHelper;
+
+	string fullVertexPath = pathHelper.getApplicationPath() + "/" + vertex_file_path;
+	string fullFragmentPath = pathHelper.getApplicationPath() + "/" + fragment_file_path;
+
+	cout << fullVertexPath << endl;
+	cout << fullFragmentPath << endl;
 
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -21,7 +30,7 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	std::ifstream VertexShaderStream(fullVertexPath.c_str(), std::ios::in);
 	if(VertexShaderStream.is_open()){
 		std::string Line = "";
 		while(getline(VertexShaderStream, Line))
@@ -35,7 +44,7 @@ GLuint LoadShaders(const char * vertex_file_path,const char * fragment_file_path
 
 	// Read the Fragment Shader code from the file
 	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	std::ifstream FragmentShaderStream(fullFragmentPath.c_str(), std::ios::in);
 	if(FragmentShaderStream.is_open()){
 		std::string Line = "";
 		while(getline(FragmentShaderStream, Line))

@@ -54,6 +54,8 @@ private:
     float lastFpsUpdate;
     float fps;
     string fpsString;
+
+    GLuint VertexArrayID;
 };
 
 #endif
