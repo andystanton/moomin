@@ -111,6 +111,10 @@ OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
 add_subdirectory(lib/glew-cmake)
 set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
 
+# GLM
+
+set(GLM_INCLUDE_PATH "${MAINFOLDER}/lib/glm")
+
 # GMOCK
 
 add_subdirectory(lib/gmock)

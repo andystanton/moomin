@@ -7,6 +7,7 @@ SET (project_LIBS
 
 SET (project_INCLUDES
      ${GLFW_INCLUDE_PATH}
+     ${GLM_INCLUDE_PATH}
      ${GLEW_INCLUDE_PATH})
 
 SET (project_BIN ${PROJECT_NAME})

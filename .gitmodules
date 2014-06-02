@@ -26,3 +26,7 @@
 	path = lib/gtest
 	url = https://chromium.googlesource.com/external/googletest
 	ignore = dirty
+[submodule "glm"]
+	path = lib/glm
+    url = git@github.com:g-truc/glm.git
+    ignore = dirty
