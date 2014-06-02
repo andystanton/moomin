@@ -28,5 +28,5 @@
 	ignore = dirty
 [submodule "glm"]
 	path = lib/glm
-    url = git@github.com:g-truc/glm.git
+    url = https://github.com/g-truc/glm.git
     ignore = dirty
