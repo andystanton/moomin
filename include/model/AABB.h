@@ -21,6 +21,8 @@ private:
         0.f, 0.f,
         0.f, bounding.getY(),
         bounding.getX(), 0.f,
+        0.f, bounding.getY(),
+        bounding.getX(), 0.f,
         bounding.getX(), bounding.getY()
     };
 };

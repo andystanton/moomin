@@ -1,15 +1,11 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 
 SET (project_LIBS
-     freetype
      ${GLFW_LIBRARIES}
      glfw
-     libglew_static
-     freetype-gl)
+     libglew_static)
 
 SET (project_INCLUDES
-     ${FREETYPE_INCLUDE_PATH}
-     ${FREETYPE_GL_INCLUDE_PATH}
      ${GLFW_INCLUDE_PATH}
      ${GLEW_INCLUDE_PATH})
 

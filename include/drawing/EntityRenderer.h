@@ -1,7 +1,8 @@
 #ifndef _MOOMIN_ENTITY_RENDERER
 #define _MOOMIN_ENTITY_RENDERER
 
-#define GLFW_INCLUDE_GLCOREARB
+#include <GL/glew.h>
+
 #include <GLFW/glfw3.h>
 
 #include <set>

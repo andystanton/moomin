@@ -20,35 +20,30 @@ void EntityRenderer::draw()
 
 void EntityRenderer::draw(Entity* entity)
 {
-    const Mesh& mesh = entity->getMesh();
-    unique_ptr<float> meshPoints(mesh.getPoints());
-
-    int mode = GL_TRIANGLE_STRIP;
-    if (mesh.getType() == Mesh::MeshType::quads) {
-        mode = GL_QUAD_STRIP;
-    }
-    glPushMatrix();
-        glTranslatef(entity->getPos().getX(), entity->getPos().getY(), 0);
-
-        if (entity->getCollisionType() == Entity::CollisionType::circle)
-        {
-            Circle * circle = static_cast<Circle *>(entity);
-            float scaleFactor = circle->getRadius() / 10.f;
-            glScalef(scaleFactor, scaleFactor, scaleFactor);
-            glColor3f(0.4f, 0.8f, 0.5f);
-        } else
-        {
-            glColor3f(0.8f, 0.8f, 0.4f);
-        }
-        glBegin(mode);
-
-
-            for(int i = 0; i < mesh.getSize(); i+=2)
-            {
-                glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
-            }
-        glEnd();
-    glPopMatrix();
+    // const Mesh& mesh = entity->getMesh();
+    // unique_ptr<float> meshPoints(mesh.getPoints());
+    //
+    // int mode = GL_TRIANGLE_STRIP;
+    // glPushMatrix();
+    //     glTranslatef(entity->getPos().getX(), entity->getPos().getY(), 0);
+    //
+    //     if (entity->getCollisionType() == Entity::CollisionType::circle)
+    //     {
+    //         Circle * circle = static_cast<Circle *>(entity);
+    //         float scaleFactor = circle->getRadius() / 10.f;
+    //         glScalef(scaleFactor, scaleFactor, scaleFactor);
+    //         glColor3f(0.4f, 0.8f, 0.5f);
+    //     } else
+    //     {
+    //         glColor3f(0.8f, 0.8f, 0.4f);
+    //     }
+    //     glBegin(GL_TRIANGLE_STRIP);
+    //         for(int i = 0; i < mesh.getSize(); i+=2)
+    //         {
+    //             glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
+    //         }
+    //     glEnd();
+    // glPopMatrix();
 }
 
 void EntityRenderer::handleResize(int width, int height)

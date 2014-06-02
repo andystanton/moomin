@@ -105,6 +105,12 @@ option(GLFW_INSTALL "Generate installation target" OFF)
 add_subdirectory(lib/glfw)
 set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
 
+# GLEW
+
+OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
+add_subdirectory(lib/glew-cmake)
+set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
+
 # GMOCK
 
 add_subdirectory(lib/gmock)

@@ -1,16 +1,12 @@
 #ifndef _MOOMIN_GL_HANDLER
 #define _MOOMIN_GL_HANDLER
 
-#define GLFW_INCLUDE_GLCOREARB
-#include <GLFW/glfw3.h>
-
 #include <set>
 #include <iostream>
 #include <sstream>
 #include <iomanip>
 
 #include "model/PhysicsHelper.h"
-
 #include "drawing/Renderer.h"
 #include "drawing/EntityRenderer.h"
 
@@ -49,7 +45,6 @@ protected:
 private:
     set<Renderer *> renderers;
     EntityRenderer * entityRenderer;
-    FreeTypeRenderer * freeTypeRenderer;
 
     int frameCount;
     float lastFpsUpdate;

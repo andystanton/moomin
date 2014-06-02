@@ -55,6 +55,12 @@ void GLHandler::setEntityRenderer(EntityRenderer * entityRenderer)
 
 void GLHandler::init()
 {
+    glewExperimental = true; // Needed for core profile
+    if (glewInit() != GLEW_OK) {
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        exit(-1);
+    }
+
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     glClearColor(0.2, 0.2, 0.5, 1.0);
@@ -67,7 +73,6 @@ void GLHandler::draw()
     recalculateFps();
 
     entityRenderer->draw();
-    freeTypeRenderer->draw();
 }
 
 void GLHandler::resize()
