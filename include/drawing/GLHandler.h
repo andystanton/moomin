@@ -8,11 +8,12 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "drawing/shader.h"
 
-#include "model/PhysicsHelper.h"
+#include "drawing/GLFWContextHandler.h"
+#include "drawing/shader.h"
 #include "drawing/Renderer.h"
 #include "drawing/EntityRenderer.h"
+#include "model/PhysicsHelper.h"
 
 using std::set;
 using std::stringstream;
@@ -30,10 +31,10 @@ public:
 
     void setEntityRenderer(EntityRenderer *);
 
-    virtual double getTime() = 0;
-    virtual bool isActive() = 0;
-    virtual void quit();
-    virtual void draw();
+    void draw();
+    void quit();
+    double getTime();
+    bool isActive();
 
 protected:
     void recalculateFps();
@@ -54,6 +55,8 @@ private:
     float lastFpsUpdate;
     float fps;
     string fpsString;
+
+    unique_ptr<GLContextHandler> glContextHandler;
 
     GLuint VertexArrayID;
     GLuint programID;

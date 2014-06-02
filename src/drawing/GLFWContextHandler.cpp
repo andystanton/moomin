@@ -1,10 +1,10 @@
-#include "drawing/GLFWGLHandler.h"
+#include "drawing/GLFWContextHandler.h"
 
-GLFWGLHandler::GLFWGLHandler(const string& title,
-                             int width,
-                             int height,
-                             PhysicsHelper & physicsHelper)
-    : GLHandler(title, width, height, physicsHelper)
+GLFWContextHandler::GLFWContextHandler(const string& title,
+                                       int width,
+                                       int height,
+                                       PhysicsHelper & physicsHelper)
+    : physicsHelper(physicsHelper)
 {
     if (!glfwInit()) {
         cerr << "Error: Unable to initialise GLFW" << endl;
@@ -26,49 +26,44 @@ GLFWGLHandler::GLFWGLHandler(const string& title,
         exit( EXIT_FAILURE );
     }
 
-    GLFWGLHandler::instance = this;
+    GLFWContextHandler::instance = this;
 
     glfwMakeContextCurrent(window);
-    glfwSetWindowSizeCallback(window, GLFWGLHandler::handleResizeWrapper);
-    glfwSetKeyCallback(window, GLFWGLHandler::handleKeyWrapper);
-    glfwSetMouseButtonCallback(window, GLFWGLHandler::handleClickWrapper);
+    glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
+    glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
+    glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
     //handleResize(window, width, height);
-
-    GLHandler::init();
 }
 
-GLFWGLHandler::~GLFWGLHandler()
+GLFWContextHandler::~GLFWContextHandler()
 {
 
 }
 
-GLFWGLHandler * GLFWGLHandler::instance;
+GLFWContextHandler * GLFWContextHandler::instance;
 
-void GLFWGLHandler::draw()
+void GLFWContextHandler::postDraw()
 {
-    GLHandler::draw(); // do regular draw bit first
-
     glfwSwapBuffers(window);
     glfwPollEvents();
 }
 
-bool GLFWGLHandler::isActive()
+bool GLFWContextHandler::isActive()
 {
     return !glfwWindowShouldClose(window);
 }
 
-void GLFWGLHandler::quit()
+void GLFWContextHandler::quit()
 {
-    GLHandler::quit();
     glfwTerminate();
 }
 
-double GLFWGLHandler::getTime()
+double GLFWContextHandler::getTime()
 {
     return glfwGetTime();
 }
 
-void GLFWGLHandler::handleKey(int key, int action)
+void GLFWContextHandler::handleKey(int key, int action)
 {
     if (action == GLFW_PRESS)
     {
@@ -131,12 +126,12 @@ void GLFWGLHandler::handleKey(int key, int action)
     }
 }
 
-GLFWwindow * GLFWGLHandler::getWindow()
+GLFWwindow * GLFWContextHandler::getWindow()
 {
     return window;
 }
 
-void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
+void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action)
 {
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
@@ -148,23 +143,23 @@ void GLFWGLHandler::handleClick(GLFWwindow * window, int button, int action)
     }
 }
 
-void GLFWGLHandler::handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
+void GLFWContextHandler::handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
 {
     //glfwGetFramebufferSize(window, &width, &height);
-    //GLFWGLHandler::instance->resize();
+    //GLFWContextHandler::instance->resize();
 }
 
-void GLFWGLHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods)
+void GLFWContextHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
-    GLFWGLHandler::instance->handleKey(key, action);
+    GLFWContextHandler::instance->handleKey(key, action);
 }
 
-void GLFWGLHandler::handleClickWrapper(GLFWwindow * window, int button, int action, int mods)
+void GLFWContextHandler::handleClickWrapper(GLFWwindow * window, int button, int action, int mods)
 {
-    GLFWGLHandler::instance->handleClick(window, button, action);
+    GLFWContextHandler::instance->handleClick(window, button, action);
 }
 
-void GLFWGLHandler::handleResizeWrapper(GLFWwindow * window, int width, int height)
+void GLFWContextHandler::handleResizeWrapper(GLFWwindow * window, int width, int height)
 {
-    GLFWGLHandler::instance->handleResize(window, width, height);
+    GLFWContextHandler::instance->handleResize(window, width, height);
 }

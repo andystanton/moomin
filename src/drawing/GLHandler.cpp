@@ -15,7 +15,10 @@ GLHandler::GLHandler(const string& title,
     , fps(0.f)
     , fpsString()
 {
-
+    glContextHandler = unique_ptr<GLContextHandler>(
+        new GLFWContextHandler(title, width, height, physicsHelper)
+    );
+    init();
 }
 
 GLHandler::~GLHandler()
@@ -23,10 +26,39 @@ GLHandler::~GLHandler()
 
 }
 
+static const GLfloat g_vertex_buffer_data[] = {
+    -0.5f,  0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f,
+     0.5f,  0.5f, 0.0f,
+     0.5f, -0.5f, 0.0f,
+    -0.5f, -0.5f, 0.0f
+};
+
+void GLHandler::init()
+{
+    glewExperimental = true; // Needed for core profile
+    if (glewInit() != GLEW_OK) {
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        exit(-1);
+    }
+
+    glClearColor(0.2, 0.2, 0.5, 1.0);
+
+    glGenVertexArrays(1, &VertexArrayID);
+    glBindVertexArray(VertexArrayID);
+
+    programID = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
+
+    glGenBuffers(1, &vertexbuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+}
+
 void GLHandler::recalculateFps()
 {
     frameCount++;
-    float currentTime = glfwGetTime();
+    float currentTime = glContextHandler->getTime();
 
     if (currentTime - lastFpsUpdate >= 0.5)
     {
@@ -53,33 +85,14 @@ void GLHandler::setEntityRenderer(EntityRenderer * entityRenderer)
     registerRenderer(this->entityRenderer);
 }
 
-static const GLfloat g_vertex_buffer_data[] = {
-	-0.5f,  0.5f, 0.0f,
-	 0.5f,  0.5f, 0.0f,
-	-0.5f, -0.5f, 0.0f,
-     0.5f,  0.5f, 0.0f,
-     0.5f, -0.5f, 0.0f,
-    -0.5f, -0.5f, 0.0f
-};
-
-void GLHandler::init()
+bool GLHandler::isActive()
 {
-    glewExperimental = true; // Needed for core profile
-    if (glewInit() != GLEW_OK) {
-        fprintf(stderr, "Failed to initialize GLEW\n");
-        exit(-1);
-    }
+    return glContextHandler->isActive();
+}
 
-    glClearColor(0.2, 0.2, 0.5, 1.0);
-
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
-
-    programID = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
-
-	glGenBuffers(1, &vertexbuffer);
-	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+double GLHandler::getTime()
+{
+    return glContextHandler->getTime();
 }
 
 void GLHandler::quit()
@@ -87,6 +100,8 @@ void GLHandler::quit()
     glDeleteBuffers(1, &vertexbuffer);
 	glDeleteVertexArrays(1, &VertexArrayID);
 	glDeleteProgram(programID);
+
+    glContextHandler->quit();
 }
 
 void GLHandler::draw()
@@ -117,6 +132,9 @@ void GLHandler::draw()
     glDisableVertexAttribArray(0);
 
     //entityRenderer->draw();
+
+
+    glContextHandler->postDraw();
 }
 
 void GLHandler::resize()

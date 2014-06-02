@@ -6,6 +6,19 @@ rescue Exception => problem
     puts "rake task interupted: #{problem}"
 end
 
+deep_clean_list = [
+    "lib/*/*.build",
+    "lib/*/cmake_install.cmake",
+    "lib/*/CMakeFiles",
+    "lib/*/CMakeScripts",
+    "lib/*.a",
+    "lib/gmock/gtest",
+    "lib/freetype2/include/ftconfig.h",
+    "lib/Debug",
+    "lib/Release",
+    "build"
+]
+
 laundry_list = [
     "cmake_install.cmake",
     "CMakeCache.txt",
@@ -21,22 +34,12 @@ laundry_list = [
     "test/CMakeCache.txt",
     "test/CMakeFiles",
     "test/CMakeScripts",
-    "lib/*/*.build",
-    "lib/*/cmake_install.cmake",
-    "lib/*/CMakeFiles",
-    "lib/*/CMakeScripts",
-    "lib/*.a",
-    "lib/gmock/gtest",
-    "lib/freetype2/include/ftconfig.h",
-    "lib/Debug",
-    "lib/Release",
     "Makefile",
     "bin",
-    "build",
     "*.build"
 ]
 
-desc 'Cleans the project by deleting everything listed in .gitignore'
+desc 'Cleans the project by deleting everything listed in the laundry list'
 task :clean do
     puts 'Executing clean...'
 
@@ -47,6 +50,19 @@ task :clean do
     end
 
     puts "Cleaned #{count} files"
+end
+
+desc 'Deep cleans the project by deleting everything listed in the laundry list and the deep clean list (includes libraries)'
+task :deepclean do
+    puts 'Executing deep clean...'
+
+    count = 0
+    (laundry_list + deep_clean_list).each do |laundry_item|
+        count += 1
+        sh "rm -rf #{laundry_item}"
+    end
+
+    puts "Deep cleaned #{count} files"
 end
 
 desc 'Generates makefiles using CMake'

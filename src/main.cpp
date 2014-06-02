@@ -1,4 +1,4 @@
-#include "drawing/GLFWGLHandler.h"
+#include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
 
 #include "model/StandardPhysicsSystem.h"
@@ -17,7 +17,7 @@ int main( void )
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
+    GLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
