@@ -8,6 +8,7 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 - CMake >= 2.8
 - Make >= 3.81
 - Rake >= 10.3
+- OpenGL >= 3.2
 
 ## Quick Start
 
