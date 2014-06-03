@@ -27,21 +27,21 @@ GLHandler::~GLHandler()
 }
 
 static const GLfloat g_vertex_buffer_data[] = {
-     0.f, 10.f, 0.0f,
-    10.f, 10.f, 0.0f,
+     0.f, 50.f, 0.0f,
+    50.f, 50.f, 0.0f,
      0.f,  0.f, 0.0f,
-    10.f, 10.f, 0.0f,
-    10.f,  0.f, 0.0f,
+    50.f, 50.f, 0.0f,
+    50.f,  0.f, 0.0f,
      0.f,  0.f, 0.0f
 };
 
 static const GLfloat g_vertex_buffer_data2[] = {
-    800.f,         600.f, 0.0f,
-    800.f,         600.f - 10.f, 0.0f,
-    800.f - 10.f,  600.f, 0.0f,
-    800.f,         600.f - 10.f, 0.0f,
-    800.f - 10.f,  600.f - 10.f, 0.0f,
-    800.f - 10.f,  600.f, 0.0f
+    800.f,         600.f,  0.0f,
+    800.f,         600.f - 50.f, 0.0f,
+    800.f - 50.f,  600.f,  0.0f,
+    800.f,         600.f - 50.f, 0.0f,
+    800.f - 50.f,  600.f - 50.f, 0.0f,
+    800.f - 50.f,  600.f, 0.0f
 };
 
 void GLHandler::init()
@@ -65,7 +65,7 @@ void GLHandler::init()
     MatrixID = glGetUniformLocation(programID, "MVP");
     MatrixID2 = glGetUniformLocation(programID2, "MVP2");
 
-    Projection = glm::ortho(0.0f,(float)800.f, 0.0f,(float)height, 0.0f,1.f); // In world coordinates
+    Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f,1.f); // In world coordinates
 
     View = glm::lookAt(
         glm::vec3(0,0,1), // Camera is at (4,3,3), in World Space
@@ -80,15 +80,20 @@ void GLHandler::init()
 
     glGenBuffers(1, &vertexbuffer);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_DYNAMIC_DRAW);
 
     glGenBuffers(1, &vertexbuffer2);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer2);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data2), g_vertex_buffer_data2, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data2), g_vertex_buffer_data2, GL_DYNAMIC_DRAW);
 }
 
 void GLHandler::draw()
 {
+    //glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_DYNAMIC_DRAW);
+
+
+    // glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(g_vertex_buffer_data2), g_vertex_buffer_data2);
+
     // Clear the screen
     glClear( GL_COLOR_BUFFER_BIT );
 
@@ -96,34 +101,48 @@ void GLHandler::draw()
 
     // Use our shader
     glUseProgram(programID);
-
-    // Send our transformation to the currently bound shader,
-    // in the "MVP" uniform
     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
-    // 1rst attribute buffer : vertices
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glVertexAttribPointer(
-        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-        3,                  // size
-        GL_FLOAT,           // type
-        GL_FALSE,           // normalized?
-        0,                  // stride
-        (void*)0            // array buffer offset
-    );
 
-    // Draw the triangle !
-    glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
+    for (auto entity : physicsHelper.getEntities())
+    {
+        if (entity->getCollisionType() == Entity::CollisionType::aabb)
+        {
+            AABB * aabb = static_cast<AABB *>(entity);
+            Vec2 pos = aabb->getPos();
+            Vec2 bounding = aabb->getBounding();
+
+            GLfloat vertexBufferData[] = {
+                pos.getX(), pos.getY(), 0.f,
+                pos.getX(), pos.getY() + bounding.getY(), 0.f,
+                pos.getX() + bounding.getX(), pos.getY() + bounding.getY(), 0.f,
+                pos.getX(), pos.getY(), 0.f,
+                pos.getX() + bounding.getX(), pos.getY() + bounding.getY(), 0.f,
+                pos.getX() + bounding.getX(), pos.getY(), 0.f,
+            };
+
+            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexBufferData), vertexBufferData);
+            glVertexAttribPointer(
+                0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+                3,                  // size
+                GL_FLOAT,           // type
+                GL_FALSE,           // normalized?
+                0,                  // stride
+                (void*)0            // array buffer offset
+            );
+            glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
+        }
+    }
 
     glDisableVertexAttribArray(0);
 
+
     glUseProgram(programID2);
-
     glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
-
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer2);
+    glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(g_vertex_buffer_data2), g_vertex_buffer_data2);
     glVertexAttribPointer(
         0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
         3,                  // size
@@ -132,10 +151,7 @@ void GLHandler::draw()
         0,                  // stride
         (void*)0            // array buffer offset
     );
-
-    // Draw the triangle !
     glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-
     glDisableVertexAttribArray(0);
 
     //entityRenderer->draw();

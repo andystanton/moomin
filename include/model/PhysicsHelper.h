@@ -9,6 +9,8 @@ public:
     PhysicsHelper(StandardPhysicsSystem &);
     ~PhysicsHelper();
 
+    set<Entity *> getEntities();
+
     int getWidth();
     int getHeight();
 

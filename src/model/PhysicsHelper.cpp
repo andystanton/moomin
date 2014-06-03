@@ -12,6 +12,11 @@ PhysicsHelper::~PhysicsHelper()
 
 }
 
+set<Entity *> PhysicsHelper::getEntities()
+{
+    return physicsSystem.getEntities();
+}
+
 int PhysicsHelper::getWidth()
 {
     return physicsSystem.getWidth();
