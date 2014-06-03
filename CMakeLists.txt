@@ -93,24 +93,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
 # Locate Project Prerequisites
 #
 
-# FREETYPE 2
-
-add_subdirectory(lib/freetype2)
-set(FREETYPE_INCLUDE_PATH "${MAINFOLDER}/lib/freetype2/include")
-
-# GLEW
-
-OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
-add_subdirectory(lib/glew-cmake)
-set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
-
-# FREETYPE GL
-
-OPTION(freetype-gl_BUILD_DEMOS "Build the freetype-gl example programs" OFF)
-
-add_subdirectory(lib/freetype-gl)
-set(FREETYPE_GL_INCLUDE_PATH "${MAINFOLDER}/lib/freetype-gl")
-
 # GLFW
 
 # disable unnecessary glfw targets
@@ -122,6 +104,16 @@ option(GLFW_INSTALL "Generate installation target" OFF)
 # add subdirectory
 add_subdirectory(lib/glfw)
 set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
+
+# GLEW
+
+OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
+add_subdirectory(lib/glew-cmake)
+set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
+
+# GLM
+
+set(GLM_INCLUDE_PATH "${MAINFOLDER}/lib/glm")
 
 # GMOCK
 

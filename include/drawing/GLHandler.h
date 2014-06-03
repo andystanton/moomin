@@ -6,23 +6,17 @@
 #include <sstream>
 #include <iomanip>
 
-#include <freetype-gl.h>
+#include <GL/glew.h>
 
-#ifdef __APPLE__
-    #include "OpenGL/gl.h"
-    #include "OpenGL/glu.h"
-#else
-    #include "GL/gl.h"
-    #include "GL/glu.h"
-#endif
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
-#include "model/PhysicsHelper.h"
-
+#include "drawing/GLFWContextHandler.h"
+#include "drawing/shader.h"
 #include "drawing/Renderer.h"
-#include "drawing/FreeTypeRenderer.h"
 #include "drawing/EntityRenderer.h"
-#include "drawing/Text.h"
-#include "drawing/FontProvider.h"
+#include "model/PhysicsHelper.h"
 
 using std::set;
 using std::stringstream;
@@ -39,12 +33,11 @@ public:
     ~GLHandler();
 
     void setEntityRenderer(EntityRenderer *);
-    void setFreeTypeRenderer(FreeTypeRenderer *);
 
-    virtual double getTime() = 0;
-    virtual bool isActive() = 0;
-    virtual void quit() = 0;
-    virtual void draw();
+    void draw();
+    void quit();
+    double getTime();
+    bool isActive();
 
 protected:
     void recalculateFps();
@@ -60,12 +53,27 @@ protected:
 private:
     set<Renderer *> renderers;
     EntityRenderer * entityRenderer;
-    FreeTypeRenderer * freeTypeRenderer;
 
     int frameCount;
     float lastFpsUpdate;
     float fps;
     string fpsString;
+
+    unique_ptr<GLContextHandler> glContextHandler;
+
+    GLuint MatrixID;
+    GLuint MatrixID2;
+    glm::mat4 Projection;
+    glm::mat4 View;
+    glm::mat4 Model;
+    glm::mat4 MVP;
+
+    GLuint VertexArrayID;
+    GLuint VertexArrayID2;
+    GLuint programID;
+    GLuint programID2;
+    GLuint vertexbuffer;
+    GLuint vertexbuffer2;
 };
 
 #endif

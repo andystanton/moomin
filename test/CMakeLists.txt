@@ -4,18 +4,15 @@ SET (test_LIBS
      gtest_main
      gmock
      gmock_main
-     freetype
      ${GLFW_LIBRARIES}
      glfw
-     libglew_static
-     freetype-gl)
+     libglew_static)
 
 SET (test_INCLUDES
      ${GMOCK_INCLUDE_PATH}
      ${GTEST_INCLUDE_PATH}
      ${BANDIT_INCLUDE_PATH}
-     ${FREETYPE_INCLUDE_PATH}
-     ${FREETYPE_GL_INCLUDE_PATH}
+     ${GLM_INCLUDE_PATH}
      ${GLFW_INCLUDE_PATH}
      ${GLEW_INCLUDE_PATH})
 

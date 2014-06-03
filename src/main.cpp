@@ -1,13 +1,14 @@
-#include "drawing/GLFWGLHandler.h"
+#include "drawing/GLHandler.h"
 #include "drawing/EntityRenderer.h"
-#include "drawing/FreeTypeRenderer.h"
 
 #include "model/StandardPhysicsSystem.h"
 #include "model/PhysicsHelper.h"
 
 using namespace std;
 
-int main(void)
+
+
+int main( void )
 {
     int width = 800, height = 600;
 
@@ -16,15 +17,13 @@ int main(void)
     PhysicsHelper physicsHelper(physicsSystem);
 
     // Initialise Graphics System
-    GLFWGLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
+    GLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
 
     // Create Renderers
     EntityRenderer er(physicsSystem.getEntities());
-    FreeTypeRenderer fr;
 
     // Register Renderers with Graphics System
     glHandler.setEntityRenderer(&er);
-    glHandler.setFreeTypeRenderer(&fr);
 
     // Moomin!
     float lastUpdate = glHandler.getTime();

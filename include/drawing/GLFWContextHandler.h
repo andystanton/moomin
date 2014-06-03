@@ -1,17 +1,21 @@
-#ifndef _MOOMIN_GLFW_GL_HANDLER
-#define _MOOMIN_GLFW_GL_HANDLER
+#ifndef _MOOMIN_GLFW_CONTEXT_HANDLER
+#define _MOOMIN_GLFW_CONTEXT_HANDLER
 
-#include "drawing/GLHandler.h"
+#include <string>
 #include <GLFW/glfw3.h>
+#include "model/PhysicsHelper.h"
+#include "drawing/GLContextHandler.h"
 
-class GLFWGLHandler
-    : public GLHandler
+using std::string;
+
+class GLFWContextHandler
+    : public GLContextHandler
 {
 public:
-    GLFWGLHandler(const string& title, int width, int height, PhysicsHelper &);
-    ~GLFWGLHandler();
+    GLFWContextHandler(const string& title, int width, int height, PhysicsHelper &);
+    ~GLFWContextHandler();
 
-    void draw();
+    void postDraw();
     bool isActive();
     void quit();
     double getTime();
@@ -20,13 +24,16 @@ public:
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
 
-    static GLFWGLHandler * instance;
+    GLFWwindow * getWindow();
+
+    static GLFWContextHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
     static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
 
 private:
     GLFWwindow * window;
+    PhysicsHelper & physicsHelper;
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;
 };
