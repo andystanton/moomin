@@ -1,4 +1,4 @@
-#include "model/PhysicsHelper.h"
+#include "model/PhysicsHelper.hpp"
 
 PhysicsHelper::PhysicsHelper(StandardPhysicsSystem & physicsSystem)
     : physicsSystem(physicsSystem)

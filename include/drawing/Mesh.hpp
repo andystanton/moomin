@@ -4,7 +4,7 @@
 #include <initializer_list>
 #include <vector>
 
-#include "core/Vec2.h"
+#include "core/Vec2.hpp"
 
 using std::vector;
 using std::initializer_list;

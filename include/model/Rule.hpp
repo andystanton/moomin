@@ -1,8 +1,8 @@
 #ifndef _MOOMIN_RULE
 #define _MOOMIN_RULE
 
-#include "core/Vec2.h"
-#include "model/Entity.h"
+#include "core/Vec2.hpp"
+#include "model/Entity.hpp"
 
 class Rule
 {

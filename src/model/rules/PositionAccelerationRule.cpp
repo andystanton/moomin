@@ -1,4 +1,4 @@
-#include "model/rules/PositionAccelerationRule.h"
+#include "model/rules/PositionAccelerationRule.hpp"
 
 PositionAccelerationRule::PositionAccelerationRule(const Vec2 & origin, float acceleration)
     : Rule(Rule::RuleType::position_acceleration)

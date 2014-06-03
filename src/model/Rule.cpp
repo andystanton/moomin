@@ -1,4 +1,4 @@
-#include "model/Rule.h"
+#include "model/Rule.hpp"
 
 Rule::Rule(Rule::RuleType ruleType)
     : ruleType(ruleType)

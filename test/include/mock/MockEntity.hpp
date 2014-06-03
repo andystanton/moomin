@@ -3,8 +3,8 @@
 
 #include <gmock/gmock.h>
 
-#include "model/Entity.h"
-#include "drawing/Mesh.h"
+#include "model/Entity.hpp"
+#include "drawing/Mesh.hpp"
 
 class MockEntity
     : public Entity

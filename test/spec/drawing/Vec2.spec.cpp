@@ -1,7 +1,7 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "core/Vec2.h"
+#include "TestConstants.hpp"
+#include "core/Vec2.hpp"
 
 using namespace bandit;
 

@@ -2,7 +2,7 @@
 #define _MOOMIN_MOCK_VEC2
 
 #include <gmock/gmock.h>
-#include "core/Vec2.h"
+#include "core/Vec2.hpp"
 
 class MockVec2
     : public Vec2

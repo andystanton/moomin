@@ -2,8 +2,8 @@
 #define _MOOMIN_COLLISION_RULE
 
 #include <set>
-#include "model/Collision.h"
-#include "model/Rule.h"
+#include "model/Collision.hpp"
+#include "model/Rule.hpp"
 
 using std::set;
 

@@ -1,13 +1,13 @@
 #ifndef _MOOMIN_STANDARD_PHYSICS_SYSTEM
 #define _MOOMIN_STANDARD_PHYSICS_SYSTEM
 
-#include "model/PhysicsSystem.h"
+#include "model/PhysicsSystem.hpp"
 
-#include "model/rules/EntityAccelerationRule.h"
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/rules/PositionAccelerationRule.h"
-#include "model/rules/BoundingRule.h"
-#include "model/rules/CollisionRule.h"
+#include "model/rules/EntityAccelerationRule.hpp"
+#include "model/rules/DirectionAccelerationRule.hpp"
+#include "model/rules/PositionAccelerationRule.hpp"
+#include "model/rules/BoundingRule.hpp"
+#include "model/rules/CollisionRule.hpp"
 
 class StandardPhysicsSystem
     : public PhysicsSystem

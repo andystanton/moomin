@@ -1,4 +1,4 @@
-#include "model/rules/CollisionRule.h"
+#include "model/rules/CollisionRule.hpp"
 
 CollisionRule::CollisionRule(const set<Entity *>& entities)
     : Rule(Rule::RuleType::collision)

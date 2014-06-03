@@ -1,15 +1,15 @@
 #include <bandit/bandit.h>
 #include <gmock/gmock.h>
 
-#include "GmockBDDAliases.h"
-#include "TestConstants.h"
+#include "GmockBDDAliases.hpp"
+#include "TestConstants.hpp"
 
 #include <cmath>
 
-#include "model/Entity.h"
-#include "model/Collision.h"
-#include "model/Circle.h"
-#include "model/AABB.h"
+#include "model/Entity.hpp"
+#include "model/Collision.hpp"
+#include "model/Circle.hpp"
+#include "model/AABB.hpp"
 
 using namespace bandit;
 

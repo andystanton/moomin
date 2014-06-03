@@ -12,11 +12,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "drawing/GLFWContextHandler.h"
-#include "drawing/shader.h"
-#include "drawing/Renderer.h"
-#include "drawing/EntityRenderer.h"
-#include "model/PhysicsHelper.h"
+#include "drawing/GLFWContextHandler.hpp"
+#include "drawing/shader.hpp"
+#include "drawing/Renderer.hpp"
+#include "drawing/EntityRenderer.hpp"
+#include "model/PhysicsHelper.hpp"
 
 using std::set;
 using std::stringstream;

@@ -1,9 +1,9 @@
 #ifndef _MOOMIN_COLLISION
 #define _MOOMIN_COLLISION
 
-#include "model/Entity.h"
-#include "model/Circle.h"
-#include "model/AABB.h"
+#include "model/Entity.hpp"
+#include "model/Circle.hpp"
+#include "model/AABB.hpp"
 
 #include <iostream>
 using namespace std;

@@ -1,7 +1,7 @@
 #ifndef _MOOMIN_PHYSICS_HELPER
 #define _MOOMIN_PHYSICS_HELPER
 
-#include "model/StandardPhysicsSystem.h"
+#include "model/StandardPhysicsSystem.hpp"
 
 class PhysicsHelper
 {

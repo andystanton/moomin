@@ -1,9 +1,9 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "core/Core.h"
-#include "model/Circle.h"
-#include "drawing/Mesh.h"
+#include "TestConstants.hpp"
+#include "core/Core.hpp"
+#include "model/Circle.hpp"
+#include "drawing/Mesh.hpp"
 
 using namespace bandit;
 

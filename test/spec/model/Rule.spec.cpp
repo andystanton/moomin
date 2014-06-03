@@ -1,11 +1,11 @@
 #include <bandit/bandit.h>
 
-#include "model/Rule.h"
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/Circle.h"
-#include "core/Vec2.h"
+#include "model/Rule.hpp"
+#include "model/rules/DirectionAccelerationRule.hpp"
+#include "model/Circle.hpp"
+#include "core/Vec2.hpp"
 
-#include "mock/MockEntity.h"
+#include "mock/MockEntity.hpp"
 
 using namespace bandit;
 

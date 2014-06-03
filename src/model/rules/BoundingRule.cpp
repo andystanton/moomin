@@ -1,4 +1,4 @@
-#include "model/rules/BoundingRule.h"
+#include "model/rules/BoundingRule.hpp"
 
 using namespace std;
 

@@ -3,8 +3,8 @@
 
 #include <set>
 
-#include "model/Rule.h"
-#include "model/Entity.h"
+#include "model/Rule.hpp"
+#include "model/Entity.hpp"
 
 using std::set;
 

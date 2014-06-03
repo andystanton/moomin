@@ -6,7 +6,7 @@
 #include <iostream>
 #include <sstream>
 
-#include "util/FloatingPointHelper.h"
+#include "util/FloatingPointHelper.hpp"
 
 using std::string;
 using std::ostream;

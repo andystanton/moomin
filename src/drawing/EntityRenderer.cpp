@@ -1,4 +1,4 @@
-#include "drawing/EntityRenderer.h"
+#include "drawing/EntityRenderer.hpp"
 
 EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     : entities(entities)

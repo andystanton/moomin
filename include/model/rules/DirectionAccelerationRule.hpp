@@ -1,8 +1,8 @@
 #ifndef _MOOMIN_DIRECTION_ACCELERATION_RULE
 #define _MOOMIN_DIRECTION_ACCELERATION_RULE
 
-#include "model/Rule.h"
-#include "core/Vec2.h"
+#include "model/Rule.hpp"
+#include "core/Vec2.hpp"
 
 class DirectionAccelerationRule
     : public Rule

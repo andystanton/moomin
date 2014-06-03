@@ -1,4 +1,4 @@
-#include "model/rules/DirectionAccelerationRule.h"
+#include "model/rules/DirectionAccelerationRule.hpp"
 
 DirectionAccelerationRule::DirectionAccelerationRule(const Vec2 & acceleration)
     : Rule(Rule::RuleType::direction_acceleration)

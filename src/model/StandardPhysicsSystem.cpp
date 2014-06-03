@@ -1,4 +1,4 @@
-#include "model/StandardPhysicsSystem.h"
+#include "model/StandardPhysicsSystem.hpp"
 
 StandardPhysicsSystem::StandardPhysicsSystem(float width, float height)
     : PhysicsSystem()

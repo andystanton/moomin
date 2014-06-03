@@ -1,4 +1,4 @@
-#include "BanditWithGmock.h"
+#include "BanditWithGmock.hpp"
 
 int main(int argc, char* argv[])
 {

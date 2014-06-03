@@ -1,4 +1,4 @@
-#include "drawing/Mesh.h"
+#include "drawing/Mesh.hpp"
 
 
 Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)

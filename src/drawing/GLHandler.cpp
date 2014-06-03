@@ -1,4 +1,4 @@
-#include "drawing/GLHandler.h"
+#include "drawing/GLHandler.hpp"
 
 GLHandler::GLHandler(const string& title,
                      int width,

@@ -1,8 +1,8 @@
-#include "drawing/GLHandler.h"
-#include "drawing/EntityRenderer.h"
+#include "drawing/GLHandler.hpp"
+#include "drawing/EntityRenderer.hpp"
 
-#include "model/StandardPhysicsSystem.h"
-#include "model/PhysicsHelper.h"
+#include "model/StandardPhysicsSystem.hpp"
+#include "model/PhysicsHelper.hpp"
 
 using namespace std;
 

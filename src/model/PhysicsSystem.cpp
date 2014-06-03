@@ -1,4 +1,4 @@
-#include "model/PhysicsSystem.h"
+#include "model/PhysicsSystem.hpp"
 
 PhysicsSystem::PhysicsSystem()
     : entities()

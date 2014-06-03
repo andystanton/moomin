@@ -1,4 +1,4 @@
-#include "core/Vec2.h"
+#include "core/Vec2.hpp"
 
 Vec2::Vec2(const Vec2 & other)
     : x(other.x)

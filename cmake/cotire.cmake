@@ -760,7 +760,7 @@ macro (cotire_check_ignore_header_file_path _headerFile _headerIsIgnoredVar)
 	elseif ("${_headerFile}" MATCHES "\\.\\.|[_-]fixed" AND "${_headerFile}" MATCHES "\\.h$")
 		# heuristic: ignore C headers with embedded parent directory references or "-fixed" or "_fixed" in path
 		# these often stem from using GCC #include_next tricks, which may break the precompiled header compilation
-		# with the error message "error: no include path in which to search for header.h"
+		# with the error message "error: no include path in which to search for header.hpp"
 		set (${_headerIsIgnoredVar} TRUE)
 	else()
 		set (${_headerIsIgnoredVar} FALSE)
@@ -1519,7 +1519,7 @@ endmacro()
 macro (cotire_setup_file_extension_variables)
 	set (_unityFileExt_C ".c")
 	set (_unityFileExt_CXX ".cxx")
-	set (_prefixFileExt_C ".h")
+	set (_prefixFileExt_C ".hpp")
 	set (_prefixFileExt_CXX ".hxx")
 endmacro()
 

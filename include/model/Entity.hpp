@@ -3,8 +3,8 @@
 
 #include <initializer_list>
 
-#include "drawing/Mesh.h"
-#include "core/Vec2.h"
+#include "drawing/Mesh.hpp"
+#include "core/Vec2.hpp"
 
 using std::initializer_list;
 

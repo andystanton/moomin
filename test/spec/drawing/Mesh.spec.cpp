@@ -1,7 +1,7 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "drawing/Mesh.h"
+#include "TestConstants.hpp"
+#include "drawing/Mesh.hpp"
 
 using namespace bandit;
 

@@ -1,6 +1,6 @@
 #include <bandit/bandit.h>
 
-#include "util/FloatingPointHelper.h"
+#include "util/FloatingPointHelper.hpp"
 
 using namespace bandit;
 

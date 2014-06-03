@@ -1,4 +1,4 @@
-#include "model/Collision.h"
+#include "model/Collision.hpp"
 
 Collision::Collision(Entity& primary, Entity& secondary)
     : primary(primary)

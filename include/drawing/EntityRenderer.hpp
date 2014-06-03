@@ -7,9 +7,9 @@
 
 #include <set>
 
-#include "Renderer.h"
-#include "model/Entity.h"
-#include "model/Circle.h"
+#include "Renderer.hpp"
+#include "model/Entity.hpp"
+#include "model/Circle.hpp"
 
 using std::unique_ptr;
 using std::set;

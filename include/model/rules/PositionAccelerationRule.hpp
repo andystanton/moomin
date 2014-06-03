@@ -1,8 +1,8 @@
 #ifndef _MOOMIN_POSITION_ACCELERATION_RULE
 #define _MOOMIN_POSITION_ACCELERATION_RULE
 
-#include "model/Rule.h"
-#include "core/Vec2.h"
+#include "model/Rule.hpp"
+#include "core/Vec2.hpp"
 
 class PositionAccelerationRule
     : public Rule

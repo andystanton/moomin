@@ -1,4 +1,4 @@
-#include "util/FloatingPointHelper.h"
+#include "util/FloatingPointHelper.hpp"
 
 bool floatingPointHelper::almostEqual(float x, float y, int ulp)
 {

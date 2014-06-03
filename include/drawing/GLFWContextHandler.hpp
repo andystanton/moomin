@@ -3,8 +3,8 @@
 
 #include <string>
 #include <GLFW/glfw3.h>
-#include "model/PhysicsHelper.h"
-#include "drawing/GLContextHandler.h"
+#include "model/PhysicsHelper.hpp"
+#include "drawing/GLContextHandler.hpp"
 
 using std::string;
 

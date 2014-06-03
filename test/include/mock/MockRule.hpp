@@ -2,7 +2,7 @@
 #define _MOOMIN_MOCK_RULE
 
 #include <gmock/gmock.h>
-#include "model/Rule.h"
+#include "model/Rule.hpp"
 
 class MockRule
     : public Rule

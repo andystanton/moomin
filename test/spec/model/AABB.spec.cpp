@@ -1,9 +1,9 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "core/Core.h"
-#include "model/AABB.h"
-#include "drawing/Mesh.h"
+#include "TestConstants.hpp"
+#include "core/Core.hpp"
+#include "model/AABB.hpp"
+#include "drawing/Mesh.hpp"
 
 using namespace bandit;
 

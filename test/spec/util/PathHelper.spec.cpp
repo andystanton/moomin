@@ -1,6 +1,6 @@
 #include <bandit/bandit.h>
 
-#include "util/PathHelper.h"
+#include "util/PathHelper.hpp"
 
 using namespace bandit;
 

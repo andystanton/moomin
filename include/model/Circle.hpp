@@ -1,8 +1,8 @@
 #ifndef _MOOMIN_CIRCLE
 #define _MOOMIN_CIRCLE
 
-#include "Entity.h"
-#include "drawing/Mesh.h"
+#include "Entity.hpp"
+#include "drawing/Mesh.hpp"
 
 class Circle
     : public Entity

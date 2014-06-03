@@ -1,4 +1,4 @@
-#include "model/rules/EntityAccelerationRule.h"
+#include "model/rules/EntityAccelerationRule.hpp"
 
 EntityAccelerationRule::EntityAccelerationRule(const set<Entity *> & entities, float acceleration)
     : Rule(Rule::RuleType::entity_acceleration)

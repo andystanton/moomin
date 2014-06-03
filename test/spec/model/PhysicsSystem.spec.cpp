@@ -1,14 +1,14 @@
 #include <bandit/bandit.h>
 #include <gmock/gmock.h>
 
-#include "GmockBDDAliases.h"
-#include "TestConstants.h"
+#include "GmockBDDAliases.hpp"
+#include "TestConstants.hpp"
 
-#include "model/PhysicsSystem.h"
-#include "model/rules/DirectionAccelerationRule.h"
-#include "model/Circle.h"
-#include "mock/MockRule.h"
-#include "mock/MockEntity.h"
+#include "model/PhysicsSystem.hpp"
+#include "model/rules/DirectionAccelerationRule.hpp"
+#include "model/Circle.hpp"
+#include "mock/MockRule.hpp"
+#include "mock/MockEntity.hpp"
 
 using namespace bandit;
 

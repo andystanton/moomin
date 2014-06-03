@@ -1,11 +1,11 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "model/Rule.h"
-#include "model/rules/EntityAccelerationRule.h"
-#include "model/Circle.h"
-#include "mock/MockEntity.h"
-#include "core/Vec2.h"
+#include "TestConstants.hpp"
+#include "model/Rule.hpp"
+#include "model/rules/EntityAccelerationRule.hpp"
+#include "model/Circle.hpp"
+#include "mock/MockEntity.hpp"
+#include "core/Vec2.hpp"
 
 #include <set>
 

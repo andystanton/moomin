@@ -1,8 +1,8 @@
 #include <bandit/bandit.h>
 
-#include "TestConstants.h"
-#include "model/Circle.h"
-#include "model/AABB.h"
+#include "TestConstants.hpp"
+#include "model/Circle.hpp"
+#include "model/AABB.hpp"
 
 using namespace bandit;
 

@@ -1,4 +1,4 @@
-#include "util/PathHelper.h"
+#include "util/PathHelper.hpp"
 
 PathHelper::PathHelper()
 {

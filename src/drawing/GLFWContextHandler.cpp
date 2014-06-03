@@ -1,4 +1,4 @@
-#include "drawing/GLFWContextHandler.h"
+#include "drawing/GLFWContextHandler.hpp"
 
 GLFWContextHandler::GLFWContextHandler(const string& title,
                                        int width,

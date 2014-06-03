@@ -1,4 +1,4 @@
-#include "model/Entity.h"
+#include "model/Entity.hpp"
 
 Entity::Entity(Vec2 pos, Entity::CollisionType collisionType, Vec2 velocity)
     : pos(pos)

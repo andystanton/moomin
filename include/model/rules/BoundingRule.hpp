@@ -3,10 +3,10 @@
 
 #include <cmath>
 
-#include "model/Circle.h"
-#include "model/AABB.h"
-#include "model/Rule.h"
-#include "core/Vec2.h"
+#include "model/Circle.hpp"
+#include "model/AABB.hpp"
+#include "model/Rule.hpp"
+#include "core/Vec2.hpp"
 
 class BoundingRule
     : public Rule

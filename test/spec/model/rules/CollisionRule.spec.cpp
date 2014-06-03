@@ -2,16 +2,16 @@
 
 #include <set>
 
-#include "TestConstants.h"
+#include "TestConstants.hpp"
 
-#include "model/Rule.h"
-#include "model/rules/CollisionRule.h"
-#include "model/Collision.h"
-#include "model/Circle.h"
-#include "model/AABB.h"
-#include "core/Vec2.h"
+#include "model/Rule.hpp"
+#include "model/rules/CollisionRule.hpp"
+#include "model/Collision.hpp"
+#include "model/Circle.hpp"
+#include "model/AABB.hpp"
+#include "core/Vec2.hpp"
 
-#include "mock/MockEntity.h"
+#include "mock/MockEntity.hpp"
 
 using std::set;
 using namespace bandit;

@@ -1,4 +1,4 @@
-#include "model/AABB.h"
+#include "model/AABB.hpp"
 
 AABB::AABB(Vec2 pos, Vec2 bounding, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::aabb, velocity)

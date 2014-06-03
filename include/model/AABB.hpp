@@ -1,7 +1,7 @@
 #ifndef _MOOMIN_AABB
 #define _MOOMIN_AABB
 
-#include "model/Entity.h"
+#include "model/Entity.hpp"
 
 class AABB
     : public Entity
