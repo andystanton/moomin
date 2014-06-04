@@ -1,8 +1,22 @@
 #include "drawing/EntityRenderer.hpp"
 
-EntityRenderer::EntityRenderer(const set<Entity *>& entities)
+EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int height)
     : entities(entities)
 {
+    Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f,1.f); // In world coordinates
+
+    View = glm::lookAt(
+        glm::vec3(0,0,1), // Camera is at (0,0,1), in World Space
+        glm::vec3(0,0,0), // and looks at the origin
+        glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );
+
+    // Model matrix : an identity matrix (model will be at the origin)
+    Model = glm::mat4(1.0f);
+
+    // Our ModelViewProjection : multiplication of our 3 matrices
+    MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
+
     glGenBuffers(1, &vertexBufferAABB);
     glGenBuffers(1, &vertexBufferCircle);
 
@@ -13,11 +27,9 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     glBindVertexArray(vertexArrayIdCircle);
 
     programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
-
     matrixId = glGetUniformLocation(programId, "MVP");
 
-    colourIdCircle = glGetUniformLocation(programId, "uniformColour");
-    colourIdAABB = glGetUniformLocation(programId, "uniformColour");
+    colourId = glGetUniformLocation(programId, "uniformColour");
 }
 
 EntityRenderer::~EntityRenderer()
@@ -31,22 +43,21 @@ EntityRenderer::~EntityRenderer()
     glDeleteProgram(programId);
 }
 
-void EntityRenderer::draw(glm::mat4 MVP)
+void EntityRenderer::draw()
 {
     for (auto entity : entities)
     {
-        draw(entity, MVP);
+        draw(entity);
     }
 }
 
-void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
+void EntityRenderer::draw(Entity* entity)
 {
-
     if (entity->getCollisionType() == Entity::CollisionType::aabb)
     {
         glUseProgram(programId);
 
-        glUniform3f(colourIdCircle, 0.8f, 0.7f, 0.3f);
+        glUniform3f(colourId, 0.8f, 0.7f, 0.3f);
         glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
         glEnableVertexAttribArray(0);
@@ -81,7 +92,7 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
     {
         glUseProgram(programId);
 
-        glUniform3f(colourIdCircle, 0.4f, 0.8f, 0.4f);
+        glUniform3f(colourId, 0.4f, 0.8f, 0.4f);
         glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
         glEnableVertexAttribArray(0);

@@ -60,11 +60,6 @@ private:
     string fpsString;
 
     unique_ptr<GLContextHandler> glContextHandler;
-
-    glm::mat4 Model;
-    glm::mat4 View;
-    glm::mat4 Projection;
-    glm::mat4 MVP;
 };
 
 #endif
