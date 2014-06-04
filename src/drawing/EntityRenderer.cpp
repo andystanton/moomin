@@ -14,8 +14,7 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
 
     programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
 
-    matrixIdAABB = glGetUniformLocation(programId, "MVP");
-    matrixIdCircle = glGetUniformLocation(programId, "MVP");
+    matrixId = glGetUniformLocation(programId, "MVP");
 
     colourIdCircle = glGetUniformLocation(programId, "uniformColour");
     colourIdAABB = glGetUniformLocation(programId, "uniformColour");
@@ -48,7 +47,7 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
         glUseProgram(programId);
 
         glUniform3f(colourIdCircle, 0.8f, 0.7f, 0.3f);
-        glUniformMatrix4fv(matrixIdAABB, 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
@@ -83,7 +82,7 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
         glUseProgram(programId);
 
         glUniform3f(colourIdCircle, 0.4f, 0.8f, 0.4f);
-        glUniformMatrix4fv(matrixIdCircle, 1, GL_FALSE, &MVP[0][0]);
+        glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);

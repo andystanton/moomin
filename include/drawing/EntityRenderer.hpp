@@ -30,8 +30,7 @@ private:
 
     GLuint programId;
 
-    GLuint matrixIdAABB;
-    GLuint matrixIdCircle;
+    GLuint matrixId;
 
     GLuint vertexArrayIdAABB;
     GLuint vertexArrayIdCircle;
