@@ -10,6 +10,8 @@
 #include "Renderer.hpp"
 #include "model/Entity.hpp"
 #include "model/Circle.hpp"
+#include "model/AABB.hpp"
+#include "drawing/shader.hpp"
 
 using std::unique_ptr;
 using std::set;
@@ -21,10 +23,22 @@ public:
     ~EntityRenderer();
 
     void handleResize(int width, int height);
-    void draw();
+    void draw(glm::mat4);
 private:
     const set<Entity *>& entities;
-    void draw(Entity *);
+    void draw(Entity *, glm::mat4);
+
+    GLuint programIdAABB;
+    GLuint programIdCircle;
+
+    GLuint matrixIdAABB;
+    GLuint matrixIdCircle;
+
+    GLuint vertexArrayIdAABB;
+    GLuint vertexArrayIdCircle;
+
+    GLuint vertexBufferAABB;
+    GLuint vertexBufferCircle;
 };
 
 #endif

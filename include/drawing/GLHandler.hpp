@@ -65,18 +65,6 @@ private:
     glm::mat4 View;
     glm::mat4 Projection;
     glm::mat4 MVP;
-
-    GLuint programIdAABB;
-    GLuint programIdCircle;
-
-    GLuint matrixIdAABB;
-    GLuint matrixIdCircle;
-
-    GLuint vertexArrayAABB;
-    GLuint vertexArrayCircle;
-
-    GLuint vertexBufferAABB;
-    GLuint vertexBufferCircle;
 };
 
 #endif
