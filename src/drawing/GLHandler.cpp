@@ -25,24 +25,24 @@ GLHandler::~GLHandler()
 {
 
 }
-
-static const GLfloat g_vertex_buffer_data[] = {
-     0.f, 50.f, 0.0f,
-    50.f, 50.f, 0.0f,
-     0.f,  0.f, 0.0f,
-    50.f, 50.f, 0.0f,
-    50.f,  0.f, 0.0f,
-     0.f,  0.f, 0.0f
-};
-
-static const GLfloat g_vertex_buffer_data2[] = {
-    800.f,         600.f,  0.0f,
-    800.f,         600.f - 50.f, 0.0f,
-    800.f - 50.f,  600.f,  0.0f,
-    800.f,         600.f - 50.f, 0.0f,
-    800.f - 50.f,  600.f - 50.f, 0.0f,
-    800.f - 50.f,  600.f, 0.0f
-};
+//
+// static const GLfloat g_vertex_buffer_data[] = {
+//      0.f, 50.f, 0.0f,
+//     50.f, 50.f, 0.0f,
+//      0.f,  0.f, 0.0f,
+//     50.f, 50.f, 0.0f,
+//     50.f,  0.f, 0.0f,
+//      0.f,  0.f, 0.0f
+// };
+//
+// static const GLfloat g_vertex_buffer_data2[] = {
+//     800.f,         600.f,  0.0f,
+//     800.f,         600.f - 50.f, 0.0f,
+//     800.f - 50.f,  600.f,  0.0f,
+//     800.f,         600.f - 50.f, 0.0f,
+//     800.f - 50.f,  600.f - 50.f, 0.0f,
+//     800.f - 50.f,  600.f, 0.0f
+// };
 
 void GLHandler::init()
 {
@@ -78,13 +78,8 @@ void GLHandler::init()
     // Our ModelViewProjection : multiplication of our 3 matrices
     MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
-    glGenBuffers(1, &vertexbuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_DYNAMIC_DRAW);
-
-    glGenBuffers(1, &vertexbuffer2);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer2);
-    glBufferData(GL_ARRAY_BUFFER, 78 * sizeof(float), g_vertex_buffer_data2, GL_DYNAMIC_DRAW);
+    glGenBuffers(1, &aabbVertexBuffer);
+    glGenBuffers(1, &circleVertexBuffer);
 }
 
 void GLHandler::draw()
@@ -92,7 +87,7 @@ void GLHandler::draw()
     // Clear the screen
     glClear( GL_COLOR_BUFFER_BIT );
 
-    //recalculateFps();
+    recalculateFps();
 
     for (auto entity : physicsHelper.getEntities())
     {
@@ -101,7 +96,7 @@ void GLHandler::draw()
             glUseProgram(programID);
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
             glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, aabbVertexBuffer);
 
             AABB * aabb = static_cast<AABB *>(entity);
             Vec2 pos = aabb->getPos();
@@ -116,7 +111,7 @@ void GLHandler::draw()
                 pos.getX() + bounding.getX(), pos.getY(),
             };
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexBufferData), vertexBufferData);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_DYNAMIC_DRAW);
             glVertexAttribPointer(
                 0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
                 2,                  // size
@@ -133,7 +128,7 @@ void GLHandler::draw()
             glUseProgram(programID2);
             glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
             glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer2);
+            glBindBuffer(GL_ARRAY_BUFFER, circleVertexBuffer);
 
             Circle * circle = static_cast<Circle *>(entity);
             Vec2 pos = circle->getPos();
@@ -158,7 +153,7 @@ void GLHandler::draw()
             vertexBufferData[76] = pos.getX();
             vertexBufferData[77] = pos.getY();
 
-            glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertexBufferData), vertexBufferData);
+            glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_DYNAMIC_DRAW);
             glVertexAttribPointer(
                 0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
                 2,                  // size
@@ -171,12 +166,7 @@ void GLHandler::draw()
         }
     }
 
-
-
-
-
     //entityRenderer->draw();
-
 
     glContextHandler->postDraw();
 }
@@ -223,9 +213,14 @@ double GLHandler::getTime()
 
 void GLHandler::quit()
 {
-    glDeleteBuffers(1, &vertexbuffer);
+    glDeleteBuffers(1, &aabbVertexBuffer);
+    glDeleteBuffers(1, &circleVertexBuffer);
+
 	glDeleteVertexArrays(1, &VertexArrayID);
+    glDeleteVertexArrays(1, &VertexArrayID2);
+
 	glDeleteProgram(programID);
+    glDeleteProgram(programID2);
 
     glContextHandler->quit();
 }

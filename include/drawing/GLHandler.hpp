@@ -72,8 +72,8 @@ private:
     GLuint VertexArrayID2;
     GLuint programID;
     GLuint programID2;
-    GLuint vertexbuffer;
-    GLuint vertexbuffer2;
+    GLuint aabbVertexBuffer;
+    GLuint circleVertexBuffer;
 };
 
 #endif
