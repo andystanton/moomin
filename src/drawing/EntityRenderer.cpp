@@ -12,8 +12,8 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     glGenVertexArrays(1, &vertexArrayIdCircle);
     glBindVertexArray(vertexArrayIdCircle);
 
-    programIdAABB = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
-    programIdCircle = LoadShaders("CircleVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
+    programIdAABB = LoadShaders("EntityVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
+    programIdCircle = LoadShaders("EntityVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
     matrixIdAABB = glGetUniformLocation(programIdAABB, "MVP");
     matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP");
 }
