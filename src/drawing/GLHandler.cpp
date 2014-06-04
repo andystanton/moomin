@@ -25,24 +25,6 @@ GLHandler::~GLHandler()
 {
 
 }
-//
-// static const GLfloat g_vertex_buffer_data[] = {
-//      0.f, 50.f, 0.0f,
-//     50.f, 50.f, 0.0f,
-//      0.f,  0.f, 0.0f,
-//     50.f, 50.f, 0.0f,
-//     50.f,  0.f, 0.0f,
-//      0.f,  0.f, 0.0f
-// };
-//
-// static const GLfloat g_vertex_buffer_data2[] = {
-//     800.f,         600.f,  0.0f,
-//     800.f,         600.f - 50.f, 0.0f,
-//     800.f - 50.f,  600.f,  0.0f,
-//     800.f,         600.f - 50.f, 0.0f,
-//     800.f - 50.f,  600.f - 50.f, 0.0f,
-//     800.f - 50.f,  600.f, 0.0f
-// };
 
 void GLHandler::init()
 {
@@ -64,6 +46,7 @@ void GLHandler::init()
 
     // Model matrix : an identity matrix (model will be at the origin)
     Model = glm::mat4(1.0f);
+    
     // Our ModelViewProjection : multiplication of our 3 matrices
     MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 }

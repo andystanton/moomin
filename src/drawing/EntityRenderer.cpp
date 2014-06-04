@@ -12,10 +12,14 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     glGenVertexArrays(1, &vertexArrayIdCircle);
     glBindVertexArray(vertexArrayIdCircle);
 
-    programIdAABB = LoadShaders("EntityVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
-    programIdCircle = LoadShaders("EntityVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
+    programIdAABB = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
+    programIdCircle = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
+
     matrixIdAABB = glGetUniformLocation(programIdAABB, "MVP");
     matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP");
+
+    colourIdCircle = glGetUniformLocation(programIdCircle, "uniformColour");
+    colourIdAABB = glGetUniformLocation(programIdCircle, "uniformColour");
 }
 
 EntityRenderer::~EntityRenderer()
@@ -44,7 +48,10 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
     if (entity->getCollisionType() == Entity::CollisionType::aabb)
     {
         glUseProgram(programIdAABB);
+
+        glUniform3f(colourIdCircle, 0.8f, 0.7f, 0.3f);
         glUniformMatrix4fv(matrixIdAABB, 1, GL_FALSE, &MVP[0][0]);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
 
@@ -76,7 +83,10 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
     } else if(entity->getCollisionType() == Entity::CollisionType::circle)
     {
         glUseProgram(programIdCircle);
+
+        glUniform3f(colourIdCircle, 0.4f, 0.8f, 0.4f);
         glUniformMatrix4fv(matrixIdCircle, 1, GL_FALSE, &MVP[0][0]);
+
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
 
@@ -114,32 +124,6 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
         );
         glDrawArrays(GL_TRIANGLE_FAN, 0, 76); // 3 indices starting at 0 -> 1 triangle
     }
-
-
-    // const Mesh& mesh = entity->getMesh();
-    // unique_ptr<float> meshPoints(mesh.getPoints());
-    //
-    // int mode = GL_TRIANGLE_STRIP;
-    // glPushMatrix();
-    //     glTranslatef(entity->getPos().getX(), entity->getPos().getY(), 0);
-    //
-    //     if (entity->getCollisionType() == Entity::CollisionType::circle)
-    //     {
-    //         Circle * circle = static_cast<Circle *>(entity);
-    //         float scaleFactor = circle->getRadius() / 10.f;
-    //         glScalef(scaleFactor, scaleFactor, scaleFactor);
-    //         glColor3f(0.4f, 0.8f, 0.5f);
-    //     } else
-    //     {
-    //         glColor3f(0.8f, 0.8f, 0.4f);
-    //     }
-    //     glBegin(GL_TRIANGLE_STRIP);
-    //         for(int i = 0; i < mesh.getSize(); i+=2)
-    //         {
-    //             glVertex2f(meshPoints.get()[i], meshPoints.get()[i+1]);
-    //         }
-    //     glEnd();
-    // glPopMatrix();
 }
 
 void EntityRenderer::handleResize(int width, int height)
