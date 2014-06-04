@@ -37,6 +37,9 @@ private:
     GLuint vertexArrayIdAABB;
     GLuint vertexArrayIdCircle;
 
+    GLuint colourIdAABB;
+    GLuint colourIdCircle;
+
     GLuint vertexBufferAABB;
     GLuint vertexBufferCircle;
 };
