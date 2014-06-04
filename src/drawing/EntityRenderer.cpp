@@ -12,14 +12,13 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     glGenVertexArrays(1, &vertexArrayIdCircle);
     glBindVertexArray(vertexArrayIdCircle);
 
-    programIdAABB = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
-    programIdCircle = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
+    programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
 
-    matrixIdAABB = glGetUniformLocation(programIdAABB, "MVP");
-    matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP");
+    matrixIdAABB = glGetUniformLocation(programId, "MVP");
+    matrixIdCircle = glGetUniformLocation(programId, "MVP");
 
-    colourIdCircle = glGetUniformLocation(programIdCircle, "uniformColour");
-    colourIdAABB = glGetUniformLocation(programIdCircle, "uniformColour");
+    colourIdCircle = glGetUniformLocation(programId, "uniformColour");
+    colourIdAABB = glGetUniformLocation(programId, "uniformColour");
 }
 
 EntityRenderer::~EntityRenderer()
@@ -30,8 +29,7 @@ EntityRenderer::~EntityRenderer()
     glDeleteVertexArrays(1, &vertexArrayIdAABB);
     glDeleteVertexArrays(1, &vertexArrayIdCircle);
 
-    glDeleteProgram(programIdAABB);
-    glDeleteProgram(programIdCircle);
+    glDeleteProgram(programId);
 }
 
 void EntityRenderer::draw(glm::mat4 MVP)
@@ -47,7 +45,7 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
 
     if (entity->getCollisionType() == Entity::CollisionType::aabb)
     {
-        glUseProgram(programIdAABB);
+        glUseProgram(programId);
 
         glUniform3f(colourIdCircle, 0.8f, 0.7f, 0.3f);
         glUniformMatrix4fv(matrixIdAABB, 1, GL_FALSE, &MVP[0][0]);
@@ -82,7 +80,7 @@ void EntityRenderer::draw(Entity* entity, glm::mat4 MVP)
         glDisableVertexAttribArray(0);
     } else if(entity->getCollisionType() == Entity::CollisionType::circle)
     {
-        glUseProgram(programIdCircle);
+        glUseProgram(programId);
 
         glUniform3f(colourIdCircle, 0.4f, 0.8f, 0.4f);
         glUniformMatrix4fv(matrixIdCircle, 1, GL_FALSE, &MVP[0][0]);

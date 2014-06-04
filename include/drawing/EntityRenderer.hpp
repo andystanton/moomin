@@ -28,8 +28,7 @@ private:
     const set<Entity *>& entities;
     void draw(Entity *, glm::mat4);
 
-    GLuint programIdAABB;
-    GLuint programIdCircle;
+    GLuint programId;
 
     GLuint matrixIdAABB;
     GLuint matrixIdCircle;
