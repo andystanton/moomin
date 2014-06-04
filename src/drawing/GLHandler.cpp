@@ -54,16 +54,16 @@ void GLHandler::init()
 
     glClearColor(0.2, 0.2, 0.5, 1.0);
 
-    glGenVertexArrays(1, &VertexArrayID);
-    glBindVertexArray(VertexArrayID);
+    glGenVertexArrays(1, &vertexArrayIdAABB);
+    glBindVertexArray(vertexArrayIdAABB);
 
-    glGenVertexArrays(1, &VertexArrayID2);
-    glBindVertexArray(VertexArrayID2);
+    glGenVertexArrays(1, &vertexArrayIdCircle);
+    glBindVertexArray(vertexArrayIdCircle);
 
-    programID = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
-    programID2 = LoadShaders("CircleVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
-    MatrixID = glGetUniformLocation(programID, "MVP");
-    MatrixID2 = glGetUniformLocation(programID2, "MVP2");
+    programIdAABB = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
+    programIdCircle = LoadShaders("CircleVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
+    matrixIdAABB = glGetUniformLocation(programIdAABB, "MVP");
+    matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP2");
 
     Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f,1.f); // In world coordinates
 
@@ -78,14 +78,13 @@ void GLHandler::init()
     // Our ModelViewProjection : multiplication of our 3 matrices
     MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
 
-    glGenBuffers(1, &aabbVertexBuffer);
-    glGenBuffers(1, &circleVertexBuffer);
+    glGenBuffers(1, &vertexBufferAABB);
+    glGenBuffers(1, &vertexBufferCircle);
 }
 
 void GLHandler::draw()
 {
-    // Clear the screen
-    glClear( GL_COLOR_BUFFER_BIT );
+    glClear(GL_COLOR_BUFFER_BIT);
 
     recalculateFps();
 
@@ -93,10 +92,10 @@ void GLHandler::draw()
     {
         if (entity->getCollisionType() == Entity::CollisionType::aabb)
         {
-            glUseProgram(programID);
-            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+            glUseProgram(programIdAABB);
+            glUniformMatrix4fv(matrixIdAABB, 1, GL_FALSE, &MVP[0][0]);
             glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, aabbVertexBuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
 
             AABB * aabb = static_cast<AABB *>(entity);
             Vec2 pos = aabb->getPos();
@@ -125,10 +124,10 @@ void GLHandler::draw()
             glDisableVertexAttribArray(0);
         } else if(entity->getCollisionType() == Entity::CollisionType::circle)
         {
-            glUseProgram(programID2);
-            glUniformMatrix4fv(MatrixID, 1, GL_FALSE, &MVP[0][0]);
+            glUseProgram(programIdCircle);
+            glUniformMatrix4fv(matrixIdCircle, 1, GL_FALSE, &MVP[0][0]);
             glEnableVertexAttribArray(0);
-            glBindBuffer(GL_ARRAY_BUFFER, circleVertexBuffer);
+            glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
 
             Circle * circle = static_cast<Circle *>(entity);
             Vec2 pos = circle->getPos();
@@ -213,14 +212,14 @@ double GLHandler::getTime()
 
 void GLHandler::quit()
 {
-    glDeleteBuffers(1, &aabbVertexBuffer);
-    glDeleteBuffers(1, &circleVertexBuffer);
+    glDeleteBuffers(1, &vertexBufferAABB);
+    glDeleteBuffers(1, &vertexBufferCircle);
 
-	glDeleteVertexArrays(1, &VertexArrayID);
-    glDeleteVertexArrays(1, &VertexArrayID2);
+	glDeleteVertexArrays(1, &vertexArrayIdAABB);
+    glDeleteVertexArrays(1, &vertexArrayIdCircle);
 
-	glDeleteProgram(programID);
-    glDeleteProgram(programID2);
+	glDeleteProgram(programIdAABB);
+    glDeleteProgram(programIdCircle);
 
     glContextHandler->quit();
 }

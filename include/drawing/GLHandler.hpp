@@ -61,19 +61,22 @@ private:
 
     unique_ptr<GLContextHandler> glContextHandler;
 
-    GLuint MatrixID;
-    GLuint MatrixID2;
-    glm::mat4 Projection;
-    glm::mat4 View;
     glm::mat4 Model;
+    glm::mat4 View;
+    glm::mat4 Projection;
     glm::mat4 MVP;
 
-    GLuint VertexArrayID;
-    GLuint VertexArrayID2;
-    GLuint programID;
-    GLuint programID2;
-    GLuint aabbVertexBuffer;
-    GLuint circleVertexBuffer;
+    GLuint programIdAABB;
+    GLuint programIdCircle;
+
+    GLuint matrixIdAABB;
+    GLuint matrixIdCircle;
+
+    GLuint vertexArrayAABB;
+    GLuint vertexArrayCircle;
+
+    GLuint vertexBufferAABB;
+    GLuint vertexBufferCircle;
 };
 
 #endif
