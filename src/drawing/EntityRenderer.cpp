@@ -15,7 +15,7 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities)
     programIdAABB = LoadShaders("AABBVertexShader.vertexshader", "AABBFragmentShader.fragmentshader");
     programIdCircle = LoadShaders("CircleVertexShader.vertexshader", "CircleFragmentShader.fragmentshader");
     matrixIdAABB = glGetUniformLocation(programIdAABB, "MVP");
-    matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP2");
+    matrixIdCircle = glGetUniformLocation(programIdCircle, "MVP");
 }
 
 EntityRenderer::~EntityRenderer()
