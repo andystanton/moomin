@@ -66,16 +66,18 @@ void EntityRenderer::draw(Entity* entity)
         Vec2 pos = aabb->getPos();
         Vec2 bounding = aabb->getBounding();
 
-        GLfloat vertexBufferData[] = {
-            pos.getX(), pos.getY(),
-            pos.getX(), pos.getY() + bounding.getY(),
-            pos.getX() + bounding.getX(), pos.getY() + bounding.getY(),
-            pos.getX(), pos.getY(),
-            pos.getX() + bounding.getX(), pos.getY() + bounding.getY(),
-            pos.getX() + bounding.getX(), pos.getY(),
-        };
+        // todo: create vector and translate properly
+        float * mesh = aabb->getMesh().getPoints();
+        int meshSize = aabb->getMesh().getSize();
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_DYNAMIC_DRAW);
+        float * posMesh = new float[meshSize];
+        for (int i = 0; i < meshSize; i+=2)
+        {
+            posMesh[i] = mesh[i] + pos.getX();
+            posMesh[i+1] = mesh[i+1] + pos.getY();
+        }
+
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 12, posMesh, GL_DYNAMIC_DRAW);
         glVertexAttribPointer(
             0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
             2,                  // size
