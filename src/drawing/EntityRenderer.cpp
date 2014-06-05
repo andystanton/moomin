@@ -28,8 +28,8 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int hei
 
     programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
     matrixId = glGetUniformLocation(programId, "MVP");
-
     colourId = glGetUniformLocation(programId, "uniformColour");
+    offsetId = glGetUniformLocation(programId, "offset");
 }
 
 EntityRenderer::~EntityRenderer()
@@ -58,28 +58,19 @@ void EntityRenderer::draw(Entity* entity)
     glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
     const Mesh & mesh = entity->getMesh();
+    Vec2 pos = entity->getPos();
 
     if (mesh.getType() == Mesh::MeshType::triangles)
     {
         glUniform3f(colourId, 0.8f, 0.7f, 0.3f);
+        glUniform2f(offsetId, pos.getX(), pos.getY());
+
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
 
         AABB * aabb = static_cast<AABB *>(entity);
-        Vec2 pos = aabb->getPos();
         Vec2 bounding = aabb->getBounding();
 
-        // todo: create vector and translate properly
-        float * mesh = aabb->getMesh().getPoints();
-        int meshSize = aabb->getMesh().getSize();
-
-        float * posMesh = new float[meshSize];
-        for (int i = 0; i < meshSize; i+=2)
-        {
-            posMesh[i] = mesh[i] + pos.getX();
-            posMesh[i+1] = mesh[i+1] + pos.getY();
-        }
-
-        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 12, posMesh, GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 12, aabb->getMesh().getPoints(), GL_DYNAMIC_DRAW);
         glVertexAttribPointer(
             0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
             2,                  // size
@@ -92,31 +83,31 @@ void EntityRenderer::draw(Entity* entity)
     } else if(mesh.getType() == Mesh::MeshType::fan)
     {
         glUniform3f(colourId, 0.4f, 0.8f, 0.4f);
+        glUniform2f(offsetId, pos.getX(), pos.getY());
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
 
         Circle * circle = static_cast<Circle *>(entity);
-        Vec2 pos = circle->getPos();
         float radius = circle->getRadius();
 
         int numSegments = 36;
         float segmentAngle = 360 / numSegments;
 
         GLfloat vertexBufferData[78];
-        vertexBufferData[0] = pos.getX();
-        vertexBufferData[1] = pos.getY();
+        vertexBufferData[0] = 0.f;
+        vertexBufferData[1] = 0.f;
 
         int j = 3;
         for (int i = -1; i < numSegments; i++, j++)
         {
             float angle = i * segmentAngle;
 
-            vertexBufferData[i + j] = pos.getX() + sin(angle * M_PI / 180) * radius;
-            vertexBufferData[i + j + 1] = pos.getY() + cos(angle * M_PI / 180) * radius;
+            vertexBufferData[i + j] = sin(angle * M_PI / 180) * radius;
+            vertexBufferData[i + j + 1] = cos(angle * M_PI / 180) * radius;
         }
 
-        vertexBufferData[76] = pos.getX();
-        vertexBufferData[77] = pos.getY();
+        vertexBufferData[76] = 0.f;
+        vertexBufferData[77] = 0.f;
 
         glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_DYNAMIC_DRAW);
         glVertexAttribPointer(

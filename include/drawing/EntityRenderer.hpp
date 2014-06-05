@@ -39,6 +39,7 @@ private:
     GLuint programId;
     GLuint matrixId;
     GLuint colourId;
+    GLuint offsetId;
 
     GLuint vertexArrayIdAABB;
     GLuint vertexArrayIdCircle;
