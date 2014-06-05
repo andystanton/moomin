@@ -57,7 +57,9 @@ void EntityRenderer::draw(Entity* entity)
     glEnableVertexAttribArray(0);
     glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
-    if (entity->getCollisionType() == Entity::CollisionType::aabb)
+    const Mesh & mesh = entity->getMesh();
+
+    if (mesh.getType() == Mesh::MeshType::triangles)
     {
         glUniform3f(colourId, 0.8f, 0.7f, 0.3f);
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
@@ -87,7 +89,7 @@ void EntityRenderer::draw(Entity* entity)
             (void*)0            // array buffer offset
         );
         glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
-    } else if(entity->getCollisionType() == Entity::CollisionType::circle)
+    } else if(mesh.getType() == Mesh::MeshType::fan)
     {
         glUniform3f(colourId, 0.4f, 0.8f, 0.4f);
 

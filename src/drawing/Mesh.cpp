@@ -8,7 +8,6 @@ Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)
     , rawMesh()
 {
     Vec2* nextVec2 = nullptr;
-    //mesh = new float[meshComponents.size()];
 
     int count = 0;
     for (auto component : meshComponents)
