@@ -2,8 +2,11 @@
 #define _MOOMIN_ENTITY_RENDERER
 
 #include <GL/glew.h>
-
 #include <GLFW/glfw3.h>
+
+#define GLM_FORCE_RADIANS
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include <set>
 
@@ -19,26 +22,27 @@ using std::set;
 class EntityRenderer : public Renderer
 {
 public:
-    EntityRenderer(const set<Entity *>&);
+    EntityRenderer(const set<Entity *>&, int width, int height);
     ~EntityRenderer();
 
     void handleResize(int width, int height);
-    void draw(glm::mat4);
+    void draw();
 private:
     const set<Entity *>& entities;
-    void draw(Entity *, glm::mat4);
+    void draw(Entity *);
 
-    GLuint programIdAABB;
-    GLuint programIdCircle;
+    glm::mat4 Model;
+    glm::mat4 View;
+    glm::mat4 Projection;
+    glm::mat4 MVP;
 
-    GLuint matrixIdAABB;
-    GLuint matrixIdCircle;
+    GLuint programId;
+    GLuint matrixId;
+    GLuint colourId;
+    GLuint offsetId;
 
     GLuint vertexArrayIdAABB;
     GLuint vertexArrayIdCircle;
-
-    GLuint colourIdAABB;
-    GLuint colourIdCircle;
 
     GLuint vertexBufferAABB;
     GLuint vertexBufferCircle;

@@ -4,7 +4,7 @@ AABB::AABB(Vec2 pos, Vec2 bounding, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::aabb, velocity)
     , bounding(bounding)
 {
-    mesh.setType(Mesh::MeshType::quads);
+    mesh.setType(Mesh::MeshType::triangles);
 }
 
 AABB::~AABB()

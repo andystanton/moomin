@@ -24,8 +24,9 @@ public:
     int getSize() const;
 private:
     int size;
+    float * mesh;
     MeshType type;
-    vector<Vec2*> mesh;
+    vector<Vec2*> rawMesh;
 };
 
 #endif

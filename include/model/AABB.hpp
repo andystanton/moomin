@@ -18,10 +18,12 @@ private:
     Vec2 bounding;
     Mesh mesh
     {
-        0.f, 0.f,
-        0.f, bounding.getY(),
-        bounding.getX(), 0.f,
-        bounding.getX(), bounding.getY()
+        0.f,             0.f,
+        0.f,             bounding.getY(),
+        bounding.getX(), bounding.getY(),
+        0.f,             0.f,
+        bounding.getX(), bounding.getY(),
+        bounding.getX(), 0.f
     };
 };
 

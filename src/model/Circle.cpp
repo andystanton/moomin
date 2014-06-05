@@ -4,7 +4,7 @@ Circle::Circle(Vec2 pos, float radius, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::circle, velocity)
     , radius(radius)
 {
-
+    mesh.setType(Mesh::MeshType::fan);
 }
 
 Circle::~Circle()

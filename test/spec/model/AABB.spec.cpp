@@ -41,10 +41,16 @@ go_bandit([]()
             AssertThat(points[3], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
 
             AssertThat(points[4], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
-            AssertThat(points[5], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(points[5], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
 
-            AssertThat(points[6], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
-            AssertThat(points[7], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
+            AssertThat(points[6], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+            AssertThat(points[7], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
+
+            AssertThat(points[8], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
+            AssertThat(points[9], Is().EqualToWithDelta(60.f, FLOAT_EPSILON));
+
+            AssertThat(points[10], Is().EqualToWithDelta(40.f, FLOAT_EPSILON));
+            AssertThat(points[11], Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
         });
     });
 });
