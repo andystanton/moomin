@@ -6,10 +6,10 @@ GLFWContextHandler::GLFWContextHandler(const string& title,
                                        int width,
                                        int height,
                                        PhysicsHelper & physicsHelper)
-    : title(title)
-    , width(width)
-    , height(height)
-    , fullscreen(false)
+    : title { title }
+    , width { width }
+    , height { height }
+    , fullscreen { false }
     , physicsHelper(physicsHelper)
 {
     GLFWContextHandler::instance = this;
@@ -51,9 +51,9 @@ void GLFWContextHandler::init()
     glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
 }
 
-void GLFWContextHandler::setGLHandlerCallback(void (*glHandlerCallback)())
+void GLFWContextHandler::setGLHandlerFullscreenCallback(void (*glHandlerFullscreenCallback)())
 {
-    this->glHandlerCallback = glHandlerCallback;
+    this->glHandlerFullscreenCallback = glHandlerFullscreenCallback;
 }
 
 void GLFWContextHandler::postDraw()
@@ -128,7 +128,7 @@ void GLFWContextHandler::handleKey(int key, int action)
                 physicsHelper.enableEntityAccelerationRule(true);
                 break;
             case GLFW_KEY_F:
-                toggleFullscreen();
+                //toggleFullscreen();
                 break;
             case GLFW_KEY_UP:
                 physicsHelper.enableDirectionAccelerationRule('N');
@@ -190,8 +190,8 @@ void GLFWContextHandler::toggleFullscreen()
     glfwDestroyWindow(window);
     window = nullptr;
     init();
-    if (glHandlerCallback != nullptr)
+    if (glHandlerFullscreenCallback != nullptr)
     {
-        glHandlerCallback();
+        glHandlerFullscreenCallback();
     }
 }

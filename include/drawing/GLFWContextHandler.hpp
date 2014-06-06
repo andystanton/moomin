@@ -25,7 +25,7 @@ public:
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
 
-    void setGLHandlerCallback(void (*)());
+    void setGLHandlerFullscreenCallback(void (*)());
 
 private:
     GLFWwindow * window;
@@ -33,7 +33,7 @@ private:
     int width, height;
     bool fullscreen;
     PhysicsHelper & physicsHelper;
-    void (*glHandlerCallback)() = nullptr;
+    void (*glHandlerFullscreenCallback)() = nullptr;
 
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;

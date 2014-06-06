@@ -35,7 +35,7 @@ laundry_list = [
     "test/CMakeFiles",
     "test/CMakeScripts",
     "CTestTestfile.cmake",
-    "test/CTestTestfile.cmake"
+    "test/CTestTestfile.cmake",
     "Makefile",
     "bin",
     "*.build"

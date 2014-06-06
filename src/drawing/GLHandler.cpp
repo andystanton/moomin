@@ -4,21 +4,21 @@ GLHandler::GLHandler(const string& title,
                      int width,
                      int height,
                      PhysicsHelper & physicsHelper)
-    : title(title)
-    , width(width)
-    , height(height)
+    : title { title }
+    , width { width }
+    , height { height }
     , physicsHelper(physicsHelper)
     , entityRenderer(nullptr)
-    , frameCount {0}
-    , lastFpsUpdate {0.f}
-    , fps {0.f}
+    , frameCount { 0 }
+    , lastFpsUpdate { 0.f }
+    , fps { 0.f }
     , fpsString()
 {
     GLHandler::instance = this;
     glContextHandler = unique_ptr<GLContextHandler>(
         new GLFWContextHandler(title, width, height, physicsHelper)
     );
-    glContextHandler->setGLHandlerCallback(GLHandler::handleFullscreenToggle);
+    glContextHandler->setGLHandlerFullscreenCallback(GLHandler::handleFullscreenToggle);
     init();
 }
 
@@ -38,7 +38,6 @@ void GLHandler::init()
 {
     if (entityRenderer != nullptr)
     {
-        cout << "deleting entityrenderer" << endl;
         delete entityRenderer;
     }
 
