@@ -105,7 +105,7 @@ void PhysicsHelper::addCircleRandom(Vec2 velocity)
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     float radius = (rand() % 20) + 20;
 
-    if (velocity == Vec2(0.f, 0.f)) velocity = Vec2((rand() % 30) - 15, rand() % 30);
+    if (velocity == Vec2::ORIGIN) velocity = Vec2((rand() % 30) - 15, rand() % 30);
 
     addCircle(pos, radius, velocity);
 }
@@ -118,7 +118,7 @@ void PhysicsHelper::addAABBRandom(Vec2 velocity)
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     Vec2 bounding((rand() % 160) + 80, (rand() % 160) + 80);
 
-    if (velocity == Vec2(0.f, 0.f)) velocity = Vec2((rand() % 30) - 15, rand() % 30);
+    if (velocity == Vec2::ORIGIN) velocity = Vec2((rand() % 30) - 15, rand() % 30);
 
     addAABB(pos, bounding, velocity);
 }
@@ -219,7 +219,7 @@ void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
         circleVelocity.setX((int) circleVelocity.getX());
         circleVelocity.setY((int) circleVelocity.getY());
 
-        Vec2 aabbVelocity = Vec2(0.f, 0.f) - aabbCentre;
+        Vec2 aabbVelocity = Vec2::ORIGIN - aabbCentre;
         aabbVelocity.normalise();
         aabbVelocity *= speed;
         aabbVelocity.setX((int) aabbVelocity.getX());

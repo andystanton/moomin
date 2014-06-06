@@ -18,10 +18,10 @@ public:
         aabb
     };
 
-    Entity(Vec2 pos, CollisionType, Vec2 velocity = Vec2(0.f, 0.f));
+    Entity(Vec2 pos, CollisionType, Mesh mesh, Vec2 velocity);
     ~Entity();
 
-    virtual const Mesh & getMesh() const = 0;
+    const Mesh & getMesh() const;
 
     float getMass();
     void setMass(float);
@@ -42,7 +42,7 @@ private:
     Vec2 nextPos;
     Vec2 velocity;
     CollisionType collisionType;
-    float mass;
+    Mesh mesh;
 };
 
 #endif

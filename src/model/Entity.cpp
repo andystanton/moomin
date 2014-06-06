@@ -1,11 +1,11 @@
 #include "model/Entity.hpp"
 
-Entity::Entity(Vec2 pos, Entity::CollisionType collisionType, Vec2 velocity)
+Entity::Entity(Vec2 pos, Entity::CollisionType collisionType, Mesh mesh, Vec2 velocity)
     : pos(pos)
     , nextPos(pos)
     , velocity(velocity)
     , collisionType(collisionType)
-    , mass(0)
+    , mesh(mesh)
 {
 
 }
@@ -14,6 +14,12 @@ Entity::~Entity()
 {
 
 }
+
+const Mesh & Entity::getMesh() const
+{
+    return mesh;
+}
+
 
 Vec2 & Entity::getPos()
 {
@@ -48,14 +54,4 @@ void Entity::setVelocity(Vec2 velocity)
 Entity::CollisionType Entity::getCollisionType()
 {
     return collisionType;
-}
-
-void Entity::setMass(float mass)
-{
-    this->mass = mass;
-}
-
-float Entity::getMass()
-{
-    return mass;
 }
