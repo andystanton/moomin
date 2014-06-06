@@ -4,35 +4,18 @@ GLFWContextHandler::GLFWContextHandler(const string& title,
                                        int width,
                                        int height,
                                        PhysicsHelper & physicsHelper)
-    : physicsHelper(physicsHelper)
+    : title(title)
+    , width(width)
+    , height(height)
+    , fullscreen(false)
+    , physicsHelper(physicsHelper)
 {
+    GLFWContextHandler::instance = this;
     if (!glfwInit()) {
         cerr << "Error: Unable to initialise GLFW" << endl;
         exit( EXIT_FAILURE );
     }
-    glfwInit();
-
-    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
-    glfwWindowHint(GLFW_SAMPLES, 4);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
-	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
-    window = glfwCreateWindow(width, height, title.c_str(), NULL, NULL);
-    if (!window) {
-        glfwTerminate();
-        cerr << "Error: Unable to create GLFW Window" << endl;
-        exit( EXIT_FAILURE );
-    }
-
-    GLFWContextHandler::instance = this;
-
-    glfwMakeContextCurrent(window);
-    glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
-    glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
-    glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
-    //handleResize(window, width, height);
+    init();
 }
 
 GLFWContextHandler::~GLFWContextHandler()
@@ -41,6 +24,38 @@ GLFWContextHandler::~GLFWContextHandler()
 }
 
 GLFWContextHandler * GLFWContextHandler::instance;
+
+void GLFWContextHandler::setHandlerCallback(void (*handlerCallback)())
+{
+    this->handlerCallback = handlerCallback;
+}
+
+void GLFWContextHandler::init()
+{
+    glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
+    glfwWindowHint(GLFW_SAMPLES, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
+    window = glfwCreateWindow(width,
+                              height,
+                              title.c_str(),
+                              fullscreen ? glfwGetPrimaryMonitor() : NULL,
+                              NULL);
+    if (!window) {
+        glfwTerminate();
+        cerr << "Error: Unable to create GLFW Window" << endl;
+        exit( EXIT_FAILURE );
+    }
+
+    glfwMakeContextCurrent(window);
+    glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
+    glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
+    glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
+    //handleResize(window, width, height);
+}
 
 void GLFWContextHandler::postDraw()
 {
@@ -110,6 +125,9 @@ void GLFWContextHandler::handleKey(int key, int action)
             case GLFW_KEY_P:
                 physicsHelper.enableEntityAccelerationRule(true);
                 break;
+            case GLFW_KEY_F:
+                toggleFullscreen();
+                break;
             case GLFW_KEY_UP:
                 physicsHelper.enableDirectionAccelerationRule('N');
                 break;
@@ -162,4 +180,15 @@ void GLFWContextHandler::handleClickWrapper(GLFWwindow * window, int button, int
 void GLFWContextHandler::handleResizeWrapper(GLFWwindow * window, int width, int height)
 {
     GLFWContextHandler::instance->handleResize(window, width, height);
+}
+
+void GLFWContextHandler::toggleFullscreen()
+{
+    fullscreen = !fullscreen;
+    glfwDestroyWindow(window);
+    init();
+    if (handlerCallback != nullptr)
+    {
+        handlerCallback();
+    }
 }

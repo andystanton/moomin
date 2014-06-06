@@ -32,16 +32,16 @@ public:
     GLHandler(const string& title, int width, int height, PhysicsHelper &);
     ~GLHandler();
 
-    void setEntityRenderer(EntityRenderer *);
-
     void draw();
     void quit();
     double getTime();
     bool isActive();
 
+    static GLHandler * instance;
+    static void handleFullscreenToggle();
+
 protected:
     void recalculateFps();
-    void registerRenderer(Renderer *);
     void resize();
     void init();
 
@@ -51,7 +51,6 @@ protected:
     PhysicsHelper & physicsHelper;
 
 private:
-    set<Renderer *> renderers;
     EntityRenderer * entityRenderer;
 
     int frameCount;

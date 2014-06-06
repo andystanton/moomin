@@ -3,7 +3,7 @@
 EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int height)
     : entities(entities)
 {
-    Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f,1.f); // In world coordinates
+    Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f, 1.f); // In world coordinates
 
     View = glm::lookAt(
         glm::vec3(0,0,1), // Camera is at (0,0,1), in World Space
@@ -27,6 +27,7 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int hei
     glBindVertexArray(vertexArrayIdCircle);
 
     programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
+
     matrixId = glGetUniformLocation(programId, "MVP");
     colourId = glGetUniformLocation(programId, "uniformColour");
     offsetId = glGetUniformLocation(programId, "offset");
@@ -85,9 +86,4 @@ void EntityRenderer::draw(Entity* entity)
     );
     glDrawArrays(drawMode, 0, mesh.getSize());
     glDisableVertexAttribArray(0);
-}
-
-void EntityRenderer::handleResize(int width, int height)
-{
-
 }

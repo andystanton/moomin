@@ -9,6 +9,7 @@ public:
     virtual double getTime() = 0;
     virtual bool isActive() = 0;
     virtual void quit() = 0;
+    virtual void setHandlerCallback(void (*)()) = 0;
 };
 
 #endif

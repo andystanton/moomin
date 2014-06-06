@@ -26,6 +26,8 @@ public:
 
     GLFWwindow * getWindow();
 
+    void setHandlerCallback(void (*)());
+
     static GLFWContextHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
@@ -33,9 +35,18 @@ public:
 
 private:
     GLFWwindow * window;
+    const string title;
+    int width, height;
+    bool fullscreen;
     PhysicsHelper & physicsHelper;
+
+    void (*handlerCallback)() = nullptr;
+
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;
+
+    void init();
+    void toggleFullscreen();
 };
 
 #endif

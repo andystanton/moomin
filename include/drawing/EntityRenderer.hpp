@@ -25,7 +25,6 @@ public:
     EntityRenderer(const set<Entity *>&, int width, int height);
     ~EntityRenderer();
 
-    void handleResize(int width, int height);
     void draw();
 private:
     const set<Entity *>& entities;
