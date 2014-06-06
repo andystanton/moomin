@@ -8,11 +8,12 @@
 
 using std::vector;
 using std::initializer_list;
+using std::array;
 
 class Mesh
 {
 public:
-    enum class MeshType { quads, triangles, fan };
+    enum class MeshType { triangles, fan };
 
     Mesh(MeshType, float *, int size);
     Mesh(MeshType, initializer_list<float>);
@@ -22,9 +23,7 @@ public:
 
     ~Mesh();
 
-    void setType(MeshType);
     MeshType getType() const;
-
     float * getPoints() const;
     int getSize() const;
     int getMemSize() const;

@@ -6,7 +6,6 @@ Entity::Entity(Vec2 pos, Entity::CollisionType collisionType, Mesh mesh, Vec2 ve
     , velocity(velocity)
     , collisionType(collisionType)
     , mesh(mesh)
-    , mass(0)
 {
 
 }
@@ -55,14 +54,4 @@ void Entity::setVelocity(Vec2 velocity)
 Entity::CollisionType Entity::getCollisionType()
 {
     return collisionType;
-}
-
-void Entity::setMass(float mass)
-{
-    this->mass = mass;
-}
-
-float Entity::getMass()
-{
-    return mass;
 }

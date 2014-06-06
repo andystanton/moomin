@@ -11,7 +11,7 @@ go_bandit([]()
     {
         it("has a default mesh type of triangles by default", []()
         {
-            Mesh mesh({});
+            Mesh mesh {};
 
             AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::triangles));
         });
@@ -39,8 +39,8 @@ go_bandit([]()
 
         it("accepts a mesh type and an initializer_list of floats that specify its coordinates", []()
         {
-            Mesh mesh = Mesh(
-                Mesh::MeshType::quads,
+            Mesh mesh(
+                Mesh::MeshType::fan,
                 {
                     0.0f, 0.0f,
                     0.0f, 1.0f,
@@ -61,17 +61,6 @@ go_bandit([]()
             AssertThat(meshPoints[5], Is().EqualToWithDelta(1.0f, FLOAT_EPSILON));
             AssertThat(meshPoints[6], Is().EqualToWithDelta(1.0f, FLOAT_EPSILON));
             AssertThat(meshPoints[7], Is().EqualToWithDelta(0.0f, FLOAT_EPSILON));
-        });
-
-        it("accepts updates to its mesh type", []()
-        {
-            Mesh mesh({});
-
-            AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::triangles));
-
-            mesh.setType(Mesh::MeshType::quads);
-
-            AssertThat(mesh.getType(), Is().EqualTo(Mesh::MeshType::quads));
         });
     });
 });

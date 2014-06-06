@@ -43,7 +43,6 @@ private:
     Vec2 velocity;
     CollisionType collisionType;
     Mesh mesh;
-    float mass;
 };
 
 #endif

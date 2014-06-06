@@ -38,7 +38,7 @@ Mesh Circle::populateMesh(float radius, int segmentCount)
     {
         float angle = count * segmentAngle;
 
-        meshComponents[count + indexOffset] = sin(angle * M_PI / 180) * radius;
+        meshComponents[count + indexOffset]     = sin(angle * M_PI / 180) * radius;
         meshComponents[count + indexOffset + 1] = cos(angle * M_PI / 180) * radius;
     }
 
