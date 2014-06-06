@@ -3,7 +3,7 @@
 Circle::Circle(Vec2 pos, float radius, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::circle, velocity)
     , radius(radius)
-    , mesh(populateMesh(radius), (SEGMENT_COUNT + 1) * 2 + 2 + 2)
+    , mesh(populateMesh(radius), (DEFAULT_SEGMENT_COUNT + 1) * 2 + 2 + 2)
 {
     mesh.setType(Mesh::MeshType::fan);
 }
@@ -23,19 +23,19 @@ const Mesh & Circle::getMesh() const
     return mesh;
 }
 
-float * Circle::populateMesh(float radius)
+float * Circle::populateMesh(float radius, int segmentCount)
 {
-    int size = (SEGMENT_COUNT + 1) * 2 + 2 + 2;
+    int size = (segmentCount + 1) * 2 + 2 + 2;
 
     float * meshComponents = new float[size];
 
-    float segmentAngle = 360 / SEGMENT_COUNT;
+    float segmentAngle = 360 / segmentCount;
 
     meshComponents[0] = 0.f;
     meshComponents[1] = 0.f;
 
     int offset = 3;
-    for (int count = -1; count < SEGMENT_COUNT; count++, offset++)
+    for (int count = -1; count < segmentCount; count++, offset++)
     {
         float angle = count * segmentAngle;
 

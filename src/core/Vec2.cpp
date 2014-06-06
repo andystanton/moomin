@@ -25,7 +25,7 @@ Vec2::Vec2(float x, float y)
 }
 
 Vec2::Vec2()
-    : x(0.f), y(0.f)
+    : Vec2(ORIGIN)
 {
 
 }

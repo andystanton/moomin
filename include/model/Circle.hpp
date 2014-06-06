@@ -14,8 +14,8 @@ public:
     float getRadius() const;
     const Mesh & getMesh() const;
 private:
-    static const int SEGMENT_COUNT = 36;
-    static float * populateMesh(float radius);
+    static const int DEFAULT_SEGMENT_COUNT = 36;
+    static float * populateMesh(float radius, int segmentCount = DEFAULT_SEGMENT_COUNT);
 
     float radius;
     Mesh mesh;
