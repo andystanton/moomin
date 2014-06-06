@@ -9,16 +9,16 @@ GLHandler::GLHandler(const string& title,
     , height(height)
     , physicsHelper(physicsHelper)
     , entityRenderer(nullptr)
-    , frameCount(0)
-    , lastFpsUpdate(0.f)
-    , fps(0.f)
+    , frameCount {0}
+    , lastFpsUpdate {0.f}
+    , fps {0.f}
     , fpsString()
 {
     GLHandler::instance = this;
     glContextHandler = unique_ptr<GLContextHandler>(
         new GLFWContextHandler(title, width, height, physicsHelper)
     );
-    glContextHandler->setHandlerCallback(GLHandler::handleFullscreenToggle);
+    glContextHandler->setGLHandlerCallback(GLHandler::handleFullscreenToggle);
     init();
 }
 

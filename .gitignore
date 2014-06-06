@@ -4,6 +4,7 @@ CMakeFiles
 CMakeScripts
 CPackConfig.cmake
 CPackSourceConfig.cmake
+CTestTestfile.cmake
 *.xcodeproj
 src/cmake_install.cmake
 src/CMakeCache.txt
@@ -13,6 +14,7 @@ test/cmake_install.cmake
 test/CMakeCache.txt
 test/CMakeFiles
 test/CMakeScripts
+test/CTestTestfile.cmake
 lib/*/*.build
 lib/*/*.xcodeproj
 lib/*/cmake_install.cmake

@@ -1,5 +1,7 @@
 #include "drawing/GLFWContextHandler.hpp"
 
+GLFWContextHandler * GLFWContextHandler::instance;
+
 GLFWContextHandler::GLFWContextHandler(const string& title,
                                        int width,
                                        int height,
@@ -21,13 +23,6 @@ GLFWContextHandler::GLFWContextHandler(const string& title,
 GLFWContextHandler::~GLFWContextHandler()
 {
 
-}
-
-GLFWContextHandler * GLFWContextHandler::instance;
-
-void GLFWContextHandler::setHandlerCallback(void (*handlerCallback)())
-{
-    this->handlerCallback = handlerCallback;
 }
 
 void GLFWContextHandler::init()
@@ -54,13 +49,20 @@ void GLFWContextHandler::init()
     glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
     glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
     glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
-    //handleResize(window, width, height);
+}
+
+void GLFWContextHandler::setGLHandlerCallback(void (*glHandlerCallback)())
+{
+    this->glHandlerCallback = glHandlerCallback;
 }
 
 void GLFWContextHandler::postDraw()
 {
-    glfwSwapBuffers(window);
-    glfwPollEvents();
+    if (window != nullptr)
+    {
+        glfwSwapBuffers(window);
+        glfwPollEvents();
+    }
 }
 
 bool GLFWContextHandler::isActive()
@@ -186,9 +188,10 @@ void GLFWContextHandler::toggleFullscreen()
 {
     fullscreen = !fullscreen;
     glfwDestroyWindow(window);
+    window = nullptr;
     init();
-    if (handlerCallback != nullptr)
+    if (glHandlerCallback != nullptr)
     {
-        handlerCallback();
+        glHandlerCallback();
     }
 }

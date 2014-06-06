@@ -40,25 +40,22 @@ public:
     static GLHandler * instance;
     static void handleFullscreenToggle();
 
-protected:
-    void recalculateFps();
-    void resize();
-    void init();
-
+private:
     string title;
     int width;
     int height;
     PhysicsHelper & physicsHelper;
-
-private:
     EntityRenderer * entityRenderer;
-
     int frameCount;
     float lastFpsUpdate;
     float fps;
     string fpsString;
 
     unique_ptr<GLContextHandler> glContextHandler;
+
+    void recalculateFps();
+    void resize();
+    void init();
 };
 
 #endif

@@ -19,19 +19,13 @@ public:
     bool isActive();
     void quit();
     double getTime();
+    GLFWwindow * getWindow();
 
     void handleKey(int key, int action);
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
 
-    GLFWwindow * getWindow();
-
-    void setHandlerCallback(void (*)());
-
-    static GLFWContextHandler * instance;
-    static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
-    static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
-    static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
+    void setGLHandlerCallback(void (*)());
 
 private:
     GLFWwindow * window;
@@ -39,14 +33,18 @@ private:
     int width, height;
     bool fullscreen;
     PhysicsHelper & physicsHelper;
-
-    void (*handlerCallback)() = nullptr;
+    void (*glHandlerCallback)() = nullptr;
 
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;
 
     void init();
     void toggleFullscreen();
+
+    static GLFWContextHandler * instance;
+    static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
+    static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
+    static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
 };
 
 #endif
