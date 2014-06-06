@@ -70,7 +70,7 @@ void EntityRenderer::draw(Entity* entity)
         AABB * aabb = static_cast<AABB *>(entity);
         Vec2 bounding = aabb->getBounding();
 
-        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 12, aabb->getMesh().getPoints(), GL_DYNAMIC_DRAW);
+        glBufferData(GL_ARRAY_BUFFER, mesh.getMemSize(), mesh.getPoints(), GL_DYNAMIC_DRAW);
         glVertexAttribPointer(
             0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
             2,                  // size
@@ -86,10 +86,8 @@ void EntityRenderer::draw(Entity* entity)
         glUniform2f(offsetId, pos.getX(), pos.getY());
 
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
-
-        Circle * circle = static_cast<Circle *>(entity);
-
-        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * circle->getMesh().getSize(), circle->getMesh().getPoints(), GL_DYNAMIC_DRAW);
+        
+        glBufferData(GL_ARRAY_BUFFER, mesh.getMemSize(), mesh.getPoints(), GL_DYNAMIC_DRAW);
 
         glVertexAttribPointer(
             0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.

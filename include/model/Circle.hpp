@@ -14,35 +14,34 @@ public:
     float getRadius();
     const Mesh & getMesh() const;
 private:
-    static const int numSegments = 36;
-
     float radius;
     Mesh mesh;
 
+    static const int SEGMENT_COUNT = 36;
     static float * populateMesh(float radius)
     {
-        int size = (numSegments + 1) * 2 + 2 + 2;
+        int size = (SEGMENT_COUNT + 1) * 2 + 2 + 2;
 
-        float * points = new float[size];
+        float * meshComponents = new float[size];
 
-        float segmentAngle = 360 / numSegments;
+        float segmentAngle = 360 / SEGMENT_COUNT;
 
-        points[0] = 0.f;
-        points[1] = 0.f;
+        meshComponents[0] = 0.f;
+        meshComponents[1] = 0.f;
 
-        int j = 3;
-        for (int i = -1; i < numSegments; i++, j++)
+        int offset = 3;
+        for (int count = -1; count < SEGMENT_COUNT; count++, offset++)
         {
-            float angle = i * segmentAngle;
+            float angle = count * segmentAngle;
 
-            points[i + j] = sin(angle * M_PI / 180) * radius;
-            points[i + j + 1] = cos(angle * M_PI / 180) * radius;
+            meshComponents[count + offset] = sin(angle * M_PI / 180) * radius;
+            meshComponents[count + offset + 1] = cos(angle * M_PI / 180) * radius;
         }
 
-        points[size - 2] = 0.f;
-        points[size - 1] = 0.f;
+        meshComponents[size - 2] = 0.f;
+        meshComponents[size - 1] = 0.f;
 
-        return points;
+        return meshComponents;
     }
 };
 

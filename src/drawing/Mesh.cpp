@@ -1,9 +1,10 @@
 #include "drawing/Mesh.hpp"
 
-
-Mesh::Mesh(float * meshComponents, int meshSize)
+Mesh::Mesh(MeshType type, float * meshComponents, int meshSize)
     : size(meshSize)
+    , memSize(size * sizeof(float))
     , mesh(new float[meshSize])
+    , type(type)
 {
     for (int i = 0; i < size; i++)
     {
@@ -11,8 +12,14 @@ Mesh::Mesh(float * meshComponents, int meshSize)
     }
 }
 
+Mesh::Mesh(float * meshComponents, int meshSize)
+    : Mesh(MeshType::triangles, meshComponents, meshSize)
+{
+}
+
 Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)
     : size(meshComponents.size())
+    , memSize(size * sizeof(float))
     , mesh(new float[meshComponents.size()])
     , type(type)
 {
@@ -37,6 +44,11 @@ Mesh::~Mesh()
 int Mesh::getSize() const
 {
     return size;
+}
+
+int Mesh::getMemSize() const
+{
+    return memSize;
 }
 
 Mesh::MeshType Mesh::getType() const

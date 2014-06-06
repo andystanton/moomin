@@ -3,7 +3,7 @@
 Circle::Circle(Vec2 pos, float radius, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::circle, velocity)
     , radius(radius)
-    , mesh(populateMesh(radius), numSegments * 2 + 2 + 2)
+    , mesh(populateMesh(radius), (SEGMENT_COUNT + 1) * 2 + 2 + 2)
 {
     mesh.setType(Mesh::MeshType::fan);
 }
