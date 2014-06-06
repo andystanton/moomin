@@ -19,26 +19,31 @@ float Circle::getRadius() const
 
 Mesh Circle::populateMesh(float radius, int segmentCount)
 {
-    int size = (segmentCount + 1) * 2 + 2 + 2;
+    // number of components is equal to the number of segments + 1 because
+    // triangle fans require reiterating the second vertex. The extra 4
+    // are required as we have to hit the origin twice - once at the start
+    // and once at the end.
+    int componentCount = (segmentCount + 1) * 2 + 4;
 
-    float * meshComponents = new float[size];
+    float * meshComponents = new float[componentCount];
 
     float segmentAngle = 360 / segmentCount;
 
     meshComponents[0] = 0.f;
     meshComponents[1] = 0.f;
 
-    int offset = 3;
-    for (int count = -1; count < segmentCount; count++, offset++)
+    int indexOffset = 2; // offset as we've manually set 0 and 1.
+
+    for (int count = 0; count <= segmentCount; count++, indexOffset++)
     {
         float angle = count * segmentAngle;
 
-        meshComponents[count + offset] = sin(angle * M_PI / 180) * radius;
-        meshComponents[count + offset + 1] = cos(angle * M_PI / 180) * radius;
+        meshComponents[count + indexOffset] = sin(angle * M_PI / 180) * radius;
+        meshComponents[count + indexOffset + 1] = cos(angle * M_PI / 180) * radius;
     }
 
-    meshComponents[size - 2] = 0.f;
-    meshComponents[size - 1] = 0.f;
+    meshComponents[componentCount - 2] = 0.f;
+    meshComponents[componentCount - 1] = 0.f;
 
-    return Mesh(Mesh::MeshType::fan, meshComponents, (DEFAULT_SEGMENT_COUNT + 1) * 2 + 2 + 2);
+    return Mesh(Mesh::MeshType::fan, meshComponents, componentCount);
 }

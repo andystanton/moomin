@@ -29,5 +29,5 @@ Mesh AABB::populateMesh(Vec2 bounding)
         bounding.getX(), 0.f
     };
 
-    return Mesh(Mesh::MeshType::triangles, meshComponents, sizeof(float) * componentCount);
+    return Mesh(Mesh::MeshType::triangles, meshComponents, componentCount);
 }
