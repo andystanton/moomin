@@ -19,23 +19,32 @@ public:
     bool isActive();
     void quit();
     double getTime();
+    GLFWwindow * getWindow();
 
     void handleKey(int key, int action);
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
 
-    GLFWwindow * getWindow();
+    void setGLHandlerFullscreenCallback(void (*)());
+
+private:
+    GLFWwindow * window;
+    const string title;
+    int width, height;
+    bool fullscreen;
+    PhysicsHelper & physicsHelper;
+    void (*glHandlerFullscreenCallback)() = nullptr;
+
+    double clickStartX, clickStartY;
+    double clickEndX, clickEndY;
+
+    void init();
+    void toggleFullscreen();
 
     static GLFWContextHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
     static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
-
-private:
-    GLFWwindow * window;
-    PhysicsHelper & physicsHelper;
-    double clickStartX, clickStartY;
-    double clickEndX, clickEndY;
 };
 
 #endif

@@ -12,7 +12,7 @@ PhysicsHelper::~PhysicsHelper()
 
 }
 
-set<Entity *> PhysicsHelper::getEntities()
+const set<Entity *>& PhysicsHelper::getEntities()
 {
     return physicsSystem.getEntities();
 }

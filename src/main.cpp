@@ -19,12 +19,6 @@ int main( void )
     // Initialise Graphics System
     GLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
 
-    // Create Renderers
-    EntityRenderer er(physicsSystem.getEntities(), width, height);
-
-    // Register Renderers with Graphics System
-    glHandler.setEntityRenderer(&er);
-
     // Moomin!
     float lastUpdate = glHandler.getTime();
     while (glHandler.isActive())
