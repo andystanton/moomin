@@ -11,11 +11,11 @@ public:
     ~AABB();
 
     Vec2 & getBounding();
-    const Mesh & getMesh() const;
 
 private:
+    static Mesh populateMesh(Vec2);
+
     Vec2 bounding;
-    Mesh mesh;
 };
 
 #endif

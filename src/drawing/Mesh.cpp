@@ -1,5 +1,7 @@
 #include "drawing/Mesh.hpp"
 
+Mesh Mesh::empty = Mesh({}, 0);
+
 Mesh::Mesh(MeshType type, float * components, int meshSize)
     : size(meshSize)
     , memSize(size * sizeof(float))
@@ -35,7 +37,7 @@ Mesh::Mesh(float * components, int meshSize)
 Mesh::Mesh(initializer_list<float> components)
     : Mesh(MeshType::triangles, components)
 {
-    
+
 }
 
 Mesh::~Mesh()

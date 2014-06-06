@@ -1,11 +1,10 @@
 #include "model/Circle.hpp"
 
 Circle::Circle(Vec2 pos, float radius, Vec2 velocity)
-    : Entity(pos, Entity::CollisionType::circle, velocity)
+    : Entity(pos, Entity::CollisionType::circle, populateMesh(radius), velocity)
     , radius(radius)
-    , mesh(populateMesh(radius), (DEFAULT_SEGMENT_COUNT + 1) * 2 + 2 + 2)
 {
-    mesh.setType(Mesh::MeshType::fan);
+
 }
 
 Circle::~Circle()
@@ -18,12 +17,7 @@ float Circle::getRadius() const
     return radius;
 }
 
-const Mesh & Circle::getMesh() const
-{
-    return mesh;
-}
-
-float * Circle::populateMesh(float radius, int segmentCount)
+Mesh Circle::populateMesh(float radius, int segmentCount)
 {
     int size = (segmentCount + 1) * 2 + 2 + 2;
 
@@ -46,5 +40,5 @@ float * Circle::populateMesh(float radius, int segmentCount)
     meshComponents[size - 2] = 0.f;
     meshComponents[size - 1] = 0.f;
 
-    return meshComponents;
+    return Mesh(Mesh::MeshType::fan, meshComponents, (DEFAULT_SEGMENT_COUNT + 1) * 2 + 2 + 2);
 }

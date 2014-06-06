@@ -24,10 +24,12 @@ public:
 
     void setType(MeshType);
     MeshType getType() const;
-    
+
     float * getPoints() const;
     int getSize() const;
     int getMemSize() const;
+
+    static Mesh empty;
 private:
     int size;
     int memSize;
