@@ -1,6 +1,6 @@
 #include "drawing/Mesh.hpp"
 
-Mesh::Mesh(MeshType type, float * meshComponents, int meshSize)
+Mesh::Mesh(MeshType type, float * components, int meshSize)
     : size(meshSize)
     , memSize(size * sizeof(float))
     , mesh(new float[meshSize])
@@ -8,32 +8,34 @@ Mesh::Mesh(MeshType type, float * meshComponents, int meshSize)
 {
     for (int i = 0; i < size; i++)
     {
-        mesh[i] = meshComponents[i];
+        mesh[i] = components[i];
     }
 }
 
-Mesh::Mesh(float * meshComponents, int meshSize)
-    : Mesh(MeshType::triangles, meshComponents, meshSize)
-{
-}
-
-Mesh::Mesh(MeshType type, initializer_list<float> meshComponents)
-    : size(meshComponents.size())
+Mesh::Mesh(MeshType type, initializer_list<float> components)
+    : size(components.size())
     , memSize(size * sizeof(float))
-    , mesh(new float[meshComponents.size()])
+    , mesh(new float[components.size()])
     , type(type)
 {
     int count = 0;
-    for (auto component : meshComponents)
+    for (auto component : components)
     {
         mesh[count] = component;
         ++count;
     }
 }
 
-Mesh::Mesh(initializer_list<float> meshComponents)
-    : Mesh(MeshType::triangles, meshComponents)
+Mesh::Mesh(float * components, int meshSize)
+    : Mesh(MeshType::triangles, components, meshSize)
 {
+
+}
+
+Mesh::Mesh(initializer_list<float> components)
+    : Mesh(MeshType::triangles, components)
+{
+    
 }
 
 Mesh::~Mesh()

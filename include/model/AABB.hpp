@@ -7,11 +7,10 @@ class AABB
     : public Entity
 {
 public:
-    AABB(Vec2 pos, Vec2 bounding, Vec2 velocity = Vec2(0.f, 0.f));
+    AABB(Vec2 pos, Vec2 bounding, Vec2 velocity = Vec2::ORIGIN);
     ~AABB();
 
     Vec2 & getBounding();
-
     const Mesh & getMesh() const;
 
 private:

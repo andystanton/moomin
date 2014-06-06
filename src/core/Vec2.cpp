@@ -1,5 +1,7 @@
 #include "core/Vec2.hpp"
 
+const Vec2 Vec2::ORIGIN(0.f, 0.f);
+
 Vec2::Vec2(const Vec2 & other)
     : x(other.x)
     , y(other.y)

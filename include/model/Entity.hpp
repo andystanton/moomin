@@ -18,7 +18,7 @@ public:
         aabb
     };
 
-    Entity(Vec2 pos, CollisionType, Vec2 velocity = Vec2(0.f, 0.f));
+    Entity(Vec2 pos, CollisionType, Vec2 velocity = Vec2::ORIGIN);
     ~Entity();
 
     virtual const Mesh & getMesh() const = 0;

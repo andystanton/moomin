@@ -54,6 +54,8 @@ public:
     friend ostream & operator<<(ostream & os, const Vec2 &);
 
     string toString() const;
+
+    static const Vec2 ORIGIN;
 private:
     float x, y;
 };

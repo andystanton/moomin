@@ -19,17 +19,17 @@ public:
     void enableDirectionAccelerationRule(char direction);
     void disableAccelerationRules();
 
-    void addCircle(Vec2 pos, float radius, Vec2 velocity = Vec2(0.f, 0.f));
-    void addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity = Vec2(0.f, 0.f));
+    void addCircle(Vec2 pos, float radius, Vec2 velocity = Vec2::ORIGIN);
+    void addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity = Vec2::ORIGIN);
 
-    void addCircleRandom(Vec2 velocity = Vec2(0.f, 0.f));
-    void addAABBRandom(Vec2 velocity = Vec2(0.f, 0.f));
+    void addCircleRandom(Vec2 velocity = Vec2::ORIGIN);
+    void addAABBRandom(Vec2 velocity = Vec2::ORIGIN);
 
     void addCirclesRandom(int count = 50);
     void addAABBsRandom(int count = 50);
 
-    void addCirclesLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2(0,0));
-    void addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2(0,0));
+    void addCirclesLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2::ORIGIN);
+    void addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity = Vec2::ORIGIN);
 
     void addCirclesLatticeCentre(int divisions = 10);
     void addAABBsLatticeCentre(int divisions = 10);
