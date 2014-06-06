@@ -11,6 +11,7 @@ public:
     ~AABB();
 
     Vec2 & getBounding();
+    float * getColour();
 
 private:
     static Mesh populateMesh(Vec2);

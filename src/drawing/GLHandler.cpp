@@ -96,16 +96,5 @@ void GLHandler::quit()
 
 void GLHandler::resize()
 {
-    // glViewport(0, 0, width, height);
-    // glMatrixMode(GL_PROJECTION );
-    // glLoadIdentity();
-    //
-    // glOrtho(0, physicsHelper.getWidth(), 0, physicsHelper.getHeight(), 0, 1);
-    // glMatrixMode(GL_MODELVIEW);
-    // glLoadIdentity();
-    //
-    // for (auto renderer : renderers)
-    // {
-    //     renderer->handleResize(width, height);
-    // }
+
 }

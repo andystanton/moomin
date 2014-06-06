@@ -33,6 +33,7 @@ private:
     int size;
     int memSize;
     float * mesh;
+    float colour[4];
     MeshType type;
 };
 
