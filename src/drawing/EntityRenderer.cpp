@@ -88,28 +88,9 @@ void EntityRenderer::draw(Entity* entity)
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
 
         Circle * circle = static_cast<Circle *>(entity);
-        float radius = circle->getRadius();
 
-        int numSegments = 36;
-        float segmentAngle = 360 / numSegments;
+        glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * circle->getMesh().getSize(), circle->getMesh().getPoints(), GL_DYNAMIC_DRAW);
 
-        GLfloat vertexBufferData[78];
-        vertexBufferData[0] = 0.f;
-        vertexBufferData[1] = 0.f;
-
-        int j = 3;
-        for (int i = -1; i < numSegments; i++, j++)
-        {
-            float angle = i * segmentAngle;
-
-            vertexBufferData[i + j] = sin(angle * M_PI / 180) * radius;
-            vertexBufferData[i + j + 1] = cos(angle * M_PI / 180) * radius;
-        }
-
-        vertexBufferData[76] = 0.f;
-        vertexBufferData[77] = 0.f;
-
-        glBufferData(GL_ARRAY_BUFFER, sizeof(vertexBufferData), vertexBufferData, GL_DYNAMIC_DRAW);
         glVertexAttribPointer(
             0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
             2,                  // size

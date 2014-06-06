@@ -14,46 +14,36 @@ public:
     float getRadius();
     const Mesh & getMesh() const;
 private:
+    static const int numSegments = 36;
+
     float radius;
-    Mesh mesh
+    Mesh mesh;
+
+    static float * populateMesh(float radius)
     {
-        0.0f, 0.0f,  0.0f, 10.0f,  1.74f, 9.85f,
-        0.0f, 0.0f,  1.74f, 9.85f,  3.42f, 9.4f,
-        0.0f, 0.0f,  3.42f, 9.4f,  5.0f, 8.66f,
-        0.0f, 0.0f,  5.0f, 8.66f,  6.43f, 7.66f,
-        0.0f, 0.0f,  6.43f, 7.66f,  7.66f, 6.43f,
-        0.0f, 0.0f,  7.66f, 6.43f,  8.66f, 5.0f,
-        0.0f, 0.0f,  8.66f, 5.0f,  9.4f, 3.42f,
-        0.0f, 0.0f,  9.4f, 3.42f,  9.85f, 1.74f,
-        0.0f, 0.0f,  9.85f, 1.74f,  10.0f, 0.0f,
-        0.0f, 0.0f,  10.0f, 0.0f,  9.85f, -1.74f,
-        0.0f, 0.0f,  9.85f, -1.74f,  9.4f, -3.42f,
-        0.0f, 0.0f,  9.4f, -3.42f,  8.66f, -5.0f,
-        0.0f, 0.0f,  8.66f, -5.0f,  7.66f, -6.43f,
-        0.0f, 0.0f,  7.66f, -6.43f,  6.43f, -7.66f,
-        0.0f, 0.0f,  6.43f, -7.66f,  5.0f, -8.66f,
-        0.0f, 0.0f,  5.0f, -8.66f,  3.42f, -9.4f,
-        0.0f, 0.0f,  3.42f, -9.4f,  1.74f, -9.85f,
-        0.0f, 0.0f,  1.74f, -9.85f,  0.0f, -10.0f,
-        0.0f, 0.0f,  0.0f, -10.0f,  -1.74f, -9.85f,
-        0.0f, 0.0f,  -1.74f, -9.85f,  -3.42f, -9.4f,
-        0.0f, 0.0f,  -3.42f, -9.4f,  -5.0f, -8.66f,
-        0.0f, 0.0f,  -5.0f, -8.66f,  -6.43f, -7.66f,
-        0.0f, 0.0f,  -6.43f, -7.66f,  -7.66f, -6.43f,
-        0.0f, 0.0f,  -7.66f, -6.43f,  -8.66f, -5.0f,
-        0.0f, 0.0f,  -8.66f, -5.0f,  -9.4f, -3.42f,
-        0.0f, 0.0f,  -9.4f, -3.42f,  -9.85f, -1.74f,
-        0.0f, 0.0f,  -9.85f, -1.74f,  -10.0f, 0.0f,
-        0.0f, 0.0f,  -10.0f, 0.0f,  -9.85f, 1.74f,
-        0.0f, 0.0f,  -9.85f, 1.74f,  -9.4f, 3.42f,
-        0.0f, 0.0f,  -9.4f, 3.42f,  -8.66f, 5.0f,
-        0.0f, 0.0f,  -8.66f, 5.0f,  -7.66f, 6.43f,
-        0.0f, 0.0f,  -7.66f, 6.43f,  -6.43f, 7.66f,
-        0.0f, 0.0f,  -6.43f, 7.66f,  -5.0f, 8.66f,
-        0.0f, 0.0f,  -5.0f, 8.66f,  -3.42f, 9.4f,
-        0.0f, 0.0f,  -3.42f, 9.4f,  -1.74f, 9.85f,
-        0.0f, 0.0f,  -1.74f, 9.85f,  0.0f, 10.0f
-    };
+        int size = (numSegments + 1) * 2 + 2 + 2;
+
+        float * points = new float[size];
+
+        float segmentAngle = 360 / numSegments;
+
+        points[0] = 0.f;
+        points[1] = 0.f;
+
+        int j = 3;
+        for (int i = -1; i < numSegments; i++, j++)
+        {
+            float angle = i * segmentAngle;
+
+            points[i + j] = sin(angle * M_PI / 180) * radius;
+            points[i + j + 1] = cos(angle * M_PI / 180) * radius;
+        }
+
+        points[size - 2] = 0.f;
+        points[size - 1] = 0.f;
+
+        return points;
+    }
 };
 
 #endif

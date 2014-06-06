@@ -14,6 +14,7 @@ class Mesh
 public:
     enum class MeshType { quads, triangles, fan };
 
+    Mesh(float *, int size);
     Mesh(initializer_list<float>);
     Mesh(MeshType, initializer_list<float>);
     ~Mesh();
@@ -26,7 +27,6 @@ private:
     int size;
     float * mesh;
     MeshType type;
-    vector<Vec2*> rawMesh;
 };
 
 #endif
