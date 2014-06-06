@@ -1,5 +1,7 @@
 #include "model/Circle.hpp"
 
+const int Circle::DEFAULT_SEGMENT_COUNT = 36;
+
 Circle::Circle(Vec2 pos, float radius, Vec2 velocity)
     : Entity(pos, Entity::CollisionType::circle, populateMesh(radius), velocity)
     , radius(radius)
@@ -15,6 +17,11 @@ Circle::~Circle()
 float Circle::getRadius() const
 {
     return radius;
+}
+
+float * Circle::getColour()
+{
+    return new float[3] { 0.4f, 0.8f, 0.4f };
 }
 
 Mesh Circle::populateMesh(float radius, int segmentCount)

@@ -16,6 +16,11 @@ Vec2 & AABB::getBounding()
     return bounding;
 }
 
+float * AABB::getColour()
+{
+    return new float[3]{ 0.8f, 0.7f, 0.3f };
+}
+
 Mesh AABB::populateMesh(Vec2 bounding)
 {
     const int componentCount = 12;

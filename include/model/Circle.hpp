@@ -12,9 +12,11 @@ public:
     ~Circle();
 
     float getRadius() const;
+    float * getColour();
 
 private:
-    static Mesh populateMesh(float radius, int segmentCount = 36);
+    static const int DEFAULT_SEGMENT_COUNT;
+    static Mesh populateMesh(float radius, int segmentCount = DEFAULT_SEGMENT_COUNT);
 
     float radius;
 };

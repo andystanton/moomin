@@ -16,6 +16,8 @@ public:
     MOCK_METHOD1(setPos, void(Vec2&));
     MOCK_METHOD1(setVelocity, void(Vec2&));
 
+    MOCK_METHOD0(getColour, float*());
+
     MOCK_CONST_METHOD0_T(getMesh, const Mesh&());
 
     MockEntity()

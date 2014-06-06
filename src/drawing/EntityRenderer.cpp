@@ -53,53 +53,37 @@ void EntityRenderer::draw()
 
 void EntityRenderer::draw(Entity* entity)
 {
+    Vec2 pos = entity->getPos();
+    const Mesh & mesh = entity->getMesh();
+
     glUseProgram(programId);
     glEnableVertexAttribArray(0);
+
+    glUniform2f(offsetId, pos.getX(), pos.getY());
+    glUniform3fv(colourId, 1, entity->getColour());
     glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
-    const Mesh & mesh = entity->getMesh();
-    Vec2 pos = entity->getPos();
-
+    GLenum drawMode = GL_INVALID_ENUM;
     if (mesh.getType() == Mesh::MeshType::triangles)
     {
-        glUniform3f(colourId, 0.8f, 0.7f, 0.3f);
-        glUniform2f(offsetId, pos.getX(), pos.getY());
-
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
-
-        AABB * aabb = static_cast<AABB *>(entity);
-        Vec2 bounding = aabb->getBounding();
-
-        glBufferData(GL_ARRAY_BUFFER, mesh.getMemSize(), mesh.getPoints(), GL_DYNAMIC_DRAW);
-        glVertexAttribPointer(
-            0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-            2,                  // size
-            GL_FLOAT,           // type
-            GL_FALSE,           // normalized?
-            0,                  // stride
-            (void*)0            // array buffer offset
-        );
-        glDrawArrays(GL_TRIANGLES, 0, 6); // 3 indices starting at 0 -> 1 triangle
+        drawMode = GL_TRIANGLES;
     } else if(mesh.getType() == Mesh::MeshType::fan)
     {
-        glUniform3f(colourId, 0.4f, 0.8f, 0.4f);
-        glUniform2f(offsetId, pos.getX(), pos.getY());
-
         glBindBuffer(GL_ARRAY_BUFFER, vertexBufferCircle);
-        
-        glBufferData(GL_ARRAY_BUFFER, mesh.getMemSize(), mesh.getPoints(), GL_DYNAMIC_DRAW);
-
-        glVertexAttribPointer(
-            0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
-            2,                  // size
-            GL_FLOAT,           // type
-            GL_FALSE,           // normalized?
-            0,                  // stride
-            (void*)0            // array buffer offset
-        );
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 76); // 3 indices starting at 0 -> 1 triangle
+        drawMode = GL_TRIANGLE_FAN;
     }
 
+    glBufferData(GL_ARRAY_BUFFER, mesh.getMemSize(), mesh.getPoints(), GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+        2,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                  // stride
+        (void*)0            // array buffer offset
+    );
+    glDrawArrays(drawMode, 0, mesh.getSize());
     glDisableVertexAttribArray(0);
 }
 

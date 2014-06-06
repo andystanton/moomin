@@ -35,6 +35,8 @@ public:
     Vec2 & getNextPos();
     void setNextPos(Vec2);
 
+    virtual float * getColour() = 0;
+
     CollisionType getCollisionType();
 
 private:
