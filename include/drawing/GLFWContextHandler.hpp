@@ -33,6 +33,7 @@ private:
     int width, height;
     bool fullscreen;
     PhysicsHelper & physicsHelper;
+    bool resizing = false;
     void (*glHandlerFullscreenCallback)() = nullptr;
 
     double clickStartX, clickStartY;

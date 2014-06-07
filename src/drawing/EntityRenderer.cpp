@@ -46,10 +46,14 @@ EntityRenderer::~EntityRenderer()
 
 void EntityRenderer::draw()
 {
+    glUseProgram(programId);
+    glEnableVertexAttribArray(0);
+    glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
     for (auto entity : entities)
     {
         draw(entity);
     }
+    glDisableVertexAttribArray(0);
 }
 
 void EntityRenderer::draw(Entity* entity)
@@ -57,12 +61,11 @@ void EntityRenderer::draw(Entity* entity)
     Vec2 pos = entity->getPos();
     const Mesh & mesh = entity->getMesh();
 
-    glUseProgram(programId);
-    glEnableVertexAttribArray(0);
+
 
     glUniform2f(offsetId, pos.getX(), pos.getY());
     glUniform3fv(colourId, 1, entity->getColour());
-    glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
+
 
     GLenum drawMode = GL_INVALID_ENUM;
     if (mesh.getType() == Mesh::MeshType::triangles)
@@ -85,5 +88,5 @@ void EntityRenderer::draw(Entity* entity)
         (void*)0            // array buffer offset
     );
     glDrawArrays(drawMode, 0, mesh.getSize());
-    glDisableVertexAttribArray(0);
+
 }
