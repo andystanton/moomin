@@ -6,13 +6,14 @@
 class PhysicsHelper
 {
 public:
-    PhysicsHelper(StandardPhysicsSystem &);
+    PhysicsHelper(int worldWidth, int worldHeight);
     ~PhysicsHelper();
 
     const set<Entity *>& getEntities();
 
     int getWidth();
     int getHeight();
+    void step(double time);
 
     void enablePositionAccelerationRule(bool inverted);
     void enableEntityAccelerationRule(bool inverted);
@@ -42,8 +43,10 @@ public:
     void setSpawnModeAABB();
 
     void spawnEntityOnTrajectory(Vec2 trajectoryStart, Vec2 trajectoryEnd);
+
+    StandardPhysicsSystem & getPhysicsSystem();
 private:
-    StandardPhysicsSystem & physicsSystem;
+    StandardPhysicsSystem physicsSystem;
     Entity::CollisionType spawnMode;
 };
 

@@ -56,18 +56,18 @@ go_bandit([]()
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            gravityField.apply(circle1, timeDeltaMilliseconds);
-            gravityField.apply(circle2, timeDeltaMilliseconds);
+            gravityField.apply(circle1, timeDeltaSeconds);
+            gravityField.apply(circle2, timeDeltaSeconds);
 
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2( 0.8f,  0.6f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2(-0.8f, -0.6f)));
 
             // after another 100ms, assert the expected change in velocity
-            gravityField.apply(circle1, timeDeltaMilliseconds);
-            gravityField.apply(circle2, timeDeltaMilliseconds);
+            gravityField.apply(circle1, timeDeltaSeconds);
+            gravityField.apply(circle2, timeDeltaSeconds);
 
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2( 1.6f,  1.2f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2(-1.6f, -1.2f)));
@@ -92,18 +92,18 @@ go_bandit([]()
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            gravityField.apply(circle1, timeDeltaMilliseconds);
-            gravityField.apply(circle2, timeDeltaMilliseconds);
+            gravityField.apply(circle1, timeDeltaSeconds);
+            gravityField.apply(circle2, timeDeltaSeconds);
 
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2(-0.8f, -0.6f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2( 0.8f,  0.6f)));
 
             // after another 100ms, assert the expected change in velocity
-            gravityField.apply(circle1, timeDeltaMilliseconds);
-            gravityField.apply(circle2, timeDeltaMilliseconds);
+            gravityField.apply(circle1, timeDeltaSeconds);
+            gravityField.apply(circle2, timeDeltaSeconds);
 
             AssertThat(circle1.getVelocity(), Is().EqualTo(Vec2(-1.6f, -1.2f)));
             AssertThat(circle2.getVelocity(), Is().EqualTo(Vec2( 1.6f,  1.2f)));

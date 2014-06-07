@@ -39,22 +39,22 @@ go_bandit([]()
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            gravity.apply(entity, timeDeltaMilliseconds);
+            gravity.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2( 0.f, -1.f)));
 
             // after another 100ms, assert the expected change in velocity
-            gravity.apply(entity, timeDeltaMilliseconds);
+            gravity.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2( 0.f, -2.f)));
 
-            float longerTimeDeltaMilliseconds = 500;
+            float longerTimeDeltaSeconds = 0.5;
 
             // this time increase delta to 500 ms
-            gravity.apply(entity, longerTimeDeltaMilliseconds);
+            gravity.apply(entity, longerTimeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2( 0.f, -7.f)));
         });
@@ -70,22 +70,22 @@ go_bandit([]()
             // assert that the entity has zero velocity at the start
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 0.f)));
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            gravity.apply(entity, timeDeltaMilliseconds);
+            gravity.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 1.f)));
 
             // after another 100ms, assert the expected change in velocity
-            gravity.apply(entity, timeDeltaMilliseconds);
+            gravity.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 2.f)));
 
-            float longerTimeDeltaMilliseconds = 500;
+            float longerTimeDeltaSeconds = 0.5;
 
             // this time increase delta to 500 ms
-            gravity.apply(entity, longerTimeDeltaMilliseconds);
+            gravity.apply(entity, longerTimeDeltaSeconds);
 
             AssertThat(entity.getVelocity(), Is().EqualTo(Vec2(0.f, 7.f)));
         });

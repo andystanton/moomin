@@ -14,7 +14,7 @@ EntityAccelerationRule::~EntityAccelerationRule()
 
 }
 
-void EntityAccelerationRule::apply(Entity & entity, float delta)
+void EntityAccelerationRule::apply(Entity & entity, float deltaSeconds)
 {
     Vec2 & pos = entity.getPos();
     for (auto other : entities)
@@ -26,7 +26,7 @@ void EntityAccelerationRule::apply(Entity & entity, float delta)
 
             Vec2 direction = otherPos - pos;
             direction.normalise();
-            direction *= (-directionScale * acceleration * delta/1000);
+            direction *= (-directionScale * acceleration * deltaSeconds);
 
             otherVelocity += direction;
         }

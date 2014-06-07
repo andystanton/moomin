@@ -18,9 +18,9 @@ Vec2 & DirectionAccelerationRule::getAcceleration()
     return acceleration;
 }
 
-void DirectionAccelerationRule::apply(Entity & entity, float deltaMilliseconds)
+void DirectionAccelerationRule::apply(Entity & entity, float deltaSeconds)
 {
-    entity.getVelocity() += (acceleration * (directionScale * deltaMilliseconds/1000));
+    entity.getVelocity() += (acceleration * (directionScale * deltaSeconds));
 }
 
 void DirectionAccelerationRule::setInverted(bool inverted)

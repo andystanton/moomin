@@ -1,7 +1,7 @@
 #include "model/PhysicsHelper.hpp"
 
-PhysicsHelper::PhysicsHelper(StandardPhysicsSystem & physicsSystem)
-    : physicsSystem(physicsSystem)
+PhysicsHelper::PhysicsHelper(int worldWidth, int worldHeight)
+    : physicsSystem(worldWidth, worldHeight)
     , spawnMode(Entity::CollisionType::circle)
 {
     addCirclesLatticeCentre();
@@ -25,6 +25,16 @@ int PhysicsHelper::getWidth()
 int PhysicsHelper::getHeight()
 {
     return physicsSystem.getHeight();
+}
+
+void PhysicsHelper::step(double time)
+{
+    physicsSystem.step(time);
+}
+
+StandardPhysicsSystem & PhysicsHelper::getPhysicsSystem()
+{
+    return physicsSystem;
 }
 
 void PhysicsHelper::enablePositionAccelerationRule(bool inverted)
@@ -273,7 +283,6 @@ void PhysicsHelper::spawnEntityOnTrajectory(Vec2 trajectoryStart, Vec2 trajector
             addCircle(pos, (rand() % 20) + 20, velocity);
             break;
         case Entity::CollisionType::mock:
-            break;
         default:
             break;
     }

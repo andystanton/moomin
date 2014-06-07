@@ -1,20 +1,15 @@
 #include "drawing/GLHandler.hpp"
-#include "drawing/EntityRenderer.hpp"
-
-#include "model/StandardPhysicsSystem.hpp"
 #include "model/PhysicsHelper.hpp"
 
 using namespace std;
 
-
-
 int main( void )
 {
     int width = 600, height = 400;
+    int worldWidth = 6000, worldHeight = 4000;
 
     // Create Physics System
-    StandardPhysicsSystem physicsSystem(width * 10, height * 10);
-    PhysicsHelper physicsHelper(physicsSystem);
+    PhysicsHelper physicsHelper(worldWidth, worldHeight);
 
     // Initialise Graphics System
     GLHandler glHandler("Moomin Engine v1.0", width, height, physicsHelper);
@@ -26,7 +21,7 @@ int main( void )
         glHandler.draw();
 
         float time = glHandler.getTime();
-        physicsSystem.step(1000 * (time - lastUpdate));
+        physicsHelper.step(time - lastUpdate);
         lastUpdate = time;
     }
 

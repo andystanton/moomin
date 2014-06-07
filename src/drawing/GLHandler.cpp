@@ -44,15 +44,8 @@ void GLHandler::handleZoom(double x, double y, double amount)
 
 void GLHandler::zoom(double x, double y, double amount)
 {
-    // int scaledWidth = width * 10;
-    // int scaledHeight = height * 10;
-    //entityRenderer->lookAt(Vec2(scaledWidth/2-scaledWidth/4, scaledHeight/2-scaledHeight/4), Vec2(scaledWidth-scaledWidth/4, scaledHeight-scaledHeight/4));
-
     double noramlisedx = x * 10;
     double noramlisedy = height * 10 - y * 10;
-
-    cout << "zooming in on " << noramlisedx << ", " << noramlisedy << " by a factor of " << amount << endl;
-
     double normalisedAmount = amount * 8;
 
     if (normalisedAmount > 1) normalisedAmount = 0.8;
@@ -70,9 +63,7 @@ void GLHandler::zoom(double x, double y, double amount)
         zoomLowerLeft = Vec2(noramlisedx, noramlisedy) - halfZoom;
         zoomUpperRight = Vec2(noramlisedx, noramlisedy) + halfZoom;
 
-        cout << "left was " << zoomLowerLeft.getX();
         if (zoomLowerLeft.getX() < 0) {
-            cout << "left was less than 0" << endl;
             float newUpperRightX = zoomUpperRight.getX() - zoomLowerLeft.getX();
             zoomUpperRight.setX(newUpperRightX > width * 10 ? width * 10 : newUpperRightX);
             zoomLowerLeft.setX(0);

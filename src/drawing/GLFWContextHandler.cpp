@@ -131,10 +131,10 @@ void GLFWContextHandler::handleKey(int key, int action)
                 physicsHelper.enablePositionAccelerationRule(true);
                 break;
             case GLFW_KEY_S:
-                glHandlerZoomCallback(300, 200, 0.5);
+                glHandlerZoomCallback(width/2, height/2, 0.5);
                 break;
             case GLFW_KEY_A:
-                glHandlerZoomCallback(300, 200, -0.5);
+                glHandlerZoomCallback(width/2, height/2, -0.5);
                 break;
             case GLFW_KEY_Q:
                 physicsHelper.setSpawnModeCircle();

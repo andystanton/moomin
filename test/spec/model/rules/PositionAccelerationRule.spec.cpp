@@ -41,16 +41,16 @@ go_bandit([]()
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            bigCrunch.apply(entity, timeDeltaMilliseconds);
+            bigCrunch.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(-0.8f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-0.6f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
-            bigCrunch.apply(entity, timeDeltaMilliseconds);
+            bigCrunch.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(-1.6f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(-1.2f, FLOAT_EPSILON))
@@ -70,16 +70,16 @@ go_bandit([]()
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.f, FLOAT_EPSILON))
 
-            float timeDeltaMilliseconds = 100;
+            float timeDeltaSeconds = 0.1;
 
             // after 100ms, assert the expected change in velocity
-            bigBang.apply(entity, timeDeltaMilliseconds);
+            bigBang.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(0.8f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(0.6f, FLOAT_EPSILON))
 
             // after another 100ms, assert the expected change in velocity
-            bigBang.apply(entity, timeDeltaMilliseconds);
+            bigBang.apply(entity, timeDeltaSeconds);
 
             AssertThat(entity.getVelocity().getX(), Is().EqualToWithDelta(1.6f, FLOAT_EPSILON));
             AssertThat(entity.getVelocity().getY(), Is().EqualToWithDelta(1.2f, FLOAT_EPSILON))

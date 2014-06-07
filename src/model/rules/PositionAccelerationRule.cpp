@@ -19,14 +19,14 @@ Vec2 & PositionAccelerationRule::getOrigin()
     return origin;
 }
 
-void PositionAccelerationRule::apply(Entity & entity, float delta)
+void PositionAccelerationRule::apply(Entity & entity, float deltaSeconds)
 {
     Vec2 & pos = entity.getPos();
     Vec2 & velocity = entity.getVelocity();
 
     Vec2 direction = pos - origin;
     direction.normalise();
-    direction *= (-directionScale * acceleration * delta/1000);
+    direction *= (-directionScale * acceleration * deltaSeconds);
 
     velocity += direction;
 }
