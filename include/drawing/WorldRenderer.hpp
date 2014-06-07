@@ -1,5 +1,5 @@
-#ifndef _MOOMIN_ENTITY_RENDERER
-#define _MOOMIN_ENTITY_RENDERER
+#ifndef _MOOMIN_WORLD_RENDERER
+#define _MOOMIN_WORLD_RENDERER
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>

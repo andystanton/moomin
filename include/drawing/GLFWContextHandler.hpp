@@ -26,8 +26,8 @@ public:
     void handleResize(GLFWwindow *, int width, int height);
     void handleScroll(GLFWwindow *, double xoffset, double yoffset);
 
-    void setGLHandlerFullscreenCallback(void (*)());
-    void setGLHandlerZoomCallback(void (*)(double, double, double));
+    void setGLCoordinatorFullscreenCallback(void (*)());
+    void setGLCoordinatorZoomCallback(void (*)(double, double, double));
 
 private:
     GLFWwindow * window;
@@ -36,8 +36,8 @@ private:
     bool fullscreen;
     PhysicsHelper & physicsHelper;
 
-    void (*glHandlerFullscreenCallback)() = nullptr;
-    void (*glHandlerZoomCallback)(double, double, double) = nullptr;
+    void (*glCoordinatorFullscreenCallback)() = nullptr;
+    void (*glCoordinatorZoomCallback)(double, double, double) = nullptr;
 
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;

@@ -52,14 +52,14 @@ void GLFWContextHandler::init()
     glfwSetScrollCallback(window, GLFWContextHandler::handleScrollWrapper);
 }
 
-void GLFWContextHandler::setGLHandlerFullscreenCallback(void (*glHandlerFullscreenCallback)())
+void GLFWContextHandler::setGLCoordinatorFullscreenCallback(void (*glCoordinatorFullscreenCallback)())
 {
-    this->glHandlerFullscreenCallback = glHandlerFullscreenCallback;
+    this->glCoordinatorFullscreenCallback = glCoordinatorFullscreenCallback;
 }
 
-void GLFWContextHandler::setGLHandlerZoomCallback(void (*glHandlerZoomCallback)(double, double, double))
+void GLFWContextHandler::setGLCoordinatorZoomCallback(void (*glCoordinatorZoomCallback)(double, double, double))
 {
-    this->glHandlerZoomCallback = glHandlerZoomCallback;
+    this->glCoordinatorZoomCallback = glCoordinatorZoomCallback;
 }
 void GLFWContextHandler::postDraw()
 {
@@ -131,10 +131,10 @@ void GLFWContextHandler::handleKey(int key, int action)
                 physicsHelper.enablePositionAccelerationRule(true);
                 break;
             case GLFW_KEY_S:
-                glHandlerZoomCallback(width/2, height/2, 0.5);
+                glCoordinatorZoomCallback(width/2, height/2, 0.5);
                 break;
             case GLFW_KEY_A:
-                glHandlerZoomCallback(width/2, height/2, -0.5);
+                glCoordinatorZoomCallback(width/2, height/2, -0.5);
                 break;
             case GLFW_KEY_Q:
                 physicsHelper.setSpawnModeCircle();
@@ -193,9 +193,9 @@ void GLFWContextHandler::handleScroll(GLFWwindow * window, double xoffset, doubl
 
     glfwGetCursorPos(window, &cursorx, &cursory);
 
-    if (fabs(yoffset) > 0 && glHandlerZoomCallback != nullptr)
+    if (fabs(yoffset) > 0 && glCoordinatorZoomCallback != nullptr)
     {
-        glHandlerZoomCallback(cursorx, cursory, yoffset);
+        glCoordinatorZoomCallback(cursorx, cursory, yoffset);
     }
 }
 
@@ -226,8 +226,8 @@ void GLFWContextHandler::toggleFullscreen()
 
     fullscreen = !fullscreen;
     init();
-    if (glHandlerFullscreenCallback != nullptr)
+    if (glCoordinatorFullscreenCallback != nullptr)
     {
-        glHandlerFullscreenCallback();
+        glCoordinatorFullscreenCallback();
     }
 }

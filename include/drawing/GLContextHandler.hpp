@@ -10,8 +10,8 @@ public:
     virtual bool isActive() = 0;
     virtual void quit() = 0;
 
-    virtual void setGLHandlerFullscreenCallback(void (*)()) = 0;
-    virtual void setGLHandlerZoomCallback(void (*)(double, double, double)) = 0;
+    virtual void setGLCoordinatorFullscreenCallback(void (*)()) = 0;
+    virtual void setGLCoordinatorZoomCallback(void (*)(double, double, double)) = 0;
 };
 
 #endif

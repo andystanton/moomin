@@ -1,5 +1,5 @@
-#ifndef _MOOMIN_GL_HANDLER
-#define _MOOMIN_GL_HANDLER
+#ifndef _MOOMIN_GL_COORDINATOR
+#define _MOOMIN_GL_COORDINATOR
 
 #include <set>
 #include <iostream>
@@ -26,11 +26,11 @@ using std::cout;
 using std::cerr;
 using std::endl;
 
-class GLHandler
+class GLCoordinator
 {
 public:
-    GLHandler(const string& title, int width, int height, PhysicsHelper &);
-    ~GLHandler();
+    GLCoordinator(const string& title, int width, int height, PhysicsHelper &);
+    ~GLCoordinator();
 
     void draw();
     void quit();
@@ -55,7 +55,7 @@ private:
 
     unique_ptr<GLContextHandler> glContextHandler;
 
-    static GLHandler * instance;
+    static GLCoordinator * instance;
 
     void recalculateFps();
     void init();

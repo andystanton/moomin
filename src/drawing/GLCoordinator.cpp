@@ -1,6 +1,6 @@
-#include "drawing/GLHandler.hpp"
+#include "drawing/GLCoordinator.hpp"
 
-GLHandler::GLHandler(const string& title,
+GLCoordinator::GLCoordinator(const string& title,
                      int width,
                      int height,
                      PhysicsHelper & physicsHelper)
@@ -16,33 +16,33 @@ GLHandler::GLHandler(const string& title,
     , zoomLowerLeft(0.f, 0.f)
     , zoomUpperRight(width * 10, height * 10)
 {
-    GLHandler::instance = this;
+    GLCoordinator::instance = this;
     glContextHandler = unique_ptr<GLContextHandler>(
         new GLFWContextHandler(title, width, height, physicsHelper)
     );
-    glContextHandler->setGLHandlerFullscreenCallback(GLHandler::handleFullscreenToggle);
-    glContextHandler->setGLHandlerZoomCallback(GLHandler::handleZoom);
+    glContextHandler->setGLCoordinatorFullscreenCallback(GLCoordinator::handleFullscreenToggle);
+    glContextHandler->setGLCoordinatorZoomCallback(GLCoordinator::handleZoom);
     init();
 }
 
-GLHandler::~GLHandler()
+GLCoordinator::~GLCoordinator()
 {
 
 }
 
-GLHandler * GLHandler::instance;
+GLCoordinator * GLCoordinator::instance;
 
-void GLHandler::handleFullscreenToggle()
+void GLCoordinator::handleFullscreenToggle()
 {
-    GLHandler::instance->init();
+    GLCoordinator::instance->init();
 }
 
-void GLHandler::handleZoom(double x, double y, double amount)
+void GLCoordinator::handleZoom(double x, double y, double amount)
 {
-    GLHandler::instance->zoom(x, y, amount);
+    GLCoordinator::instance->zoom(x, y, amount);
 }
 
-void GLHandler::zoom(double x, double y, double amount)
+void GLCoordinator::zoom(double x, double y, double amount)
 {
     double noramlisedx = x * 10;
     double noramlisedy = height * 10 - y * 10;
@@ -88,7 +88,7 @@ void GLHandler::zoom(double x, double y, double amount)
     worldRenderer->lookAt(zoomLowerLeft, zoomUpperRight);
 }
 
-void GLHandler::init()
+void GLCoordinator::init()
 {
     if (worldRenderer != nullptr)
     {
@@ -106,7 +106,7 @@ void GLHandler::init()
     worldRenderer->setZoom(&zoomLowerLeft, &zoomUpperRight);
 }
 
-void GLHandler::draw()
+void GLCoordinator::draw()
 {
     glClear(GL_COLOR_BUFFER_BIT);
 
@@ -117,7 +117,7 @@ void GLHandler::draw()
     glContextHandler->postDraw();
 }
 
-void GLHandler::recalculateFps()
+void GLCoordinator::recalculateFps()
 {
     frameCount++;
     float currentTime = glContextHandler->getTime();
@@ -135,17 +135,17 @@ void GLHandler::recalculateFps()
     }
 }
 
-bool GLHandler::isActive()
+bool GLCoordinator::isActive()
 {
     return glContextHandler->isActive();
 }
 
-double GLHandler::getTime()
+double GLCoordinator::getTime()
 {
     return glContextHandler->getTime();
 }
 
-void GLHandler::quit()
+void GLCoordinator::quit()
 {
     glContextHandler->quit();
 }
