@@ -8,7 +8,7 @@ GLHandler::GLHandler(const string& title,
     , width { width }
     , height { height }
     , physicsHelper(physicsHelper)
-    , entityRenderer(nullptr)
+    , worldRenderer(nullptr)
     , frameCount { 0 }
     , lastFpsUpdate { 0.f }
     , fps { 0.f }
@@ -85,14 +85,14 @@ void GLHandler::zoom(double x, double y, double amount)
         }
     }
 
-    entityRenderer->lookAt(zoomLowerLeft, zoomUpperRight);
+    worldRenderer->lookAt(zoomLowerLeft, zoomUpperRight);
 }
 
 void GLHandler::init()
 {
-    if (entityRenderer != nullptr)
+    if (worldRenderer != nullptr)
     {
-        delete entityRenderer;
+        delete worldRenderer;
     }
 
     glewExperimental = true; // Needed for core profile
@@ -102,8 +102,8 @@ void GLHandler::init()
     }
     glClearColor(0.2, 0.2, 0.5, 1.0);
 
-    entityRenderer = new EntityRenderer(physicsHelper.getEntities(), width * 10, height * 10);
-    entityRenderer->setZoom(&zoomLowerLeft, &zoomUpperRight);
+    worldRenderer = new WorldRenderer(physicsHelper.getEntities(), width * 10, height * 10);
+    worldRenderer->setZoom(&zoomLowerLeft, &zoomUpperRight);
 }
 
 void GLHandler::draw()
@@ -112,7 +112,7 @@ void GLHandler::draw()
 
     recalculateFps();
 
-    entityRenderer->draw();
+    worldRenderer->draw();
 
     glContextHandler->postDraw();
 }

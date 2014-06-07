@@ -15,7 +15,7 @@
 #include "drawing/GLFWContextHandler.hpp"
 #include "drawing/shader.hpp"
 #include "drawing/Renderer.hpp"
-#include "drawing/EntityRenderer.hpp"
+#include "drawing/WorldRenderer.hpp"
 #include "model/PhysicsHelper.hpp"
 
 using std::set;
@@ -45,7 +45,7 @@ private:
     int width;
     int height;
     PhysicsHelper & physicsHelper;
-    EntityRenderer * entityRenderer;
+    WorldRenderer * worldRenderer;
     int frameCount;
     float lastFpsUpdate;
     float fps;

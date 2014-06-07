@@ -19,11 +19,11 @@
 using std::unique_ptr;
 using std::set;
 
-class EntityRenderer : public Renderer
+class WorldRenderer : public Renderer
 {
 public:
-    EntityRenderer(const set<Entity *>&, int width, int height);
-    ~EntityRenderer();
+    WorldRenderer(const set<Entity *>&, int width, int height);
+    ~WorldRenderer();
 
     void draw();
     void lookAt(Vec2 bottomLeft, Vec2 topRight);
