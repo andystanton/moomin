@@ -3,19 +3,7 @@
 EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int height)
     : entities(entities)
 {
-    Projection = glm::ortho(0.0f,(float)width * 10, 0.0f,(float)height * 10, 0.0f, 1.f); // In world coordinates
-
-    View = glm::lookAt(
-        glm::vec3(0,0,1), // Camera is at (0,0,1), in World Space
-        glm::vec3(0,0,0), // and looks at the origin
-        glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
-    );
-
-    // Model matrix : an identity matrix (model will be at the origin)
-    Model = glm::mat4(1.0f);
-
-    // Our ModelViewProjection : multiplication of our 3 matrices
-    MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
+    lookAt(Vec2(0.f, 0.f), Vec2(width, height));
 
     glGenBuffers(1, &vertexBufferAABB);
     glGenBuffers(1, &vertexBufferCircle);
@@ -33,6 +21,23 @@ EntityRenderer::EntityRenderer(const set<Entity *>& entities, int width, int hei
     offsetId = glGetUniformLocation(programId, "offset");
 }
 
+void EntityRenderer::lookAt(Vec2 bottomLeft, Vec2 topRight)
+{
+    Projection = glm::ortho(bottomLeft.getX(), topRight.getX(), bottomLeft.getY(), topRight.getY(), 0.0f, 1.f); // In world coordinates
+
+    View = glm::lookAt(
+        glm::vec3(0,0,1), // Camera is at (0,0,1), in World Space
+        glm::vec3(0,0,0), // and looks at the origin
+        glm::vec3(0,1,0)  // Head is up (set to 0,-1,0 to look upside-down)
+    );
+
+    // Model matrix : an identity matrix (model will be at the origin)
+    Model = glm::mat4(1.0f);
+
+    // Our ModelViewProjection : multiplication of our 3 matrices
+    MVP = Projection * View * Model; // Remember, matrix multiplication is the other way around
+}
+
 EntityRenderer::~EntityRenderer()
 {
     glDeleteBuffers(1, &vertexBufferAABB);
@@ -44,6 +49,12 @@ EntityRenderer::~EntityRenderer()
     glDeleteProgram(programId);
 }
 
+void EntityRenderer::setZoom(Vec2 * lowerLeft, Vec2 * upperRight)
+{
+    this->zoomLowerLeft = lowerLeft;
+    this->zoomUpperRight = upperRight;
+}
+
 void EntityRenderer::draw()
 {
     glUseProgram(programId);
@@ -53,6 +64,30 @@ void EntityRenderer::draw()
     {
         draw(entity);
     }
+
+    glUniform2f(offsetId, 0.f, 0.f);
+    glUniform3f(colourId, 1.f, 1.f, 1.f);
+
+    glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
+
+    float points[8] = {
+        zoomLowerLeft->getX(), zoomLowerLeft->getY(),
+        zoomLowerLeft->getX(), zoomUpperRight->getY(),
+        zoomUpperRight->getX(), zoomUpperRight->getY(),
+        zoomUpperRight->getX(), zoomLowerLeft->getY()
+    };
+
+    glBufferData(GL_ARRAY_BUFFER, 8 * sizeof(float), points, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(
+        0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+        2,                  // size
+        GL_FLOAT,           // type
+        GL_FALSE,           // normalized?
+        0,                  // stride
+        (void*)0            // array buffer offset
+    );
+    glDrawArrays(GL_LINE_LOOP, 0, 4);
+
     glDisableVertexAttribArray(0);
 }
 
@@ -61,11 +96,8 @@ void EntityRenderer::draw(Entity* entity)
     Vec2 pos = entity->getPos();
     const Mesh & mesh = entity->getMesh();
 
-
-
     glUniform2f(offsetId, pos.getX(), pos.getY());
     glUniform3fv(colourId, 1, entity->getColour());
-
 
     GLenum drawMode = GL_INVALID_ENUM;
     if (mesh.getType() == Mesh::MeshType::triangles)
@@ -88,5 +120,4 @@ void EntityRenderer::draw(Entity* entity)
         (void*)0            // array buffer offset
     );
     glDrawArrays(drawMode, 0, mesh.getSize());
-
 }

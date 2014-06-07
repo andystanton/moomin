@@ -24,8 +24,10 @@ public:
     void handleKey(int key, int action);
     void handleClick(GLFWwindow *, int button, int action);
     void handleResize(GLFWwindow *, int width, int height);
+    void handleScroll(GLFWwindow *, double xoffset, double yoffset);
 
     void setGLHandlerFullscreenCallback(void (*)());
+    void setGLHandlerZoomCallback(void (*)(double, double, double));
 
 private:
     GLFWwindow * window;
@@ -33,8 +35,9 @@ private:
     int width, height;
     bool fullscreen;
     PhysicsHelper & physicsHelper;
-    bool resizing = false;
+
     void (*glHandlerFullscreenCallback)() = nullptr;
+    void (*glHandlerZoomCallback)(double, double, double) = nullptr;
 
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;
@@ -46,6 +49,7 @@ private:
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
     static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
+    static void handleScrollWrapper(GLFWwindow *, double xoffset, double yoffset);
 };
 
 #endif

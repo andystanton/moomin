@@ -37,8 +37,8 @@ public:
     double getTime();
     bool isActive();
 
-    static GLHandler * instance;
     static void handleFullscreenToggle();
+    static void handleZoom(double x, double y, double amount);
 
 private:
     string title;
@@ -50,12 +50,16 @@ private:
     float lastFpsUpdate;
     float fps;
     string fpsString;
+    Vec2 zoomLowerLeft;
+    Vec2 zoomUpperRight;
 
     unique_ptr<GLContextHandler> glContextHandler;
 
+    static GLHandler * instance;
+
     void recalculateFps();
-    void resize();
     void init();
+    void zoom(double x, double y, double amount);
 };
 
 #endif

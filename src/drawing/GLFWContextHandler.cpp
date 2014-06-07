@@ -34,8 +34,8 @@ void GLFWContextHandler::init()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-    window = glfwCreateWindow(width,
-                              height,
+    window = glfwCreateWindow(fullscreen ? width * 2 : width,
+                              fullscreen ? height * 2 : height,
                               title.c_str(),
                               fullscreen ? glfwGetPrimaryMonitor() : NULL,
                               NULL);
@@ -49,8 +49,7 @@ void GLFWContextHandler::init()
     glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
     glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
     glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
-
-    resizing = false;
+    glfwSetScrollCallback(window, GLFWContextHandler::handleScrollWrapper);
 }
 
 void GLFWContextHandler::setGLHandlerFullscreenCallback(void (*glHandlerFullscreenCallback)())
@@ -58,9 +57,13 @@ void GLFWContextHandler::setGLHandlerFullscreenCallback(void (*glHandlerFullscre
     this->glHandlerFullscreenCallback = glHandlerFullscreenCallback;
 }
 
+void GLFWContextHandler::setGLHandlerZoomCallback(void (*glHandlerZoomCallback)(double, double, double))
+{
+    this->glHandlerZoomCallback = glHandlerZoomCallback;
+}
 void GLFWContextHandler::postDraw()
 {
-    if (window != nullptr && window != NULL && !resizing)
+    if (window != nullptr)
     {
         glfwSwapBuffers(window);
         glfwPollEvents();
@@ -127,6 +130,12 @@ void GLFWContextHandler::handleKey(int key, int action)
             case GLFW_KEY_RIGHT_BRACKET:
                 physicsHelper.enablePositionAccelerationRule(true);
                 break;
+            case GLFW_KEY_S:
+                glHandlerZoomCallback(300, 200, 0.5);
+                break;
+            case GLFW_KEY_A:
+                glHandlerZoomCallback(300, 200, -0.5);
+                break;
             case GLFW_KEY_Q:
                 physicsHelper.setSpawnModeCircle();
                 break;
@@ -178,6 +187,18 @@ void GLFWContextHandler::handleResize(GLFWwindow * window, int windowWidth, int 
     //GLFWContextHandler::instance->resize();
 }
 
+void GLFWContextHandler::handleScroll(GLFWwindow * window, double xoffset, double yoffset)
+{
+    double cursorx, cursory;
+
+    glfwGetCursorPos(window, &cursorx, &cursory);
+
+    if (fabs(yoffset) > 0 && glHandlerZoomCallback != nullptr)
+    {
+        glHandlerZoomCallback(cursorx, cursory, yoffset);
+    }
+}
+
 void GLFWContextHandler::handleKeyWrapper(GLFWwindow * window, int key, int scancode, int action, int mods)
 {
     GLFWContextHandler::instance->handleKey(key, action);
@@ -193,12 +214,17 @@ void GLFWContextHandler::handleResizeWrapper(GLFWwindow * window, int width, int
     GLFWContextHandler::instance->handleResize(window, width, height);
 }
 
+void GLFWContextHandler::handleScrollWrapper(GLFWwindow * window, double xoffset, double yoffset)
+{
+    GLFWContextHandler::instance->handleScroll(window, xoffset, yoffset);
+}
+
 void GLFWContextHandler::toggleFullscreen()
 {
-    resizing = true;
-    fullscreen = !fullscreen;
     glfwDestroyWindow(window);
     window = nullptr;
+
+    fullscreen = !fullscreen;
     init();
     if (glHandlerFullscreenCallback != nullptr)
     {

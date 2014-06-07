@@ -10,7 +10,7 @@ using namespace std;
 
 int main( void )
 {
-    int width = 800, height = 600;
+    int width = 600, height = 400;
 
     // Create Physics System
     StandardPhysicsSystem physicsSystem(width * 10, height * 10);

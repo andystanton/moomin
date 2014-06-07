@@ -145,10 +145,10 @@ void PhysicsHelper::addAABBsRandom(int count)
 
 void PhysicsHelper::addCirclesLattice(Vec2 pos, Vec2 dimensions, int divisions, Vec2 velocity)
 {
-    float x = pos.getX();
-    float y = pos.getY();
     float diameter = dimensions.getX() / divisions;
     float radius = diameter / 2;
+    float x = pos.getX() + radius;
+    float y = pos.getY() + radius;
     for (int i=0; i < divisions; i++)
     {
         for (int j=0; j < divisions; j++)
@@ -162,8 +162,8 @@ void PhysicsHelper::addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Ve
 {
     float width = dimensions.getX() / divisions;
     float height = dimensions.getY() / divisions;
-    float x = pos.getX();
-    float y = pos.getY();
+    float x = pos.getX() + height/2;
+    float y = pos.getY() + width/2;
     for (int i=0; i < 10; i++)
     {
         for (int j=0; j < 10; j++)

@@ -26,6 +26,8 @@ public:
     ~EntityRenderer();
 
     void draw();
+    void lookAt(Vec2 bottomLeft, Vec2 topRight);
+    void setZoom(Vec2 * lowerLeft, Vec2 * upperRight);
 private:
     const set<Entity *>& entities;
     void draw(Entity *);
@@ -45,6 +47,9 @@ private:
 
     GLuint vertexBufferAABB;
     GLuint vertexBufferCircle;
+
+    Vec2 * zoomLowerLeft;
+    Vec2 * zoomUpperRight;
 };
 
 #endif
