@@ -92,6 +92,11 @@ void PhysicsHelper::disableAccelerationRules()
     physicsSystem.attraction().setEnabled(false);
 }
 
+void PhysicsHelper::deleteEntities()
+{
+    physicsSystem.clearEntities();
+}
+
 void PhysicsHelper::togglePause()
 {
     physicsSystem.setPaused(!physicsSystem.isPaused());

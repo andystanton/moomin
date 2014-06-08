@@ -5,8 +5,8 @@ using namespace std;
 
 int main(void)
 {
-    int width = 600, height = 400;
-    int worldWidth = 6000, worldHeight = 4000;
+    int width = 640, height = 400;
+    int worldWidth = 6400, worldHeight = 4000;
 
     // Create Physics System
     PhysicsHelper physicsHelper(worldWidth, worldHeight);

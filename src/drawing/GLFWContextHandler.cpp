@@ -112,6 +112,10 @@ void GLFWContextHandler::handleKey(int key, int action)
             case GLFW_KEY_6:
                 physicsHelper.addChaosLattice(true);
                 break;
+            case GLFW_KEY_7:
+                physicsHelper.deleteEntities();
+                physicsHelper.disableAccelerationRules();
+                break;
             case GLFW_KEY_0:
                 physicsHelper.disableAccelerationRules();
                 break;
@@ -166,6 +170,9 @@ void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action
     {
         glfwGetCursorPos(window, &clickStartX, &clickStartY);
         cout << "click at: " << Vec2(clickStartX, clickStartY) << endl;
+        int actualWidth, actualHeight;
+        glfwGetFramebufferSize(window, &actualWidth, &actualHeight);
+        cout << "actual width: " << Vec2(actualWidth, actualHeight) << endl;
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);

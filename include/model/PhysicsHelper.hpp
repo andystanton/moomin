@@ -20,6 +20,7 @@ public:
     void enableEntityAccelerationRule(bool inverted);
     void enableDirectionAccelerationRule(char direction);
     void disableAccelerationRules();
+    void deleteEntities();
 
     void addCircle(Vec2 pos, float radius, Vec2 velocity = Vec2::ORIGIN);
     void addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity = Vec2::ORIGIN);
