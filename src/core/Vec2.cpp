@@ -1,6 +1,6 @@
 #include "core/Vec2.hpp"
 
-const Vec2 Vec2::ORIGIN(0.f, 0.f);
+const Vec2 Vec2::ORIGIN { 0.f, 0.f };
 
 Vec2::Vec2(const Vec2 & other)
     : x(other.x)
@@ -22,6 +22,18 @@ Vec2::Vec2(float x, float y)
     , y(y)
 {
 
+}
+
+Vec2::Vec2(initializer_list<float> components)
+{
+    assert (components.size() == 2);
+    int count = 0;
+    for (auto component : components)
+    {
+        if (count == 0) x = component;
+        else y = component;
+        count++;
+    }
 }
 
 Vec2::Vec2()

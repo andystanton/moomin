@@ -5,12 +5,15 @@
 #include <string>
 #include <iostream>
 #include <sstream>
+#include <initializer_list>
+#include <cassert>
 
 #include "util/FloatingPointHelper.hpp"
 
 using std::string;
 using std::ostream;
 using std::stringstream;
+using std::initializer_list;
 
 using namespace floatingPointHelper;
 
@@ -20,6 +23,7 @@ public:
     Vec2(float, float);
     Vec2(const Vec2 &);
     Vec2(Vec2 &&);
+    Vec2(initializer_list<float>);
     Vec2();
     ~Vec2();
 

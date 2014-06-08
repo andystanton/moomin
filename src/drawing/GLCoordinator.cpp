@@ -45,31 +45,24 @@ void GLCoordinator::handleZoom(double x, double y, double amount)
 
 void GLCoordinator::zoom(double x, double y, double amount)
 {
-    float scaleFactor = (viewUpperRight - viewLowerLeft).getX() / (width * 10) ;
-    cout << "scale factor is : " << scaleFactor << endl;
-
-    Vec2 worldCoords = screenToWorld(Vec2(x, y));
-
-    cout << "currently looking at: " << viewLowerLeft << " to " << viewUpperRight << endl;
-    cout << "cursor is at        : " << x << ", " << y << endl;
-    cout << "making it           : " << (viewLowerLeft + worldCoords) << " in screen coordinates" << endl;
-
     double normalisedAmount = amount * 8;
     if (normalisedAmount > 1) normalisedAmount = 0.8;
     if (normalisedAmount < -1) normalisedAmount = -0.8;
     normalisedAmount = normalisedAmount >= 0 ? normalisedAmount : -1 / normalisedAmount;
 
-    Vec2 viewDiff = (viewUpperRight - viewLowerLeft) * normalisedAmount;
-
-    // we have the new dimensions. now just need to work out the focal point.
+    Vec2 currentView = viewUpperRight - viewLowerLeft;
+    Vec2 viewDiff = currentView * normalisedAmount;
+    Vec2 worldCoords((x / width) * currentView.getX(), (y / height) * currentView.getY());
+    Vec2 worldCoordsToCentre(((width/2) - x)/width, ((height/2) - y)/height);
 
     if (viewDiff.getY() > 100)
     {
         Vec2 halfZoom = viewDiff / 2;
-        // viewLowerLeft = viewLowerLeft + worldCoords - halfZoom;
-        // viewUpperRight = viewLowerLeft + viewDiff;
-        viewLowerLeft = worldCoords - halfZoom;
-        viewUpperRight = worldCoords + halfZoom;
+        worldCoordsToCentre.setX(worldCoordsToCentre.getX() * viewDiff.getX());
+        worldCoordsToCentre.setY(worldCoordsToCentre.getY() * viewDiff.getY());
+
+        viewLowerLeft = viewLowerLeft + worldCoords - halfZoom + worldCoordsToCentre;
+        viewUpperRight = viewLowerLeft + viewDiff;
 
         if (viewLowerLeft.getX() < 0) {
             float newUpperRightX = viewUpperRight.getX() - viewLowerLeft.getX();
@@ -93,7 +86,7 @@ void GLCoordinator::zoom(double x, double y, double amount)
         }
     }
 
-    //worldRenderer->lookAt(viewLowerLeft, viewUpperRight);
+    worldRenderer->lookAt(viewLowerLeft, viewUpperRight);
 }
 
 void GLCoordinator::init()
