@@ -36,13 +36,11 @@ private:
 
     void handleKey(int key, int action);
     void handleClick(GLFWwindow *, int button, int action);
-    void handleResize(GLFWwindow *, int width, int height);
     void handleScroll(GLFWwindow *, double xoffset, double yoffset);
 
     static GLFWContextHandler * instance;
     static void handleKeyWrapper(GLFWwindow *, int key, int scancode, int action, int mods);
     static void handleClickWrapper(GLFWwindow *, int button, int action, int mods);
-    static void handleResizeWrapper(GLFWwindow * window, int windowWidth, int windowHeight);
     static void handleScrollWrapper(GLFWwindow *, double xoffset, double yoffset);
 };
 

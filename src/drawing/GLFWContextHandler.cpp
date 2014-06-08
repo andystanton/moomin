@@ -46,7 +46,6 @@ void GLFWContextHandler::init()
     }
 
     glfwMakeContextCurrent(window);
-    glfwSetWindowSizeCallback(window, GLFWContextHandler::handleResizeWrapper);
     glfwSetKeyCallback(window, GLFWContextHandler::handleKeyWrapper);
     glfwSetMouseButtonCallback(window, GLFWContextHandler::handleClickWrapper);
     glfwSetScrollCallback(window, GLFWContextHandler::handleScrollWrapper);
@@ -183,12 +182,6 @@ void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action
     }
 }
 
-void GLFWContextHandler::handleResize(GLFWwindow * window, int windowWidth, int windowHeight)
-{
-    //glfwGetFramebufferSize(window, &width, &height);
-    //GLFWContextHandler::instance->resize();
-}
-
 void GLFWContextHandler::handleScroll(GLFWwindow * window, double xoffset, double yoffset)
 {
     double cursorx, cursory;
@@ -209,11 +202,6 @@ void GLFWContextHandler::handleKeyWrapper(GLFWwindow * window, int key, int scan
 void GLFWContextHandler::handleClickWrapper(GLFWwindow * window, int button, int action, int mods)
 {
     GLFWContextHandler::instance->handleClick(window, button, action);
-}
-
-void GLFWContextHandler::handleResizeWrapper(GLFWwindow * window, int width, int height)
-{
-    GLFWContextHandler::instance->handleResize(window, width, height);
 }
 
 void GLFWContextHandler::handleScrollWrapper(GLFWwindow * window, double xoffset, double yoffset)
