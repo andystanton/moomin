@@ -143,6 +143,8 @@ void WorldRenderer::draw()
         draw(entity);
     }
 
+    drawView();
+
     glDisableVertexAttribArray(0);
 }
 

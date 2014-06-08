@@ -66,8 +66,10 @@ void GLCoordinator::zoom(double x, double y, double amount)
     if (viewDiff.getY() > 100)
     {
         Vec2 halfZoom = viewDiff / 2;
-        viewLowerLeft = viewLowerLeft + worldCoords - halfZoom;
-        viewUpperRight = viewLowerLeft + viewDiff;
+        // viewLowerLeft = viewLowerLeft + worldCoords - halfZoom;
+        // viewUpperRight = viewLowerLeft + viewDiff;
+        viewLowerLeft = worldCoords - halfZoom;
+        viewUpperRight = worldCoords + halfZoom;
 
         if (viewLowerLeft.getX() < 0) {
             float newUpperRightX = viewUpperRight.getX() - viewLowerLeft.getX();
@@ -91,7 +93,7 @@ void GLCoordinator::zoom(double x, double y, double amount)
         }
     }
 
-    worldRenderer->lookAt(viewLowerLeft, viewUpperRight);
+    //worldRenderer->lookAt(viewLowerLeft, viewUpperRight);
 }
 
 void GLCoordinator::init()
