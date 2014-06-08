@@ -12,6 +12,7 @@ public:
 
     virtual void setGLCoordinatorFullscreenCallback(void (*)()) = 0;
     virtual void setGLCoordinatorZoomCallback(void (*)(double, double, double)) = 0;
+    virtual void setGLCoordinatorDragClickCallback(void (*)(double, double, double, double)) = 0;
 };
 
 #endif

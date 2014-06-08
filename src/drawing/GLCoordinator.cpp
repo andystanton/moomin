@@ -23,6 +23,7 @@ GLCoordinator::GLCoordinator(const string& title,
     );
     glContextHandler->setGLCoordinatorFullscreenCallback(GLCoordinator::handleFullscreenToggle);
     glContextHandler->setGLCoordinatorZoomCallback(GLCoordinator::handleZoom);
+    glContextHandler->setGLCoordinatorDragClickCallback(GLCoordinator::handleDragClick);
     init();
 }
 
@@ -41,6 +42,20 @@ void GLCoordinator::handleFullscreenToggle()
 void GLCoordinator::handleZoom(double x, double y, double amount)
 {
     GLCoordinator::instance->zoom(x, y, amount);
+}
+
+void GLCoordinator::handleDragClick(double startX, double startY, double endX, double endY)
+{
+    GLCoordinator::instance->launchEntity(startX, startY, endX, endY);
+}
+
+void GLCoordinator::launchEntity(double startX, double startY, double endX, double endY)
+{
+    Vec2 currentView = viewUpperRight - viewLowerLeft;
+    Vec2 worldStart((startX / width) * currentView.getX(), (startY / height) * currentView.getY());
+    Vec2 worldEnd((endX / width) * currentView.getX(), (endY / height) * currentView.getY());
+
+    physicsHelper.spawnEntityOnTrajectory(viewLowerLeft + worldStart, viewLowerLeft + worldEnd);
 }
 
 void GLCoordinator::zoom(double x, double y, double amount)

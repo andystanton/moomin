@@ -39,6 +39,7 @@ public:
 
     static void handleFullscreenToggle();
     static void handleZoom(double x, double y, double amount);
+    static void handleDragClick(double startX, double startY, double endX, double endY);
 
     Vec2 screenToWorld(Vec2);
     Vec2 worldToScreen(Vec2);
@@ -64,6 +65,7 @@ private:
     void recalculateFps();
     void init();
     void zoom(double x, double y, double amount);
+    void launchEntity(double startX, double startY, double endX, double endY);
 };
 
 #endif

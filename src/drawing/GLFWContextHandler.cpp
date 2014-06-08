@@ -61,6 +61,12 @@ void GLFWContextHandler::setGLCoordinatorZoomCallback(void (*glCoordinatorZoomCa
 {
     this->glCoordinatorZoomCallback = glCoordinatorZoomCallback;
 }
+
+void GLFWContextHandler::setGLCoordinatorDragClickCallback(void (*glCoordinatorDragClickCallback)(double, double, double, double))
+{
+    this->glCoordinatorDragClickCallback = glCoordinatorDragClickCallback;
+}
+
 void GLFWContextHandler::postDraw()
 {
     if (window != nullptr)
@@ -177,7 +183,7 @@ void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);
-        physicsHelper.spawnEntityOnTrajectory(Vec2(clickStartX, clickStartY), Vec2(clickEndX, clickEndY));
+        glCoordinatorDragClickCallback(clickStartX, height - clickStartY, clickEndX, height - clickEndY);
     }
 }
 

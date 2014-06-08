@@ -280,8 +280,9 @@ void PhysicsHelper::setSpawnModeAABB()
 
 void PhysicsHelper::spawnEntityOnTrajectory(Vec2 trajectoryStart, Vec2 trajectoryEnd)
 {
-    Vec2 pos(trajectoryStart.getX() * 10, getWorldHeight() - (trajectoryStart.getY() * 10));
-    Vec2 velocity(trajectoryEnd.getX() - trajectoryStart.getX(), -(trajectoryEnd.getY() - trajectoryStart.getY()));
+    Vec2 pos(trajectoryStart.getX(), trajectoryStart.getY());
+    Vec2 velocity(trajectoryEnd.getX() - trajectoryStart.getX(), trajectoryEnd.getY() - trajectoryStart.getY());
+    velocity /= 10;
 
     switch (spawnMode)
     {

@@ -28,6 +28,7 @@ public:
 
     void setGLCoordinatorFullscreenCallback(void (*)());
     void setGLCoordinatorZoomCallback(void (*)(double, double, double));
+    void setGLCoordinatorDragClickCallback(void (*)(double, double, double, double));
 
 private:
     GLFWwindow * window;
@@ -38,6 +39,7 @@ private:
 
     void (*glCoordinatorFullscreenCallback)() = nullptr;
     void (*glCoordinatorZoomCallback)(double, double, double) = nullptr;
+    void (*glCoordinatorDragClickCallback)(double, double, double, double) = nullptr;
 
     double clickStartX, clickStartY;
     double clickEndX, clickEndY;
