@@ -52,21 +52,6 @@ void GLFWContextHandler::init()
     glfwSetScrollCallback(window, GLFWContextHandler::handleScrollWrapper);
 }
 
-void GLFWContextHandler::setGLCoordinatorFullscreenCallback(void (*glCoordinatorFullscreenCallback)())
-{
-    this->glCoordinatorFullscreenCallback = glCoordinatorFullscreenCallback;
-}
-
-void GLFWContextHandler::setGLCoordinatorZoomCallback(void (*glCoordinatorZoomCallback)(double, double, double))
-{
-    this->glCoordinatorZoomCallback = glCoordinatorZoomCallback;
-}
-
-void GLFWContextHandler::setGLCoordinatorDragClickCallback(void (*glCoordinatorDragClickCallback)(double, double, double, double))
-{
-    this->glCoordinatorDragClickCallback = glCoordinatorDragClickCallback;
-}
-
 void GLFWContextHandler::postDraw()
 {
     if (window != nullptr)
@@ -180,6 +165,7 @@ void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action
     if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS)
     {
         glfwGetCursorPos(window, &clickStartX, &clickStartY);
+        cout << "click at: " << Vec2(clickStartX, clickStartY) << endl;
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);

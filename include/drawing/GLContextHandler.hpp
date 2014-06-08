@@ -10,9 +10,14 @@ public:
     virtual bool isActive() = 0;
     virtual void quit() = 0;
 
-    virtual void setGLCoordinatorFullscreenCallback(void (*)()) = 0;
-    virtual void setGLCoordinatorZoomCallback(void (*)(double, double, double)) = 0;
-    virtual void setGLCoordinatorDragClickCallback(void (*)(double, double, double, double)) = 0;
+    void setGLCoordinatorFullscreenCallback(void (*)());
+    void setGLCoordinatorZoomCallback(void (*)(double, double, double));
+    void setGLCoordinatorDragClickCallback(void (*)(double, double, double, double));
+
+protected:
+    void (*glCoordinatorFullscreenCallback)() = nullptr;
+    void (*glCoordinatorZoomCallback)(double, double, double) = nullptr;
+    void (*glCoordinatorDragClickCallback)(double, double, double, double) = nullptr;
 };
 
 #endif
