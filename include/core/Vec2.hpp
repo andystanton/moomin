@@ -27,6 +27,7 @@ public:
     void setX(float);
     void setY(float);
     void normalise();
+    void abs();
 
     float getX() const;
     float getY() const;
@@ -34,6 +35,7 @@ public:
     float distanceTo(const Vec2 &) const;
 
     Vec2 getNormalised() const;
+    Vec2 getAbs() const;
 
     Vec2 operator=(const Vec2 &);
     Vec2 operator-() const;

@@ -195,7 +195,7 @@ void GLFWContextHandler::handleScroll(GLFWwindow * window, double xoffset, doubl
 
     if (fabs(yoffset) > 0 && glCoordinatorZoomCallback != nullptr)
     {
-        glCoordinatorZoomCallback(cursorx, cursory, yoffset);
+        glCoordinatorZoomCallback(cursorx, height - cursory, yoffset);
     }
 }
 

@@ -11,8 +11,9 @@ public:
 
     const set<Entity *>& getEntities();
 
-    int getWidth();
-    int getHeight();
+    int getWorldWidth();
+    int getWorldHeight();
+
     void step(double time);
 
     void enablePositionAccelerationRule(bool inverted);

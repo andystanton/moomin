@@ -83,6 +83,19 @@ Vec2 Vec2::getNormalised() const
     return copy;
 }
 
+void Vec2::abs()
+{
+    x = fabs(x);
+    y = fabs(y);
+}
+
+Vec2 Vec2::getAbs() const
+{
+    Vec2 copy = *this;
+    copy.abs();
+    return copy;
+}
+
  Vec2 Vec2::operator=(const Vec2 & other) {
       this->x = other.x;
       this->y = other.y;

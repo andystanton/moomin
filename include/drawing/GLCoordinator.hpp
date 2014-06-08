@@ -40,6 +40,9 @@ public:
     static void handleFullscreenToggle();
     static void handleZoom(double x, double y, double amount);
 
+    Vec2 screenToWorld(Vec2);
+    Vec2 worldToScreen(Vec2);
+
 private:
     string title;
     int width;
@@ -50,8 +53,9 @@ private:
     float lastFpsUpdate;
     float fps;
     string fpsString;
-    Vec2 zoomLowerLeft;
-    Vec2 zoomUpperRight;
+    Vec2 viewLowerLeft;
+    Vec2 viewUpperRight;
+    Vec2 screenToWorldRatio;
 
     unique_ptr<GLContextHandler> glContextHandler;
 

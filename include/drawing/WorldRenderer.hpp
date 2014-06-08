@@ -30,7 +30,10 @@ public:
     void setZoom(Vec2 * lowerLeft, Vec2 * upperRight);
 private:
     const set<Entity *>& entities;
+    int width, height;
     void draw(Entity *);
+    void drawGrid(int spacing);
+    void drawView();
 
     glm::mat4 Model;
     glm::mat4 View;
@@ -42,9 +45,11 @@ private:
     GLuint colourId;
     GLuint offsetId;
 
+    GLuint vertexArrayIdGrid;
     GLuint vertexArrayIdAABB;
     GLuint vertexArrayIdCircle;
 
+    GLuint vertexBufferGrid;
     GLuint vertexBufferAABB;
     GLuint vertexBufferCircle;
 

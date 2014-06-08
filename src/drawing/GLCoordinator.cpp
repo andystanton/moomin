@@ -13,8 +13,9 @@ GLCoordinator::GLCoordinator(const string& title,
     , lastFpsUpdate { 0.f }
     , fps { 0.f }
     , fpsString()
-    , zoomLowerLeft(0.f, 0.f)
-    , zoomUpperRight(width * 10, height * 10)
+    , viewLowerLeft()
+    , viewUpperRight(physicsHelper.getWorldWidth(), physicsHelper.getWorldHeight())
+    , screenToWorldRatio(physicsHelper.getWorldWidth() / width, physicsHelper.getWorldHeight() / height)
 {
     GLCoordinator::instance = this;
     glContextHandler = unique_ptr<GLContextHandler>(
@@ -44,48 +45,53 @@ void GLCoordinator::handleZoom(double x, double y, double amount)
 
 void GLCoordinator::zoom(double x, double y, double amount)
 {
-    double noramlisedx = x * 10;
-    double noramlisedy = height * 10 - y * 10;
-    double normalisedAmount = amount * 8;
+    float scaleFactor = (viewUpperRight - viewLowerLeft).getX() / (width * 10) ;
+    cout << "scale factor is : " << scaleFactor << endl;
 
+    Vec2 worldCoords = screenToWorld(Vec2(x, y));
+
+    cout << "currently looking at: " << viewLowerLeft << " to " << viewUpperRight << endl;
+    cout << "cursor is at        : " << x << ", " << y << endl;
+    cout << "making it           : " << (viewLowerLeft + worldCoords) << " in screen coordinates" << endl;
+
+    double normalisedAmount = amount * 8;
     if (normalisedAmount > 1) normalisedAmount = 0.8;
     if (normalisedAmount < -1) normalisedAmount = -0.8;
+    normalisedAmount = normalisedAmount >= 0 ? normalisedAmount : -1 / normalisedAmount;
 
-    Vec2 zoomDiff = zoomUpperRight - zoomLowerLeft;
+    Vec2 viewDiff = (viewUpperRight - viewLowerLeft) * normalisedAmount;
 
-    Vec2 newZoomDiff = zoomDiff * (normalisedAmount > 0 ? normalisedAmount : 1/normalisedAmount);
-    newZoomDiff.setX(fabs(newZoomDiff.getX()));
-    newZoomDiff.setY(fabs(newZoomDiff.getY()));
-    Vec2 halfZoom = newZoomDiff / 2;
+    // we have the new dimensions. now just need to work out the focal point.
 
-    if (fabs(newZoomDiff.getY()) > 100)
+    if (viewDiff.getY() > 100)
     {
-        zoomLowerLeft = Vec2(noramlisedx, noramlisedy) - halfZoom;
-        zoomUpperRight = Vec2(noramlisedx, noramlisedy) + halfZoom;
+        Vec2 halfZoom = viewDiff / 2;
+        viewLowerLeft = viewLowerLeft + worldCoords - halfZoom;
+        viewUpperRight = viewLowerLeft + viewDiff;
 
-        if (zoomLowerLeft.getX() < 0) {
-            float newUpperRightX = zoomUpperRight.getX() - zoomLowerLeft.getX();
-            zoomUpperRight.setX(newUpperRightX > width * 10 ? width * 10 : newUpperRightX);
-            zoomLowerLeft.setX(0);
+        if (viewLowerLeft.getX() < 0) {
+            float newUpperRightX = viewUpperRight.getX() - viewLowerLeft.getX();
+            viewUpperRight.setX(newUpperRightX > width * 10 ? width * 10 : newUpperRightX);
+            viewLowerLeft.setX(0);
         }
-        if (zoomUpperRight.getX() > width * 10){
-            float newLowerLeftX = zoomLowerLeft.getX() - (zoomUpperRight.getX() - width*10);
-            zoomLowerLeft.setX(newLowerLeftX < 0 ? 0 : newLowerLeftX);
-            zoomUpperRight.setX(width * 10);
+        if (viewUpperRight.getX() > width * 10){
+            float newLowerLeftX = viewLowerLeft.getX() - (viewUpperRight.getX() - width*10);
+            viewLowerLeft.setX(newLowerLeftX < 0 ? 0 : newLowerLeftX);
+            viewUpperRight.setX(width * 10);
         }
-        if (zoomLowerLeft.getY() < 0){
-            float newUpperRightY = zoomUpperRight.getY() - zoomLowerLeft.getY();
-            zoomUpperRight.setY(newUpperRightY > height * 10 ? height * 10 : newUpperRightY);
-            zoomLowerLeft.setY(0);
+        if (viewLowerLeft.getY() < 0){
+            float newUpperRightY = viewUpperRight.getY() - viewLowerLeft.getY();
+            viewUpperRight.setY(newUpperRightY > height * 10 ? height * 10 : newUpperRightY);
+            viewLowerLeft.setY(0);
         }
-        if (zoomUpperRight.getY() > height * 10){
-            float newLowerLeftY = zoomLowerLeft.getY() - (zoomUpperRight.getY() - height*10);
-            zoomLowerLeft.setY(newLowerLeftY < 0 ? 0 : newLowerLeftY);
-            zoomUpperRight.setY(height * 10);
+        if (viewUpperRight.getY() > height * 10){
+            float newLowerLeftY = viewLowerLeft.getY() - (viewUpperRight.getY() - height*10);
+            viewLowerLeft.setY(newLowerLeftY < 0 ? 0 : newLowerLeftY);
+            viewUpperRight.setY(height * 10);
         }
     }
 
-    worldRenderer->lookAt(zoomLowerLeft, zoomUpperRight);
+    worldRenderer->lookAt(viewLowerLeft, viewUpperRight);
 }
 
 void GLCoordinator::init()
@@ -103,7 +109,7 @@ void GLCoordinator::init()
     glClearColor(0.2, 0.2, 0.5, 1.0);
 
     worldRenderer = new WorldRenderer(physicsHelper.getEntities(), width * 10, height * 10);
-    worldRenderer->setZoom(&zoomLowerLeft, &zoomUpperRight);
+    worldRenderer->setZoom(&viewLowerLeft, &viewUpperRight);
 }
 
 void GLCoordinator::draw()
@@ -148,4 +154,20 @@ double GLCoordinator::getTime()
 void GLCoordinator::quit()
 {
     glContextHandler->quit();
+}
+
+Vec2 GLCoordinator::screenToWorld(Vec2 screenCoordinates)
+{
+    Vec2 worldCoordinates(screenCoordinates);
+    worldCoordinates.setX(worldCoordinates.getX() * screenToWorldRatio.getX());
+    worldCoordinates.setY(worldCoordinates.getY() * screenToWorldRatio.getY());
+    return worldCoordinates;
+}
+
+Vec2 GLCoordinator::worldToScreen(Vec2 worldCoordinates)
+{
+    Vec2 screenCoordinates(worldCoordinates);
+    worldCoordinates.setX(worldCoordinates.getX() / screenToWorldRatio.getX());
+    worldCoordinates.setY(worldCoordinates.getY() / screenToWorldRatio.getY());
+    return screenCoordinates;
 }

@@ -17,12 +17,12 @@ const set<Entity *>& PhysicsHelper::getEntities()
     return physicsSystem.getEntities();
 }
 
-int PhysicsHelper::getWidth()
+int PhysicsHelper::getWorldWidth()
 {
     return physicsSystem.getWidth();
 }
 
-int PhysicsHelper::getHeight()
+int PhysicsHelper::getWorldHeight()
 {
     return physicsSystem.getHeight();
 }
@@ -109,8 +109,8 @@ void PhysicsHelper::addAABB(Vec2 pos, Vec2 bounds, Vec2 velocity)
 
 void PhysicsHelper::addCircleRandom(Vec2 velocity)
 {
-    int worldWidth = (int) physicsSystem.getWidth();
-    int worldHeight = (int) physicsSystem.getHeight();
+    int worldWidth = getWorldWidth();
+    int worldHeight = getWorldHeight();
 
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     float radius = (rand() % 20) + 20;
@@ -122,8 +122,8 @@ void PhysicsHelper::addCircleRandom(Vec2 velocity)
 
 void PhysicsHelper::addAABBRandom(Vec2 velocity)
 {
-    int worldWidth = (int) physicsSystem.getWidth();
-    int worldHeight = (int) physicsSystem.getHeight();
+    int worldWidth = getWorldWidth();
+    int worldHeight = getWorldHeight();
 
     Vec2 pos(rand() % worldWidth, worldHeight/8 + (rand() % (worldHeight * 3 / 4)));
     Vec2 bounding((rand() % 160) + 80, (rand() % 160) + 80);
@@ -185,36 +185,45 @@ void PhysicsHelper::addAABBsLattice(Vec2 pos, Vec2 dimensions, int divisions, Ve
 
 void PhysicsHelper::addCirclesLatticeCentre(int divisions)
 {
+    int worldWidth = getWorldWidth();
+    int worldHeight = getWorldHeight();
+
     physicsSystem.clearEntities();
-    float latticeWidth = physicsSystem.getWidth() / 8;
-    float halfWidth = (physicsSystem.getWidth() -latticeWidth) / 2;
-    float halfHeight = (physicsSystem.getHeight() -latticeWidth) / 2;
+    float latticeWidth = worldWidth / 8;
+    float halfWidth = (worldWidth - latticeWidth) / 2;
+    float halfHeight = (worldHeight - latticeWidth) / 2;
     addCirclesLattice(Vec2(halfWidth, halfHeight), Vec2(latticeWidth, latticeWidth), divisions);
 }
 
 void PhysicsHelper::addAABBsLatticeCentre(int divisions)
 {
+    int worldWidth = getWorldWidth();
+    int worldHeight = getWorldHeight();
+
     physicsSystem.clearEntities();
-    float latticeWidth = physicsSystem.getWidth() / 8;
-    float halfWidth = (physicsSystem.getWidth() - latticeWidth - (latticeWidth / divisions)) / 2;
-    float halfHeight = (physicsSystem.getHeight() - latticeWidth - (latticeWidth / divisions)) / 2;
+    float latticeWidth = worldWidth / 8;
+    float halfWidth = (worldWidth - latticeWidth - (latticeWidth / divisions)) / 2;
+    float halfHeight = (worldHeight - latticeWidth - (latticeWidth / divisions)) / 2;
     addAABBsLattice(Vec2(halfWidth, halfHeight), Vec2(latticeWidth, latticeWidth), divisions);
 }
 
 void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
 {
+    int worldWidth = getWorldWidth();
+    int worldHeight = getWorldHeight();
+
     physicsSystem.clearEntities();
     disableAccelerationRules();
     float speed = 30;
 
-    float latticeWidth = physicsSystem.getWidth() / 8;
+    float latticeWidth = worldWidth / 8;
     float entitySize = latticeWidth / divisions;
 
-    //float circleWidthOffset = physicsSystem.getWidth() - latticeWidth + entitySize / 2;
-    float circleHeightOffset = physicsSystem.getHeight() - latticeWidth - (entitySize / 2);
+    //float circleWidthOffset = worldWidth - latticeWidth + entitySize / 2;
+    float circleHeightOffset = worldHeight - latticeWidth - (entitySize / 2);
 
-    float aabbWidthOffset = physicsSystem.getWidth() - latticeWidth - entitySize;
-    float aabbHeightOffset = physicsSystem.getHeight() - latticeWidth - entitySize;
+    float aabbWidthOffset = worldWidth - latticeWidth - entitySize;
+    float aabbHeightOffset = worldHeight - latticeWidth - entitySize;
 
     // TODO: make this less shit
 
@@ -223,7 +232,7 @@ void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
         Vec2 circleCentre(entitySize + latticeWidth / 2, entitySize + latticeWidth / 2);
         Vec2 aabbCentre(aabbWidthOffset + latticeWidth / 2, aabbHeightOffset + latticeWidth / 2);
 
-        Vec2 circleVelocity = Vec2(physicsSystem.getWidth(), physicsSystem.getHeight()) - circleCentre;
+        Vec2 circleVelocity = Vec2(worldWidth, worldHeight) - circleCentre;
         circleVelocity.normalise();
         circleVelocity *= speed;
         circleVelocity.setX((int) circleVelocity.getX());
@@ -242,13 +251,13 @@ void PhysicsHelper::addChaosLattice(bool inverted, int divisions)
         Vec2 circleCentre(entitySize + latticeWidth / 2, aabbHeightOffset + latticeWidth / 2);
         Vec2 aabbCentre(aabbWidthOffset + latticeWidth / 2, entitySize + latticeWidth / 2);
 
-        Vec2 circleVelocity = Vec2(physicsSystem.getWidth(), 0.f) - circleCentre;
+        Vec2 circleVelocity = Vec2(worldWidth, 0.f) - circleCentre;
         circleVelocity.normalise();
         circleVelocity *= speed;
         circleVelocity.setX((int) circleVelocity.getX());
         circleVelocity.setY((int) circleVelocity.getY());
 
-        Vec2 aabbVelocity = Vec2(0.f, physicsSystem.getHeight()) - aabbCentre;
+        Vec2 aabbVelocity = Vec2(0.f, worldHeight) - aabbCentre;
         aabbVelocity.normalise();
         aabbVelocity *= speed;
         aabbVelocity.setX((int) aabbVelocity.getX());
@@ -271,7 +280,7 @@ void PhysicsHelper::setSpawnModeAABB()
 
 void PhysicsHelper::spawnEntityOnTrajectory(Vec2 trajectoryStart, Vec2 trajectoryEnd)
 {
-    Vec2 pos(trajectoryStart.getX() * 10, getHeight() - (trajectoryStart.getY() * 10));
+    Vec2 pos(trajectoryStart.getX() * 10, getWorldHeight() - (trajectoryStart.getY() * 10));
     Vec2 velocity(trajectoryEnd.getX() - trajectoryStart.getX(), -(trajectoryEnd.getY() - trajectoryStart.getY()));
 
     switch (spawnMode)
