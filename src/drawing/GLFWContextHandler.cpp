@@ -183,7 +183,10 @@ void GLFWContextHandler::handleClick(GLFWwindow * window, int button, int action
     } else if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_RELEASE)
     {
         glfwGetCursorPos(window, &clickEndX, &clickEndY);
-        glCoordinatorDragClickCallback(clickStartX, height - clickStartY, clickEndX, height - clickEndY);
+        glCoordinatorDragClickCallback(fullscreen ? abs(clickStartX) / 2 : clickStartX,
+                                       fullscreen ? height - abs(clickStartY) / 2 : height - clickStartY,
+                                       fullscreen ? abs(clickEndX) / 2 : clickEndX,
+                                       fullscreen ? height - abs(clickEndY) / 2 : height - clickEndY);
     }
 }
 

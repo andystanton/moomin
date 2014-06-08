@@ -51,6 +51,8 @@ void GLCoordinator::handleDragClick(double startX, double startY, double endX, d
 
 void GLCoordinator::launchEntity(double startX, double startY, double endX, double endY)
 {
+    cout << startX << ", " << startY << endl;
+
     Vec2 currentView = viewUpperRight - viewLowerLeft;
     Vec2 worldStart((startX / width) * currentView.getX(), (startY / height) * currentView.getY());
     Vec2 worldEnd((endX / width) * currentView.getX(), (endY / height) * currentView.getY());
