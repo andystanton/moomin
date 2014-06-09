@@ -10,11 +10,17 @@ src/cmake_install.cmake
 src/CMakeCache.txt
 src/CMakeFiles
 src/CMakeScripts
+src/CTestTestfile.cmake
 test/cmake_install.cmake
 test/CMakeCache.txt
 test/CMakeFiles
 test/CMakeScripts
 test/CTestTestfile.cmake
+example/cmake_install.cmake
+example/CMakeCache.txt
+example/CMakeFiles
+example/CMakeScripts
+example/CTestTestfile.cmake
 lib/*/*.build
 lib/*/*.xcodeproj
 lib/*/cmake_install.cmake

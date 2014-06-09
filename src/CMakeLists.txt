@@ -1,35 +1,22 @@
 FILE (GLOB_RECURSE project_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 
-SET (project_LIBS
-     ${GLFW_LIBRARIES}
-     glfw
-     libglew_static)
 
-SET (project_INCLUDES
-     ${GLFW_INCLUDE_PATH}
-     ${GLM_INCLUDE_PATH}
-     ${GLEW_INCLUDE_PATH})
+SET (project_LIB ${PROJECT_NAME}-lib CACHE INTERNAL "Moomin library target name")
 
-SET (project_BIN ${PROJECT_NAME})
+message("project_lib is ${project_LIB}")
 
 #message("input sources")
 # add test sources to global variable so they can be linked with test sources
 foreach(sourceFile ${project_SRCS})
-    if(${sourceFile} STREQUAL ${MAINFOLDER}/src/main.cpp)
-    else()
-        #message(${sourceFile})
-        set(ALL_SRCS ${ALL_SRCS} ${sourceFile} CACHE INTERNAL "description")
-    endif()
+    set(ALL_SRCS ${ALL_SRCS} ${sourceFile} CACHE INTERNAL "All Moomin Library Sources")
 endforeach()
 
-ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
+ADD_LIBRARY(${project_LIB} ${project_SRCS})
 
 include_directories(${project_INCLUDES})
 
-TARGET_LINK_LIBRARIES(${project_BIN} ${project_LIBS} ${project_LIBS})
+TARGET_LINK_LIBRARIES(${project_LIB} ${project_LIBS})
 
-copy_files("${MAINFOLDER}/src/shaders" "${EXECUTABLE_OUTPUT_PATH}")
+SET_TARGET_PROPERTIES(${project_LIB} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_LIB} CLEAN_DIRECT_OUTPUT 1)
 
-SET_TARGET_PROPERTIES(${project_BIN} PROPERTIES VERSION "${APPLICATION_VERSION_MAJOR}.${APPLICATION_VERSION_MINOR}" OUTPUT_NAME ${project_BIN} CLEAN_DIRECT_OUTPUT 1)
-
-INSTALL(TARGETS ${project_BIN} DESTINATION bin)
+INSTALL(TARGETS ${project_LIB} DESTINATION bin)
