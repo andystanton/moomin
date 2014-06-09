@@ -141,6 +141,8 @@ ADD_SUBDIRECTORY(src)
 enable_testing()
 ADD_SUBDIRECTORY(test)
 
+ADD_SUBDIRECTORY(example)
+
 
 #
 # Add Install Targets
