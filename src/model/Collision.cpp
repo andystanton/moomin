@@ -219,8 +219,15 @@ void Collision::resolveCircleCircle()
     if (depth > 0.f)
     {
         float scale = distance / depth;
-        escapeTranslation = 0.5f * difference / -scale;
-        resultantVelocity = difference / -scale;
+        if (!almostEqual(scale, 0.f))
+        {
+            resultantVelocity = difference / -scale;
+            escapeTranslation = 0.5f * difference / -scale;
+        } else
+        {
+            resultantVelocity = Vec2((rand() % 10) - 5, (rand() % 10) - 5);
+            escapeTranslation = resultantVelocity / 2;
+        }
     }
 }
 

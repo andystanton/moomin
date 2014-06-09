@@ -52,15 +52,17 @@ go_bandit([]()
 
             set<Entity *> entities;
 
-            Circle c1(Vec2(0.f, 0.f),   3.f);
-            Circle c2(Vec2(4.f, 3.f),   3.f);
-            Circle c3(Vec2(100.f, 100.f),   3.f);
+            Circle c1(Vec2(0.f, 0.f),     3.f);
+            Circle c2(Vec2(4.f, 3.f),     3.f);
+            Circle c3(Vec2(100.f, 100.f), 3.f);
+            Circle c4(Vec2(100.f, 100.f), 3.f);
 
             c2.getVelocity().setX(-1.f);
 
             entities.insert(&c1);
             entities.insert(&c2);
             entities.insert(&c3);
+            entities.insert(&c4);
 
             CollisionRule circleCollision(entities);
 
@@ -76,6 +78,9 @@ go_bandit([]()
 
                 AssertThat(c2.getNextPos().getX(), Is().EqualToWithDelta( 4.4f, FLOAT_EPSILON));
                 AssertThat(c2.getNextPos().getY(), Is().EqualToWithDelta( 3.3f, FLOAT_EPSILON));
+
+                cout << c3.getNextPos() << endl;
+                cout << c4.getNextPos() << endl;
             });
 
             it("gives the Circle an impulse in the opposite direction of the Collision", [&]()
@@ -85,6 +90,9 @@ go_bandit([]()
 
                 AssertThat(c2.getVelocity().getX(), Is().EqualToWithDelta((-1.f + 0.8f) * circleElasticity, FLOAT_EPSILON));
                 AssertThat(c2.getVelocity().getY(), Is().EqualToWithDelta(0.6f * circleElasticity, FLOAT_EPSILON));
+
+                cout << c3.getVelocity() << endl;
+                cout << c4.getVelocity() << endl;
             });
         });
 
