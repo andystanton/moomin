@@ -21,7 +21,7 @@ float Circle::getRadius() const
 
 float * Circle::getColour()
 {
-    return new float[3] { 0.4f, 0.8f, 0.4f };
+    return new float[4] { 0.4f, 0.8f, 0.4f, 0.f };
 }
 
 Mesh Circle::populateMesh(float radius, int segmentCount)

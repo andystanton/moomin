@@ -9,15 +9,15 @@ using namespace std;
 #include <stdlib.h>
 #include <string.h>
 
-#include <GL/glew.h>
+#include <OpenGLES/ES3/gl.h>
 
 #include "drawing/shader.hpp"
 
 GLuint LoadShaders(const char * vertex_file_path, const char * fragment_file_path){
 	PathHelper pathHelper;
 
-	string fullVertexPath = pathHelper.getApplicationPath() + "/" + vertex_file_path;
-	string fullFragmentPath = pathHelper.getApplicationPath() + "/" + fragment_file_path;
+	string fullVertexPath = string("./")  + vertex_file_path;
+	string fullFragmentPath = string("./") + fragment_file_path;
 
 	cout << fullVertexPath << endl;
 	cout << fullFragmentPath << endl;

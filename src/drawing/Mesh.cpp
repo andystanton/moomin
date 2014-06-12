@@ -12,7 +12,7 @@ Mesh::Mesh(MeshType type, float * components, int size)
 }
 
 Mesh::Mesh(MeshType type, initializer_list<float> components)
-    : size(components.size())
+    : size((int) components.size())
     , memSize(size * sizeof(float))
     , mesh(new float[components.size()])
     , type(type)

@@ -1,9 +1,10 @@
 #include "drawing/WorldRenderer.hpp"
 
-WorldRenderer::WorldRenderer(const set<Entity *>& entities, int width, int height)
+WorldRenderer::WorldRenderer(const set<Entity *>& entities, int width, int height, int programId)
     : entities(entities)
     , width(width)
     , height(height)
+    , programId(programId)
 {
     lookAt(Vec2::ORIGIN, Vec2(width, height));
 
@@ -19,8 +20,6 @@ WorldRenderer::WorldRenderer(const set<Entity *>& entities, int width, int heigh
 
     glGenVertexArrays(1, &vertexArrayIdCircle);
     glBindVertexArray(vertexArrayIdCircle);
-
-    programId = LoadShaders("EntityVertexShader.vertexshader", "EntityFragmentShader.fragmentshader");
 
     matrixId = glGetUniformLocation(programId, "MVP");
     colourId = glGetUniformLocation(programId, "uniformColour");
@@ -66,7 +65,7 @@ void WorldRenderer::setZoom(Vec2 * lowerLeft, Vec2 * upperRight)
 void WorldRenderer::drawView()
 {
     glUniform2f(offsetId, 0.f, 0.f);
-    glUniform3f(colourId, 1.f, 1.f, 1.f);
+    glUniform4f(colourId, 1.f, 1.f, 1.f, 1.f);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferAABB);
 
@@ -92,7 +91,7 @@ void WorldRenderer::drawView()
 void WorldRenderer::drawGrid(int spacing)
 {
     glUniform2f(offsetId, 0.f, 0.f);
-    glUniform3f(colourId, 0.4f, 0.4f, 0.4f);
+    glUniform4f(colourId, 0.4f, 0.4f, 0.4f, 1.f);
 
     glBindBuffer(GL_ARRAY_BUFFER, vertexBufferGrid);
 
@@ -118,7 +117,7 @@ void WorldRenderer::drawGrid(int spacing)
         points[offset + j*4+3] = (j + 1) * spacing;
     }
 
-    glBufferData(GL_ARRAY_BUFFER, numVertices * 2 * sizeof(float), points, GL_DYNAMIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, numVertices * 2 * sizeof(float), points, GL_STATIC_DRAW);
     glVertexAttribPointer(
         0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
         2,                  // size
@@ -127,7 +126,7 @@ void WorldRenderer::drawGrid(int spacing)
         0,                  // stride
         (void*)0            // array buffer offset
     );
-    glDrawArrays(GL_LINES, 0, numVertices);
+    glDrawArrays(GL_LINES, 0, numVertices * 2);
 }
 
 void WorldRenderer::draw()
@@ -136,14 +135,14 @@ void WorldRenderer::draw()
     glEnableVertexAttribArray(0);
     glUniformMatrix4fv(matrixId, 1, GL_FALSE, &MVP[0][0]);
 
-    drawGrid(200);
+        drawGrid(200);
 
     for (auto entity : entities)
     {
         draw(entity);
     }
 
-    drawView();
+    //    drawView();
 
     glDisableVertexAttribArray(0);
 }
@@ -154,7 +153,7 @@ void WorldRenderer::draw(Entity* entity)
     const Mesh & mesh = entity->getMesh();
 
     glUniform2f(offsetId, pos.getX(), pos.getY());
-    glUniform3fv(colourId, 1, entity->getColour());
+    glUniform4fv(colourId, 1, entity->getColour());
 
     GLenum drawMode = GL_INVALID_ENUM;
     if (mesh.getType() == Mesh::MeshType::triangles)

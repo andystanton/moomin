@@ -22,7 +22,7 @@ foreach(sourceFile ${project_SRCS})
     endif()
 endforeach()
 
-ADD_EXECUTABLE(${project_BIN} ${project_SRCS})
+ADD_LIBRARY(${project_BIN} ${ALL_SRCS})
 
 include_directories(${project_INCLUDES})
 

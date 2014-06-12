@@ -6,7 +6,11 @@
 #include <limits.h>
 
 #if defined (__APPLE__)
-    #include <libproc.h>
+#elif __APPLE__
+    #include "TargetConditionals.h"
+    #if TARGET_OS_MAC
+        #include <libproc.h>
+    #endif
 #endif
 
 using std::string;

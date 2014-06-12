@@ -1,8 +1,7 @@
 #ifndef _MOOMIN_WORLD_RENDERER
 #define _MOOMIN_WORLD_RENDERER
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+#include <OpenGLES/ES3/gl.h>
 
 #define GLM_FORCE_RADIANS
 #include <glm/glm.hpp>
@@ -22,7 +21,7 @@ using std::set;
 class WorldRenderer : public Renderer
 {
 public:
-    WorldRenderer(const set<Entity *>&, int width, int height);
+    WorldRenderer(const set<Entity *>&, int width, int height, int programId);
     ~WorldRenderer();
 
     void draw();

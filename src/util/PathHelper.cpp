@@ -5,17 +5,19 @@ PathHelper::PathHelper()
     string fullPath;
 
     #if defined (__APPLE__)
-        int ret;
-        pid_t pid;
-        char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
+        #if defined PROC_PIDPATHINFO_MAXSIZE
+            int ret;
+            pid_t pid;
+            char pathbuf[PROC_PIDPATHINFO_MAXSIZE];
 
-        pid = getpid();
-        ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
-        if ( ret <= 0 ) {
-            throw "Unable to ascertain application path";
-        } else {
-            fullPath = string(pathbuf);
-        }
+            pid = getpid();
+            ret = proc_pidpath(pid, pathbuf, sizeof(pathbuf));
+            if ( ret <= 0 ) {
+                throw "Unable to ascertain application path";
+            } else {
+                fullPath = string(pathbuf);
+            }
+        #endif
     #elif defined(__linux__)
         char buff[1024];
         ssize_t len = ::readlink("/proc/self/exe", buff, sizeof(buff)-1);

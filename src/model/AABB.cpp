@@ -18,7 +18,7 @@ Vec2 & AABB::getBounding()
 
 float * AABB::getColour()
 {
-    return new float[3]{ 0.8f, 0.7f, 0.3f };
+    return new float[4]{ 0.8f, 0.7f, 0.3f, 0.f };
 }
 
 Mesh AABB::populateMesh(Vec2 bounding)
