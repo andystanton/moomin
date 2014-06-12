@@ -1,5 +1,6 @@
 FILE (GLOB_RECURSE test_SRCS *.cpp *.cxx *.cc *.C *.c *.h *.hpp)
 SET (test_LIBS
+     moomin-lib
      gtest
      gtest_main
      gmock
