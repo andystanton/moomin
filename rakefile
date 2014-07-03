@@ -37,11 +37,6 @@ laundry_list = [
     "test/CMakeFiles",
     "test/CMakeScripts",
     "test/CTestTestfile.cmake",
-    "example/cmake_install.cmake",
-    "example/CMakeCache.txt",
-    "example/CMakeFiles",
-    "example/CMakeScripts",
-    "example/CTestTestfile.cmake",
     "Makefile",
     "bin",
     "*.build"
@@ -99,13 +94,6 @@ task :test do
     end
 
     sh "cat build/Testing/Temporary/LastTest.log"
-end
-
-desc 'Starts the application'
-task :start do
-    puts 'Executing start...'
-
-    sh "bin/moomin-example"
 end
 
 desc 'Alias for rake configure compile test'

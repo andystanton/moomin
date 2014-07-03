@@ -93,28 +93,6 @@ set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -lc++")
 # Locate Project Prerequisites
 #
 
-# GLFW
-
-# disable unnecessary glfw targets
-option(GLFW_BUILD_EXAMPLES "Build the GLFW example programs" OFF)
-option(GLFW_BUILD_TESTS "Build the GLFW test programs" OFF)
-option(GLFW_BUILD_DOCS "Build the GLFW documentation" OFF)
-option(GLFW_INSTALL "Generate installation target" OFF)
-
-# add subdirectory
-add_subdirectory(lib/glfw)
-set(GLFW_INCLUDE_PATH "${MAINFOLDER}/lib/glfw/include")
-
-# GLEW
-
-OPTION( glew-cmake_BUILD_SHARED "Build the shared glew library" OFF)
-add_subdirectory(lib/glew-cmake)
-set(GLEW_INCLUDE_PATH "${MAINFOLDER}/lib/glew-cmake/include")
-
-# GLM
-
-set(GLM_INCLUDE_PATH "${MAINFOLDER}/lib/glm")
-
 # GMOCK
 
 add_subdirectory(lib/gmock)
@@ -140,8 +118,6 @@ ADD_SUBDIRECTORY(src)
 #
 enable_testing()
 ADD_SUBDIRECTORY(test)
-
-ADD_SUBDIRECTORY(example)
 
 
 #

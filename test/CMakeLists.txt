@@ -4,18 +4,12 @@ SET (test_LIBS
      gtest
      gtest_main
      gmock
-     gmock_main
-     ${GLFW_LIBRARIES}
-     glfw
-     libglew_static)
+     gmock_main)
 
 SET (test_INCLUDES
      ${GMOCK_INCLUDE_PATH}
      ${GTEST_INCLUDE_PATH}
-     ${BANDIT_INCLUDE_PATH}
-     ${GLM_INCLUDE_PATH}
-     ${GLFW_INCLUDE_PATH}
-     ${GLEW_INCLUDE_PATH})
+     ${BANDIT_INCLUDE_PATH})
 
 SET (test_BIN ${PROJECT_NAME}-unittests)
 
