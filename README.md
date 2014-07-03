@@ -1,6 +1,6 @@
 # moomin [![Build Status](https://travis-ci.org/andystanton/moomin.svg?branch=master)](https://travis-ci.org/andystanton/moomin)
 
-A C++11 graphics/physics experiment. With unit tests and everything.
+A C++11 2D physics engine.
 
 ## Requirements
 
@@ -8,12 +8,13 @@ A C++11 graphics/physics experiment. With unit tests and everything.
 - CMake >= 2.8
 - Make >= 3.81
 - Rake >= 10.3
-- OpenGL >= 3.2
 
 ## Quick Start
 
+An example usage of this library is available in the [moomin-example](https://github.com/andystanton/moomin-example) repository. This example uses GLFW for cross-platform drawing of the physics engine.
+
 ```
-git clone https://github.com/andystanton/moomin.git --recursive && cd moomin
+git clone https://github.com/andystanton/moomin-example.git --recursive && cd moomin-example
 rake default start
 ```
 
