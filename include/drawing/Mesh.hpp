@@ -3,6 +3,7 @@
 
 #include <initializer_list>
 #include <vector>
+#include <array>
 
 #include "core/Vec2.hpp"
 
