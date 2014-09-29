@@ -68,8 +68,10 @@ SET (LIBRARY_OUTPUT_PATH "${MAINFOLDER}/lib")
 LIST (APPEND CMAKE_PREFIX_PATH "${MAINFOLDER}")
 INCLUDE_DIRECTORIES("${MAINFOLDER}/include")
 
-# set compiler warnings
-set(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror -Wfloat-equal -Wno-unused-parameter")
+#
+# Set compiler warnings
+#
+SET(CMAKE_CXX_FLAGS "-g -O0 -Wall -Wextra -Werror -Wfloat-equal -Wno-unused-parameter -Wno-unknown-pragmas")
 
 #
 # Enable C++11
