@@ -105,7 +105,13 @@ set_property(TARGET gtest_main APPEND_STRING PROPERTY COMPILE_FLAGS " -w")
 set(GTEST_INCLUDE_PATH "${gtest_SOURCE_DIR}/include")
 set(GMOCK_INCLUDE_PATH "${gmock_SOURCE_DIR}/include")
 
-# BANDIT
+#
+# Bandit
+#
+OPTION(BANDIT_BUILD_SPECS       "Build the Bandit specs"    OFF)
+OPTION(SNOWHOUSE_BUILD_TESTS    "Build the Snowhouse tests" OFF)
+OPTION(BANDIT_RUN_SPECS         "Run the Bandit specs"      OFF)
+OPTION(SNOWHOUSE_RUN_TESTS      "Run the Snowhouse tests"   OFF)
 
 add_subdirectory(lib/bandit)
 set(BANDIT_INCLUDE_PATH "${MAINFOLDER}/lib/bandit")
