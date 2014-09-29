@@ -4,10 +4,11 @@ A C++11 2D physics engine.
 
 ## Requirements
 
-- Clang >= 3.4
-- CMake >= 2.8
-- Make >= 3.81
-- Rake >= 10.3
+ * A C++11 compiler
+ * CMake >= 2.8.12
+ * Make >= 3.81
+ * Rake >= 10.3
+ * OpenGL >= 3.2
 
 ## Quick Start
 
