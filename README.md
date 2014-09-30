@@ -8,7 +8,6 @@ A C++11 2D physics engine.
  * CMake >= 2.8.12
  * Make >= 3.81
  * Rake >= 10.3
- * OpenGL >= 3.2
 
 ## Quick Start
 
