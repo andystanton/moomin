@@ -15,7 +15,10 @@ A C++11 2D physics engine.
 An example usage of this library is available in the [moomin-example](https://github.com/andystanton/moomin-example) repository. This example uses GLFW for cross-platform drawing of the physics engine.
 
 ```
-git clone https://github.com/andystanton/moomin-example.git --recursive && cd moomin-example
+git clone https://github.com/andystanton/moomin-example.git --recursive
+
+cd moomin-example
+
 rake default start
 ```
 
