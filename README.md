@@ -1,4 +1,4 @@
-# moomin [![Build Status](https://travis-ci.org/andystanton/moomin.svg?branch=master)](https://travis-ci.org/andystanton/moomin)
+# moomin [![Build Status](http://drone.cyniq.com/github.com/andystanton/moomin/status.svg?branch=master)](http://drone.cyniq.com/github.com/andystanton/moomin)
 
 A C++11 2D physics engine.
 
