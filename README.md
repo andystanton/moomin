@@ -1,4 +1,4 @@
-# moomin [![Build Status](http://drone.cyniq.com/github.com/andystanton/moomin/status.svg?branch=master)](http://drone.cyniq.com/github.com/andystanton/moomin)
+# moomin [![Build Status](http://drone.cyniq.com/api/badge/github.com/andystanton/moomin/status.svg?branch=master)](http://drone.cyniq.com/github.com/andystanton/moomin)
 
 A C++11 2D physics engine.
 
